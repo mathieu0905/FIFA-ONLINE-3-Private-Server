@@ -12,3 +12,24 @@ launcher/*.exe
 __pycache__/
 *.pyc
 .impeccable/
+
+# Fork: private local state and generated verification output
+.env
+.env.*
+!.env.example
+state.json
+shop.json
+backups/
+logs/
+*.log
+*.dmp
+*.pcap
+*.pcapng
+*.key
+*.pfx
+*.p12
+hot_updates/active.json
+hot_updates/history/
+hot_updates/revisions/
+enhancements/hot_update/tests.json
+enhancements/hot_update/dynamic-tests.json

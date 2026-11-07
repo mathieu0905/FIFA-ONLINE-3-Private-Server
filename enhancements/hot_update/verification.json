@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "scope": "Isolated framework regression only; upstream integration and native game validation not performed",
+  "python": "3.12.4",
+  "framework": {
+    "status": "PASS",
+    "checks": [
+      "valid version selected; untouched core routes fall through",
+      "in-flight handler remains on its original version",
+      "stale revision rejected without losing current version",
+      "changed payload hash rejected",
+      "syntax failure retains previous generation",
+      "core session route cannot be hot replaced",
+      "loading cannot execute top-level install hooks, imports, decorators or defaults",
+      "release proof tampering rejected",
+      "payload path escape rejected",
+      "switch waits for current transaction to finish",
+      "switch leaves shared assets and an existing socket untouched",
+      "active version restored from guarded descriptor after normal restart",
+      "explicit rollback selects preserved immutable generation",
+      "failed request is not replayed through old handler",
+      "disable restores original host dispatch without restart or asset rollback",
+      "watcher respects publication lock and stops cleanly",
+      "real publication commits and injected failures restore exact prior files",
+      "another publishers lock is never removed"
+    ],
+    "production_services_started": false,
+    "production_assets_written": false,
+    "native_game_verified": false
+  },
+  "dynamic": {
+    "status": "PASS",
+    "checks": [
+      "ABI1 rejects dynamic routes",
+      "only three allowlisted business templates supported",
+      "captures isolated between requests",
+      "captures and host view immutable",
+      "exact routes take precedence",
+      "full-path matching rejects suffix and unsupported tokens",
+      "in-flight handler retains generation",
+      "core and arbitrary wildcard templates rejected",
+      "release-guarded ABI2 descriptor prepares, activates and dispatches dynamic route; ABI1 cannot acquire template capabilities"
+    ],
+    "formal_files_written": false,
+    "runtime_enabled": false
+  },
+  "source_hashes": {
+    "hot_update_runtime.py": "0e92e10e6c0351a7d27453ad4651047587fceee42eef0c8f0541506f6518ca1a",
+    "hot_update_release.py": "9af80ec69e32c3f243c8092eafc59da8549ac20ebebb7afee25e064d95e59b7d",
+    "hot_update_control.py": "01a5dbabda4d9c22563a3e13320ab7106ebcc04997b608ab20f7f170c6672f5d",
+    "hot_update_publish.py": "03cd3db8313e99d0683e268ecb8935ee9dcd8615d56e8800e7ea286a24036d33",
+    "test_hot_update.py": "dd0f267c11d6969ebdeabafa42a993c75b4205fbd89264871f4508ebc888198e",
+    "test_hot_v2.py": "6d7715d68e7476dd9dc9524ced1c965a0e4ba2d98dd452d324943ac0a350a5b3"
+  }
+}

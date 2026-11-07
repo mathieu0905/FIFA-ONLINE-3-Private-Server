@@ -1,0 +1,8 @@
+{
+  "hot_update_runtime.py": "0e92e10e6c0351a7d27453ad4651047587fceee42eef0c8f0541506f6518ca1a",
+  "hot_update_release.py": "9af80ec69e32c3f243c8092eafc59da8549ac20ebebb7afee25e064d95e59b7d",
+  "hot_update_control.py": "01a5dbabda4d9c22563a3e13320ab7106ebcc04997b608ab20f7f170c6672f5d",
+  "hot_update_publish.py": "03cd3db8313e99d0683e268ecb8935ee9dcd8615d56e8800e7ea286a24036d33",
+  "test_hot_update.py": "dd0f267c11d6969ebdeabafa42a993c75b4205fbd89264871f4508ebc888198e",
+  "test_hot_v2.py": "6d7715d68e7476dd9dc9524ced1c965a0e4ba2d98dd452d324943ac0a350a5b3"
+}

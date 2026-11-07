@@ -1,3 +1,7 @@
+> **mathieu0905 维护的增强 Fork。** 基于 [soloplayer24/FIFA-ONLINE-3-Private-Server](https://github.com/soloplayer24/FIFA-ONLINE-3-Private-Server)，保留原作者署名和 GPL-3.0 许可证。我们的新增内容和公开进度见 [FORK-NOTES.md](FORK-NOTES.md)。
+>
+> 首批公开 ABI 2 业务热更新框架源码和临时数据回归，位于 `enhancements/hot_update/`。当前尚未将框架接入本仓库的上游服务，也未包含本机全部增强功能。下方原始说明描述上游行为。
+
 [![SEASON UPGRADE 25, 26](docs/season-upgrade-25-26.svg)](https://www.mediafire.com/file/7yteho45esxfnu8/FO3ID-Season-25-26-LIVE-client.rar/file)
 
 # FO3ID Private Server
