@@ -1,6 +1,6 @@
 > **Enhanced fork maintained by mathieu0905.** Based on [soloplayer24/FIFA-ONLINE-3-Private-Server](https://github.com/soloplayer24/FIFA-ONLINE-3-Private-Server). Original authorship and GPL-3.0 licensing are preserved. See [our additions and publication status](FORK-NOTES.md).
 >
-> This first fork release includes the ABI 2 hot-update framework source and temporary-data regression tests under `enhancements/hot_update/`. It does **not** integrate that framework into the upstream server or include all features from our local installation. The original documentation below describes upstream behavior.
+> **Complete maintained enhancement source:** [enhanced/README.md](enhanced/README.md). Includes the integrated local HTTP host, active business payload, packs, pricing, market, player tools, client patch generators, configurations and regression scripts. Game assets, saves and secrets are excluded. Root application files below remain upstream; see the enhanced source documentation for preparation requirements and validation limits.
 
 [![SEASON UPGRADE 25, 26](docs/season-upgrade-25-26.svg)](https://www.mediafire.com/file/7yteho45esxfnu8/FO3ID-Season-25-26-LIVE-client.rar/file)
 

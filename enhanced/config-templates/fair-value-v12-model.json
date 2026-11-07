@@ -1,0 +1,6532 @@
+{
+  "schema": 1,
+  "revision": "fair-value-v12",
+  "role_weights": {
+    "GK": {
+      "gkdiving": 21,
+      "gkhandling": 21,
+      "gkkicking": 5,
+      "gkpositioning": 21,
+      "gkreflexes": 21,
+      "reactions": 11
+    },
+    "SW": {
+      "aggression": 8,
+      "ballcontrol": 5,
+      "headingaccuracy": 10,
+      "jumping": 4,
+      "marking": 15,
+      "reactions": 5,
+      "shortpassing": 5,
+      "slidingtackle": 15,
+      "standingtackle": 15,
+      "strength": 10,
+      "interceptions": 8
+    },
+    "WB": {
+      "acceleration": 4,
+      "ballcontrol": 8,
+      "crossing": 12,
+      "dribbling": 4,
+      "marking": 7,
+      "reactions": 8,
+      "shortpassing": 10,
+      "slidingtackle": 11,
+      "sprintspeed": 6,
+      "stamina": 10,
+      "standingtackle": 8,
+      "interceptions": 12
+    },
+    "FB": {
+      "acceleration": 5,
+      "ballcontrol": 7,
+      "crossing": 9,
+      "headingaccuracy": 4,
+      "marking": 8,
+      "reactions": 8,
+      "shortpassing": 7,
+      "slidingtackle": 14,
+      "sprintspeed": 7,
+      "stamina": 8,
+      "standingtackle": 11,
+      "interceptions": 12
+    },
+    "CB": {
+      "aggression": 7,
+      "ballcontrol": 4,
+      "headingaccuracy": 10,
+      "jumping": 3,
+      "marking": 14,
+      "reactions": 5,
+      "shortpassing": 5,
+      "slidingtackle": 17,
+      "sprintspeed": 2,
+      "standingtackle": 10,
+      "strength": 10,
+      "interceptions": 13
+    },
+    "DM": {
+      "aggression": 5,
+      "ballcontrol": 10,
+      "longpassing": 10,
+      "marking": 9,
+      "reactions": 7,
+      "shortpassing": 14,
+      "slidingtackle": 5,
+      "stamina": 6,
+      "standingtackle": 12,
+      "strength": 4,
+      "interceptions": 14,
+      "vision": 4
+    },
+    "WM": {
+      "acceleration": 7,
+      "ballcontrol": 13,
+      "crossing": 10,
+      "dribbling": 15,
+      "finishing": 6,
+      "longpassing": 5,
+      "positioning": 8,
+      "reactions": 7,
+      "shortpassing": 11,
+      "sprintspeed": 6,
+      "stamina": 5,
+      "vision": 7
+    },
+    "CM": {
+      "ballcontrol": 14,
+      "dribbling": 7,
+      "finishing": 2,
+      "longpassing": 13,
+      "longshots": 4,
+      "positioning": 6,
+      "reactions": 8,
+      "shortpassing": 17,
+      "stamina": 6,
+      "standingtackle": 5,
+      "interceptions": 5,
+      "vision": 13
+    },
+    "AM": {
+      "acceleration": 4,
+      "agility": 3,
+      "ballcontrol": 15,
+      "dribbling": 13,
+      "finishing": 7,
+      "longpassing": 4,
+      "longshots": 5,
+      "positioning": 9,
+      "reactions": 7,
+      "shortpassing": 16,
+      "sprintspeed": 3,
+      "vision": 14
+    },
+    "CF": {
+      "acceleration": 5,
+      "ballcontrol": 15,
+      "dribbling": 14,
+      "finishing": 11,
+      "headingaccuracy": 2,
+      "longshots": 4,
+      "positioning": 13,
+      "reactions": 9,
+      "shortpassing": 9,
+      "shotpower": 5,
+      "sprintspeed": 5,
+      "vision": 8
+    },
+    "W": {
+      "acceleration": 7,
+      "agility": 3,
+      "ballcontrol": 14,
+      "crossing": 9,
+      "dribbling": 16,
+      "finishing": 10,
+      "longshots": 4,
+      "positioning": 9,
+      "reactions": 7,
+      "shortpassing": 9,
+      "sprintspeed": 6,
+      "vision": 6
+    },
+    "ST": {
+      "acceleration": 4,
+      "ballcontrol": 10,
+      "dribbling": 7,
+      "finishing": 18,
+      "headingaccuracy": 10,
+      "longshots": 3,
+      "positioning": 13,
+      "reactions": 8,
+      "shortpassing": 5,
+      "shotpower": 10,
+      "sprintspeed": 5,
+      "strength": 5,
+      "volleys": 2
+    }
+  },
+  "grade1_boost": 5,
+  "market_factor_bounds": [
+    0.85,
+    1.15
+  ],
+  "identity_factor_bounds": [
+    0.85,
+    1.15
+  ],
+  "curve": {
+    "knots": [
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100
+    ],
+    "intercept": 4.265109282374653,
+    "slopes": [
+      0.17999999999999816,
+      0.17167628313694852,
+      0.06,
+      0.06847216358337908,
+      0.28,
+      0.28
+    ],
+    "slope_bounds": [
+      0.06,
+      0.28
+    ],
+    "high_tail": "linear_in_price"
+  },
+  "minimum_price_sensitivity": {
+    "ability_point_ep": 1,
+    "star_ep": 25
+  },
+  "identity_factors": {
+    "1179": {
+      "factor": 0.85,
+      "real_quotes": 14
+    },
+    "1238": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "28130": {
+      "factor": 0.85,
+      "real_quotes": 13
+    },
+    "9676": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "1625": {
+      "factor": 1.15,
+      "real_quotes": 10
+    },
+    "7289": {
+      "factor": 1.0502378737491556,
+      "real_quotes": 8
+    },
+    "20801": {
+      "factor": 0.85,
+      "real_quotes": 19
+    },
+    "49369": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "158023": {
+      "factor": 0.85,
+      "real_quotes": 18
+    },
+    "141645": {
+      "factor": 0.968584633130927,
+      "real_quotes": 6
+    },
+    "138449": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "15723": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "51539": {
+      "factor": 0.85,
+      "real_quotes": 7
+    },
+    "1040": {
+      "factor": 1.0564907171611368,
+      "real_quotes": 4
+    },
+    "10264": {
+      "factor": 0.92521775847728,
+      "real_quotes": 6
+    },
+    "13743": {
+      "factor": 1.15,
+      "real_quotes": 6
+    },
+    "48940": {
+      "factor": 0.942025317747385,
+      "real_quotes": 7
+    },
+    "51257": {
+      "factor": 0.9599770554488102,
+      "real_quotes": 4
+    },
+    "121939": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "1198": {
+      "factor": 0.85,
+      "real_quotes": 7
+    },
+    "1419": {
+      "factor": 1.15,
+      "real_quotes": 6
+    },
+    "24630": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "31432": {
+      "factor": 1.15,
+      "real_quotes": 6
+    },
+    "45197": {
+      "factor": 0.85,
+      "real_quotes": 7
+    },
+    "45674": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "162895": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "1109": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "1183": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "4098": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "7763": {
+      "factor": 0.921284921133186,
+      "real_quotes": 7
+    },
+    "8473": {
+      "factor": 0.9175716979364426,
+      "real_quotes": 2
+    },
+    "45574": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "51123": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "113422": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "136138": {
+      "factor": 0.8627270477483857,
+      "real_quotes": 1
+    },
+    "27": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "41": {
+      "factor": 0.85,
+      "real_quotes": 15
+    },
+    "805": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "5471": {
+      "factor": 1.0528054178136137,
+      "real_quotes": 7
+    },
+    "5589": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "5879": {
+      "factor": 1.0718366225795366,
+      "real_quotes": 3
+    },
+    "6975": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "34079": {
+      "factor": 1.15,
+      "real_quotes": 4
+    },
+    "53302": {
+      "factor": 0.85,
+      "real_quotes": 9
+    },
+    "106573": {
+      "factor": 1.15,
+      "real_quotes": 5
+    },
+    "135451": {
+      "factor": 1.023849477917221,
+      "real_quotes": 3
+    },
+    "244": {
+      "factor": 0.9699139396377965,
+      "real_quotes": 6
+    },
+    "1025": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "21146": {
+      "factor": 0.9348330794702936,
+      "real_quotes": 8
+    },
+    "31831": {
+      "factor": 1.0561475317116629,
+      "real_quotes": 2
+    },
+    "48717": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "53030": {
+      "factor": 1.1090307710573586,
+      "real_quotes": 1
+    },
+    "121944": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "146741": {
+      "factor": 0.9468737899227362,
+      "real_quotes": 3
+    },
+    "148224": {
+      "factor": 1.0752903882204592,
+      "real_quotes": 3
+    },
+    "150516": {
+      "factor": 1.024925679510267,
+      "real_quotes": 5
+    },
+    "152039": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "2769": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "9014": {
+      "factor": 0.85,
+      "real_quotes": 11
+    },
+    "45186": {
+      "factor": 0.9005895393970522,
+      "real_quotes": 3
+    },
+    "52091": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "120304": {
+      "factor": 1.060249136269049,
+      "real_quotes": 1
+    },
+    "135455": {
+      "factor": 0.8873339956924351,
+      "real_quotes": 5
+    },
+    "138123": {
+      "factor": 1.15,
+      "real_quotes": 4
+    },
+    "164477": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "13128": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "23461": {
+      "factor": 1.1371333221667521,
+      "real_quotes": 2
+    },
+    "24248": {
+      "factor": 1.1162350874807576,
+      "real_quotes": 2
+    },
+    "53578": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "155862": {
+      "factor": 0.85,
+      "real_quotes": 15
+    },
+    "3395": {
+      "factor": 1.0025322360357445,
+      "real_quotes": 2
+    },
+    "3484": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "51720": {
+      "factor": 1.0238991516328666,
+      "real_quotes": 1
+    },
+    "123576": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "158626": {
+      "factor": 0.9247977092536162,
+      "real_quotes": 1
+    },
+    "163155": {
+      "factor": 1.1193087426711745,
+      "real_quotes": 4
+    },
+    "195": {
+      "factor": 1.1219899068811985,
+      "real_quotes": 5
+    },
+    "25798": {
+      "factor": 1.0387694433199965,
+      "real_quotes": 1
+    },
+    "41635": {
+      "factor": 1.1125994085752706,
+      "real_quotes": 1
+    },
+    "45605": {
+      "factor": 0.9017593451445809,
+      "real_quotes": 1
+    },
+    "49472": {
+      "factor": 1.0952609776548945,
+      "real_quotes": 1
+    },
+    "121937": {
+      "factor": 0.9544793089096295,
+      "real_quotes": 1
+    },
+    "134979": {
+      "factor": 0.957388641531293,
+      "real_quotes": 1
+    },
+    "136130": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "138784": {
+      "factor": 1.0103369727121652,
+      "real_quotes": 1
+    },
+    "139869": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "157481": {
+      "factor": 1.028208440875881,
+      "real_quotes": 4
+    },
+    "163711": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "17605": {
+      "factor": 1.006282839309496,
+      "real_quotes": 1
+    },
+    "45462": {
+      "factor": 1.1329933848358722,
+      "real_quotes": 1
+    },
+    "49370": {
+      "factor": 0.9809410205989528,
+      "real_quotes": 6
+    },
+    "101473": {
+      "factor": 1.034044514609638,
+      "real_quotes": 2
+    },
+    "161700": {
+      "factor": 0.9483558059590022,
+      "real_quotes": 1
+    },
+    "165526": {
+      "factor": 0.9666338813696749,
+      "real_quotes": 1
+    },
+    "158232": {
+      "factor": 1.0399537647341224,
+      "real_quotes": 4
+    },
+    "163423": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "165517": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "168584": {
+      "factor": 1.0185768804229283,
+      "real_quotes": 1
+    },
+    "172175": {
+      "factor": 1.0957101081970817,
+      "real_quotes": 3
+    },
+    "179696": {
+      "factor": 1.1491550111207176,
+      "real_quotes": 1
+    },
+    "45595": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "53405": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "139720": {
+      "factor": 1.0223631161874687,
+      "real_quotes": 5
+    },
+    "156722": {
+      "factor": 0.8914006486760127,
+      "real_quotes": 2
+    },
+    "5680": {
+      "factor": 1.15,
+      "real_quotes": 4
+    },
+    "13130": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "164859": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "172844": {
+      "factor": 1.0170693226426395,
+      "real_quotes": 1
+    },
+    "46736": {
+      "factor": 0.8549730690194173,
+      "real_quotes": 2
+    },
+    "120533": {
+      "factor": 0.85,
+      "real_quotes": 9
+    },
+    "169126": {
+      "factor": 0.8960023738396286,
+      "real_quotes": 1
+    },
+    "176676": {
+      "factor": 0.85,
+      "real_quotes": 12
+    },
+    "41236": {
+      "factor": 1.15,
+      "real_quotes": 10
+    },
+    "146748": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "7512": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "156477": {
+      "factor": 0.8852368375302181,
+      "real_quotes": 1
+    },
+    "176944": {
+      "factor": 0.9316981806504856,
+      "real_quotes": 4
+    },
+    "162893": {
+      "factor": 0.9153594625806708,
+      "real_quotes": 7
+    },
+    "158676": {
+      "factor": 0.9790302815134908,
+      "real_quotes": 1
+    },
+    "11141": {
+      "factor": 1.15,
+      "real_quotes": 5
+    },
+    "23015": {
+      "factor": 1.0101144078013544,
+      "real_quotes": 2
+    },
+    "156616": {
+      "factor": 0.85,
+      "real_quotes": 12
+    },
+    "5419": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "6235": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "10959": {
+      "factor": 1.0285767323487036,
+      "real_quotes": 1
+    },
+    "53612": {
+      "factor": 0.9153265903701113,
+      "real_quotes": 6
+    },
+    "110381": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "3622": {
+      "factor": 0.926046389799137,
+      "real_quotes": 2
+    },
+    "52241": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "117106": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "388": {
+      "factor": 0.9914201055711718,
+      "real_quotes": 4
+    },
+    "10535": {
+      "factor": 0.85,
+      "real_quotes": 9
+    },
+    "45601": {
+      "factor": 1.0398649319915305,
+      "real_quotes": 2
+    },
+    "5485": {
+      "factor": 0.9144624876202203,
+      "real_quotes": 1
+    },
+    "13914": {
+      "factor": 1.0228195642843796,
+      "real_quotes": 1
+    },
+    "135423": {
+      "factor": 0.8676199108198425,
+      "real_quotes": 1
+    },
+    "143001": {
+      "factor": 0.8906544957171721,
+      "real_quotes": 5
+    },
+    "684": {
+      "factor": 0.8991641655671359,
+      "real_quotes": 1
+    },
+    "7826": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "20096": {
+      "factor": 1.0176379016971437,
+      "real_quotes": 1
+    },
+    "51412": {
+      "factor": 0.854329420802008,
+      "real_quotes": 2
+    },
+    "148711": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "1803": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "32420": {
+      "factor": 0.9421426720170007,
+      "real_quotes": 1
+    },
+    "45062": {
+      "factor": 0.9027917828040826,
+      "real_quotes": 1
+    },
+    "111093": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "121622": {
+      "factor": 1.0042882167463338,
+      "real_quotes": 1
+    },
+    "137186": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "137785": {
+      "factor": 1.0759831739877117,
+      "real_quotes": 2
+    },
+    "140601": {
+      "factor": 1.15,
+      "real_quotes": 6
+    },
+    "161805": {
+      "factor": 0.9540759293654004,
+      "real_quotes": 3
+    },
+    "164493": {
+      "factor": 1.0520119933750058,
+      "real_quotes": 2
+    },
+    "167905": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "45577": {
+      "factor": 0.882273144408166,
+      "real_quotes": 1
+    },
+    "49617": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "53050": {
+      "factor": 0.8697016980766402,
+      "real_quotes": 1
+    },
+    "54013": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "139224": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "140233": {
+      "factor": 1.15,
+      "real_quotes": 4
+    },
+    "150508": {
+      "factor": 1.123783429950828,
+      "real_quotes": 1
+    },
+    "152747": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "1289": {
+      "factor": 1.1388873749061081,
+      "real_quotes": 2
+    },
+    "2196": {
+      "factor": 0.9185831195975463,
+      "real_quotes": 6
+    },
+    "20209": {
+      "factor": 0.8918453960266739,
+      "real_quotes": 1
+    },
+    "20775": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "52846": {
+      "factor": 0.9085630799061893,
+      "real_quotes": 1
+    },
+    "108658": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "119152": {
+      "factor": 0.9821005913812706,
+      "real_quotes": 1
+    },
+    "136764": {
+      "factor": 0.9586906252372286,
+      "real_quotes": 1
+    },
+    "138699": {
+      "factor": 1.0721450575749523,
+      "real_quotes": 2
+    },
+    "942": {
+      "factor": 0.9848333330454606,
+      "real_quotes": 3
+    },
+    "2155": {
+      "factor": 0.8949218420463653,
+      "real_quotes": 1
+    },
+    "20289": {
+      "factor": 1.038493830503993,
+      "real_quotes": 6
+    },
+    "176992": {
+      "factor": 0.9137226392821282,
+      "real_quotes": 1
+    },
+    "1605": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "167515": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "49886": {
+      "factor": 0.9777870992209936,
+      "real_quotes": 1
+    },
+    "135708": {
+      "factor": 0.9912486411639904,
+      "real_quotes": 1
+    },
+    "7784": {
+      "factor": 0.8584795238584993,
+      "real_quotes": 3
+    },
+    "16254": {
+      "factor": 1.0416507364607088,
+      "real_quotes": 4
+    },
+    "39386": {
+      "factor": 1.0168290258653423,
+      "real_quotes": 2
+    },
+    "3665": {
+      "factor": 0.9791952913594005,
+      "real_quotes": 1
+    },
+    "137262": {
+      "factor": 0.9430914513169121,
+      "real_quotes": 5
+    },
+    "156412": {
+      "factor": 1.0993367307418516,
+      "real_quotes": 3
+    },
+    "153296": {
+      "factor": 0.930287822369098,
+      "real_quotes": 2
+    },
+    "106231": {
+      "factor": 0.904266738688174,
+      "real_quotes": 4
+    },
+    "121170": {
+      "factor": 0.8682004578679902,
+      "real_quotes": 5
+    },
+    "162047": {
+      "factor": 1.0013606847316012,
+      "real_quotes": 1
+    },
+    "393": {
+      "factor": 1.0744456293640179,
+      "real_quotes": 4
+    },
+    "142959": {
+      "factor": 1.0991943685088872,
+      "real_quotes": 1
+    },
+    "146954": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "146482": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "164468": {
+      "factor": 0.9675865428481477,
+      "real_quotes": 6
+    },
+    "171897": {
+      "factor": 1.0620419394152845,
+      "real_quotes": 4
+    },
+    "116762": {
+      "factor": 1.0818101256633659,
+      "real_quotes": 1
+    },
+    "149571": {
+      "factor": 0.993222627944027,
+      "real_quotes": 4
+    },
+    "140057": {
+      "factor": 1.0662757161430785,
+      "real_quotes": 3
+    },
+    "173731": {
+      "factor": 1.15,
+      "real_quotes": 6
+    },
+    "147777": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "167963": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "33730": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "103133": {
+      "factor": 0.9943771339837271,
+      "real_quotes": 1
+    },
+    "5479": {
+      "factor": 0.9314358313620922,
+      "real_quotes": 5
+    },
+    "147614": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "107647": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "168542": {
+      "factor": 0.85,
+      "real_quotes": 7
+    },
+    "177003": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "154950": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "138956": {
+      "factor": 0.921881610658344,
+      "real_quotes": 7
+    },
+    "143693": {
+      "factor": 0.9068671157239855,
+      "real_quotes": 1
+    },
+    "103935": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "150418": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "152554": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "80": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "25924": {
+      "factor": 0.9636802931245273,
+      "real_quotes": 1
+    },
+    "49012": {
+      "factor": 0.9713676448361189,
+      "real_quotes": 1
+    },
+    "49425": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "52270": {
+      "factor": 0.9898853044284666,
+      "real_quotes": 1
+    },
+    "120274": {
+      "factor": 0.9715187165053146,
+      "real_quotes": 1
+    },
+    "135697": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "144280": {
+      "factor": 0.9646800875858145,
+      "real_quotes": 1
+    },
+    "163419": {
+      "factor": 0.9129582630219986,
+      "real_quotes": 2
+    },
+    "172140": {
+      "factor": 0.8555598638779786,
+      "real_quotes": 1
+    },
+    "7814": {
+      "factor": 0.9029393533330363,
+      "real_quotes": 1
+    },
+    "121122": {
+      "factor": 0.9834302574579884,
+      "real_quotes": 1
+    },
+    "147579": {
+      "factor": 0.8690287196450119,
+      "real_quotes": 1
+    },
+    "163705": {
+      "factor": 0.9408254137134804,
+      "real_quotes": 5
+    },
+    "26992": {
+      "factor": 1.0832170560689438,
+      "real_quotes": 1
+    },
+    "146536": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "162347": {
+      "factor": 0.8799770137132724,
+      "real_quotes": 4
+    },
+    "167495": {
+      "factor": 0.85,
+      "real_quotes": 12
+    },
+    "139068": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "143745": {
+      "factor": 0.9082511434553531,
+      "real_quotes": 3
+    },
+    "157301": {
+      "factor": 1.0135960621441857,
+      "real_quotes": 1
+    },
+    "9771": {
+      "factor": 0.9069454238735549,
+      "real_quotes": 1
+    },
+    "138110": {
+      "factor": 0.9471981647474943,
+      "real_quotes": 4
+    },
+    "173909": {
+      "factor": 0.9160710019043555,
+      "real_quotes": 1
+    },
+    "164835": {
+      "factor": 0.8928407998596861,
+      "real_quotes": 3
+    },
+    "45534": {
+      "factor": 0.9568307225066957,
+      "real_quotes": 1
+    },
+    "105827": {
+      "factor": 0.9496411752480769,
+      "real_quotes": 1
+    },
+    "149568": {
+      "factor": 0.9888794380483622,
+      "real_quotes": 2
+    },
+    "134783": {
+      "factor": 0.8791175534888422,
+      "real_quotes": 1
+    },
+    "176483": {
+      "factor": 0.9414265300367227,
+      "real_quotes": 1
+    },
+    "13038": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "49072": {
+      "factor": 1.0038727026766634,
+      "real_quotes": 2
+    },
+    "176635": {
+      "factor": 0.85,
+      "real_quotes": 7
+    },
+    "54050": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "142754": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "146530": {
+      "factor": 0.85,
+      "real_quotes": 9
+    },
+    "152729": {
+      "factor": 0.9691849333853619,
+      "real_quotes": 10
+    },
+    "165153": {
+      "factor": 0.85,
+      "real_quotes": 7
+    },
+    "189511": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "178372": {
+      "factor": 0.9090163775054464,
+      "real_quotes": 4
+    },
+    "189505": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "159171": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "178224": {
+      "factor": 0.9360234352188688,
+      "real_quotes": 4
+    },
+    "142708": {
+      "factor": 1.1339224699011727,
+      "real_quotes": 3
+    },
+    "158133": {
+      "factor": 0.8970191559984679,
+      "real_quotes": 2
+    },
+    "165239": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "157503": {
+      "factor": 0.9039490705801397,
+      "real_quotes": 1
+    },
+    "162223": {
+      "factor": 0.9658798923404114,
+      "real_quotes": 1
+    },
+    "164240": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "179846": {
+      "factor": 1.0285899435827246,
+      "real_quotes": 5
+    },
+    "189596": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "112847": {
+      "factor": 0.9269191319722947,
+      "real_quotes": 3
+    },
+    "134906": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "159145": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "167948": {
+      "factor": 1.0037160968731929,
+      "real_quotes": 6
+    },
+    "176580": {
+      "factor": 0.85,
+      "real_quotes": 9
+    },
+    "197061": {
+      "factor": 0.8624377298905601,
+      "real_quotes": 2
+    },
+    "2147": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "50542": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "53012": {
+      "factor": 0.9031073233765656,
+      "real_quotes": 1
+    },
+    "121591": {
+      "factor": 1.0329144422017522,
+      "real_quotes": 1
+    },
+    "189461": {
+      "factor": 0.8718968795132256,
+      "real_quotes": 4
+    },
+    "189881": {
+      "factor": 0.8611088045863705,
+      "real_quotes": 6
+    },
+    "30110": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "137506": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "157304": {
+      "factor": 1.0902928564169643,
+      "real_quotes": 4
+    },
+    "179752": {
+      "factor": 0.885143518752455,
+      "real_quotes": 1
+    },
+    "179944": {
+      "factor": 1.12151954175838,
+      "real_quotes": 6
+    },
+    "182521": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "184943": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "1219": {
+      "factor": 0.9746522848038047,
+      "real_quotes": 1
+    },
+    "51105": {
+      "factor": 0.8602790984321455,
+      "real_quotes": 1
+    },
+    "157597": {
+      "factor": 0.9365399625681445,
+      "real_quotes": 1
+    },
+    "160766": {
+      "factor": 0.9370385721372144,
+      "real_quotes": 2
+    },
+    "171919": {
+      "factor": 0.8749058314079278,
+      "real_quotes": 3
+    },
+    "176993": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "167706": {
+      "factor": 0.9214382760946117,
+      "real_quotes": 1
+    },
+    "155885": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "157392": {
+      "factor": 1.049634069805907,
+      "real_quotes": 1
+    },
+    "164954": {
+      "factor": 1.0236927159491618,
+      "real_quotes": 1
+    },
+    "183937": {
+      "factor": 0.9245580100231398,
+      "real_quotes": 1
+    },
+    "172871": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "172949": {
+      "factor": 0.8975952687964673,
+      "real_quotes": 1
+    },
+    "187457": {
+      "factor": 0.8916955726080001,
+      "real_quotes": 3
+    },
+    "189680": {
+      "factor": 0.8949912825489661,
+      "real_quotes": 1
+    },
+    "195086": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "178033": {
+      "factor": 0.9548410498992915,
+      "real_quotes": 1
+    },
+    "178091": {
+      "factor": 0.9424338439390078,
+      "real_quotes": 1
+    },
+    "195912": {
+      "factor": 1.0205241759682286,
+      "real_quotes": 1
+    },
+    "167664": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "121945": {
+      "factor": 0.8659341218951547,
+      "real_quotes": 1
+    },
+    "155355": {
+      "factor": 0.9405146901829892,
+      "real_quotes": 1
+    },
+    "162131": {
+      "factor": 0.9501101784078617,
+      "real_quotes": 2
+    },
+    "179813": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "186581": {
+      "factor": 0.9629502412853059,
+      "real_quotes": 1
+    },
+    "164491": {
+      "factor": 0.9474800800324712,
+      "real_quotes": 1
+    },
+    "171877": {
+      "factor": 0.8558753413900577,
+      "real_quotes": 5
+    },
+    "178562": {
+      "factor": 0.9103316189106452,
+      "real_quotes": 3
+    },
+    "189362": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "142750": {
+      "factor": 0.9977746771393848,
+      "real_quotes": 1
+    },
+    "53914": {
+      "factor": 1.0115908006597343,
+      "real_quotes": 5
+    },
+    "54033": {
+      "factor": 0.8842386920860071,
+      "real_quotes": 2
+    },
+    "137782": {
+      "factor": 0.8671063885633985,
+      "real_quotes": 1
+    },
+    "158372": {
+      "factor": 0.9460332932688216,
+      "real_quotes": 2
+    },
+    "163631": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "182493": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "186627": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "190871": {
+      "factor": 0.85,
+      "real_quotes": 8
+    },
+    "149184": {
+      "factor": 1.0472805462013852,
+      "real_quotes": 4
+    },
+    "150724": {
+      "factor": 1.0246781815806623,
+      "real_quotes": 4
+    },
+    "164469": {
+      "factor": 0.9760868440078926,
+      "real_quotes": 2
+    },
+    "170664": {
+      "factor": 0.8548977214273734,
+      "real_quotes": 3
+    },
+    "173210": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "2231": {
+      "factor": 1.0656262906998215,
+      "real_quotes": 1
+    },
+    "138984": {
+      "factor": 0.9365591962186999,
+      "real_quotes": 1
+    },
+    "155897": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "179972": {
+      "factor": 0.9489924153469868,
+      "real_quotes": 1
+    },
+    "184120": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "184344": {
+      "factor": 0.9564047432160828,
+      "real_quotes": 6
+    },
+    "49026": {
+      "factor": 1.0117155248237628,
+      "real_quotes": 1
+    },
+    "152879": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "169596": {
+      "factor": 0.9675530649729616,
+      "real_quotes": 5
+    },
+    "170369": {
+      "factor": 0.9927003405795101,
+      "real_quotes": 3
+    },
+    "182495": {
+      "factor": 1.090055868052708,
+      "real_quotes": 3
+    },
+    "182862": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "183556": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "183907": {
+      "factor": 0.9509252554462436,
+      "real_quotes": 6
+    },
+    "189354": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "189484": {
+      "factor": 1.093243062409722,
+      "real_quotes": 2
+    },
+    "49031": {
+      "factor": 1.004927410652154,
+      "real_quotes": 1
+    },
+    "108080": {
+      "factor": 1.0989924179686859,
+      "real_quotes": 4
+    },
+    "146974": {
+      "factor": 0.8764364348793959,
+      "real_quotes": 3
+    },
+    "155887": {
+      "factor": 1.0312800181560793,
+      "real_quotes": 3
+    },
+    "164505": {
+      "factor": 1.1137917413815162,
+      "real_quotes": 2
+    },
+    "169416": {
+      "factor": 0.9163992751779745,
+      "real_quotes": 3
+    },
+    "169607": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "171688": {
+      "factor": 1.0955672611532157,
+      "real_quotes": 5
+    },
+    "177576": {
+      "factor": 0.8995957724961334,
+      "real_quotes": 1
+    },
+    "183427": {
+      "factor": 1.0395872454291313,
+      "real_quotes": 1
+    },
+    "189575": {
+      "factor": 0.9093762019223812,
+      "real_quotes": 3
+    },
+    "153079": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "146439": {
+      "factor": 0.9600686599375684,
+      "real_quotes": 2
+    },
+    "170733": {
+      "factor": 0.8769277649528817,
+      "real_quotes": 2
+    },
+    "177765": {
+      "factor": 0.9923050585324131,
+      "real_quotes": 1
+    },
+    "183277": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "192318": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "45119": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "139094": {
+      "factor": 0.8928552187561967,
+      "real_quotes": 1
+    },
+    "189358": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "172049": {
+      "factor": 0.9080079719742203,
+      "real_quotes": 1
+    },
+    "158810": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "192505": {
+      "factor": 1.1363979923581615,
+      "real_quotes": 5
+    },
+    "178603": {
+      "factor": 0.9331012490894774,
+      "real_quotes": 3
+    },
+    "198710": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "188152": {
+      "factor": 0.9069412954639963,
+      "real_quotes": 3
+    },
+    "188545": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "197445": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "179844": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "181872": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "188350": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "158625": {
+      "factor": 0.9547867436819698,
+      "real_quotes": 4
+    },
+    "167397": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "170890": {
+      "factor": 0.8791638874694961,
+      "real_quotes": 5
+    },
+    "171833": {
+      "factor": 1.137504384427068,
+      "real_quotes": 3
+    },
+    "189332": {
+      "factor": 0.9943715721879809,
+      "real_quotes": 4
+    },
+    "195864": {
+      "factor": 1.15,
+      "real_quotes": 5
+    },
+    "135507": {
+      "factor": 0.8965357440631984,
+      "real_quotes": 4
+    },
+    "165229": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "178088": {
+      "factor": 0.8582259316314007,
+      "real_quotes": 4
+    },
+    "198176": {
+      "factor": 1.030845157767764,
+      "real_quotes": 1
+    },
+    "180283": {
+      "factor": 0.9129361789339635,
+      "real_quotes": 2
+    },
+    "186561": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "191202": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "192119": {
+      "factor": 1.15,
+      "real_quotes": 4
+    },
+    "193747": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "200104": {
+      "factor": 1.0488264426902238,
+      "real_quotes": 2
+    },
+    "146562": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "164169": {
+      "factor": 0.8902559146473438,
+      "real_quotes": 3
+    },
+    "177610": {
+      "factor": 1.0740888254503984,
+      "real_quotes": 3
+    },
+    "180206": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "180403": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "188567": {
+      "factor": 0.9762302197852234,
+      "real_quotes": 4
+    },
+    "193080": {
+      "factor": 0.9035906827699981,
+      "real_quotes": 5
+    },
+    "193130": {
+      "factor": 0.9442238214102266,
+      "real_quotes": 2
+    },
+    "197781": {
+      "factor": 0.9001082674991121,
+      "real_quotes": 4
+    },
+    "148119": {
+      "factor": 1.1091206025013083,
+      "real_quotes": 2
+    },
+    "173426": {
+      "factor": 1.0613069022334498,
+      "real_quotes": 3
+    },
+    "177600": {
+      "factor": 1.021722520357058,
+      "real_quotes": 1
+    },
+    "180819": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "182494": {
+      "factor": 1.1080779745950184,
+      "real_quotes": 2
+    },
+    "183711": {
+      "factor": 0.85,
+      "real_quotes": 6
+    },
+    "185221": {
+      "factor": 1.0984062872345441,
+      "real_quotes": 4
+    },
+    "186153": {
+      "factor": 1.0748975213409033,
+      "real_quotes": 2
+    },
+    "189712": {
+      "factor": 0.9958163159253133,
+      "real_quotes": 1
+    },
+    "194765": {
+      "factor": 0.9064728210833825,
+      "real_quotes": 4
+    },
+    "200949": {
+      "factor": 1.0331689772953885,
+      "real_quotes": 2
+    },
+    "139668": {
+      "factor": 1.0534913959958687,
+      "real_quotes": 4
+    },
+    "170368": {
+      "factor": 0.9791470685245766,
+      "real_quotes": 2
+    },
+    "172879": {
+      "factor": 0.9662306314052801,
+      "real_quotes": 2
+    },
+    "173221": {
+      "factor": 0.9759417627244982,
+      "real_quotes": 2
+    },
+    "178005": {
+      "factor": 1.0690814411805643,
+      "real_quotes": 2
+    },
+    "187961": {
+      "factor": 1.130384614006786,
+      "real_quotes": 2
+    },
+    "192387": {
+      "factor": 1.0180445388912291,
+      "real_quotes": 3
+    },
+    "192985": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "193082": {
+      "factor": 0.9916518310347379,
+      "real_quotes": 2
+    },
+    "139997": {
+      "factor": 1.00878058207435,
+      "real_quotes": 2
+    },
+    "162240": {
+      "factor": 1.0133029236790958,
+      "real_quotes": 3
+    },
+    "164876": {
+      "factor": 0.914557121920219,
+      "real_quotes": 1
+    },
+    "175943": {
+      "factor": 0.9631420170572882,
+      "real_quotes": 3
+    },
+    "177413": {
+      "factor": 0.9548160744732481,
+      "real_quotes": 2
+    },
+    "177457": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "178509": {
+      "factor": 1.063052195356703,
+      "real_quotes": 2
+    },
+    "178535": {
+      "factor": 0.8677162834070621,
+      "real_quotes": 1
+    },
+    "179784": {
+      "factor": 0.8511389931783796,
+      "real_quotes": 4
+    },
+    "184431": {
+      "factor": 0.8767557557892728,
+      "real_quotes": 2
+    },
+    "184432": {
+      "factor": 0.9142783000696959,
+      "real_quotes": 4
+    },
+    "189963": {
+      "factor": 1.0013693261922563,
+      "real_quotes": 1
+    },
+    "193348": {
+      "factor": 0.9855338347468143,
+      "real_quotes": 3
+    },
+    "202166": {
+      "factor": 0.8891774889977523,
+      "real_quotes": 2
+    },
+    "204525": {
+      "factor": 0.9769771109776516,
+      "real_quotes": 2
+    },
+    "205525": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "7743": {
+      "factor": 0.8715052937005986,
+      "real_quotes": 3
+    },
+    "139968": {
+      "factor": 0.9554667751692517,
+      "real_quotes": 2
+    },
+    "146760": {
+      "factor": 1.0122600700696478,
+      "real_quotes": 3
+    },
+    "152908": {
+      "factor": 0.9432023796591653,
+      "real_quotes": 4
+    },
+    "181291": {
+      "factor": 0.8554474281890825,
+      "real_quotes": 2
+    },
+    "186148": {
+      "factor": 1.051933222221439,
+      "real_quotes": 3
+    },
+    "186832": {
+      "factor": 1.0506047138142776,
+      "real_quotes": 1
+    },
+    "187735": {
+      "factor": 0.9790117956621321,
+      "real_quotes": 1
+    },
+    "188427": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "188829": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "194359": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "194957": {
+      "factor": 1.0950453687888422,
+      "real_quotes": 4
+    },
+    "199189": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "199556": {
+      "factor": 0.893196870708516,
+      "real_quotes": 4
+    },
+    "200529": {
+      "factor": 1.0150305225463596,
+      "real_quotes": 2
+    },
+    "201535": {
+      "factor": 1.15,
+      "real_quotes": 5
+    },
+    "205943": {
+      "factor": 0.9795990848145075,
+      "real_quotes": 2
+    },
+    "207865": {
+      "factor": 0.9830269262286858,
+      "real_quotes": 5
+    },
+    "8517": {
+      "factor": 0.9319241284525509,
+      "real_quotes": 1
+    },
+    "147621": {
+      "factor": 1.0616037866468122,
+      "real_quotes": 2
+    },
+    "158543": {
+      "factor": 0.9585172695200568,
+      "real_quotes": 2
+    },
+    "170815": {
+      "factor": 0.9701353526345039,
+      "real_quotes": 2
+    },
+    "173432": {
+      "factor": 1.041992181973614,
+      "real_quotes": 1
+    },
+    "177604": {
+      "factor": 0.9850588796631689,
+      "real_quotes": 2
+    },
+    "177983": {
+      "factor": 1.0555782575064179,
+      "real_quotes": 2
+    },
+    "182168": {
+      "factor": 1.0558302106732351,
+      "real_quotes": 3
+    },
+    "186146": {
+      "factor": 1.1379816879393585,
+      "real_quotes": 3
+    },
+    "187924": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "188802": {
+      "factor": 1.0188321682613166,
+      "real_quotes": 3
+    },
+    "189795": {
+      "factor": 1.0754545469507937,
+      "real_quotes": 1
+    },
+    "198009": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "198219": {
+      "factor": 0.8834343586173298,
+      "real_quotes": 5
+    },
+    "199074": {
+      "factor": 0.9233576024207223,
+      "real_quotes": 1
+    },
+    "199987": {
+      "factor": 1.046241758231807,
+      "real_quotes": 1
+    },
+    "204024": {
+      "factor": 0.9734136794079633,
+      "real_quotes": 1
+    },
+    "207920": {
+      "factor": 1.0473722309224458,
+      "real_quotes": 1
+    },
+    "210126": {
+      "factor": 0.8888548634321471,
+      "real_quotes": 1
+    },
+    "136553": {
+      "factor": 0.8964626008719345,
+      "real_quotes": 4
+    },
+    "158963": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "167628": {
+      "factor": 0.897088600806168,
+      "real_quotes": 4
+    },
+    "168607": {
+      "factor": 1.1255393224850052,
+      "real_quotes": 2
+    },
+    "172962": {
+      "factor": 0.9229822945384326,
+      "real_quotes": 2
+    },
+    "176550": {
+      "factor": 1.0590329788832915,
+      "real_quotes": 2
+    },
+    "177388": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "177974": {
+      "factor": 1.081315203165259,
+      "real_quotes": 1
+    },
+    "182836": {
+      "factor": 0.997415511028123,
+      "real_quotes": 1
+    },
+    "183187": {
+      "factor": 1.0128001182811195,
+      "real_quotes": 1
+    },
+    "184392": {
+      "factor": 1.1162787505304475,
+      "real_quotes": 2
+    },
+    "188352": {
+      "factor": 0.8924267847477293,
+      "real_quotes": 1
+    },
+    "192227": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "193352": {
+      "factor": 0.9240298634150353,
+      "real_quotes": 3
+    },
+    "198077": {
+      "factor": 0.957397268448697,
+      "real_quotes": 4
+    },
+    "198784": {
+      "factor": 0.9298351542688601,
+      "real_quotes": 4
+    },
+    "205988": {
+      "factor": 1.1205587064162528,
+      "real_quotes": 2
+    },
+    "207566": {
+      "factor": 1.0597349385553525,
+      "real_quotes": 2
+    },
+    "212067": {
+      "factor": 1.0752827178004116,
+      "real_quotes": 1
+    },
+    "139064": {
+      "factor": 0.9472564199428227,
+      "real_quotes": 2
+    },
+    "156988": {
+      "factor": 1.0423954633629078,
+      "real_quotes": 1
+    },
+    "176237": {
+      "factor": 1.0545667797594438,
+      "real_quotes": 1
+    },
+    "176546": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "177683": {
+      "factor": 1.1262526318208474,
+      "real_quotes": 2
+    },
+    "181106": {
+      "factor": 0.8956828656552475,
+      "real_quotes": 1
+    },
+    "182860": {
+      "factor": 0.9069774132660198,
+      "real_quotes": 2
+    },
+    "183569": {
+      "factor": 1.0690574894723304,
+      "real_quotes": 1
+    },
+    "186805": {
+      "factor": 1.0310438948057414,
+      "real_quotes": 2
+    },
+    "187366": {
+      "factor": 1.1088803030404266,
+      "real_quotes": 1
+    },
+    "187492": {
+      "factor": 1.0875056722701009,
+      "real_quotes": 1
+    },
+    "188155": {
+      "factor": 0.9220588675171588,
+      "real_quotes": 1
+    },
+    "190815": {
+      "factor": 0.8612706403529701,
+      "real_quotes": 2
+    },
+    "197853": {
+      "factor": 1.0067380789465954,
+      "real_quotes": 2
+    },
+    "199503": {
+      "factor": 0.903773338398285,
+      "real_quotes": 3
+    },
+    "199550": {
+      "factor": 0.9277580537042253,
+      "real_quotes": 1
+    },
+    "201399": {
+      "factor": 0.8516211593106583,
+      "real_quotes": 5
+    },
+    "203551": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "207862": {
+      "factor": 0.9480552018335254,
+      "real_quotes": 1
+    },
+    "156519": {
+      "factor": 0.8781255576662281,
+      "real_quotes": 2
+    },
+    "169705": {
+      "factor": 1.0293522111421178,
+      "real_quotes": 4
+    },
+    "183394": {
+      "factor": 1.034588914771534,
+      "real_quotes": 2
+    },
+    "199266": {
+      "factor": 1.0748919253483895,
+      "real_quotes": 1
+    },
+    "201454": {
+      "factor": 0.9548630225915591,
+      "real_quotes": 1
+    },
+    "202556": {
+      "factor": 0.9186284339783347,
+      "real_quotes": 1
+    },
+    "184087": {
+      "factor": 0.9203105935658203,
+      "real_quotes": 3
+    },
+    "199005": {
+      "factor": 0.9434249393371488,
+      "real_quotes": 1
+    },
+    "203042": {
+      "factor": 1.0187417774680088,
+      "real_quotes": 2
+    },
+    "200724": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "216460": {
+      "factor": 1.1037772392899077,
+      "real_quotes": 2
+    },
+    "221860": {
+      "factor": 1.1147489529577135,
+      "real_quotes": 1
+    },
+    "204485": {
+      "factor": 0.878375873597067,
+      "real_quotes": 2
+    },
+    "200601": {
+      "factor": 0.9554093755574595,
+      "real_quotes": 2
+    },
+    "212192": {
+      "factor": 1.0026859613778203,
+      "real_quotes": 1
+    },
+    "198810": {
+      "factor": 1.0440382892416515,
+      "real_quotes": 1
+    },
+    "221050": {
+      "factor": 1.102532115448389,
+      "real_quotes": 1
+    },
+    "207664": {
+      "factor": 0.9820891113335256,
+      "real_quotes": 2
+    },
+    "177159": {
+      "factor": 0.9933483844207734,
+      "real_quotes": 2
+    },
+    "178322": {
+      "factor": 0.9506916000536563,
+      "real_quotes": 1
+    },
+    "181483": {
+      "factor": 0.9437699905438001,
+      "real_quotes": 1
+    },
+    "186672": {
+      "factor": 0.9671300005828402,
+      "real_quotes": 1
+    },
+    "182103": {
+      "factor": 0.9171123531986524,
+      "real_quotes": 1
+    },
+    "191648": {
+      "factor": 0.9732350946554703,
+      "real_quotes": 1
+    },
+    "196948": {
+      "factor": 0.9240730662528851,
+      "real_quotes": 1
+    },
+    "157678": {
+      "factor": 1.0136973564015475,
+      "real_quotes": 1
+    },
+    "164559": {
+      "factor": 1.121169214622251,
+      "real_quotes": 1
+    },
+    "176348": {
+      "factor": 0.9700614704125012,
+      "real_quotes": 4
+    },
+    "179686": {
+      "factor": 0.9741318918688123,
+      "real_quotes": 1
+    },
+    "182435": {
+      "factor": 1.0944372483197995,
+      "real_quotes": 1
+    },
+    "203801": {
+      "factor": 0.933302748551274,
+      "real_quotes": 1
+    },
+    "206649": {
+      "factor": 1.1353250420097571,
+      "real_quotes": 2
+    },
+    "202305": {
+      "factor": 1.1065672045372297,
+      "real_quotes": 2
+    },
+    "199103": {
+      "factor": 0.9932431771659734,
+      "real_quotes": 1
+    },
+    "155625": {
+      "factor": 0.969610520186646,
+      "real_quotes": 3
+    },
+    "204406": {
+      "factor": 1.0204689952824,
+      "real_quotes": 1
+    },
+    "36111": {
+      "factor": 1.0784295569702553,
+      "real_quotes": 1
+    },
+    "175088": {
+      "factor": 1.0206723107872113,
+      "real_quotes": 1
+    },
+    "159436": {
+      "factor": 0.9774192713639017,
+      "real_quotes": 1
+    },
+    "184941": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "193301": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "112253": {
+      "factor": 1.0025172309525,
+      "real_quotes": 2
+    },
+    "167431": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "202126": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "159147": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "189513": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "190547": {
+      "factor": 1.0259071887381914,
+      "real_quotes": 2
+    },
+    "197242": {
+      "factor": 0.9293255766982059,
+      "real_quotes": 2
+    },
+    "205600": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "171791": {
+      "factor": 0.8687944145303674,
+      "real_quotes": 4
+    },
+    "178518": {
+      "factor": 0.9756613613458799,
+      "real_quotes": 3
+    },
+    "190456": {
+      "factor": 0.9673759247622429,
+      "real_quotes": 3
+    },
+    "190520": {
+      "factor": 0.85,
+      "real_quotes": 4
+    },
+    "191180": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "173474": {
+      "factor": 0.9228221198108628,
+      "real_quotes": 3
+    },
+    "216594": {
+      "factor": 0.9583980472704692,
+      "real_quotes": 3
+    },
+    "179783": {
+      "factor": 1.0849253432000379,
+      "real_quotes": 4
+    },
+    "195671": {
+      "factor": 0.9254111008677436,
+      "real_quotes": 2
+    },
+    "211320": {
+      "factor": 0.9835235387305393,
+      "real_quotes": 1
+    },
+    "211688": {
+      "factor": 1.016790350826916,
+      "real_quotes": 1
+    },
+    "189157": {
+      "factor": 0.9959657881003545,
+      "real_quotes": 1
+    },
+    "194911": {
+      "factor": 1.0757026063189015,
+      "real_quotes": 1
+    },
+    "199482": {
+      "factor": 0.9923001547023076,
+      "real_quotes": 3
+    },
+    "202857": {
+      "factor": 0.9754701515572042,
+      "real_quotes": 3
+    },
+    "182945": {
+      "factor": 1.040265556474102,
+      "real_quotes": 1
+    },
+    "201995": {
+      "factor": 0.9755838370979341,
+      "real_quotes": 2
+    },
+    "188081": {
+      "factor": 0.8780625226383771,
+      "real_quotes": 1
+    },
+    "215914": {
+      "factor": 0.8600485216654079,
+      "real_quotes": 2
+    },
+    "189509": {
+      "factor": 1.0039096011868167,
+      "real_quotes": 3
+    },
+    "180930": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "211110": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "208596": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "200389": {
+      "factor": 0.861902695177172,
+      "real_quotes": 1
+    },
+    "191043": {
+      "factor": 1.102877577070282,
+      "real_quotes": 3
+    },
+    "212188": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "211117": {
+      "factor": 0.9229510137524858,
+      "real_quotes": 2
+    },
+    "209331": {
+      "factor": 1.0192943122149478,
+      "real_quotes": 1
+    },
+    "208722": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "204963": {
+      "factor": 1.0704408435207953,
+      "real_quotes": 3
+    },
+    "203376": {
+      "factor": 0.9680873242805529,
+      "real_quotes": 2
+    },
+    "200145": {
+      "factor": 1.032963747891008,
+      "real_quotes": 3
+    },
+    "192366": {
+      "factor": 0.9092864360745729,
+      "real_quotes": 2
+    },
+    "190460": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "189242": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "213565": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "202652": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "201153": {
+      "factor": 1.048602856217285,
+      "real_quotes": 3
+    },
+    "199564": {
+      "factor": 0.9680520563872858,
+      "real_quotes": 2
+    },
+    "192883": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "188377": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "168651": {
+      "factor": 0.9556683509693451,
+      "real_quotes": 3
+    },
+    "209499": {
+      "factor": 0.8891759231445486,
+      "real_quotes": 1
+    },
+    "208418": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "201942": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "203747": {
+      "factor": 0.9625843647011424,
+      "real_quotes": 1
+    },
+    "192638": {
+      "factor": 0.9624556311301522,
+      "real_quotes": 1
+    },
+    "192448": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "162835": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "138412": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "225508": {
+      "factor": 0.892950394041921,
+      "real_quotes": 1
+    },
+    "223848": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "222492": {
+      "factor": 0.9594582336303681,
+      "real_quotes": 1
+    },
+    "220834": {
+      "factor": 0.9534227893582694,
+      "real_quotes": 1
+    },
+    "218667": {
+      "factor": 0.9279954675685581,
+      "real_quotes": 2
+    },
+    "212622": {
+      "factor": 0.9022171176770672,
+      "real_quotes": 1
+    },
+    "210008": {
+      "factor": 0.9853531126729631,
+      "real_quotes": 1
+    },
+    "207599": {
+      "factor": 0.8584902082970713,
+      "real_quotes": 1
+    },
+    "204884": {
+      "factor": 0.9557888741385486,
+      "real_quotes": 1
+    },
+    "202371": {
+      "factor": 0.9621136924240389,
+      "real_quotes": 1
+    },
+    "202335": {
+      "factor": 1.007173083164454,
+      "real_quotes": 1
+    },
+    "201024": {
+      "factor": 0.9419488279914521,
+      "real_quotes": 1
+    },
+    "191740": {
+      "factor": 0.9205536888601263,
+      "real_quotes": 2
+    },
+    "190483": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "188942": {
+      "factor": 0.9914419879476878,
+      "real_quotes": 1
+    },
+    "169595": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "213661": {
+      "factor": 0.905164964668677,
+      "real_quotes": 1
+    },
+    "211300": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "210257": {
+      "factor": 0.9560350168171778,
+      "real_quotes": 1
+    },
+    "209658": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "208333": {
+      "factor": 1.1163567321474437,
+      "real_quotes": 3
+    },
+    "207993": {
+      "factor": 0.9058192067515007,
+      "real_quotes": 1
+    },
+    "205923": {
+      "factor": 1.0128773635305741,
+      "real_quotes": 2
+    },
+    "203574": {
+      "factor": 1.053365650031508,
+      "real_quotes": 2
+    },
+    "201510": {
+      "factor": 0.9534822858563463,
+      "real_quotes": 1
+    },
+    "201042": {
+      "factor": 0.9052476362221203,
+      "real_quotes": 1
+    },
+    "193041": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "188943": {
+      "factor": 0.9692174817540582,
+      "real_quotes": 2
+    },
+    "205452": {
+      "factor": 0.903967268085026,
+      "real_quotes": 1
+    },
+    "199304": {
+      "factor": 1.0979539363616961,
+      "real_quotes": 3
+    },
+    "219809": {
+      "factor": 0.9883100621653637,
+      "real_quotes": 1
+    },
+    "220793": {
+      "factor": 1.0485052802371226,
+      "real_quotes": 1
+    },
+    "201862": {
+      "factor": 0.966010524929744,
+      "real_quotes": 2
+    },
+    "186345": {
+      "factor": 0.8841173854402236,
+      "real_quotes": 1
+    },
+    "212218": {
+      "factor": 1.0822752475375421,
+      "real_quotes": 2
+    },
+    "186942": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "225100": {
+      "factor": 1.0607688540887885,
+      "real_quotes": 1
+    },
+    "225539": {
+      "factor": 0.9878295346801875,
+      "real_quotes": 1
+    },
+    "213642": {
+      "factor": 0.9732283888932447,
+      "real_quotes": 1
+    },
+    "227535": {
+      "factor": 0.9583563828801904,
+      "real_quotes": 1
+    },
+    "215556": {
+      "factor": 0.9414630868354212,
+      "real_quotes": 1
+    },
+    "225782": {
+      "factor": 1.0511905853914003,
+      "real_quotes": 1
+    },
+    "221479": {
+      "factor": 0.9971717816222123,
+      "real_quotes": 1
+    },
+    "207494": {
+      "factor": 1.0458088602415563,
+      "real_quotes": 1
+    },
+    "216267": {
+      "factor": 0.9683854932689944,
+      "real_quotes": 1
+    },
+    "212419": {
+      "factor": 0.955681917404383,
+      "real_quotes": 1
+    },
+    "209002": {
+      "factor": 0.9982945281003737,
+      "real_quotes": 1
+    },
+    "205186": {
+      "factor": 1.0897317690580652,
+      "real_quotes": 1
+    },
+    "199498": {
+      "factor": 1.0364538905095042,
+      "real_quotes": 1
+    },
+    "202994": {
+      "factor": 0.9825448430137909,
+      "real_quotes": 1
+    },
+    "192250": {
+      "factor": 1.021323515658389,
+      "real_quotes": 1
+    },
+    "192840": {
+      "factor": 0.9642805701431194,
+      "real_quotes": 1
+    },
+    "191944": {
+      "factor": 0.9716989077766888,
+      "real_quotes": 1
+    },
+    "191409": {
+      "factor": 1.0411866030455887,
+      "real_quotes": 1
+    },
+    "209040": {
+      "factor": 1.1442674290988537,
+      "real_quotes": 1
+    },
+    "191921": {
+      "factor": 1.0697096846395604,
+      "real_quotes": 1
+    },
+    "156321": {
+      "factor": 1.1324413806240217,
+      "real_quotes": 1
+    },
+    "206655": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "174543": {
+      "factor": 1.0321954758979102,
+      "real_quotes": 2
+    },
+    "181458": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "183898": {
+      "factor": 0.9651301261471947,
+      "real_quotes": 3
+    },
+    "184484": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "193532": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "208830": {
+      "factor": 0.923613292819204,
+      "real_quotes": 1
+    },
+    "163824": {
+      "factor": 0.967253424676051,
+      "real_quotes": 1
+    },
+    "177358": {
+      "factor": 0.9550227960237989,
+      "real_quotes": 1
+    },
+    "184716": {
+      "factor": 0.9900447781606468,
+      "real_quotes": 1
+    },
+    "210047": {
+      "factor": 0.9476074902061444,
+      "real_quotes": 1
+    },
+    "213345": {
+      "factor": 0.9916811261692493,
+      "real_quotes": 1
+    },
+    "164376": {
+      "factor": 0.9753915776919792,
+      "real_quotes": 1
+    },
+    "168609": {
+      "factor": 0.9721715789944186,
+      "real_quotes": 2
+    },
+    "180175": {
+      "factor": 1.0343555254693644,
+      "real_quotes": 1
+    },
+    "187607": {
+      "factor": 0.9812826419315896,
+      "real_quotes": 1
+    },
+    "187800": {
+      "factor": 0.8744666251803598,
+      "real_quotes": 1
+    },
+    "199561": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "200454": {
+      "factor": 1.0041899217362555,
+      "real_quotes": 1
+    },
+    "164994": {
+      "factor": 0.9697639374044754,
+      "real_quotes": 2
+    },
+    "176769": {
+      "factor": 0.953246494036254,
+      "real_quotes": 1
+    },
+    "176915": {
+      "factor": 1.0489602070150912,
+      "real_quotes": 1
+    },
+    "177922": {
+      "factor": 1.0180049346148567,
+      "real_quotes": 1
+    },
+    "183498": {
+      "factor": 1.028272515467616,
+      "real_quotes": 1
+    },
+    "185020": {
+      "factor": 1.0136482245102356,
+      "real_quotes": 1
+    },
+    "199042": {
+      "factor": 1.005096673612774,
+      "real_quotes": 1
+    },
+    "112316": {
+      "factor": 1.0691968977431585,
+      "real_quotes": 2
+    },
+    "142784": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "153244": {
+      "factor": 0.8782635448325582,
+      "real_quotes": 1
+    },
+    "159065": {
+      "factor": 0.851225076349856,
+      "real_quotes": 1
+    },
+    "166706": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "168435": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "170481": {
+      "factor": 1.0440554976185357,
+      "real_quotes": 1
+    },
+    "173771": {
+      "factor": 0.9948841078060928,
+      "real_quotes": 2
+    },
+    "177326": {
+      "factor": 0.8743731014285672,
+      "real_quotes": 1
+    },
+    "177553": {
+      "factor": 0.9289662827121211,
+      "real_quotes": 1
+    },
+    "180216": {
+      "factor": 0.974267815891296,
+      "real_quotes": 2
+    },
+    "181783": {
+      "factor": 1.0751041282629363,
+      "real_quotes": 2
+    },
+    "183574": {
+      "factor": 1.018690924788242,
+      "real_quotes": 1
+    },
+    "184144": {
+      "factor": 0.8562014979771619,
+      "real_quotes": 1
+    },
+    "184255": {
+      "factor": 1.0230341275556856,
+      "real_quotes": 1
+    },
+    "189250": {
+      "factor": 1.0237855513315566,
+      "real_quotes": 1
+    },
+    "196144": {
+      "factor": 1.1135826223166687,
+      "real_quotes": 1
+    },
+    "204311": {
+      "factor": 0.8644688383650753,
+      "real_quotes": 1
+    },
+    "205175": {
+      "factor": 1.0403042338290736,
+      "real_quotes": 1
+    },
+    "205510": {
+      "factor": 1.0889777038655395,
+      "real_quotes": 2
+    },
+    "212814": {
+      "factor": 0.9816541024925,
+      "real_quotes": 1
+    },
+    "220295": {
+      "factor": 1.0300846028392763,
+      "real_quotes": 1
+    },
+    "13732": {
+      "factor": 0.85,
+      "real_quotes": 5
+    },
+    "138384": {
+      "factor": 0.939652594721954,
+      "real_quotes": 1
+    },
+    "161648": {
+      "factor": 1.0216274637271787,
+      "real_quotes": 1
+    },
+    "165580": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "177458": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "178311": {
+      "factor": 1.0334582346969312,
+      "real_quotes": 1
+    },
+    "179527": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "182879": {
+      "factor": 0.9727833138183701,
+      "real_quotes": 1
+    },
+    "184826": {
+      "factor": 0.9918336387682711,
+      "real_quotes": 1
+    },
+    "190531": {
+      "factor": 1.063635582348525,
+      "real_quotes": 1
+    },
+    "190875": {
+      "factor": 0.8997002275165942,
+      "real_quotes": 1
+    },
+    "192563": {
+      "factor": 0.9851577244436018,
+      "real_quotes": 2
+    },
+    "198141": {
+      "factor": 1.1310196006088709,
+      "real_quotes": 2
+    },
+    "200641": {
+      "factor": 1.0879254207996936,
+      "real_quotes": 1
+    },
+    "201377": {
+      "factor": 0.9358994037772094,
+      "real_quotes": 1
+    },
+    "211575": {
+      "factor": 1.0187257483365597,
+      "real_quotes": 1
+    },
+    "330": {
+      "factor": 0.984974637075732,
+      "real_quotes": 1
+    },
+    "7631": {
+      "factor": 0.9903934186627763,
+      "real_quotes": 1
+    },
+    "115533": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "116494": {
+      "factor": 0.9090107027305794,
+      "real_quotes": 3
+    },
+    "121933": {
+      "factor": 0.9095755353145434,
+      "real_quotes": 2
+    },
+    "142902": {
+      "factor": 1.0575527323833114,
+      "real_quotes": 1
+    },
+    "144622": {
+      "factor": 1.0188753994743844,
+      "real_quotes": 1
+    },
+    "156713": {
+      "factor": 0.8997553320882796,
+      "real_quotes": 1
+    },
+    "157271": {
+      "factor": 0.9906331188910797,
+      "real_quotes": 1
+    },
+    "167614": {
+      "factor": 1.041700987344962,
+      "real_quotes": 1
+    },
+    "169051": {
+      "factor": 1.0960614467643217,
+      "real_quotes": 1
+    },
+    "169588": {
+      "factor": 1.106073886279239,
+      "real_quotes": 2
+    },
+    "171579": {
+      "factor": 1.0536361548596664,
+      "real_quotes": 1
+    },
+    "177635": {
+      "factor": 0.8658772787714117,
+      "real_quotes": 1
+    },
+    "184789": {
+      "factor": 1.0307986339077448,
+      "real_quotes": 1
+    },
+    "186115": {
+      "factor": 0.9883496554931215,
+      "real_quotes": 2
+    },
+    "186547": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "190149": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "190813": {
+      "factor": 1.054151600520768,
+      "real_quotes": 1
+    },
+    "191032": {
+      "factor": 1.019971569917423,
+      "real_quotes": 1
+    },
+    "203605": {
+      "factor": 1.0100367875746534,
+      "real_quotes": 1
+    },
+    "204289": {
+      "factor": 1.0402024789748863,
+      "real_quotes": 1
+    },
+    "205069": {
+      "factor": 1.0284454967357002,
+      "real_quotes": 1
+    },
+    "206273": {
+      "factor": 1.0471630932052993,
+      "real_quotes": 1
+    },
+    "207410": {
+      "factor": 0.9240461232377664,
+      "real_quotes": 2
+    },
+    "215316": {
+      "factor": 1.0272835555578699,
+      "real_quotes": 1
+    },
+    "1611": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "6826": {
+      "factor": 0.878329561447842,
+      "real_quotes": 2
+    },
+    "20800": {
+      "factor": 0.86145161090809,
+      "real_quotes": 1
+    },
+    "109852": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "110677": {
+      "factor": 1.0688625347262184,
+      "real_quotes": 1
+    },
+    "112542": {
+      "factor": 0.894403341425976,
+      "real_quotes": 1
+    },
+    "124607": {
+      "factor": 1.0238728182204861,
+      "real_quotes": 1
+    },
+    "137351": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "142780": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "143632": {
+      "factor": 1.099111039626286,
+      "real_quotes": 1
+    },
+    "146460": {
+      "factor": 1.0199741921730285,
+      "real_quotes": 1
+    },
+    "152999": {
+      "factor": 0.9215244424256834,
+      "real_quotes": 1
+    },
+    "157492": {
+      "factor": 0.8781310301931713,
+      "real_quotes": 1
+    },
+    "163492": {
+      "factor": 0.8586424149447114,
+      "real_quotes": 1
+    },
+    "165109": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "166844": {
+      "factor": 0.9110025350358244,
+      "real_quotes": 1
+    },
+    "172610": {
+      "factor": 1.1349485200817544,
+      "real_quotes": 2
+    },
+    "173306": {
+      "factor": 1.1135248874825778,
+      "real_quotes": 1
+    },
+    "178007": {
+      "factor": 1.105933293765005,
+      "real_quotes": 1
+    },
+    "179897": {
+      "factor": 1.1431234789909124,
+      "real_quotes": 1
+    },
+    "183899": {
+      "factor": 1.0652778322702703,
+      "real_quotes": 1
+    },
+    "184111": {
+      "factor": 1.0464277757737523,
+      "real_quotes": 1
+    },
+    "186953": {
+      "factor": 1.0851661728772655,
+      "real_quotes": 1
+    },
+    "187347": {
+      "factor": 1.0559982743984617,
+      "real_quotes": 1
+    },
+    "192086": {
+      "factor": 0.9820655037595354,
+      "real_quotes": 1
+    },
+    "192492": {
+      "factor": 0.8731112415181548,
+      "real_quotes": 1
+    },
+    "192620": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "193061": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "196934": {
+      "factor": 1.0376091308014928,
+      "real_quotes": 1
+    },
+    "199626": {
+      "factor": 0.8510406028882012,
+      "real_quotes": 1
+    },
+    "200316": {
+      "factor": 1.045646634016429,
+      "real_quotes": 2
+    },
+    "200888": {
+      "factor": 1.0471821564154173,
+      "real_quotes": 1
+    },
+    "201262": {
+      "factor": 1.022170045899411,
+      "real_quotes": 1
+    },
+    "203299": {
+      "factor": 1.03699194516538,
+      "real_quotes": 1
+    },
+    "204529": {
+      "factor": 1.0262414010334595,
+      "real_quotes": 1
+    },
+    "210935": {
+      "factor": 1.054648605002155,
+      "real_quotes": 1
+    },
+    "213135": {
+      "factor": 1.0423490208827646,
+      "real_quotes": 1
+    },
+    "13879": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "124375": {
+      "factor": 1.0512086616665213,
+      "real_quotes": 1
+    },
+    "138703": {
+      "factor": 0.995916800221823,
+      "real_quotes": 1
+    },
+    "146758": {
+      "factor": 0.9481217880026057,
+      "real_quotes": 1
+    },
+    "149791": {
+      "factor": 1.0823426802643548,
+      "real_quotes": 1
+    },
+    "158121": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "163407": {
+      "factor": 1.0061598375048966,
+      "real_quotes": 2
+    },
+    "167943": {
+      "factor": 1.058281517420396,
+      "real_quotes": 1
+    },
+    "168530": {
+      "factor": 0.8781588031548538,
+      "real_quotes": 1
+    },
+    "170797": {
+      "factor": 1.0813384848490253,
+      "real_quotes": 1
+    },
+    "176731": {
+      "factor": 0.8608616739874879,
+      "real_quotes": 1
+    },
+    "177019": {
+      "factor": 0.9231808126762446,
+      "real_quotes": 3
+    },
+    "178393": {
+      "factor": 1.0762613480380543,
+      "real_quotes": 1
+    },
+    "180432": {
+      "factor": 0.8967925440004274,
+      "real_quotes": 1
+    },
+    "183900": {
+      "factor": 1.0324046957226058,
+      "real_quotes": 1
+    },
+    "184200": {
+      "factor": 0.9993437276420646,
+      "real_quotes": 2
+    },
+    "185239": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "187072": {
+      "factor": 0.9887724154699662,
+      "real_quotes": 2
+    },
+    "188253": {
+      "factor": 1.0059546443740506,
+      "real_quotes": 1
+    },
+    "189060": {
+      "factor": 0.9021352594189388,
+      "real_quotes": 1
+    },
+    "189117": {
+      "factor": 1.1132587083052936,
+      "real_quotes": 1
+    },
+    "189156": {
+      "factor": 1.053695542466022,
+      "real_quotes": 2
+    },
+    "190799": {
+      "factor": 1.0580069031987251,
+      "real_quotes": 1
+    },
+    "196150": {
+      "factor": 1.0555562275575896,
+      "real_quotes": 1
+    },
+    "197225": {
+      "factor": 1.0184646484710562,
+      "real_quotes": 1
+    },
+    "201400": {
+      "factor": 1.0688057220822818,
+      "real_quotes": 2
+    },
+    "202493": {
+      "factor": 1.0727427664760967,
+      "real_quotes": 1
+    },
+    "203486": {
+      "factor": 1.059223448467962,
+      "real_quotes": 1
+    },
+    "204259": {
+      "factor": 1.0771288289660246,
+      "real_quotes": 1
+    },
+    "208330": {
+      "factor": 1.1012206418959334,
+      "real_quotes": 1
+    },
+    "210679": {
+      "factor": 0.9398718704906225,
+      "real_quotes": 1
+    },
+    "232226": {
+      "factor": 1.0783592998354234,
+      "real_quotes": 1
+    },
+    "105318": {
+      "factor": 0.9139570222964746,
+      "real_quotes": 1
+    },
+    "113045": {
+      "factor": 0.9450305316781212,
+      "real_quotes": 1
+    },
+    "124635": {
+      "factor": 1.0918448528849856,
+      "real_quotes": 1
+    },
+    "134956": {
+      "factor": 1.1404129037573973,
+      "real_quotes": 1
+    },
+    "138436": {
+      "factor": 0.8721829565227287,
+      "real_quotes": 3
+    },
+    "151508": {
+      "factor": 0.9950953955788612,
+      "real_quotes": 2
+    },
+    "159287": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "166074": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "167599": {
+      "factor": 1.0558358131981518,
+      "real_quotes": 1
+    },
+    "169721": {
+      "factor": 1.0736041704996488,
+      "real_quotes": 1
+    },
+    "175254": {
+      "factor": 0.9610411709962552,
+      "real_quotes": 1
+    },
+    "176619": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "176733": {
+      "factor": 0.954190029612876,
+      "real_quotes": 1
+    },
+    "176949": {
+      "factor": 0.9995880981689793,
+      "real_quotes": 1
+    },
+    "182882": {
+      "factor": 1.093571703491061,
+      "real_quotes": 1
+    },
+    "183249": {
+      "factor": 0.9528342785043212,
+      "real_quotes": 1
+    },
+    "183895": {
+      "factor": 0.9728663050996427,
+      "real_quotes": 1
+    },
+    "192342": {
+      "factor": 1.0621669613361502,
+      "real_quotes": 1
+    },
+    "195861": {
+      "factor": 1.0077564455700452,
+      "real_quotes": 1
+    },
+    "199110": {
+      "factor": 0.9186584624785343,
+      "real_quotes": 1
+    },
+    "206225": {
+      "factor": 1.0259287277776177,
+      "real_quotes": 1
+    },
+    "208128": {
+      "factor": 1.0037408107554378,
+      "real_quotes": 1
+    },
+    "210513": {
+      "factor": 0.9699514496276338,
+      "real_quotes": 1
+    },
+    "210864": {
+      "factor": 1.015888748683341,
+      "real_quotes": 1
+    },
+    "214207": {
+      "factor": 0.9301784739934311,
+      "real_quotes": 1
+    },
+    "215333": {
+      "factor": 0.8797232772097454,
+      "real_quotes": 1
+    },
+    "222357": {
+      "factor": 0.9781384086173948,
+      "real_quotes": 1
+    },
+    "192565": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "198504": {
+      "factor": 0.9212782807107566,
+      "real_quotes": 1
+    },
+    "212457": {
+      "factor": 0.9974334421592882,
+      "real_quotes": 1
+    },
+    "216349": {
+      "factor": 1.0056260314714718,
+      "real_quotes": 1
+    },
+    "220253": {
+      "factor": 0.9738825541737967,
+      "real_quotes": 2
+    },
+    "186119": {
+      "factor": 0.9463190371442182,
+      "real_quotes": 1
+    },
+    "186521": {
+      "factor": 1.056412169016462,
+      "real_quotes": 1
+    },
+    "204550": {
+      "factor": 1.0090536240189603,
+      "real_quotes": 1
+    },
+    "204713": {
+      "factor": 1.0714644378725557,
+      "real_quotes": 1
+    },
+    "211061": {
+      "factor": 0.8906273891631563,
+      "real_quotes": 1
+    },
+    "213114": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "214332": {
+      "factor": 0.9989104063837461,
+      "real_quotes": 1
+    },
+    "182896": {
+      "factor": 1.0318007005627097,
+      "real_quotes": 1
+    },
+    "186347": {
+      "factor": 1.011608255567156,
+      "real_quotes": 1
+    },
+    "188058": {
+      "factor": 1.1233664565391326,
+      "real_quotes": 1
+    },
+    "195586": {
+      "factor": 1.1186467152474375,
+      "real_quotes": 1
+    },
+    "215565": {
+      "factor": 1.0347604989621932,
+      "real_quotes": 1
+    },
+    "229906": {
+      "factor": 1.0181454346353338,
+      "real_quotes": 1
+    },
+    "180706": {
+      "factor": 1.1128331599136,
+      "real_quotes": 2
+    },
+    "190396": {
+      "factor": 1.0576623175130944,
+      "real_quotes": 1
+    },
+    "217047": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "231867": {
+      "factor": 1.1026781493993434,
+      "real_quotes": 1
+    },
+    "165174": {
+      "factor": 0.9009411429999448,
+      "real_quotes": 2
+    },
+    "174379": {
+      "factor": 1.004115722481752,
+      "real_quotes": 1
+    },
+    "176605": {
+      "factor": 1.0883012422315448,
+      "real_quotes": 1
+    },
+    "179712": {
+      "factor": 0.9177054289667763,
+      "real_quotes": 1
+    },
+    "181262": {
+      "factor": 1.000355074498369,
+      "real_quotes": 1
+    },
+    "216666": {
+      "factor": 1.0287519021707907,
+      "real_quotes": 1
+    },
+    "105846": {
+      "factor": 0.9983681458567389,
+      "real_quotes": 1
+    },
+    "125167": {
+      "factor": 1.1044630257364436,
+      "real_quotes": 1
+    },
+    "133249": {
+      "factor": 0.9132272991251416,
+      "real_quotes": 1
+    },
+    "143674": {
+      "factor": 0.9495511765153681,
+      "real_quotes": 1
+    },
+    "143699": {
+      "factor": 1.0173006674313638,
+      "real_quotes": 1
+    },
+    "152922": {
+      "factor": 0.8984681881188926,
+      "real_quotes": 1
+    },
+    "162280": {
+      "factor": 0.956318380397998,
+      "real_quotes": 1
+    },
+    "175671": {
+      "factor": 0.9637516932266456,
+      "real_quotes": 1
+    },
+    "181271": {
+      "factor": 0.9638870528365052,
+      "real_quotes": 1
+    },
+    "190854": {
+      "factor": 0.8893395246987302,
+      "real_quotes": 2
+    },
+    "192613": {
+      "factor": 1.0907352687585983,
+      "real_quotes": 1
+    },
+    "199827": {
+      "factor": 0.9028803082991891,
+      "real_quotes": 1
+    },
+    "136113": {
+      "factor": 0.97913155074648,
+      "real_quotes": 2
+    },
+    "140222": {
+      "factor": 1.0648155888952973,
+      "real_quotes": 1
+    },
+    "148526": {
+      "factor": 0.9398132312335256,
+      "real_quotes": 1
+    },
+    "158932": {
+      "factor": 1.099015434686248,
+      "real_quotes": 1
+    },
+    "176094": {
+      "factor": 1.0801008871493873,
+      "real_quotes": 1
+    },
+    "191725": {
+      "factor": 1.0137712614691636,
+      "real_quotes": 1
+    },
+    "196142": {
+      "factor": 0.9772343211271278,
+      "real_quotes": 2
+    },
+    "196143": {
+      "factor": 0.9167185171036489,
+      "real_quotes": 1
+    },
+    "137089": {
+      "factor": 0.9491507067860503,
+      "real_quotes": 1
+    },
+    "177673": {
+      "factor": 1.0207332216202898,
+      "real_quotes": 1
+    },
+    "184585": {
+      "factor": 1.0755511812753413,
+      "real_quotes": 1
+    },
+    "182621": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "189160": {
+      "factor": 0.9821997344806822,
+      "real_quotes": 1
+    },
+    "138289": {
+      "factor": 0.9232701076096048,
+      "real_quotes": 1
+    },
+    "214506": {
+      "factor": 0.949743608395563,
+      "real_quotes": 1
+    },
+    "196913": {
+      "factor": 0.9706220957473883,
+      "real_quotes": 1
+    },
+    "156698": {
+      "factor": 1.0863632831286896,
+      "real_quotes": 1
+    },
+    "176474": {
+      "factor": 0.9516494746441957,
+      "real_quotes": 1
+    },
+    "184433": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "214498": {
+      "factor": 1.0739500761529204,
+      "real_quotes": 1
+    },
+    "190043": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "168473": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "192181": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "191189": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "226764": {
+      "factor": 1.0891260401461822,
+      "real_quotes": 2
+    },
+    "166906": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "190053": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "241": {
+      "factor": 1.0905142388554978,
+      "real_quotes": 3
+    },
+    "1041": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "1088": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "166124": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "214098": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "51": {
+      "factor": 0.8710268343659718,
+      "real_quotes": 2
+    },
+    "4833": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "161840": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "190044": {
+      "factor": 0.85,
+      "real_quotes": 3
+    },
+    "191695": {
+      "factor": 0.8837984387375836,
+      "real_quotes": 2
+    },
+    "214100": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "222000": {
+      "factor": 1.0215052456193867,
+      "real_quotes": 1
+    },
+    "4000": {
+      "factor": 1.018816760832789,
+      "real_quotes": 2
+    },
+    "1075": {
+      "factor": 0.996001176418981,
+      "real_quotes": 2
+    },
+    "222257": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "240": {
+      "factor": 0.9325633984082511,
+      "real_quotes": 3
+    },
+    "1116": {
+      "factor": 1.123888834560814,
+      "real_quotes": 3
+    },
+    "1201": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "164000": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "166120": {
+      "factor": 0.946077320673018,
+      "real_quotes": 2
+    },
+    "214267": {
+      "factor": 0.9374549160366378,
+      "real_quotes": 2
+    },
+    "214649": {
+      "factor": 0.9006567271074056,
+      "real_quotes": 2
+    },
+    "222481": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "4202": {
+      "factor": 0.9819604214040759,
+      "real_quotes": 3
+    },
+    "53769": {
+      "factor": 0.9806916632584316,
+      "real_quotes": 2
+    },
+    "214101": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "215732": {
+      "factor": 1.0807702526566203,
+      "real_quotes": 1
+    },
+    "222680": {
+      "factor": 1.057623018581829,
+      "real_quotes": 1
+    },
+    "215558": {
+      "factor": 0.9681916150404717,
+      "real_quotes": 3
+    },
+    "1620": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "5681": {
+      "factor": 0.9299689017218387,
+      "real_quotes": 2
+    },
+    "5673": {
+      "factor": 0.8982338775316168,
+      "real_quotes": 2
+    },
+    "570": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "177845": {
+      "factor": 1.0812954944806816,
+      "real_quotes": 2
+    },
+    "1": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "20170": {
+      "factor": 1.0404704358142358,
+      "real_quotes": 3
+    },
+    "46747": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "156353": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "190042": {
+      "factor": 1.15,
+      "real_quotes": 3
+    },
+    "238380": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "37576": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "488": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "191208": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "246": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "3647": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "4231": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "5740": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "45661": {
+      "factor": 0.9633420346557263,
+      "real_quotes": 2
+    },
+    "234397": {
+      "factor": 1.1497971868027415,
+      "real_quotes": 2
+    },
+    "5003": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "5984": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "7518": {
+      "factor": 1.051690324828593,
+      "real_quotes": 2
+    },
+    "177844": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "148803": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "101336": {
+      "factor": 0.9391967109803899,
+      "real_quotes": 2
+    },
+    "150656": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "188005": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "193116": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "110283": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "112244": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "115909": {
+      "factor": 0.8584455630238349,
+      "real_quotes": 1
+    },
+    "153260": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "164459": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "166072": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "169115": {
+      "factor": 0.9267992166460594,
+      "real_quotes": 1
+    },
+    "172290": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "176266": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "177573": {
+      "factor": 0.8589281072399763,
+      "real_quotes": 1
+    },
+    "190502": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "192615": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "204338": {
+      "factor": 0.8663416950479355,
+      "real_quotes": 2
+    },
+    "216189": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "52829": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "155984": {
+      "factor": 0.870492633805771,
+      "real_quotes": 1
+    },
+    "162981": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "163587": {
+      "factor": 0.9217262742211513,
+      "real_quotes": 2
+    },
+    "165234": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "177520": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "178425": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "185132": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "185135": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "188816": {
+      "factor": 1.120797854177336,
+      "real_quotes": 1
+    },
+    "189251": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "192608": {
+      "factor": 0.896835090520103,
+      "real_quotes": 1
+    },
+    "194229": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "198352": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "203030": {
+      "factor": 0.874800649146386,
+      "real_quotes": 1
+    },
+    "205343": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "45842": {
+      "factor": 0.8613747984589393,
+      "real_quotes": 2
+    },
+    "52306": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "54051": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "112389": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "137449": {
+      "factor": 0.8679329325048957,
+      "real_quotes": 2
+    },
+    "139862": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "140415": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "149185": {
+      "factor": 0.8575914827118754,
+      "real_quotes": 2
+    },
+    "153938": {
+      "factor": 0.8616452917746383,
+      "real_quotes": 2
+    },
+    "161644": {
+      "factor": 0.9248434879778012,
+      "real_quotes": 2
+    },
+    "163303": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "163530": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "168312": {
+      "factor": 1.0182076256439114,
+      "real_quotes": 2
+    },
+    "172233": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "173436": {
+      "factor": 0.8821797828246901,
+      "real_quotes": 1
+    },
+    "178251": {
+      "factor": 0.9170679079454087,
+      "real_quotes": 2
+    },
+    "183287": {
+      "factor": 0.9147577692301734,
+      "real_quotes": 1
+    },
+    "185103": {
+      "factor": 0.9919165775296733,
+      "real_quotes": 1
+    },
+    "189271": {
+      "factor": 0.9633507352447728,
+      "real_quotes": 1
+    },
+    "189574": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "192575": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "193311": {
+      "factor": 0.8942345897519982,
+      "real_quotes": 2
+    },
+    "194806": {
+      "factor": 1.1245736366419459,
+      "real_quotes": 1
+    },
+    "195361": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "201893": {
+      "factor": 0.9194126855473614,
+      "real_quotes": 1
+    },
+    "202058": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "206511": {
+      "factor": 0.8733053338374709,
+      "real_quotes": 1
+    },
+    "112230": {
+      "factor": 0.8931125431228781,
+      "real_quotes": 2
+    },
+    "114764": {
+      "factor": 0.9248722365479479,
+      "real_quotes": 2
+    },
+    "139274": {
+      "factor": 0.852143933763246,
+      "real_quotes": 2
+    },
+    "144429": {
+      "factor": 0.8685693603430358,
+      "real_quotes": 2
+    },
+    "148839": {
+      "factor": 0.9976274433704598,
+      "real_quotes": 2
+    },
+    "152991": {
+      "factor": 0.873593488424131,
+      "real_quotes": 2
+    },
+    "155408": {
+      "factor": 0.9282274042907989,
+      "real_quotes": 1
+    },
+    "161793": {
+      "factor": 0.9447443905748205,
+      "real_quotes": 1
+    },
+    "166838": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "175962": {
+      "factor": 0.9391728076960916,
+      "real_quotes": 2
+    },
+    "178430": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "180293": {
+      "factor": 1.036685423178064,
+      "real_quotes": 2
+    },
+    "184469": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "186578": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "186912": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "187048": {
+      "factor": 0.9483137857335874,
+      "real_quotes": 1
+    },
+    "189682": {
+      "factor": 0.906114481483602,
+      "real_quotes": 2
+    },
+    "190432": {
+      "factor": 0.9132287418450222,
+      "real_quotes": 2
+    },
+    "190450": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "191541": {
+      "factor": 0.9966980030191583,
+      "real_quotes": 1
+    },
+    "192673": {
+      "factor": 0.9331229275690434,
+      "real_quotes": 1
+    },
+    "192789": {
+      "factor": 0.9079659690920133,
+      "real_quotes": 2
+    },
+    "192823": {
+      "factor": 0.9520843046717327,
+      "real_quotes": 1
+    },
+    "194146": {
+      "factor": 1.0093171859579375,
+      "real_quotes": 1
+    },
+    "199897": {
+      "factor": 0.8606469240643666,
+      "real_quotes": 2
+    },
+    "199977": {
+      "factor": 0.8921703461787204,
+      "real_quotes": 2
+    },
+    "200759": {
+      "factor": 0.9280498463627829,
+      "real_quotes": 1
+    },
+    "202142": {
+      "factor": 0.9322430973035868,
+      "real_quotes": 1
+    },
+    "203280": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "204082": {
+      "factor": 1.0151802149839655,
+      "real_quotes": 1
+    },
+    "206058": {
+      "factor": 0.9818125233201598,
+      "real_quotes": 2
+    },
+    "29183": {
+      "factor": 0.9883110634620464,
+      "real_quotes": 1
+    },
+    "49212": {
+      "factor": 0.9841009084754311,
+      "real_quotes": 1
+    },
+    "51261": {
+      "factor": 1.0113309275431444,
+      "real_quotes": 1
+    },
+    "116479": {
+      "factor": 0.8508965079672332,
+      "real_quotes": 1
+    },
+    "120306": {
+      "factor": 0.9567522299185728,
+      "real_quotes": 1
+    },
+    "138798": {
+      "factor": 0.9103268055103834,
+      "real_quotes": 2
+    },
+    "146059": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "155339": {
+      "factor": 0.8734409904722299,
+      "real_quotes": 3
+    },
+    "156986": {
+      "factor": 0.8792756649764802,
+      "real_quotes": 1
+    },
+    "163791": {
+      "factor": 0.9377354212315102,
+      "real_quotes": 1
+    },
+    "163806": {
+      "factor": 0.9701313123545794,
+      "real_quotes": 2
+    },
+    "165882": {
+      "factor": 0.9129343017993276,
+      "real_quotes": 1
+    },
+    "165890": {
+      "factor": 0.8851121894746588,
+      "real_quotes": 1
+    },
+    "172283": {
+      "factor": 0.991981422391653,
+      "real_quotes": 1
+    },
+    "173212": {
+      "factor": 1.0205843968344113,
+      "real_quotes": 1
+    },
+    "173735": {
+      "factor": 0.9723663302457607,
+      "real_quotes": 2
+    },
+    "176345": {
+      "factor": 1.0197605782856412,
+      "real_quotes": 1
+    },
+    "176406": {
+      "factor": 0.9259199725320529,
+      "real_quotes": 1
+    },
+    "178360": {
+      "factor": 0.8884602571774584,
+      "real_quotes": 1
+    },
+    "179954": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "183671": {
+      "factor": 0.9798687614247732,
+      "real_quotes": 1
+    },
+    "184337": {
+      "factor": 0.9669763561232296,
+      "real_quotes": 1
+    },
+    "187183": {
+      "factor": 0.9690899202623815,
+      "real_quotes": 1
+    },
+    "188616": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "188930": {
+      "factor": 0.8529448187224692,
+      "real_quotes": 2
+    },
+    "189388": {
+      "factor": 1.0346117882832095,
+      "real_quotes": 1
+    },
+    "189946": {
+      "factor": 0.9158354919038859,
+      "real_quotes": 1
+    },
+    "190093": {
+      "factor": 0.9389442176351022,
+      "real_quotes": 2
+    },
+    "190094": {
+      "factor": 0.962320662380236,
+      "real_quotes": 1
+    },
+    "191871": {
+      "factor": 0.9599407692778618,
+      "real_quotes": 1
+    },
+    "192728": {
+      "factor": 0.9036780053777133,
+      "real_quotes": 2
+    },
+    "193105": {
+      "factor": 1.0268371582050362,
+      "real_quotes": 1
+    },
+    "194086": {
+      "factor": 0.8980636202916967,
+      "real_quotes": 1
+    },
+    "197774": {
+      "factor": 0.9305481787965881,
+      "real_quotes": 1
+    },
+    "200353": {
+      "factor": 0.9647712009750865,
+      "real_quotes": 1
+    },
+    "200726": {
+      "factor": 0.8993862200058618,
+      "real_quotes": 2
+    },
+    "200841": {
+      "factor": 0.9840046848437322,
+      "real_quotes": 1
+    },
+    "201523": {
+      "factor": 0.941047441862113,
+      "real_quotes": 1
+    },
+    "202491": {
+      "factor": 0.9320931476229483,
+      "real_quotes": 1
+    },
+    "203884": {
+      "factor": 1.0039387618751858,
+      "real_quotes": 1
+    },
+    "204307": {
+      "factor": 0.9389512103768476,
+      "real_quotes": 1
+    },
+    "205934": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "50294": {
+      "factor": 0.8578943948094958,
+      "real_quotes": 2
+    },
+    "51620": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "136631": {
+      "factor": 0.8709701192794782,
+      "real_quotes": 3
+    },
+    "155334": {
+      "factor": 1.0661960649393554,
+      "real_quotes": 2
+    },
+    "155344": {
+      "factor": 1.070353462410399,
+      "real_quotes": 2
+    },
+    "165880": {
+      "factor": 1.008765941402547,
+      "real_quotes": 1
+    },
+    "178297": {
+      "factor": 0.8757649270402094,
+      "real_quotes": 2
+    },
+    "183391": {
+      "factor": 0.9887162747765966,
+      "real_quotes": 1
+    },
+    "187171": {
+      "factor": 1.0125172712077515,
+      "real_quotes": 1
+    },
+    "187176": {
+      "factor": 0.9426213780188006,
+      "real_quotes": 1
+    },
+    "191814": {
+      "factor": 1.0351736440554367,
+      "real_quotes": 2
+    },
+    "191953": {
+      "factor": 0.9970829141727343,
+      "real_quotes": 2
+    },
+    "199240": {
+      "factor": 0.9264744764554766,
+      "real_quotes": 1
+    },
+    "199574": {
+      "factor": 0.9851828582916209,
+      "real_quotes": 1
+    },
+    "202697": {
+      "factor": 0.9879531774831241,
+      "real_quotes": 1
+    },
+    "202974": {
+      "factor": 0.9683672526957082,
+      "real_quotes": 1
+    },
+    "205190": {
+      "factor": 1.0569617830765041,
+      "real_quotes": 1
+    },
+    "207753": {
+      "factor": 0.9634861819546586,
+      "real_quotes": 2
+    },
+    "209301": {
+      "factor": 0.9873771727867036,
+      "real_quotes": 1
+    },
+    "136875": {
+      "factor": 0.9979631584844559,
+      "real_quotes": 1
+    },
+    "146952": {
+      "factor": 1.024256271760887,
+      "real_quotes": 1
+    },
+    "158657": {
+      "factor": 0.9808210908463935,
+      "real_quotes": 1
+    },
+    "172198": {
+      "factor": 1.00864908650879,
+      "real_quotes": 1
+    },
+    "176401": {
+      "factor": 1.005018005447199,
+      "real_quotes": 1
+    },
+    "178452": {
+      "factor": 1.0409430920023661,
+      "real_quotes": 1
+    },
+    "186272": {
+      "factor": 1.004429779661688,
+      "real_quotes": 1
+    },
+    "197231": {
+      "factor": 0.9684398995021475,
+      "real_quotes": 1
+    },
+    "199764": {
+      "factor": 0.9944438705413525,
+      "real_quotes": 1
+    },
+    "202811": {
+      "factor": 0.9834916931383533,
+      "real_quotes": 1
+    },
+    "204513": {
+      "factor": 0.9566895455254913,
+      "real_quotes": 2
+    },
+    "206075": {
+      "factor": 1.0241560865994757,
+      "real_quotes": 1
+    },
+    "115888": {
+      "factor": 1.0411467565684405,
+      "real_quotes": 1
+    },
+    "188017": {
+      "factor": 1.0510724687986324,
+      "real_quotes": 1
+    },
+    "189387": {
+      "factor": 1.0173689424774144,
+      "real_quotes": 1
+    },
+    "193889": {
+      "factor": 1.0094500870990701,
+      "real_quotes": 1
+    },
+    "197784": {
+      "factor": 1.0598730501369973,
+      "real_quotes": 1
+    },
+    "199559": {
+      "factor": 0.9950293754740792,
+      "real_quotes": 1
+    },
+    "199721": {
+      "factor": 1.0371626399277472,
+      "real_quotes": 1
+    },
+    "204334": {
+      "factor": 1.0318763250357315,
+      "real_quotes": 1
+    },
+    "204437": {
+      "factor": 0.9146519189254578,
+      "real_quotes": 1
+    },
+    "222485": {
+      "factor": 1.0237554439379493,
+      "real_quotes": 1
+    },
+    "143076": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "163761": {
+      "factor": 0.8528326375784409,
+      "real_quotes": 1
+    },
+    "208334": {
+      "factor": 0.8641202925398476,
+      "real_quotes": 1
+    },
+    "120312": {
+      "factor": 0.8524676066556427,
+      "real_quotes": 1
+    },
+    "161956": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "176553": {
+      "factor": 0.8725464510444653,
+      "real_quotes": 1
+    },
+    "183125": {
+      "factor": 0.8603435901754012,
+      "real_quotes": 1
+    },
+    "189560": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "192629": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "219470": {
+      "factor": 0.9808882393932102,
+      "real_quotes": 1
+    },
+    "41674": {
+      "factor": 0.9363722612952218,
+      "real_quotes": 1
+    },
+    "135883": {
+      "factor": 0.9010743811170665,
+      "real_quotes": 1
+    },
+    "157665": {
+      "factor": 0.9200183492590995,
+      "real_quotes": 1
+    },
+    "165536": {
+      "factor": 0.9440101774963336,
+      "real_quotes": 1
+    },
+    "176285": {
+      "factor": 0.9311307260180348,
+      "real_quotes": 1
+    },
+    "189059": {
+      "factor": 0.9766089795733194,
+      "real_quotes": 1
+    },
+    "192593": {
+      "factor": 0.9745123174265624,
+      "real_quotes": 1
+    },
+    "198164": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "219683": {
+      "factor": 0.9488425019481799,
+      "real_quotes": 1
+    },
+    "223142": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "236512": {
+      "factor": 0.8942289675633042,
+      "real_quotes": 1
+    },
+    "19292": {
+      "factor": 0.9811779031589092,
+      "real_quotes": 1
+    },
+    "111661": {
+      "factor": 0.9748076364005168,
+      "real_quotes": 1
+    },
+    "136265": {
+      "factor": 0.8737113816457638,
+      "real_quotes": 1
+    },
+    "137410": {
+      "factor": 0.8854906389249749,
+      "real_quotes": 1
+    },
+    "138782": {
+      "factor": 0.9318998074210948,
+      "real_quotes": 2
+    },
+    "162369": {
+      "factor": 0.8843118397592094,
+      "real_quotes": 1
+    },
+    "163186": {
+      "factor": 0.9439521700089566,
+      "real_quotes": 1
+    },
+    "163804": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "167936": {
+      "factor": 0.8963390804730345,
+      "real_quotes": 1
+    },
+    "169706": {
+      "factor": 0.9575671705812294,
+      "real_quotes": 1
+    },
+    "171189": {
+      "factor": 0.8551582442394835,
+      "real_quotes": 1
+    },
+    "172294": {
+      "factor": 0.8826677811876711,
+      "real_quotes": 1
+    },
+    "175462": {
+      "factor": 0.9240616078402567,
+      "real_quotes": 1
+    },
+    "178031": {
+      "factor": 0.9470062322859033,
+      "real_quotes": 1
+    },
+    "193290": {
+      "factor": 0.8548118732260616,
+      "real_quotes": 1
+    },
+    "193847": {
+      "factor": 0.9620087691585573,
+      "real_quotes": 1
+    },
+    "199158": {
+      "factor": 0.8650646665192495,
+      "real_quotes": 1
+    },
+    "204638": {
+      "factor": 0.9539264636090174,
+      "real_quotes": 1
+    },
+    "205735": {
+      "factor": 0.9168383373944744,
+      "real_quotes": 1
+    },
+    "216065": {
+      "factor": 0.9475387779282729,
+      "real_quotes": 1
+    },
+    "116368": {
+      "factor": 0.8927214731095403,
+      "real_quotes": 1
+    },
+    "134779": {
+      "factor": 0.9125228292053738,
+      "real_quotes": 1
+    },
+    "137151": {
+      "factor": 0.8572261307125854,
+      "real_quotes": 1
+    },
+    "157716": {
+      "factor": 0.9456431697905537,
+      "real_quotes": 1
+    },
+    "158438": {
+      "factor": 0.9170292392323922,
+      "real_quotes": 1
+    },
+    "159577": {
+      "factor": 0.9034429805183574,
+      "real_quotes": 1
+    },
+    "163083": {
+      "factor": 0.9110612294601642,
+      "real_quotes": 1
+    },
+    "163264": {
+      "factor": 0.9813472303877767,
+      "real_quotes": 2
+    },
+    "171984": {
+      "factor": 0.91352647676953,
+      "real_quotes": 1
+    },
+    "178086": {
+      "factor": 0.9926998543397659,
+      "real_quotes": 1
+    },
+    "178625": {
+      "factor": 0.8993654321495574,
+      "real_quotes": 1
+    },
+    "183353": {
+      "factor": 0.9234277864034854,
+      "real_quotes": 1
+    },
+    "183568": {
+      "factor": 0.9369210342326236,
+      "real_quotes": 1
+    },
+    "188168": {
+      "factor": 0.9629798097988738,
+      "real_quotes": 1
+    },
+    "191210": {
+      "factor": 0.9493249078453176,
+      "real_quotes": 1
+    },
+    "191673": {
+      "factor": 0.9596542944933842,
+      "real_quotes": 1
+    },
+    "192722": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "193171": {
+      "factor": 0.8951660707945562,
+      "real_quotes": 1
+    },
+    "193698": {
+      "factor": 0.8943750379445079,
+      "real_quotes": 1
+    },
+    "199393": {
+      "factor": 0.9016186972295417,
+      "real_quotes": 1
+    },
+    "200408": {
+      "factor": 0.9026263516036886,
+      "real_quotes": 1
+    },
+    "204240": {
+      "factor": 0.9208538021323042,
+      "real_quotes": 1
+    },
+    "209960": {
+      "factor": 0.978804784580025,
+      "real_quotes": 1
+    },
+    "210896": {
+      "factor": 0.8799431965218328,
+      "real_quotes": 1
+    },
+    "216194": {
+      "factor": 0.8822090476641025,
+      "real_quotes": 1
+    },
+    "1178": {
+      "factor": 0.9363476391695392,
+      "real_quotes": 1
+    },
+    "7647": {
+      "factor": 0.8852957413243283,
+      "real_quotes": 1
+    },
+    "52498": {
+      "factor": 0.9029129015530861,
+      "real_quotes": 1
+    },
+    "137114": {
+      "factor": 0.9296361535862085,
+      "real_quotes": 1
+    },
+    "137406": {
+      "factor": 0.8896947299584262,
+      "real_quotes": 1
+    },
+    "137440": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "139038": {
+      "factor": 0.9141401991409347,
+      "real_quotes": 1
+    },
+    "140293": {
+      "factor": 0.851095839875819,
+      "real_quotes": 1
+    },
+    "146058": {
+      "factor": 0.8834710281660786,
+      "real_quotes": 1
+    },
+    "152996": {
+      "factor": 0.8725290314377618,
+      "real_quotes": 1
+    },
+    "159261": {
+      "factor": 0.891780223133634,
+      "real_quotes": 1
+    },
+    "160741": {
+      "factor": 0.9723001552737995,
+      "real_quotes": 1
+    },
+    "163625": {
+      "factor": 0.8978124308257648,
+      "real_quotes": 1
+    },
+    "165501": {
+      "factor": 0.8576207389475202,
+      "real_quotes": 1
+    },
+    "165903": {
+      "factor": 0.944756460052625,
+      "real_quotes": 2
+    },
+    "167933": {
+      "factor": 0.8734735964355635,
+      "real_quotes": 1
+    },
+    "172287": {
+      "factor": 0.9585977763205176,
+      "real_quotes": 1
+    },
+    "181559": {
+      "factor": 0.8731212995696251,
+      "real_quotes": 1
+    },
+    "184873": {
+      "factor": 0.9642051387764042,
+      "real_quotes": 1
+    },
+    "187489": {
+      "factor": 0.8924223281833012,
+      "real_quotes": 1
+    },
+    "188931": {
+      "factor": 0.8685169311979144,
+      "real_quotes": 1
+    },
+    "189506": {
+      "factor": 0.85,
+      "real_quotes": 2
+    },
+    "190671": {
+      "factor": 0.9048204583129648,
+      "real_quotes": 1
+    },
+    "193686": {
+      "factor": 0.856001566899417,
+      "real_quotes": 1
+    },
+    "196432": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "206651": {
+      "factor": 0.9030217550308245,
+      "real_quotes": 1
+    },
+    "207472": {
+      "factor": 0.9602937056454445,
+      "real_quotes": 1
+    },
+    "211354": {
+      "factor": 0.8989530612684473,
+      "real_quotes": 1
+    },
+    "211907": {
+      "factor": 0.8687392359244757,
+      "real_quotes": 1
+    },
+    "116308": {
+      "factor": 0.9530722262336566,
+      "real_quotes": 1
+    },
+    "155976": {
+      "factor": 0.9745405854846872,
+      "real_quotes": 1
+    },
+    "163665": {
+      "factor": 0.8915851106371853,
+      "real_quotes": 1
+    },
+    "168965": {
+      "factor": 0.9091216367921482,
+      "real_quotes": 1
+    },
+    "170988": {
+      "factor": 0.9192251949682719,
+      "real_quotes": 1
+    },
+    "172768": {
+      "factor": 0.9462242311320735,
+      "real_quotes": 1
+    },
+    "173147": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "180284": {
+      "factor": 0.8778561055511617,
+      "real_quotes": 2
+    },
+    "180359": {
+      "factor": 0.9449969030445644,
+      "real_quotes": 1
+    },
+    "182002": {
+      "factor": 0.9827526619580625,
+      "real_quotes": 1
+    },
+    "183188": {
+      "factor": 0.9627494942805004,
+      "real_quotes": 1
+    },
+    "183797": {
+      "factor": 0.8960527425935914,
+      "real_quotes": 1
+    },
+    "184190": {
+      "factor": 1.009946915088558,
+      "real_quotes": 1
+    },
+    "184502": {
+      "factor": 0.8518504015192062,
+      "real_quotes": 1
+    },
+    "184575": {
+      "factor": 0.9228474267782593,
+      "real_quotes": 1
+    },
+    "188654": {
+      "factor": 0.951351506046655,
+      "real_quotes": 1
+    },
+    "188765": {
+      "factor": 0.8805491221811084,
+      "real_quotes": 1
+    },
+    "189043": {
+      "factor": 0.9828502956011839,
+      "real_quotes": 1
+    },
+    "189557": {
+      "factor": 0.9718750813121967,
+      "real_quotes": 1
+    },
+    "189707": {
+      "factor": 0.8641752584066982,
+      "real_quotes": 1
+    },
+    "190196": {
+      "factor": 1.003432357732306,
+      "real_quotes": 1
+    },
+    "191827": {
+      "factor": 0.998049525425974,
+      "real_quotes": 1
+    },
+    "193011": {
+      "factor": 0.9400790297073105,
+      "real_quotes": 1
+    },
+    "193985": {
+      "factor": 0.8568267615194738,
+      "real_quotes": 1
+    },
+    "194203": {
+      "factor": 0.923434739743921,
+      "real_quotes": 1
+    },
+    "195698": {
+      "factor": 0.9296738395169919,
+      "real_quotes": 1
+    },
+    "200677": {
+      "factor": 0.9988297492172512,
+      "real_quotes": 1
+    },
+    "201066": {
+      "factor": 0.9197221904913515,
+      "real_quotes": 1
+    },
+    "201220": {
+      "factor": 0.9488788691600469,
+      "real_quotes": 1
+    },
+    "202848": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "203177": {
+      "factor": 0.9671023826691932,
+      "real_quotes": 1
+    },
+    "207746": {
+      "factor": 0.9640424434548447,
+      "real_quotes": 1
+    },
+    "207894": {
+      "factor": 0.959657829860915,
+      "real_quotes": 1
+    },
+    "208607": {
+      "factor": 0.8953743506577256,
+      "real_quotes": 1
+    },
+    "231942": {
+      "factor": 0.9298795298392316,
+      "real_quotes": 1
+    },
+    "54018": {
+      "factor": 0.974618468411452,
+      "real_quotes": 1
+    },
+    "110974": {
+      "factor": 1.0130051152181871,
+      "real_quotes": 1
+    },
+    "120718": {
+      "factor": 1.0204561165056207,
+      "real_quotes": 1
+    },
+    "123603": {
+      "factor": 0.853426536656502,
+      "real_quotes": 1
+    },
+    "138081": {
+      "factor": 0.9427070813836483,
+      "real_quotes": 1
+    },
+    "138920": {
+      "factor": 0.9938603984359913,
+      "real_quotes": 1
+    },
+    "145889": {
+      "factor": 0.9805441506382973,
+      "real_quotes": 1
+    },
+    "153275": {
+      "factor": 1.0235565826468054,
+      "real_quotes": 1
+    },
+    "172835": {
+      "factor": 0.8933519997285526,
+      "real_quotes": 1
+    },
+    "172953": {
+      "factor": 1.024086013424868,
+      "real_quotes": 1
+    },
+    "177525": {
+      "factor": 0.9967939479844073,
+      "real_quotes": 1
+    },
+    "178490": {
+      "factor": 0.9247579465074157,
+      "real_quotes": 1
+    },
+    "179973": {
+      "factor": 0.9583326741074322,
+      "real_quotes": 1
+    },
+    "182440": {
+      "factor": 0.9539208467856555,
+      "real_quotes": 1
+    },
+    "189701": {
+      "factor": 0.9601838818207095,
+      "real_quotes": 1
+    },
+    "192725": {
+      "factor": 0.9944388764011978,
+      "real_quotes": 1
+    },
+    "199517": {
+      "factor": 1.0117111854546275,
+      "real_quotes": 1
+    },
+    "202410": {
+      "factor": 1.1171428031706674,
+      "real_quotes": 1
+    },
+    "203649": {
+      "factor": 0.8636114617874995,
+      "real_quotes": 1
+    },
+    "212405": {
+      "factor": 1.0019385199961626,
+      "real_quotes": 1
+    },
+    "212800": {
+      "factor": 1.0075405215737274,
+      "real_quotes": 1
+    },
+    "221702": {
+      "factor": 0.8782672430231213,
+      "real_quotes": 1
+    },
+    "156368": {
+      "factor": 0.8744854587783061,
+      "real_quotes": 1
+    },
+    "161468": {
+      "factor": 0.8822058647363525,
+      "real_quotes": 1
+    },
+    "26709": {
+      "factor": 1.0532449015975804,
+      "real_quotes": 1
+    },
+    "165888": {
+      "factor": 1.0200989507926561,
+      "real_quotes": 1
+    },
+    "184942": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "136672": {
+      "factor": 0.9763918226878585,
+      "real_quotes": 1
+    },
+    "155317": {
+      "factor": 0.9801058090022493,
+      "real_quotes": 1
+    },
+    "187688": {
+      "factor": 0.9633681814306712,
+      "real_quotes": 1
+    },
+    "190905": {
+      "factor": 1.0301098312716697,
+      "real_quotes": 1
+    },
+    "191104": {
+      "factor": 1.0169580230872723,
+      "real_quotes": 1
+    },
+    "191910": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "25420": {
+      "factor": 0.9284866772079527,
+      "real_quotes": 1
+    },
+    "138456": {
+      "factor": 0.9494471074796093,
+      "real_quotes": 1
+    },
+    "143119": {
+      "factor": 0.9765983845788697,
+      "real_quotes": 1
+    },
+    "155330": {
+      "factor": 0.995108452964085,
+      "real_quotes": 1
+    },
+    "156375": {
+      "factor": 0.9886654782248903,
+      "real_quotes": 1
+    },
+    "172077": {
+      "factor": 1.0368483757297886,
+      "real_quotes": 1
+    },
+    "191662": {
+      "factor": 1.0331342742565879,
+      "real_quotes": 1
+    },
+    "192202": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "205408": {
+      "factor": 0.855813491944263,
+      "real_quotes": 1
+    },
+    "214196": {
+      "factor": 1.0408521763647915,
+      "real_quotes": 1
+    },
+    "214606": {
+      "factor": 0.9095210748561199,
+      "real_quotes": 1
+    },
+    "214977": {
+      "factor": 0.9546376390423311,
+      "real_quotes": 1
+    },
+    "215061": {
+      "factor": 0.9076290702976345,
+      "real_quotes": 1
+    },
+    "228173": {
+      "factor": 1.1013321907134292,
+      "real_quotes": 1
+    },
+    "136686": {
+      "factor": 1.096696549899443,
+      "real_quotes": 1
+    },
+    "140276": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "152916": {
+      "factor": 1.0044590428025197,
+      "real_quotes": 1
+    },
+    "155352": {
+      "factor": 1.0081077720615357,
+      "real_quotes": 1
+    },
+    "157217": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "159202": {
+      "factor": 0.9397507115072287,
+      "real_quotes": 1
+    },
+    "172018": {
+      "factor": 0.9004711354859467,
+      "real_quotes": 1
+    },
+    "176403": {
+      "factor": 1.1492588259958625,
+      "real_quotes": 1
+    },
+    "189018": {
+      "factor": 1.06975004041419,
+      "real_quotes": 1
+    },
+    "192064": {
+      "factor": 1.0121822914552974,
+      "real_quotes": 1
+    },
+    "192397": {
+      "factor": 1.082571268770264,
+      "real_quotes": 1
+    },
+    "199108": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "199667": {
+      "factor": 1.1385469970072277,
+      "real_quotes": 1
+    },
+    "202911": {
+      "factor": 0.9342379419469498,
+      "real_quotes": 1
+    },
+    "214584": {
+      "factor": 1.028929151866269,
+      "real_quotes": 1
+    },
+    "214603": {
+      "factor": 1.0561327927344466,
+      "real_quotes": 1
+    },
+    "214955": {
+      "factor": 1.0382695730261322,
+      "real_quotes": 1
+    },
+    "216692": {
+      "factor": 0.9568564011829035,
+      "real_quotes": 1
+    },
+    "225811": {
+      "factor": 1.0264474249910283,
+      "real_quotes": 1
+    },
+    "158293": {
+      "factor": 1.0363580492767899,
+      "real_quotes": 1
+    },
+    "163985": {
+      "factor": 0.9251617030744893,
+      "real_quotes": 1
+    },
+    "164082": {
+      "factor": 1.0004618843013933,
+      "real_quotes": 1
+    },
+    "165867": {
+      "factor": 0.9863794735998211,
+      "real_quotes": 1
+    },
+    "169208": {
+      "factor": 0.9117031145099079,
+      "real_quotes": 1
+    },
+    "169210": {
+      "factor": 0.934151029403273,
+      "real_quotes": 1
+    },
+    "171378": {
+      "factor": 1.0055591265327524,
+      "real_quotes": 1
+    },
+    "175253": {
+      "factor": 0.9208668195730363,
+      "real_quotes": 1
+    },
+    "175589": {
+      "factor": 1.0599561366976114,
+      "real_quotes": 1
+    },
+    "176346": {
+      "factor": 1.1304290896440916,
+      "real_quotes": 1
+    },
+    "176368": {
+      "factor": 1.0570597566376763,
+      "real_quotes": 1
+    },
+    "177320": {
+      "factor": 1.0270880533586877,
+      "real_quotes": 1
+    },
+    "181971": {
+      "factor": 1.1409797664374965,
+      "real_quotes": 1
+    },
+    "186551": {
+      "factor": 0.9112144681682608,
+      "real_quotes": 1
+    },
+    "186989": {
+      "factor": 0.9839925090896061,
+      "real_quotes": 1
+    },
+    "187955": {
+      "factor": 1.0338105003005633,
+      "real_quotes": 1
+    },
+    "190523": {
+      "factor": 1.0185621126307756,
+      "real_quotes": 1
+    },
+    "190607": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "191006": {
+      "factor": 1.0655779056607526,
+      "real_quotes": 1
+    },
+    "191915": {
+      "factor": 1.1374085705129082,
+      "real_quotes": 1
+    },
+    "199183": {
+      "factor": 1.112247124628761,
+      "real_quotes": 1
+    },
+    "199236": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "199692": {
+      "factor": 0.9846342565431417,
+      "real_quotes": 1
+    },
+    "200577": {
+      "factor": 1.1097401175448454,
+      "real_quotes": 1
+    },
+    "201528": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "212541": {
+      "factor": 1.0256131507677877,
+      "real_quotes": 1
+    },
+    "221671": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "226377": {
+      "factor": 0.9742016698109066,
+      "real_quotes": 1
+    },
+    "123621": {
+      "factor": 1.0603587734824815,
+      "real_quotes": 1
+    },
+    "142781": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "158309": {
+      "factor": 1.0510576137555396,
+      "real_quotes": 1
+    },
+    "162828": {
+      "factor": 0.8924630673593057,
+      "real_quotes": 1
+    },
+    "165911": {
+      "factor": 1.0395217609924439,
+      "real_quotes": 1
+    },
+    "168883": {
+      "factor": 1.0991858093218838,
+      "real_quotes": 1
+    },
+    "171377": {
+      "factor": 0.9374923672950245,
+      "real_quotes": 1
+    },
+    "177887": {
+      "factor": 1.0140066810148654,
+      "real_quotes": 1
+    },
+    "180279": {
+      "factor": 0.997380582631895,
+      "real_quotes": 1
+    },
+    "182043": {
+      "factor": 1.112497799927062,
+      "real_quotes": 1
+    },
+    "182096": {
+      "factor": 1.0948646282978918,
+      "real_quotes": 1
+    },
+    "182411": {
+      "factor": 1.0658852947026656,
+      "real_quotes": 1
+    },
+    "183892": {
+      "factor": 1.0414647402259614,
+      "real_quotes": 1
+    },
+    "187029": {
+      "factor": 0.8515205645717107,
+      "real_quotes": 1
+    },
+    "189884": {
+      "factor": 0.8727068314157903,
+      "real_quotes": 1
+    },
+    "191256": {
+      "factor": 0.991818495993354,
+      "real_quotes": 1
+    },
+    "195031": {
+      "factor": 1.0363090693759094,
+      "real_quotes": 1
+    },
+    "197503": {
+      "factor": 0.8702328691201973,
+      "real_quotes": 1
+    },
+    "199235": {
+      "factor": 0.9823302943508545,
+      "real_quotes": 1
+    },
+    "199576": {
+      "factor": 1.08233097526043,
+      "real_quotes": 1
+    },
+    "200672": {
+      "factor": 1.0431732068135064,
+      "real_quotes": 1
+    },
+    "208618": {
+      "factor": 1.0700016354060558,
+      "real_quotes": 1
+    },
+    "209834": {
+      "factor": 1.101408384928644,
+      "real_quotes": 1
+    },
+    "210140": {
+      "factor": 0.9429467958989116,
+      "real_quotes": 1
+    },
+    "210147": {
+      "factor": 1.0577216879862776,
+      "real_quotes": 1
+    },
+    "210281": {
+      "factor": 0.9075206194703066,
+      "real_quotes": 1
+    },
+    "211077": {
+      "factor": 0.9795517757463483,
+      "real_quotes": 1
+    },
+    "214369": {
+      "factor": 0.9876294296021767,
+      "real_quotes": 1
+    },
+    "225356": {
+      "factor": 0.9813286545450264,
+      "real_quotes": 1
+    },
+    "225646": {
+      "factor": 1.0374183411186724,
+      "real_quotes": 1
+    },
+    "232831": {
+      "factor": 1.0815036143579835,
+      "real_quotes": 1
+    },
+    "152997": {
+      "factor": 0.8692119816457065,
+      "real_quotes": 1
+    },
+    "156120": {
+      "factor": 0.9428262602092207,
+      "real_quotes": 1
+    },
+    "158595": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "177644": {
+      "factor": 1.1381011133273315,
+      "real_quotes": 1
+    },
+    "177877": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "179681": {
+      "factor": 0.9094989793173338,
+      "real_quotes": 1
+    },
+    "182122": {
+      "factor": 1.0484508356756053,
+      "real_quotes": 1
+    },
+    "182473": {
+      "factor": 1.0426549453076657,
+      "real_quotes": 1
+    },
+    "186307": {
+      "factor": 0.9710838905219906,
+      "real_quotes": 1
+    },
+    "188803": {
+      "factor": 1.0518034237159068,
+      "real_quotes": 1
+    },
+    "190584": {
+      "factor": 1.0008079444987068,
+      "real_quotes": 1
+    },
+    "193165": {
+      "factor": 0.9557198057658741,
+      "real_quotes": 1
+    },
+    "199218": {
+      "factor": 0.9718439392794527,
+      "real_quotes": 1
+    },
+    "199245": {
+      "factor": 0.8640538893281257,
+      "real_quotes": 1
+    },
+    "200197": {
+      "factor": 0.8535176889500229,
+      "real_quotes": 1
+    },
+    "200206": {
+      "factor": 0.953471302074469,
+      "real_quotes": 1
+    },
+    "202515": {
+      "factor": 1.0635452741107623,
+      "real_quotes": 1
+    },
+    "209758": {
+      "factor": 1.0309703224683688,
+      "real_quotes": 1
+    },
+    "210028": {
+      "factor": 0.9703241173167948,
+      "real_quotes": 1
+    },
+    "210783": {
+      "factor": 0.9528075197793201,
+      "real_quotes": 1
+    },
+    "210786": {
+      "factor": 1.0302861428996972,
+      "real_quotes": 1
+    },
+    "212037": {
+      "factor": 0.8809169237007979,
+      "real_quotes": 1
+    },
+    "213321": {
+      "factor": 1.0531296431224986,
+      "real_quotes": 1
+    },
+    "213899": {
+      "factor": 1.074133858500326,
+      "real_quotes": 1
+    },
+    "214384": {
+      "factor": 1.0193705131597763,
+      "real_quotes": 1
+    },
+    "215353": {
+      "factor": 1.037774734244361,
+      "real_quotes": 1
+    },
+    "219862": {
+      "factor": 0.8847309111606164,
+      "real_quotes": 1
+    },
+    "223826": {
+      "factor": 1.0872797599509354,
+      "real_quotes": 1
+    },
+    "136504": {
+      "factor": 1.0711633581229754,
+      "real_quotes": 1
+    },
+    "155351": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "169600": {
+      "factor": 1.1209562769887804,
+      "real_quotes": 1
+    },
+    "186488": {
+      "factor": 0.9420185624226927,
+      "real_quotes": 1
+    },
+    "186513": {
+      "factor": 0.9718403590184459,
+      "real_quotes": 1
+    },
+    "194644": {
+      "factor": 1.109013757557109,
+      "real_quotes": 1
+    },
+    "197496": {
+      "factor": 0.8803189504775947,
+      "real_quotes": 1
+    },
+    "202399": {
+      "factor": 0.9230356619120071,
+      "real_quotes": 1
+    },
+    "202748": {
+      "factor": 1.082583148616389,
+      "real_quotes": 1
+    },
+    "202989": {
+      "factor": 1.1007455115822375,
+      "real_quotes": 1
+    },
+    "208322": {
+      "factor": 0.8547338280439722,
+      "real_quotes": 1
+    },
+    "210133": {
+      "factor": 0.9252642546176277,
+      "real_quotes": 1
+    },
+    "216520": {
+      "factor": 0.9349587517001103,
+      "real_quotes": 1
+    },
+    "112392": {
+      "factor": 0.9813022279463707,
+      "real_quotes": 1
+    },
+    "140526": {
+      "factor": 1.1142357975776385,
+      "real_quotes": 1
+    },
+    "158305": {
+      "factor": 0.9190920693321323,
+      "real_quotes": 1
+    },
+    "162892": {
+      "factor": 0.8508224808005687,
+      "real_quotes": 1
+    },
+    "165496": {
+      "factor": 0.8990276762516806,
+      "real_quotes": 1
+    },
+    "170370": {
+      "factor": 1.0278226286244505,
+      "real_quotes": 1
+    },
+    "176894": {
+      "factor": 0.9190386945491043,
+      "real_quotes": 1
+    },
+    "179840": {
+      "factor": 1.0938222646107598,
+      "real_quotes": 1
+    },
+    "182045": {
+      "factor": 1.0825981077014053,
+      "real_quotes": 1
+    },
+    "184900": {
+      "factor": 1.0708976742629037,
+      "real_quotes": 1
+    },
+    "188044": {
+      "factor": 0.9558941993956238,
+      "real_quotes": 1
+    },
+    "190651": {
+      "factor": 0.8815364445461991,
+      "real_quotes": 1
+    },
+    "192476": {
+      "factor": 0.9197007675087415,
+      "real_quotes": 1
+    },
+    "194727": {
+      "factor": 0.9745667866938621,
+      "real_quotes": 1
+    },
+    "199238": {
+      "factor": 1.0640124888774758,
+      "real_quotes": 1
+    },
+    "210790": {
+      "factor": 1.02282754798059,
+      "real_quotes": 1
+    },
+    "214091": {
+      "factor": 1.0121082237578236,
+      "real_quotes": 1
+    },
+    "214545": {
+      "factor": 1.0469652864131331,
+      "real_quotes": 1
+    },
+    "215111": {
+      "factor": 0.9216598498171246,
+      "real_quotes": 1
+    },
+    "215183": {
+      "factor": 1.061599682397317,
+      "real_quotes": 1
+    },
+    "221551": {
+      "factor": 0.9804445851485365,
+      "real_quotes": 1
+    },
+    "224230": {
+      "factor": 0.925743894999896,
+      "real_quotes": 1
+    },
+    "137854": {
+      "factor": 0.953130382381832,
+      "real_quotes": 1
+    },
+    "176296": {
+      "factor": 0.9334276991421346,
+      "real_quotes": 1
+    },
+    "176347": {
+      "factor": 1.103196507250645,
+      "real_quotes": 1
+    },
+    "176392": {
+      "factor": 0.8629082178235832,
+      "real_quotes": 1
+    },
+    "176846": {
+      "factor": 1.003540766331222,
+      "real_quotes": 1
+    },
+    "187073": {
+      "factor": 0.9024386334068472,
+      "real_quotes": 1
+    },
+    "192457": {
+      "factor": 0.8979616802908226,
+      "real_quotes": 1
+    },
+    "200752": {
+      "factor": 1.1222652612553603,
+      "real_quotes": 1
+    },
+    "205285": {
+      "factor": 1.0342246856248671,
+      "real_quotes": 1
+    },
+    "209068": {
+      "factor": 1.1349203840690967,
+      "real_quotes": 1
+    },
+    "210141": {
+      "factor": 0.8565692676404901,
+      "real_quotes": 1
+    },
+    "210144": {
+      "factor": 0.955545248975953,
+      "real_quotes": 1
+    },
+    "210149": {
+      "factor": 1.0568241449504685,
+      "real_quotes": 1
+    },
+    "211173": {
+      "factor": 1.0861110595552674,
+      "real_quotes": 1
+    },
+    "212214": {
+      "factor": 0.9765790474349161,
+      "real_quotes": 1
+    },
+    "212347": {
+      "factor": 1.1328394763085479,
+      "real_quotes": 1
+    },
+    "215020": {
+      "factor": 0.9198331281448833,
+      "real_quotes": 1
+    },
+    "221801": {
+      "factor": 0.9818878700917463,
+      "real_quotes": 1
+    },
+    "221859": {
+      "factor": 0.9407842670634575,
+      "real_quotes": 1
+    },
+    "224478": {
+      "factor": 1.0028199553551669,
+      "real_quotes": 1
+    },
+    "155340": {
+      "factor": 0.8980159980970569,
+      "real_quotes": 1
+    },
+    "155383": {
+      "factor": 0.9065649807114776,
+      "real_quotes": 1
+    },
+    "169112": {
+      "factor": 0.8744511170425865,
+      "real_quotes": 1
+    },
+    "169586": {
+      "factor": 0.9580845470917974,
+      "real_quotes": 1
+    },
+    "169590": {
+      "factor": 0.9798969550788013,
+      "real_quotes": 1
+    },
+    "172620": {
+      "factor": 0.8809739451700322,
+      "real_quotes": 1
+    },
+    "178565": {
+      "factor": 1.0010044577412849,
+      "real_quotes": 1
+    },
+    "186999": {
+      "factor": 0.8810834851437495,
+      "real_quotes": 1
+    },
+    "187447": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "191669": {
+      "factor": 1.0831111038003585,
+      "real_quotes": 1
+    },
+    "191819": {
+      "factor": 1.0248700750813593,
+      "real_quotes": 1
+    },
+    "191934": {
+      "factor": 0.8759268960901309,
+      "real_quotes": 1
+    },
+    "191937": {
+      "factor": 1.0894688613436687,
+      "real_quotes": 1
+    },
+    "192205": {
+      "factor": 0.8890264818125929,
+      "real_quotes": 1
+    },
+    "192766": {
+      "factor": 1.026979056915079,
+      "real_quotes": 1
+    },
+    "193336": {
+      "factor": 0.9435075962474048,
+      "real_quotes": 1
+    },
+    "193337": {
+      "factor": 1.1229241168409025,
+      "real_quotes": 1
+    },
+    "197786": {
+      "factor": 1.008430499167827,
+      "real_quotes": 1
+    },
+    "197971": {
+      "factor": 0.9332669727926317,
+      "real_quotes": 1
+    },
+    "199575": {
+      "factor": 0.9368497907948131,
+      "real_quotes": 1
+    },
+    "200560": {
+      "factor": 0.9305808390514397,
+      "real_quotes": 1
+    },
+    "212747": {
+      "factor": 0.8861751872961089,
+      "real_quotes": 1
+    },
+    "214047": {
+      "factor": 0.9667894300035506,
+      "real_quotes": 1
+    },
+    "214358": {
+      "factor": 0.8955260751854708,
+      "real_quotes": 1
+    },
+    "214582": {
+      "factor": 0.9455967294332337,
+      "real_quotes": 1
+    },
+    "214608": {
+      "factor": 0.9358428302800557,
+      "real_quotes": 1
+    },
+    "219836": {
+      "factor": 1.017618705291308,
+      "real_quotes": 1
+    },
+    "221639": {
+      "factor": 1.0400845701474644,
+      "real_quotes": 1
+    },
+    "221763": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "222665": {
+      "factor": 1.0245870029645494,
+      "real_quotes": 1
+    },
+    "226161": {
+      "factor": 1.007081494167687,
+      "real_quotes": 1
+    },
+    "228635": {
+      "factor": 1.126896878462328,
+      "real_quotes": 1
+    },
+    "169708": {
+      "factor": 1.0296949645084594,
+      "real_quotes": 1
+    },
+    "198891": {
+      "factor": 1.0687890769666002,
+      "real_quotes": 1
+    },
+    "202966": {
+      "factor": 1.1444626770741502,
+      "real_quotes": 1
+    },
+    "207629": {
+      "factor": 1.129596828874996,
+      "real_quotes": 1
+    },
+    "210019": {
+      "factor": 0.954203138216179,
+      "real_quotes": 1
+    },
+    "210020": {
+      "factor": 0.9715820691630933,
+      "real_quotes": 1
+    },
+    "210615": {
+      "factor": 1.0995784779907034,
+      "real_quotes": 1
+    },
+    "211234": {
+      "factor": 0.9640891237621265,
+      "real_quotes": 1
+    },
+    "213648": {
+      "factor": 1.1158964899964767,
+      "real_quotes": 1
+    },
+    "215792": {
+      "factor": 1.0262429082272224,
+      "real_quotes": 1
+    },
+    "216736": {
+      "factor": 1.1035398400747787,
+      "real_quotes": 1
+    },
+    "217050": {
+      "factor": 0.934626039547093,
+      "real_quotes": 1
+    },
+    "219413": {
+      "factor": 1.0348329886731775,
+      "real_quotes": 1
+    },
+    "220695": {
+      "factor": 0.99065603385082,
+      "real_quotes": 1
+    },
+    "222041": {
+      "factor": 0.9396873917983285,
+      "real_quotes": 1
+    },
+    "226576": {
+      "factor": 0.9161628497598657,
+      "real_quotes": 1
+    },
+    "227982": {
+      "factor": 1.1228115711268993,
+      "real_quotes": 1
+    },
+    "229658": {
+      "factor": 0.9170639936500378,
+      "real_quotes": 1
+    },
+    "231366": {
+      "factor": 0.9959257723085873,
+      "real_quotes": 1
+    },
+    "231856": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "235317": {
+      "factor": 0.9090956005278442,
+      "real_quotes": 1
+    },
+    "181468": {
+      "factor": 0.9693708076608193,
+      "real_quotes": 1
+    },
+    "191653": {
+      "factor": 1.0657643051141568,
+      "real_quotes": 1
+    },
+    "200488": {
+      "factor": 1.10462266149793,
+      "real_quotes": 1
+    },
+    "201026": {
+      "factor": 1.0736173315445183,
+      "real_quotes": 1
+    },
+    "202099": {
+      "factor": 1.134940827145824,
+      "real_quotes": 1
+    },
+    "203038": {
+      "factor": 1.0264784982075699,
+      "real_quotes": 1
+    },
+    "205897": {
+      "factor": 1.120167556723073,
+      "real_quotes": 1
+    },
+    "206534": {
+      "factor": 1.0131646227418816,
+      "real_quotes": 1
+    },
+    "187275": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "210785": {
+      "factor": 0.9655419183900015,
+      "real_quotes": 1
+    },
+    "212039": {
+      "factor": 0.9723110547779208,
+      "real_quotes": 1
+    },
+    "221798": {
+      "factor": 0.9408200845838446,
+      "real_quotes": 1
+    },
+    "228067": {
+      "factor": 1.1247551509790468,
+      "real_quotes": 1
+    },
+    "231939": {
+      "factor": 1.0758386299798703,
+      "real_quotes": 1
+    },
+    "232825": {
+      "factor": 0.9429978870987933,
+      "real_quotes": 1
+    },
+    "228526": {
+      "factor": 1.1185139630092906,
+      "real_quotes": 1
+    },
+    "232997": {
+      "factor": 1.107732652968849,
+      "real_quotes": 1
+    },
+    "232998": {
+      "factor": 0.9493564372173081,
+      "real_quotes": 1
+    },
+    "234954": {
+      "factor": 1.0257398475827568,
+      "real_quotes": 1
+    },
+    "230025": {
+      "factor": 1.0282497220717448,
+      "real_quotes": 1
+    },
+    "230026": {
+      "factor": 1.0567903202167284,
+      "real_quotes": 1
+    },
+    "230024": {
+      "factor": 1.15,
+      "real_quotes": 1
+    },
+    "36": {
+      "factor": 1.0764399709318824,
+      "real_quotes": 1
+    },
+    "39943": {
+      "factor": 1.15,
+      "real_quotes": 2
+    },
+    "53019": {
+      "factor": 1.1037350800256198,
+      "real_quotes": 1
+    },
+    "239": {
+      "factor": 0.9851530212066161,
+      "real_quotes": 1
+    },
+    "7489": {
+      "factor": 0.8805790796277266,
+      "real_quotes": 1
+    },
+    "138161": {
+      "factor": 0.8732313246526106,
+      "real_quotes": 1
+    },
+    "999921": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "136285": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "32743": {
+      "factor": 0.9032133308126498,
+      "real_quotes": 1
+    },
+    "140053": {
+      "factor": 0.85,
+      "real_quotes": 1
+    },
+    "19580": {
+      "factor": 0.9956503897159835,
+      "real_quotes": 1
+    },
+    "136600": {
+      "factor": 0.9007214932347918,
+      "real_quotes": 1
+    },
+    "136594": {
+      "factor": 1.0690679864661146,
+      "real_quotes": 1
+    },
+    "136299": {
+      "factor": 0.9810234287906686,
+      "real_quotes": 1
+    },
+    "136606": {
+      "factor": 0.9774732645346818,
+      "real_quotes": 1
+    },
+    "136743": {
+      "factor": 1.02237419127066,
+      "real_quotes": 1
+    },
+    "136391": {
+      "factor": 1.0648066607692612,
+      "real_quotes": 1
+    },
+    "136445": {
+      "factor": 1.0765952265119332,
+      "real_quotes": 1
+    },
+    "136454": {
+      "factor": 1.1008513998715106,
+      "real_quotes": 1
+    },
+    "139500": {
+      "factor": 1.15,
+      "real_quotes": 1
+    }
+  },
+  "weakfoot_score_per_star": 1.0,
+  "skill_score_per_star": 1.0,
+  "currency_scale": 16.423450550456806,
+  "currency_anchor_identities": 15
+}

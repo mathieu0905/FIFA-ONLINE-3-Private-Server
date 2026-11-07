@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin FO3ID</title>
+<style>
+  :root {
+    --page: #1a2530; --panel: #223140; --panel-2: #2a3b4c; --line: #34495d;
+    --ink: #e8eef4; --mute: #91a4b6; --gold: #f2c200; --gold-ink: #1a1400;
+    --ep: #5aa91a; --pc: #2563c6; --vip: #b81d24; --res: #2f8f3a; --danger: #d4483e;
+    --radius: 3px;
+    font-family: Bahnschrift, "DIN Alternate", "Arial Narrow", "Segoe UI", sans-serif;
+    font-variant-numeric: tabular-nums;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font-size: 15px; line-height: 1.45; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  /* top bar: the in-game HUD strip */
+  .hud { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 12px 20px;
+         background: #13202b; border-bottom: 2px solid var(--gold); }
+  .hud h1 { margin: 0; font-size: 20px; font-weight: 600; font-stretch: condensed; letter-spacing: .01em; }
+  .hud .who { display: flex; align-items: center; gap: 8px; color: var(--mute); }
+  .badge { display: inline-block; padding: 1px 6px; border-radius: 2px; font-size: 12px; font-weight: 700; color: #fff; }
+  .badge.pc { background: var(--pc); } .badge.vip { background: var(--vip); }
+  .wallet { margin-left: auto; display: flex; align-items: baseline; gap: 8px; }
+  .coin { width: 14px; height: 14px; border-radius: 50%; background: var(--ep); box-shadow: inset 0 0 0 2px #2f6a06; align-self: center; }
+  .wallet strong { font-size: 30px; font-weight: 600; font-stretch: condensed; color: #8fd14f; }
+  .wallet small { color: var(--mute); }
+
+  .shell { display: grid; grid-template-columns: 210px 1fr; min-height: calc(100vh - 62px); }
+  nav { background: #1e2c38; border-right: 1px solid var(--line); padding: 12px 0; }
+  nav button { display: block; width: 100%; text-align: left; padding: 10px 20px; border: 0; background: none;
+               border-left: 3px solid transparent; cursor: pointer; color: var(--mute); }
+  nav button:hover { color: var(--ink); background: #243443; }
+  nav button[aria-selected="true"] { color: var(--ink); border-left-color: var(--gold); background: #263749; }
+  main { padding: 20px 24px 40px; max-width: 1180px; min-width: 0; }
+  section[hidden] { display: none; }
+  h2 { margin: 0 0 4px; font-size: 22px; font-weight: 600; font-stretch: condensed; }
+  .lead { margin: 0 0 18px; color: var(--mute); max-width: 72ch; }
+  h3 { margin: 24px 0 8px; font-size: 16px; font-weight: 600; }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); margin: 0 1px 1px 0; }
+  .facts div { background: var(--panel); padding: 12px 14px; border: 1px solid var(--line); margin: 0 -1px -1px 0; }
+  .facts dt { color: var(--mute); font-size: 13px; }
+  .facts dd { margin: 2px 0 0; font-size: 22px; font-weight: 600; font-stretch: condensed; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin: 8px 0; }
+  label.f { display: grid; gap: 3px; font-size: 13px; color: var(--mute); }
+  label.check { display: flex; gap: 6px; align-items: center; color: var(--mute); font-size: 14px; }
+  input, select, textarea { background: #172330; border: 1px solid var(--line); border-radius: var(--radius); padding: 7px 9px; min-width: 0; }
+  input[type=number] { width: 130px; }
+  input.wide, textarea.wide { width: min(360px, 100%); }
+  input[type=checkbox] { padding: 0; }
+  button.b { border: 1px solid var(--line); background: var(--panel-2); border-radius: var(--radius); padding: 7px 12px; cursor: pointer; }
+  button.b:hover { border-color: var(--mute); }
+  button.b.primary { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); font-weight: 600; }
+  button.b.danger { color: #ffb4ad; border-color: #6b3330; }
+  button.b.small { padding: 3px 8px; font-size: 13px; }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-weight: 500; color: var(--mute); background: #1d2a36; padding: 8px 10px; white-space: nowrap; }
+  td { padding: 6px 10px; border-top: 1px solid var(--line); vertical-align: middle; }
+  tr:hover td { background: #2636454d; }
+  td.num, th.num { text-align: right; }
+  .chip { display: inline-block; min-width: 46px; text-align: center; padding: 1px 6px; border-radius: 2px; font-size: 12px; font-weight: 700; background: #3a4b5c; }
+  .chip.SUB { background: #2d3d4c; color: #c9d6e2; } .chip.RES { background: var(--res); color: #fff; }
+  .chip.t2 { background: #6b5a1a; color: #fbe7a1; }
+  .chip.new { background: var(--gold); color: var(--gold-ink); } .chip.changed { background: #2563c6; color: #fff; }
+  .muted { color: var(--mute); }
+
+  .status { position: sticky; top: 0; z-index: 2; margin: -20px -24px 16px; padding: 8px 24px; min-height: 36px;
+            background: #172430; border-bottom: 1px solid var(--line); color: var(--mute); }
+  .status.ok { color: #9fe06a; } .status.err { color: #ffb4ad; }
+  pre.log { margin: 0; padding: 12px; max-height: 60vh; overflow: auto; font: 12px/1.5 Consolas, "Cascadia Mono", monospace;
+            background: #111b24; border: 1px solid var(--line); border-radius: var(--radius); white-space: pre-wrap; word-break: break-all; }
+
+  /* Shop: sub-tabs, product icons, editor, icon picker */
+  .seg { display: flex; flex-wrap: wrap; gap: 0; margin: 12px 0; border-bottom: 1px solid var(--line); }
+  .seg button { border: 0; background: none; padding: 8px 14px; cursor: pointer; color: var(--mute); border-bottom: 3px solid transparent; margin-bottom: -1px; }
+  .seg button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--gold); }
+  img.ico { width: 40px; height: 40px; object-fit: contain; display: block; background: #13202b; border-radius: 2px; }
+  td.ico { width: 56px; }
+  input.price { width: 120px; }
+  .hiddenrow td { opacity: .55; }
+  dialog { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius);
+           padding: 0; width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 48px); }
+  dialog::backdrop { background: #0008; }
+  dialog .head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px;
+                 border-bottom: 1px solid var(--line); background: #1d2a36; position: sticky; top: 0; z-index: 1; }
+  dialog .head h3 { margin: 0; }
+  dialog .body { padding: 14px 18px 18px; }
+  dialog .foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--line); }
+  .grid2 { align-items: start; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px 14px; }
+  dialog .body > label.f { margin-top: 14px; }
+  .pick { display: flex; align-items: center; gap: 10px; }
+  .seasons { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 4px 10px; max-height: 180px;
+             overflow: auto; padding: 8px; border: 1px solid var(--line); border-radius: var(--radius); background: #172330; }
+  .rows .r { display: flex; flex-wrap: wrap; gap: 6px; align-items: end; margin: 4px 0; }
+  .rows select { max-width: 320px; }
+  .icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; }
+  .icons button { display: grid; justify-items: center; gap: 2px; padding: 6px 4px; border: 1px solid var(--line);
+                  border-radius: var(--radius); background: #172330; cursor: pointer; font-size: 11px; color: var(--mute); word-break: break-all; }
+  .icons button:hover, .icons button[aria-pressed="true"] { border-color: var(--gold); color: var(--ink); }
+  .icons img { width: 56px; height: 56px; object-fit: contain; }
+  .listbox { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+  .tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 4px 2px 8px; border: 1px solid var(--line);
+         border-radius: 2px; background: #172330; font-size: 13px; }
+  .tag button { border: 0; background: none; cursor: pointer; color: var(--mute); padding: 0 4px; }
+  .tag button:hover { color: #ffb4ad; }
+
+  @media (max-width: 760px) {
+    .shell { grid-template-columns: 1fr; }
+    nav { display: flex; overflow-x: auto; padding: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+    nav button { width: auto; white-space: nowrap; border-left: 0; border-bottom: 3px solid transparent; padding: 10px 14px; }
+    nav button[aria-selected="true"] { border-bottom-color: var(--gold); }
+    main { padding: 16px; }
+    .status { margin: -16px -16px 12px; padding: 8px 16px; }
+    .wallet { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: no-preference) { nav button, .seg button { transition: background .12s, color .12s; } }
+</style>
+</head>
+<body>
+<header class="hud">
+  <h1>FO3ID admin</h1>
+  <span class="who"><span id="coachName">…</span><span class="badge pc">PC</span><span class="badge vip">VIP</span></span>
+  <span class="muted" id="serverTime"></span>
+  <div class="wallet" data-i18n-aria="ep_balance"><span class="coin" aria-hidden="true"></span><strong id="epTop">…</strong><small>EP</small></div>
+  <select id="lang" data-i18n-aria="language"></select>
+</header>
+
+<div class="shell">
+  <nav role="tablist" data-i18n-aria="menu">
+    <button role="tab" data-tab="ringkasan" aria-selected="true" data-i18n="nav_ringkasan"></button>
+    <button role="tab" data-tab="pemain" data-i18n="nav_pemain"></button>
+    <button role="tab" data-tab="database">全库球员数据库</button>
+    <button role="tab" data-tab="tambah" data-i18n="nav_tambah"></button>
+    <button role="tab" data-tab="item" data-i18n="nav_item"></button>
+    <button role="tab" data-tab="shop" data-i18n="nav_shop"></button>
+    <button role="tab" data-tab="enhancement">强化概率设置</button>
+    <button role="tab" data-tab="harian" data-i18n="nav_harian"></button>
+    <button role="tab" data-tab="scout" data-i18n="nav_scout"></button>
+    <button role="tab" data-tab="log" data-i18n="nav_log"></button>
+  </nav>
+
+  <main>
+    <div class="status" id="status" role="status" aria-live="polite" data-i18n="status_default"></div>
+    <button type="button" class="b" id="adminDiscardRejected" hidden>放弃已明确拒绝的发放</button>
+
+    <section id="ringkasan">
+      <h2 data-i18n="sum_title"></h2>
+      <p class="lead" data-i18n="sum_lead"></p>
+      <dl class="facts" id="facts"></dl>
+      <h3 data-i18n="ep_title"></h3>
+      <form class="row" id="epForm">
+        <label class="f"><span data-i18n="amount"></span><input type="text" id="epValue" inputmode="numeric" pattern="[0-9]+" required></label>
+        <button class="b primary" data-mode="add" data-i18n="ep_add"></button>
+        <button class="b" data-mode="sub" data-i18n="ep_sub"></button>
+        <button class="b" data-mode="set" data-i18n="ep_set"></button>
+      </form>
+      <h3 data-i18n="cash_title"></h3>
+      <form class="row" id="cashForm">
+        <label class="f"><span data-i18n="amount"></span><input type="number" id="cashValue" min="0" step="1" required></label>
+        <button type="button" class="b primary" data-cash="add" data-i18n="cash_add"></button>
+        <button type="button" class="b" data-cash="sub" data-i18n="cash_sub"></button>
+        <button type="button" class="b" data-cash="set" data-i18n="cash_set"></button>
+      </form>
+    </section>
+
+    <section id="enhancement" hidden>
+      <h2>强化概率设置</h2>
+      <p class="lead">按目标卡当前等级设置合卡基础成功率。保存后立即生效，重启后保留；不影响卡包出卡概率。</p>
+      <p class="muted">材料卡倍率与已有道具效果保留；当前 +13 起，强化点数按材料加成后的基础成功率相对提高 10%，低档仍加 10 个百分点，最终最高 100%。+0 材料保留原等级且必定成功；+20 满级。</p>
+      <p class="muted">失败：+5 及以下保级，普通失败最多掉一级且不跌破 +5、+10。保护选项按当前身价 40% 收费并保级，替代普通手续费；普通手续费为当前身价 2%，最低 1000 BP。+10 阶段线无需另买保护。+11 至 +20 的身价升级倍率逐步由 1.25 提高至 3.2 倍；不改变旧包卡池/概率和已成交合同。</p>
+      <form id="enhancementForm">
+        <div class="table-wrap"><table>
+          <thead><tr><th>合卡等级</th><th>基础成功率（%）</th><th>新版默认值（%）</th></tr></thead>
+          <tbody id="enhancementRows"></tbody>
+        </table></div>
+        <div class="row">
+          <button class="b primary" id="enhancementSave" disabled>保存并立即生效</button>
+          <button type="button" class="b" id="enhancementReload">重新加载</button>
+          <button type="button" class="b" id="enhancementDefaults" disabled>填入默认值</button>
+        </div>
+        <p class="muted">填入默认值后需点击保存。重新加载会放弃未保存的编辑；多个页面同时修改时会提示重新加载。</p>
+      </form>
+    </section>
+
+    <section id="database" hidden>
+      <iframe title="全库球员数据库" src="/database" style="width:100%;height:calc(100vh - 150px);min-height:650px;border:0"></iframe>
+    </section>
+
+    <section id="pemain" hidden>
+      <h2 data-i18n="nav_pemain"></h2>
+      <p class="lead" data-i18n="pl_lead"></p>
+      <div class="row">
+        <label class="f"><span data-i18n="pl_filter"></span><input class="wide" id="playerFilter" data-i18n-ph="ph_player"></label>
+        <button class="b" id="team2Clear" data-i18n="pl_team2_clear"></button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th data-i18n="th_role"></th><th data-i18n="th_name"></th><th class="num" data-i18n="th_season"></th><th class="num">OVR</th><th data-i18n="grade"></th><th class="num" data-i18n="th_value"></th><th data-i18n="th_team"></th><th></th></tr></thead>
+        <tbody id="playerRows"></tbody>
+      </table></div>
+    </section>
+
+    <section id="tambah" hidden>
+      <h2 data-i18n="nav_tambah"></h2>
+      <p class="lead" data-i18n="add_lead"></p>
+      <form class="row" id="searchForm">
+        <label class="f"><span data-i18n="add_name"></span><input class="wide" id="searchQ" minlength="2" data-i18n-ph="ph_messi" required></label>
+        <label class="f"><span data-i18n="grade"></span><select id="searchGrade"></select></label>
+        <button class="b primary" data-i18n="search"></button>
+      </form>
+      <div class="table-wrap"><table>
+        <thead><tr><th data-i18n="th_name"></th><th class="num" data-i18n="th_season"></th><th data-i18n="th_pos"></th><th class="num">OVR</th><th class="num" data-i18n="th_value"></th><th data-i18n="th_market"></th><th></th></tr></thead>
+        <tbody id="searchRows"><tr><td colspan="7" class="muted" data-i18n="add_hint"></td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section id="item" hidden>
+      <h2 data-i18n="item_title"></h2>
+      <p class="lead" data-i18n="item_lead"></p>
+      <h3 data-i18n="item_give"></h3>
+      <form class="row" id="packForm">
+        <label class="f"><span data-i18n="f_item"></span><select id="packSel"></select></label>
+        <label class="f"><span data-i18n="count"></span><input type="number" id="packCount" min="1" max="999" value="1"></label>
+        <button class="b primary" data-i18n="item_give_btn"></button>
+      </form>
+      <h3 data-i18n="bag_title"></h3>
+      <form class="row" id="bagForm">
+        <label class="f"><span data-i18n="title"></span><input class="wide" id="bagTitle" value="Hadiah admin" maxlength="60"></label>
+        <label class="f">EP<input type="number" id="bagEp" min="0" step="1000" value="0"></label>
+        <label class="f"><span data-i18n="pack"></span><select id="bagPack"></select></label>
+        <label class="f"><span data-i18n="pack_count"></span><input type="number" id="bagCount" min="1" max="999" value="1"></label>
+        <label class="f"><span data-i18n="bag_spid"></span><input type="number" id="bagSpid" data-i18n-ph="ph_optional"></label>
+        <label class="f"><span data-i18n="grade"></span><select id="bagGrade"></select></label>
+        <button class="b primary" data-i18n="bag_send"></button>
+      </form>
+    </section>
+
+    <section id="shop" hidden>
+      <h2 data-i18n="nav_shop"></h2>
+      <p class="lead" id="shopLead"></p>
+      <div class="row">
+        <label class="check" hidden><input type="checkbox" id="shopFree" disabled> <span data-i18n="shop_free"></span></label>
+        <span class="muted" data-i18n="shop_free_note"></span>
+      </div>
+      <div class="seg" role="tablist" id="shopTabs">
+        <button role="tab" data-kind="packs" aria-selected="true" data-i18n="kind_packs_tab"></button>
+        <button role="tab" data-kind="items" data-i18n="kind_items_tab"></button>
+        <button role="tab" data-kind="packages" data-i18n="kind_packages_tab"></button>
+        <button role="tab" data-kind="monthly" data-i18n="kind_monthly_tab"></button>
+        <button role="tab" data-kind="lists" data-i18n="kind_lists_tab"></button>
+      </div>
+      <div id="shopProducts">
+        <div class="row">
+          <button class="b primary" id="shopNew"></button>
+          <label class="f"><span data-i18n="shop_filter"></span><input class="wide" id="shopFilter" data-i18n-ph="ph_shop_filter"></label>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th data-i18n="th_icon"></th><th data-i18n="th_name"></th><th class="num">itemid</th><th data-i18n="th_source"></th>
+                     <th class="num" data-i18n="th_shop_price"></th><th data-i18n="th_fixed_price"></th><th data-i18n="th_shown"></th><th></th></tr></thead>
+          <tbody id="shopRows"></tbody>
+        </table></div>
+      </div>
+      <div id="shopLists" hidden>
+        <p class="lead" data-i18n="lists_lead"></p>
+        <div id="listEditors"></div>
+        <h3 data-i18n="list_chained"></h3>
+        <p class="muted" data-i18n="list_chained_hint"></p>
+        <div id="chainEditors"></div>
+        <div class="row">
+          <button class="b" id="chainAdd" data-i18n="list_chain_add"></button>
+          <button class="b primary" id="listsSave" data-i18n="lists_save"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="harian" hidden>
+      <h2 data-i18n="daily_title"></h2>
+      <p class="lead" data-i18n="daily_lead"></p>
+      <dl class="facts" id="dailyFacts"></dl>
+      <div class="row">
+        <button class="b" id="dailyGrant" data-i18n="daily_grant"></button>
+        <button class="b danger" id="dailyReset" data-i18n="daily_reset"></button>
+      </div>
+      <h3 data-i18n="daily_table"></h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th data-i18n="th_day"></th><th>EP</th><th data-i18n="pack"></th><th data-i18n="pack_count"></th><th></th></tr></thead>
+        <tbody id="dailyRows"></tbody>
+      </table></div>
+      <div class="row">
+        <button class="b" id="dailyAdd" data-i18n="daily_add"></button>
+        <button class="b primary" id="dailySave" data-i18n="daily_save"></button>
+      </div>
+    </section>
+
+    <section id="scout" hidden>
+      <h2 data-i18n="scout_title"></h2>
+      <p class="lead" data-i18n="scout_lead"></p>
+      <div class="table-wrap"><table>
+        <thead><tr><th data-i18n="th_scout"></th><th data-i18n="th_status"></th><th data-i18n="th_available"></th><th data-i18n="th_quest"></th></tr></thead>
+        <tbody id="scoutRows"></tbody>
+      </table></div>
+      <div class="row"><button class="b primary" id="scoutReset" data-i18n="scout_reset"></button></div>
+    </section>
+
+    <section id="log" hidden>
+      <h2 data-i18n="nav_log"></h2>
+      <p class="lead" data-i18n="log_lead"></p>
+      <div class="row">
+        <button class="b" id="logRefresh" data-i18n="log_reload"></button>
+        <label class="check"><input type="checkbox" id="logAuto"> <span data-i18n="log_auto"></span></label>
+      </div>
+      <pre class="log" id="logBox"></pre>
+    </section>
+  </main>
+</div>
+
+<dialog id="editor" aria-labelledby="editorTitle">
+  <form method="dialog" id="editorForm">
+    <div class="head"><h3 id="editorTitle"></h3><span class="muted" id="editorId"></span></div>
+    <div class="body" id="editorBody"></div>
+    <div class="foot">
+      <button class="b" value="cancel" formnovalidate data-i18n="cancel"></button>
+      <button class="b primary" value="save" data-i18n="save"></button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="iconPicker" aria-labelledby="iconTitle">
+  <div class="head"><h3 id="iconTitle" data-i18n="icon_pick"></h3><span class="muted" id="iconCount"></span></div>
+  <div class="body"><div class="row"><input class="wide" id="iconFilter" data-i18n-ph="ph_icon"></div><div class="icons" id="iconGrid"></div></div>
+  <div class="foot"><button class="b" type="button" id="iconClose" data-i18n="cancel"></button></div>
+</dialog>
+
+<script>
+const I18N = /*I18N*/{};  // the string tables (one per language) from admin.py, put in when the page is served
+let LANG = "id";
+try { const s = localStorage.getItem("fo3admin.lang"); if (Object.hasOwn(I18N, s)) LANG = s; } catch (e) {}
+const t = (k, ...a) => String(I18N[LANG]?.[k] ?? I18N.id?.[k] ?? k).replace(/\{(\d+)\}/g, (_, i) => a[i]);
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const fmt = n => Number(n || 0).toLocaleString(t("locale"));
+const fmtEpExact = n => BigInt(n || 0).toLocaleString(t("locale"));
+const fmtEp = n => {
+  const value = BigInt(n || 0), magnitude = value < 0n ? -value : value;
+  for (const [unit, suffix] of [[10000000000000000n,"京"],[1000000000000n,"兆"],[100000000n,"亿"],[10000n,"万"]]) {
+    if (magnitude >= unit) {
+      const hundredths = magnitude * 100n / unit;
+      const fraction = (hundredths % 100n).toString().padStart(2,"0").replace(/0+$/,"");
+      return (value < 0n ? "-" : "") + (hundredths / 100n).toString() + (fraction ? "." + fraction : "") + suffix;
+    }
+  }
+  return fmtEpExact(value);
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+const SCOUT_NAMES = {default_A01: "Scout Amatir", default_B01: "Scout Profesional", igr: "Scout Cyberindo (PC)", vip: "Scout Spesial VIP",
+                     event: "Scout Khusus (event)", vvip: "VVIP Scout"};
+const QUEST_KEY = {require_value: "q_value", require_grade: "q_grade", require_grade_count: "q_count", require_season: "q_season", require_season_count: "q_count"};
+let packs = [], grantables = [], packsReady, current = "ringkasan";
+
+function applyLang() {
+  document.documentElement.lang = t("locale");
+  $$("[data-i18n]").forEach(el => el.textContent = t(el.dataset.i18n));
+  $$("[data-i18n-ph]").forEach(el => el.placeholder = t(el.dataset.i18nPh));
+  $$("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  $("#lang").value = LANG;
+}
+$("#lang").innerHTML = Object.entries(I18N).map(([k, v]) => `<option value="${k}">${esc(v.lang_name)}</option>`).join("");
+$("#lang").addEventListener("change", e => {
+  LANG = e.target.value;
+  try { localStorage.setItem("fo3admin.lang", LANG); } catch (err) {}
+  applyLang(); fillPackSelects(); show(current);
+});
+
+let adminTarget = null;
+let adminBusy = false;
+const guardedGrants = new Set(["cash", "ep", "give_pack"]);
+let pendingGrants = {};
+let rejectedGrants = {};
+try {
+  pendingGrants = JSON.parse(sessionStorage.getItem("fo3admin.pending-grants") || "{}");
+  if (!pendingGrants || Array.isArray(pendingGrants) || typeof pendingGrants !== "object") pendingGrants = {};
+}
+catch (_) { pendingGrants = {}; }
+try {
+  rejectedGrants = JSON.parse(sessionStorage.getItem("fo3admin.rejected-grants") || "{}");
+  if (!rejectedGrants || Array.isArray(rejectedGrants) || typeof rejectedGrants !== "object") rejectedGrants = {};
+} catch (_) { rejectedGrants = {}; }
+function updatePendingButton() {
+  if (typeof document !== "undefined") {
+    const button = document.querySelector("#adminDiscardRejected");
+    if (button) button.hidden = !Object.keys(rejectedGrants).some(k => pendingGrants[k]);
+  }
+}
+function savePendingGrants() {
+  sessionStorage.setItem("fo3admin.pending-grants", JSON.stringify(pendingGrants));
+  sessionStorage.setItem("fo3admin.rejected-grants", JSON.stringify(rejectedGrants));
+  updatePendingButton();
+}
+function discardRejectedGrants() {
+  const keys = Object.keys(rejectedGrants).filter(k => pendingGrants[k]);
+  if (!keys.length || !confirm(`放弃 ${keys.length} 个已明确拒绝、未执行的发放请求？结果未确认的请求会保留，成功发放不会撤销。`)) return 0;
+  for (const k of keys) { delete pendingGrants[k]; delete rejectedGrants[k]; }
+  savePendingGrants();
+  return keys.length;
+}
+async function api(name, body) {
+  const headers = {"X-FO3-Lang": LANG};
+  let key = null;
+  if (body !== undefined && guardedGrants.has(name)) {
+    if (!adminTarget) throw new Error("请先刷新后台，确认收件经理");
+    key = JSON.stringify([name, adminTarget, body]);
+    if (!pendingGrants[key]) {
+      if (Object.keys(pendingGrants).length >= 128) throw new Error("待确认发放过多，请核查请求后重试");
+      pendingGrants[key] = crypto.randomUUID();
+    }
+    delete rejectedGrants[key]; // a new attempt can become ambiguous again
+    savePendingGrants();
+    body = {...body, _admin_target: adminTarget, _admin_operation: pendingGrants[key]};
+  }
+  const opt = body === undefined ? {headers}
+    : {method: "POST", headers: {...headers, "Content-Type": "application/json", "X-FO3-Admin": "1"}, body: JSON.stringify(body)};
+  const r = await fetch("/api/" + name, opt);
+  const j = await r.json();
+  if (key && r.ok && !j.error) {
+    delete pendingGrants[key]; delete rejectedGrants[key]; savePendingGrants();
+  } else if (key && j.admin_grant_rejected === true) {
+    rejectedGrants[key] = true; savePendingGrants();
+  }
+  if (!r.ok) throw new Error(j.error || "后台请求失败，请确认结果后重试");
+  if (j.error) throw new Error(j.error);
+  if (name === "summary") adminTarget = j.admin_target || null;
+  return j;
+}
+function say(msg, kind) { const s = $("#status"); s.textContent = msg; s.className = "status " + (kind || ""); }
+async function act(fn, okMsg) {
+  if (adminBusy) return;
+  adminBusy = true;
+  try { await fn(); if (okMsg) say(okMsg, "ok"); await refreshTop(); }
+  catch (e) { say(t("failed") + e.message, "err"); }
+  finally { adminBusy = false; }
+}
+const MAX_GRADE = /*MAXGRADE*/10;
+const gradeOpts = (val, lo = 1) => Array.from({length: MAX_GRADE + 1 - lo}, (_, i) => i + lo)
+  .map(g => `<option value="${g}"${g == val ? " selected" : ""}>+${g}</option>`).join("");
+const packOpts = val => packs.map(p => `<option value="${p.itemid}"${p.itemid == val ? " selected" : ""}>${esc(p.name)}</option>`).join("");
+const facts = list => list.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
+function fillPackSelects() {
+  $("#packSel").innerHTML = (grantables.length ? grantables : packs).map(p => `<option value="${p.itemid}">${esc(p.name)}</option>`).join("");
+  $("#bagPack").innerHTML = `<option value="">${esc(t("no_pack"))}</option>` + packOpts();
+}
+
+async function refreshTop() {
+  const s = await api("summary");
+  $("#coachName").textContent = t("coach_line", s.coach.name, s.coach.teamid);
+  $("#epTop").textContent = s.coach.ep_exact == null ? fmt(s.coach.ep) : fmtEp(s.coach.ep_exact);
+  $("#epTop").title = s.coach.ep_exact == null ? fmt(s.coach.ep) : fmtEpExact(s.coach.ep_exact);
+  $("#serverTime").textContent = s.server_time;
+  return s;
+}
+
+let databaseSeasonLabels = {};
+const seasonText = code => databaseSeasonLabels[code] || `${code} · 未命名赛季（原始库）`;
+const loaders = {
+  async enhancement() {
+    const data = await api("enhancement");
+    renderEnhancement(data);
+  },
+  async database() {},
+  async ringkasan() {
+    const s = await refreshTop(), d = s.daily;
+    $("#facts").innerHTML = facts([
+      [t("f_cash"), fmt(s.coach.cash ?? 0)], [t("f_players"), `${s.players} / ${s.max_players}`], [t("f_team2"), fmt(s.team2)],
+      [t("f_packs"), fmt(s.packs)], [t("f_bag"), fmt(s.bag)],
+      [t("f_streak"), t("days", d.streak || 0)], [t("f_today"), d.granted_today ? t("given") : t("waiting")],
+      [t("f_vip"), s.vip_until],
+    ]);
+  },
+  async pemain() {
+    const {players} = await api("players");
+    const q = $("#playerFilter").value.trim().toLowerCase();
+    const rows = players.filter(p => !q || p.name.toLowerCase().includes(q)).sort((a, b) => b.ovr - a.ovr);
+    $("#playerRows").innerHTML = rows.map(p => `<tr>
+      <td><span class="chip ${p.role}">${p.role}</span>${p.team2 ? ` <span class="chip t2">${esc(t("reserve"))}</span>` : ""}</td>
+      <td>${esc(p.name)} <span class="muted">${p.spid}</span></td>
+      <td>${esc(seasonText(p.season))}</td><td class="num">${p.ovr}</td>
+      <td><select data-grade="${p.id}" aria-label="${esc(t("grade"))} ${esc(p.name)}">${gradeOpts(p.grade, 0)}</select></td>
+      <td class="num">${fmt(p.price)}</td>
+      <td>${p.role === "RES" ? `<button class="b small" data-team="${p.id}" data-to="${p.team2 ? "first" : "second"}">${esc(t(p.team2 ? "to_first" : "to_second"))}</button>` : `<span class="muted">${esc(t("first_team"))}</span>`}</td>
+      <td>${p.role === "RES" ? `<button class="b small danger" data-remove="${p.id}" data-name="${esc(p.name)}">${esc(t("release"))}</button>` : ""}</td>
+    </tr>`).join("") || `<tr><td colspan="8" class="muted">${esc(t("no_player"))}</td></tr>`;
+  },
+  async tambah() { if (found) renderSearch(); },
+  async item() { await packsReady; },
+  async shop() { await loadShop(); },
+  async harian() {
+    await packsReady;
+    const d = await api("daily"), st = d.status;
+    $("#dailyFacts").innerHTML = facts([
+      [t("f_streak"), t("days", st.streak || 0)], [t("f_total"), fmt(st.total)],
+      [t("f_last"), st.last || t("never")], [t("f_today_wib"), d.today],
+    ]);
+    renderDaily(d.table);
+  },
+  async scout() {
+    const s = await api("summary");
+    $("#scoutRows").innerHTML = s.scouts.map(sc => {
+      const q = sc.quest ? Object.entries(sc.quest).map(([k, v]) => `${QUEST_KEY[k] ? t(QUEST_KEY[k]) : k} ${typeof v === "number" ? fmt(v) : v}`).join(", ") : t("no_quest");
+      return `<tr><td>${esc(SCOUT_NAMES[sc.key] || sc.key)}</td><td>${esc(t(sc.lock ? "locked" : "ready"))}</td>
+        <td>${sc.cooltime ? new Date(sc.cooltime).toLocaleString(t("locale")) : esc(t("now"))}</td><td class="muted">${esc(q)}</td></tr>`;
+    }).join("");
+  },
+  async log() {
+    const {lines} = await api("log?n=150");
+    const box = $("#logBox"); box.textContent = lines.join("\n"); box.scrollTop = box.scrollHeight;
+  },
+};
+
+let enhancementData = null;
+const enhancementPercent = n => String(n);
+function renderEnhancement(data) {
+  enhancementData = data;
+  $("#enhancementRows").innerHTML = Object.entries(data.rates).map(([g, rate]) => `<tr>
+    <td>+${g} → +${Number(g) + 1}</td>
+    <td><input type="number" min="0" max="100" step="any" required data-enhancement-grade="${g}" value="${enhancementPercent(rate)}" aria-label="+${g} 上 +${Number(g) + 1} 基础成功率"></td>
+    <td>${enhancementPercent(data.defaults[g])}</td></tr>`).join("");
+  $("#enhancementSave").disabled = false;
+  $("#enhancementDefaults").disabled = false;
+}
+$("#enhancementReload").addEventListener("click", () => act(() => loaders.enhancement()));
+$("#enhancementDefaults").addEventListener("click", () => {
+  if (!enhancementData) return;
+  $$("[data-enhancement-grade]").forEach(input => {
+    input.value = enhancementPercent(enhancementData.defaults[input.dataset.enhancementGrade]);
+  });
+  say("已填入默认值，点击保存后生效。", "");
+});
+$("#enhancementForm").addEventListener("submit", e => {
+  e.preventDefault();
+  if (!enhancementData || !e.target.reportValidity()) return;
+  const rates = Object.fromEntries($$("[data-enhancement-grade]").map(input => [input.dataset.enhancementGrade, Number(input.value)]));
+  act(async () => {
+    $("#enhancementSave").disabled = true;
+    try {
+      renderEnhancement(await api("enhancement_set", {rates, revision: enhancementData.revision}));
+      say("强化基础成功率已保存并立即生效。", "ok");
+    } finally { $("#enhancementSave").disabled = false; }
+  });
+});
+
+function renderDaily(table) {
+  $("#dailyRows").innerHTML = table.map((r, i) => `<tr>
+    <td>${esc(t("day_n", i + 1))}</td>
+    <td><input type="number" min="0" step="1000" value="${r.ep || 0}" data-k="ep" aria-label="EP ${esc(t("day_n", i + 1))}"></td>
+    <td><select data-k="pack" aria-label="${esc(t("pack"))} ${esc(t("day_n", i + 1))}"><option value="">${esc(t("no_pack"))}</option>${packOpts(r.pack)}</select></td>
+    <td><input type="number" min="1" max="99" value="${r.count || 1}" data-k="count" aria-label="${esc(t("pack_count"))} ${esc(t("day_n", i + 1))}"></td>
+    <td><button class="b small danger" data-drop="${i}">${esc(t("drop_day"))}</button></td>
+  </tr>`).join("");
+}
+function readDaily() {
+  return [...$("#dailyRows").rows].map(tr => {
+    const v = k => tr.querySelector(`[data-k="${k}"]`).value;
+    return {ep: Number(v("ep")) || 0, pack: v("pack") ? Number(v("pack")) : null, count: Number(v("count")) || 1};
+  });
+}
+
+/* ---------- Shop ---------- */
+let SHOP = null, shopKind = "packs";
+const KIND_TAB = {packs: "kind_packs", items: "kind_items", packages: "kind_packages", monthly: "kind_monthly"};
+const iconImg = (icon, cls = "ico") => `<img class="${cls}" src="/icon/${encodeURIComponent(icon)}.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`;
+const product = id => SHOP.products.find(p => p.itemid === Number(id));
+const pname = id => id === SHOP.ep_item ? "EP" : id === SHOP.es_item ? t("upgrade_point") : (product(id)?.name ?? String(id));
+const optList = (kinds, val, extra = []) => extra.map(([v, n]) => `<option value="${v}"${v == val ? " selected" : ""}>${esc(n)}</option>`).join("")
+  + SHOP.products.filter(p => kinds.includes(p.kind)).map(p => `<option value="${p.itemid}"${p.itemid == val ? " selected" : ""}>${esc(p.name)} · ${p.itemid}</option>`).join("");
+
+async function loadShop() {
+  SHOP = await api("shop");
+  $("#shopLead").textContent = t("shop_lead", SHOP.file);
+  $("#shopFree").checked = SHOP.free;
+  showShopKind(shopKind);
+}
+function showShopKind(kind) {
+  shopKind = kind;
+  $$("#shopTabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.kind === kind));
+  $("#shopProducts").hidden = kind === "lists"; $("#shopLists").hidden = kind !== "lists";
+  if (kind === "lists") return renderLists();
+  $("#shopNew").textContent = "+ " + t("new_kind", t(KIND_TAB[kind]));
+  renderProducts();
+}
+function renderProducts() {
+  const q = $("#shopFilter").value.trim().toLowerCase();
+  const rows = SHOP.products.filter(p => p.kind === shopKind && (!q || p.name.toLowerCase().includes(q) || String(p.itemid).includes(q)));
+  $("#shopRows").innerHTML = rows.map(p => {
+    const src = !p.builtin ? `<span class="chip new">${esc(t("src_new"))}</span>` : p.custom ? `<span class="chip changed">${esc(t("src_changed"))}</span>`
+      : `<span class="chip">${esc(t("src_builtin"))}</span>`;
+    return `<tr class="${p.hidden ? "hiddenrow" : ""}">
+      <td class="ico">${iconImg(p.icon)}</td>
+      <td>${esc(p.name)}${p.tab === "CHAINED" ? ` <span class="chip">${esc(t("chained"))}</span>` : ""}</td>
+      <td class="num">${p.itemid}</td><td>${src}</td><td class="num">${fmt(p.price)}</td>
+      <td><input class="price" type="number" min="1" step="1" value="${p.fixed ?? ""}" placeholder="${esc(t("ph_default"))}" data-price="${p.itemid}" aria-label="${esc(t("th_fixed_price"))} ${esc(p.name)}"></td>
+      <td><input type="checkbox" ${p.hidden ? "" : "checked"} data-shown="${p.itemid}" aria-label="${esc(t("th_shown"))} ${esc(p.name)}"></td>
+      <td><button class="b small" data-edit="${p.itemid}">${esc(t("edit"))}</button>
+        ${p.custom ? `<button class="b small danger" data-del="${p.itemid}">${esc(t(p.builtin ? "restore" : "delete"))}</button>` : ""}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="8" class="muted">${esc(t("no_product"))}</td></tr>`;
+}
+
+/* editor dialog: one form per kind, rows for prizes / contents */
+let editing = null;
+const DEFAULTS = {
+  packs: {name: "", icon: "", seasons: [], top: null, ovr: null, grade: 11, min_grade: 6, probability_mode: "formula", pos: null, league: null, all: true},
+  items: {name: "", icon: "", type: "ITEM_LOTTERY", description: "", ep: [100000, 1000000], prizes: [], boost: 0.1},
+  packages: {name: "", icon: "", description: "", contents: []},
+  monthly: {name: "", icon: "", description: "", days: 30, now: [], daily: []},
+};
+const field = (label, html) => `<label class="f"><span>${esc(label)}</span>${html}</label>`;
+const num = (k, v, min, max, step = 1) => `<input type="number" data-k="${k}" value="${v ?? ""}" min="${min}"${max ? ` max="${max}"` : ""} step="${step}">`;
+function rowHtml(kind, r) {  // kind: "contents" (itemid, count) or "prizes" (weight, prize | EP)
+  if (kind === "prizes") {
+    const [w, prize] = r, isEp = typeof prize === "object" && prize !== null;
+    return `<div class="r">${field(t("f_weight"), `<input type="number" data-r="w" value="${w}" min="1" max="1000" style="width:90px">`)}
+      ${field(t("f_prize"), `<select data-r="prize">${optList(["packs", "items"], isEp ? "ep" : prize, [["ep", "EP"]])}</select>`)}
+      ${field(t("f_ep_amount"), `<input type="number" data-r="ep" value="${isEp ? prize.ep : 100000}" min="1" step="1000" ${isEp ? "" : "disabled"}>`)}
+      <button type="button" class="b small danger" data-rowdel>${esc(t("remove"))}</button></div>`;
+  }
+  const [id, n] = r;
+  return `<div class="r">${field(t("f_item"), `<select data-r="id">${optList(["packs", "items"], id, [[SHOP.ep_item, "EP"], [SHOP.es_item, t("upgrade_point")]])}</select>`)}
+    ${field(t("count"), `<input type="number" data-r="n" value="${n}" min="1" step="1">`)}
+    <button type="button" class="b small danger" data-rowdel>${esc(t("remove"))}</button></div>`;
+}
+const rowsBox = (key, kind, rows, addLabel) => `<div class="rows" data-rows="${key}" data-rowkind="${kind}">${rows.map(r => rowHtml(kind, r)).join("")}</div>
+  <button type="button" class="b small" data-rowadd="${key}">${esc(addLabel)}</button>`;
+
+function openEditor(kind, p) {
+  const d = structuredClone(p ? p.def : DEFAULTS[kind]);
+  editing = {kind, itemid: p ? p.itemid : null, icon: String(d.icon || "")};
+  $("#editorTitle").textContent = t(p?.itemid ? "edit_kind" : "new_kind", t(KIND_TAB[kind]));
+  $("#editorId").textContent = p?.itemid ? `itemid ${p.itemid}` : "";
+  const common = `<div class="grid2">${field(t("f_name"), `<input data-k="name" maxlength="40" required value="${esc(d.name)}">`)}
+    <div class="f"><span class="muted" style="font-size:13px">${esc(t("f_icon"))}</span><div class="pick"><span id="edIcon">${editing.icon ? iconImg(editing.icon) : ""}</span>
+      <button type="button" class="b small" id="edIconBtn">${esc(t("icon_pick"))}</button><span class="muted" id="edIconName">${esc(editing.icon)}</span></div></div></div>`;
+  const desc = field(t("f_desc"), `<textarea class="wide" data-k="description" rows="2" maxlength="200">${esc(d.description || "")}</textarea>`);
+  let body = common;
+  if (kind === "packs") {
+    const sel = new Set(d.seasons || []);
+    body += `<h3>${esc(t("f_seasons"))} <span class="muted">(${esc(t("seasons_hint"))})</span></h3>
+      <div class="seasons">${SHOP.seasons.map(s => `<label class="check"><input type="checkbox" data-season="${s.code}" ${sel.has(s.code) ? "checked" : ""}> ${esc(seasonText(s.code))}</label>`).join("")}</div>
+      <div class="grid2" style="margin-top:10px">${field(t("f_top"), num("top", d.top, 1, 100000))}${field(t("f_ovr"), num("ovr", d.ovr, 40, 130))}
+      <div class="grid2" style="grid-column:1/-1">${field("最低强化", num("min_grade", d.min_grade ?? 1, 1, MAX_GRADE))}
+      ${field("最高强化", num("grade", d.grade ?? 1, 1, MAX_GRADE))}
+      ${field("强化概率模式", `<select data-k="probability_mode"><option value="formula" ${(d.probability_mode === 'formula') ? 'selected' : ''}>统一公式（自动计算）</option><option value="manual" ${d.probability_mode === 'manual' ? 'selected' : ''}>自定义概率</option><option value="legacy" ${!d.probability_mode || d.probability_mode === 'legacy' ? 'selected' : ''}>保留旧版递减概率</option></select>`)}
+      </div><div class="f" style="grid-column:1/-1"><span>各强化档概率（%）</span><div id="gradeProbabilityRows" style="display:flex;flex-wrap:wrap;gap:6px"></div><small id="gradeProbabilitySummary"></small><button type="button" class="b small" id="resetGradeFormula">按公式重算</button></div>
+      ${field(t("f_pos"), `<select data-k="pos"><option value="">${esc(t("any"))}</option>${SHOP.positions.map(x => `<option${x === d.pos ? " selected" : ""}>${x}</option>`).join("")}</select>`)}
+      ${field(t("f_league"), num("league", d.league, 1, 1000000))}</div>
+      <label class="check" style="margin-top:10px"><input type="checkbox" data-k="all" ${d.all ? "checked" : ""}> ${esc(t("f_all"))}</label>`;
+  } else if (kind === "items") {
+    body += desc + `<div class="row">${field(t("f_type"), `<select data-k="type">${SHOP.item_types.map(x => `<option value="${x}"${x === d.type ? " selected" : ""}>${esc(t("t_" + x))}</option>`).join("")}</select>`)}</div>
+      <div id="typeFields"></div>`;
+  } else if (kind === "packages") {
+    body += desc + `<h3>${esc(t("f_contents"))}</h3>` + rowsBox("contents", "contents", d.contents, t("add_row"));
+  } else {
+    body += desc + `<div class="row">${field(t("f_days"), num("days", d.days, 1, 365))}</div>
+      <h3>${esc(t("f_now"))}</h3>${rowsBox("now", "contents", d.now, t("add_row"))}
+      <h3>${esc(t("f_daily"))}</h3>${rowsBox("daily", "contents", d.daily, t("add_row"))}`;
+  }
+  $("#editorBody").innerHTML = body;
+  if (kind === "packs") { editing.probabilityDef = d; renderGradeProbabilities(); }
+  if (kind === "items") { editing.itemDef = d; renderTypeFields(d.type); }
+  if (kind === 'packs' && d.probability_locked) {
+    $('[data-k="min_grade"]').disabled = true;
+    $('[data-k="grade"]').disabled = true;
+    $('[data-k="probability_mode"]').disabled = true;
+    $('#resetGradeFormula').disabled = true;
+    $('#gradeProbabilityRows').insertAdjacentHTML('beforebegin', '<p>已发行概率固定。<button type="button" class="b small" id="clonePack">用此强化概率新建</button></p>');
+  }
+  $("#editor").showModal();
+}
+let probabilityRequest = 0;
+async function renderGradeProbabilities() {
+  const request = ++probabilityRequest;
+  const low = Number($('[data-k="min_grade"]').value), high = Number($('[data-k="grade"]').value);
+  const mode = $('[data-k="probability_mode"]').value;
+  const box = $('#gradeProbabilityRows'), summary = $('#gradeProbabilitySummary');
+  $('[data-k="min_grade"]').setCustomValidity(low > high ? '最低强化不能高于最高强化' : '');
+  if (!Number.isInteger(low) || !Number.isInteger(high) || low < 1 || high > MAX_GRADE || low > high) {
+    box.innerHTML = ''; summary.textContent = '最低强化不能高于最高强化，范围1～' + MAX_GRADE; return;
+  }
+  try {
+    // The server computes the preview using the same function that draws cards.
+    const result = await api('pack_probability_preview', {min_grade: low, grade: high, probability_mode: mode === 'legacy' ? 'legacy' : 'formula'});
+    if (request !== probabilityRequest || !editing || editing.kind !== 'packs') return;
+    const old = editing.probabilityDef;
+    const saved = mode === 'manual' && old.min_grade === low && old.grade === high && old.grade_probabilities?.length === high-low+1;
+    const values = saved ? old.grade_probabilities : result.grade_probabilities;
+    box.innerHTML = values.map((p,i) => `<label style="display:inline-flex;align-items:center;gap:3px;white-space:nowrap;margin:4px">+${low+i} <input aria-label="+${low+i}概率" type="number" data-grade-probability="${low+i}" min="0" max="100" step="any" value="${p}" style="width:85px" ${mode !== 'manual' || old.probability_locked ? 'readonly' : ''}>%</label>`).join('');
+    updateProbabilityTotal();
+  } catch (error) { summary.textContent = error.message; }
+}
+function updateProbabilityTotal() {
+  const sum = $$('[data-grade-probability]').reduce((s,e) => s + Number(e.value), 0);
+  const valid = Number.isFinite(sum) && Math.abs(sum - 100) < 0.00001;
+  const first = $('[data-grade-probability]');
+  if (first) first.setCustomValidity(valid ? '' : '各档概率合计必须为100%');
+  $('#gradeProbabilitySummary').style.color = valid ? '' : '#ffb6a8';
+  $('#gradeProbabilitySummary').textContent = '合计 ' + Number(sum.toFixed(6)) + '%；自定义必须为100%。公式：六档锚点30/28/25/10/6/1，按强化范围插值并归一化。';
+}
+$('#editorBody').addEventListener('input', e => {
+  if (e.target.hasAttribute('data-grade-probability')) {
+    editing.probabilityDef = {...readEditor()}; updateProbabilityTotal();
+  }
+});
+function renderTypeFields(type) {
+  const d = editing.itemDef;
+  $("#typeFields").innerHTML = type === "EP_LOTTERY" ? `<div class="row">${field(t("f_ep_min"), num("ep_min", d.ep?.[0] ?? 100000, 1, 0, 1000))}${field(t("f_ep_max"), num("ep_max", d.ep?.[1] ?? 1000000, 1, 0, 1000))}</div>`
+    : type === "ITEM_LOTTERY" ? `<h3>${esc(t("f_prizes"))}</h3>` + rowsBox("prizes", "prizes", d.prizes || [], t("add_prize"))
+    : ["PLAYER_EXP_CAPSULE", "COACH_EXP_CAPSULE"].includes(type) ? `<div class="row">${field(t("f_exp"), num("exp", d.exp ?? 1000, 1, 1000000000))}</div>`
+    : type === "PLAYER_EXP_TRANSFERENCE" ? `<div class="row">${field(t("f_transfer_rate"), num("rate", Math.round((d.rate ?? 1) * 100), 1, 100))}</div>`
+    : type === "ENHANCEMENT_BOOST" ? `<div class="row">${field(t("f_boost"), num("boost", Math.round((d.boost ?? 0.1) * 100), 1, 100))}</div>`
+    : `<p class="muted">${esc(t("none_type"))}</p>`;
+}
+function readRows(box) {
+  return $$(".r", box).map(r => box.dataset.rowkind === "prizes"
+    ? [Number($("[data-r=w]", r).value), $("[data-r=prize]", r).value === "ep" ? {ep: Number($("[data-r=ep]", r).value)} : Number($("[data-r=prize]", r).value)]
+    : [Number($("[data-r=id]", r).value), Number($("[data-r=n]", r).value)]);
+}
+function readEditor() {
+  const f = $("#editorBody"), v = k => $(`[data-k="${k}"]`, f)?.value ?? "";
+  const optNum = k => v(k) === "" ? null : Number(v(k));
+  const d = {name: v("name").trim(), icon: editing.icon};
+  if (editing.kind === "packs") Object.assign(d, {seasons: $$("[data-season]", f).filter(c => c.checked).map(c => Number(c.dataset.season)),
+    top: optNum("top"), ovr: optNum("ovr"), grade: optNum("grade"), min_grade: optNum("min_grade"), probability_mode: v("probability_mode"),
+    grade_probabilities: $$("[data-grade-probability]", f).map(e => Number(e.value)), pos: v("pos") || null, league: optNum("league"), all: $("[data-k=all]", f).checked});
+  else d.description = v("description").trim();
+  if (editing.kind === "items") {
+    d.type = v("type");
+    if (["PLAYER_EXP_CAPSULE", "COACH_EXP_CAPSULE"].includes(d.type)) d.exp = Number(v("exp"));
+    if (d.type === "PLAYER_EXP_TRANSFERENCE") d.rate = Number(v("rate")) / 100;
+    if (d.type === "EP_LOTTERY") d.ep = [Number(v("ep_min")), Number(v("ep_max"))];
+    if (d.type === "ITEM_LOTTERY") d.prizes = readRows($("[data-rows=prizes]", f));
+    if (d.type === "ENHANCEMENT_BOOST") d.boost = Number(v("boost")) / 100;
+  }
+  if (editing.kind === "packages") d.contents = readRows($("[data-rows=contents]", f));
+  if (editing.kind === "monthly") Object.assign(d, {days: Number(v("days")), now: readRows($("[data-rows=now]", f)), daily: readRows($("[data-rows=daily]", f))});
+  return d;
+}
+$("#editorBody").addEventListener("click", e => {
+  const tg = e.target;
+  if (tg.id === 'clonePack') {
+    const d = readEditor(); Object.assign(d, {probability_locked:false, name:'', seasons:[], top:null, ovr:null, pos:null, league:null});
+    $('#editor').close(); openEditor('packs', {itemid: null, def:d}); return;
+  }
+  if (tg.id === "resetGradeFormula") {
+    $('[data-k="probability_mode"]').value = 'formula'; renderGradeProbabilities(); return;
+  }
+  if (tg.id === "edIconBtn") return openIconPicker();
+  if (tg.dataset.rowadd) {
+    const box = $(`[data-rows="${tg.dataset.rowadd}"]`, $("#editorBody"));
+    if (box.dataset.rowkind === "prizes" && $$(".r", box).length >= 10) return;
+    const first = SHOP.products.find(p => p.kind === "packs")?.itemid;
+    box.insertAdjacentHTML("beforeend", rowHtml(box.dataset.rowkind, box.dataset.rowkind === "prizes" ? [1, first] : [first, 1]));
+  }
+  if (tg.hasAttribute("data-rowdel")) tg.closest(".r").remove();
+});
+$("#editorBody").addEventListener("change", e => {
+  if (['grade', 'min_grade', 'probability_mode'].includes(e.target.dataset.k)) renderGradeProbabilities();
+  if (e.target.dataset.k === "type") { editing.itemDef = {...editing.itemDef, ...readEditor()}; renderTypeFields(e.target.value); }
+  if (e.target.dataset.r === "prize") $("[data-r=ep]", e.target.closest(".r")).disabled = e.target.value !== "ep";
+});
+$("#editorForm").addEventListener("submit", e => {
+  if (e.submitter?.value !== "save") return;
+  e.preventDefault();
+  const d = readEditor(), {kind, itemid} = editing;
+  act(async () => {
+    const r = await api("shop_save", {kind, itemid, def: d});
+    $("#editor").close(); await loadShop(); say(t("saved_product", d.name, r.itemid), "ok");
+  });
+});
+
+/* icon picker: every shop image in the client cache */
+function openIconPicker() {
+  $("#iconCount").textContent = t("icons_count", SHOP.icons.length);
+  $("#iconFilter").value = ""; renderIcons();
+  $("#iconPicker").showModal();
+}
+function renderIcons() {
+  const q = $("#iconFilter").value.trim().toLowerCase();
+  $("#iconGrid").innerHTML = SHOP.icons.filter(i => !q || i.toLowerCase().includes(q)).map(i =>
+    `<button type="button" data-icon="${esc(i)}" aria-pressed="${i === editing.icon}">${iconImg(i, "")}<span>${esc(i)}</span></button>`).join("");
+}
+$("#iconFilter").addEventListener("input", renderIcons);
+$("#iconGrid").addEventListener("click", e => {
+  const b = e.target.closest("[data-icon]"); if (!b) return;
+  editing.icon = b.dataset.icon;
+  $("#edIcon").innerHTML = iconImg(editing.icon); $("#edIconName").textContent = editing.icon;
+  $("#iconPicker").close();
+});
+$("#iconClose").addEventListener("click", () => $("#iconPicker").close());
+
+/* tab lists: Featured new / best, MP Shop, Special bonus, chained packages */
+const LIST_KINDS = {new: ["packs", "items", "packages", "monthly"], best: ["packs", "items", "packages", "monthly"],
+                    mp: ["packs", "items"], special: ["packs", "items", "packages"]};
+let listDraft = null;
+function renderLists() {
+  listDraft = listDraft || structuredClone(SHOP.lists);
+  const tags = (ids, key) => ids.map((id, i) => `<span class="tag">${esc(pname(id))} <span class="muted">${id}</span><button type="button" data-untag="${key}" data-i="${i}" aria-label="${esc(t("remove"))}">×</button></span>`).join("")
+    || `<span class="muted">${esc(t("empty"))}</span>`;
+  $("#listEditors").innerHTML = Object.entries(LIST_KINDS).map(([k, kinds]) => `<h3>${esc(t("list_" + k))}</h3>
+    <div class="listbox">${tags(listDraft[k], k)}</div>
+    <div class="row"><select data-addsel="${k}">${optList(kinds)}</select><button type="button" class="b small" data-addto="${k}">${esc(t("list_add"))}</button></div>`).join("");
+  $("#chainEditors").innerHTML = listDraft.chained.map((c, ci) => `<div class="listbox">${tags(c, "chained:" + ci)}
+    <select data-addsel="chained:${ci}">${optList(["packages"])}</select><button type="button" class="b small" data-addto="chained:${ci}">${esc(t("list_add"))}</button></div>`).join("");
+}
+const listRef = key => key.startsWith("chained:") ? listDraft.chained[Number(key.split(":")[1])] : listDraft[key];
+$("#shopLists").addEventListener("click", e => {
+  const tg = e.target;
+  if (tg.dataset.addto) { listRef(tg.dataset.addto).push(Number($(`[data-addsel="${tg.dataset.addto}"]`).value)); renderLists(); }
+  if (tg.dataset.untag) {
+    const l = listRef(tg.dataset.untag); l.splice(Number(tg.dataset.i), 1);
+    if (tg.dataset.untag.startsWith("chained:") && !l.length) listDraft.chained.splice(Number(tg.dataset.untag.split(":")[1]), 1);
+    renderLists();
+  }
+});
+$("#chainAdd").addEventListener("click", () => {
+  const first = SHOP.products.find(p => p.kind === "packages")?.itemid;
+  if (first) { listDraft.chained.push([first]); renderLists(); }
+});
+$("#listsSave").addEventListener("click", () => act(async () => {
+  await api("shop_lists", {lists: listDraft}); listDraft = null; await loadShop();
+}, t("lists_saved")));
+
+$("#shopTabs").addEventListener("click", e => { const k = e.target.dataset.kind; if (k) showShopKind(k); });
+$("#shopFilter").addEventListener("input", renderProducts);
+$("#shopNew").addEventListener("click", () => openEditor(shopKind));
+$("#shopFree").addEventListener("change", e => act(async () => { await api("shop_free", {free: e.target.checked}); await loadShop(); },
+                                                      t(e.target.checked ? "free_on" : "free_off")));
+$("#shopRows").addEventListener("change", e => {
+  const tg = e.target, p = product(tg.dataset.price || tg.dataset.shown); if (!p) return;
+  if (tg.dataset.price) act(async () => { await api("shop_price", {itemid: p.itemid, price: tg.value === "" ? null : Number(tg.value)}); await loadShop(); },
+                            t(tg.value === "" ? "price_reset" : "price_saved", p.name));
+  if (tg.dataset.shown) act(async () => { await api("shop_hide", {itemid: p.itemid, hidden: !tg.checked}); await loadShop(); },
+                            t(tg.checked ? "shown_msg" : "hidden_msg", p.name));
+});
+$("#shopRows").addEventListener("click", e => {
+  const tg = e.target;
+  if (tg.dataset.edit) openEditor(shopKind, product(tg.dataset.edit));
+  if (tg.dataset.del) {
+    const p = product(tg.dataset.del);
+    if (confirm(t(p.builtin ? "confirm_restore" : "confirm_delete", p.name)))
+      act(async () => { await api("shop_delete", {kind: p.kind, itemid: p.itemid}); await loadShop(); }, t(p.builtin ? "restored" : "deleted", p.name));
+  }
+});
+
+/* ---------- navigation and the other tabs ---------- */
+function show(tab) {
+  current = tab;
+  $$("nav [role=tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  $$("main > section").forEach(s => s.hidden = s.id !== tab);
+  loaders[tab]().catch(e => say(t("load_failed") + e.message, "err"));
+}
+$$("nav [role=tab]").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+
+$("#cashForm").addEventListener("submit", e => e.preventDefault());
+$$("[data-cash]").forEach(b => b.addEventListener("click", () => act(async () => {
+  const value=Number($("#cashValue").value); if (!Number.isSafeInteger(value) || value<0) throw new Error(t("e_number",t("f_cash")));
+  await api("cash", b.dataset.cash==="set" ? {set:value} : {add:b.dataset.cash==="sub" ? -value:value});
+  await loaders.ringkasan();
+})));
+$("#epForm").addEventListener("submit", e => e.preventDefault());
+$("#epForm").addEventListener("click", e => {
+  const mode = e.target.dataset.mode; if (!mode) return;
+  e.preventDefault();
+  const raw = $("#epValue").value.trim();
+  if (!/^[0-9]{1,19}$/.test(raw)) return say(t("ep_empty"), "err");
+  const n = BigInt(raw);
+  if (n > 1000000000000000000n) return say(t("e_range", "EP", "0", fmtEp("1000000000000000000")), "err");
+  const body = mode === "set" ? {set: n.toString()} : {add: (mode === "sub" ? -n : n).toString()};
+  act(async () => { const r = await api("ep", body); await loaders.ringkasan(); say(t("ep_now", r.ep_exact == null ? fmt(r.ep) : fmtEp(r.ep_exact)), "ok"); });
+});
+
+$("#playerFilter").addEventListener("input", () => loaders.pemain());
+$("#team2Clear").addEventListener("click", () => act(async () => {
+  const r = await api("team2_clear", {}); await loaders.pemain(); say(t("team2_moved", r.moved), "ok");
+}));
+$("#playerRows").addEventListener("change", e => {
+  const id = e.target.dataset.grade; if (!id) return;
+  act(async () => { await api("player_grade", {id, grade: Number(e.target.value)}); await loaders.pemain(); }, t("grade_saved"));
+});
+$("#playerRows").addEventListener("click", e => {
+  const tg = e.target;
+  if (tg.dataset.team) act(async () => { await api("player_team", {id: tg.dataset.team, team: tg.dataset.to}); await loaders.pemain(); },
+                           t(tg.dataset.to === "second" ? "moved_second" : "moved_first"));
+  if (tg.dataset.remove && confirm(t("confirm_release", tg.dataset.name)))
+    act(async () => { await api("player_remove", {id: tg.dataset.remove}); await loaders.pemain(); }, t("released", tg.dataset.name));
+});
+
+let found = null;  // the last search's rows, drawn again after a language switch
+function renderSearch() {
+  $("#searchRows").innerHTML = found.map(r => `<tr>
+      <td>${esc(r.name)} <span class="muted">${r.spid}</span></td><td>${esc(seasonText(r.season))}</td><td>${r.pos}</td>
+      <td class="num">${r.ovr}</td><td class="num">${fmt(r.price)}</td><td>${r.market ? esc(t("on_sale")) : `<span class="muted">${esc(t("not_on_sale"))}</span>`}</td>
+      <td><button class="b small primary" data-add="${r.spid}" data-name="${esc(r.name)}">${esc(t("add_club"))}</button>
+          <button class="b small" data-gift="${r.spid}" data-name="${esc(r.name)}">${esc(t("add_bag"))}</button></td>
+    </tr>`).join("") || `<tr><td colspan="7" class="muted">${esc(t("no_card"))}</td></tr>`;
+}
+$("#searchForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  try {
+    found = (await api("search?q=" + encodeURIComponent($("#searchQ").value.trim()))).rows;
+    renderSearch(); say(t("found", found.length), "");
+  } catch (err) { say(t("search_failed") + err.message, "err"); }
+});
+$("#searchRows").addEventListener("click", e => {
+  const tg = e.target, grade = Number($("#searchGrade").value);
+  if (tg.dataset.add) act(() => api("player_add", {spid: Number(tg.dataset.add), grade}), t("added", tg.dataset.name, grade));
+  if (tg.dataset.gift) act(() => api("bag_send", {title: t("gift_player", tg.dataset.name), spid: Number(tg.dataset.gift), grade}), t("gifted", tg.dataset.name, grade));
+});
+
+$("#packForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("#packSel").selectedOptions[0].text, count = Number($("#packCount").value);
+  act(() => api("give_pack", {itemid: Number($("#packSel").value), count}), t("given_packs", count, name));
+});
+$("#bagForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const body = {title: $("#bagTitle").value, ep: Number($("#bagEp").value) || 0, pack: $("#bagPack").value ? Number($("#bagPack").value) : null,
+                count: Number($("#bagCount").value) || 1, spid: $("#bagSpid").value ? Number($("#bagSpid").value) : null, grade: Number($("#bagGrade").value)};
+  act(() => api("bag_send", body), t("gift_sent", body.title));
+});
+
+$("#dailyRows").addEventListener("click", e => {
+  const i = e.target.dataset.drop; if (i === undefined) return;
+  const tb = readDaily(); tb.splice(Number(i), 1); renderDaily(tb);
+});
+$("#dailyAdd").addEventListener("click", () => { const tb = readDaily(); tb.push({ep: 10000}); renderDaily(tb); });
+$("#dailySave").addEventListener("click", () => act(async () => { await api("daily_set", {table: readDaily()}); await loaders.harian(); }, t("daily_saved")));
+$("#dailyGrant").addEventListener("click", () => act(async () => { const r = await api("daily_grant", {}); await loaders.harian(); say(t("sent_bag", r.title), "ok"); }));
+$("#dailyReset").addEventListener("click", () => { if (confirm(t("confirm_reset_streak"))) act(async () => { await api("daily_reset", {}); await loaders.harian(); }, t("streak_reset")); });
+$("#scoutReset").addEventListener("click", () => act(async () => { await api("scouts_reset", {}); await loaders.scout(); }, t("scouts_ready")));
+$("#logRefresh").addEventListener("click", () => loaders.log());
+setInterval(() => { if ($("#logAuto").checked && !$("#log").hidden) loaders.log(); }, 3000);
+
+applyLang();
+$("#searchGrade").innerHTML = gradeOpts(1); $("#bagGrade").innerHTML = gradeOpts(1);
+$("#adminDiscardRejected").addEventListener("click", discardRejectedGrants);
+updatePendingButton();
+packsReady = Promise.all([api("packs"), api("grantables")]).then(([j, g]) => { packs = j.packs; grantables = g.items; fillPackSelects(); })
+  .catch(e => say(t("load_failed") + e.message, "err"));
+api("database_status").then(s => {
+  databaseSeasonLabels = s.season_labels;
+  if (found) renderSearch();
+  if (current === "pemain") loaders.pemain();
+}).catch(e => say("赛季名称读取失败：" + e.message, "err"));
+show("ringkasan");
+</script>
+</body>
+</html>

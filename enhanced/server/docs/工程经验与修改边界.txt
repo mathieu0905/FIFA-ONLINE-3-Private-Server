@@ -1,0 +1,950 @@
+FO3 工程经验与修改边界
+更新日期：2026-11-06
+适用范围：本项目的 FO3 ID 654420 客户端与 D:\FO3ID\server。不是任意 FIFA 版本的通用结论。
+
+使用方法
+改动前查下面的故障条目与禁改项。故障修好后，在原条目补实际修复版本、自动检查、实机结果和回退位置；不要只在聊天里说“已修复”。
+证据状态分为“已确认”“推断”“待验证”。安装、接口测试、客户端显示、比赛运行是不同状态，不能相互代替。本文记录调查时的证据；后续是否安装、是否实机通过，以对应发布记录和新增回归结果为准。
+
+一、故障记录
+
+FO3-001：新增球员后，游戏在出现主界面前崩溃
+现象：FC 三卡版 data_0.big 启动后约数秒生成 dump，尚未请求 locale/login。不能归咎于商城或经理存档。
+已确认：捕获 dump 的异常为 0xC0000005，EIP 0x005EA97C（模块 RVA 0x001EA97C）；运行时代码先置零再向空指针写 314159，属于主动 fatal/assert 路径，不能当作随机野指针。栈内含 data_0.big 路径。
+已确认：原目录 271 项偏移有序。通用 append 补丁把中间目录索引 257（从 0 开始）的 data/db2/fifadb.db.db2 移到末尾，使它与后面条目的目录偏移出现逆序。其余条目仍指向较早位置。
+已确认：仅换回原版 data_0.big 后能出现游戏窗口；这只证明对照版通过更早的启动阶段，不代表已经通过登录、经理选择或比赛。
+根因证据边界：dump 和布局差异将故障定位到 data0 资源路径；不能仅凭 dump 声称已反编译出具体原生校验条件。随后保持 DB 内容/压缩不变、只修外层布局，原生启动恢复，进一步支持布局兼容性是本次回归的关键因素。
+已安装修复：保持原成员顺序、DB 原起点，按新 DB 压缩大小整体顺移后续 14 个成员；其余 270 个压缩 payload 逐字节不变。SQLite 内容与原 FC 新库相同。正式 data0 SHA256 为 42dfbda1f2f3c9b5f322d0de14426dd660982b8133a038c251d7aaa163433b17。
+验证状态：2026-11-06 08:52 后正式有序 data0 已通过原生窗口启动、locale/login、原经理 ggmu、进入大厅、进入球员管理并显示 97 人。这不是仅结构通过。FC 三张新卡的逐卡详情、市场、开包和比赛加载仍需分别验收；不能由原经理进入大厅推成这些都完成。
+禁止重犯：不要对 data_0.big 的中间成员继续使用“末尾追加再改指针”而跳过原布局检查。不要为此全局改 bigdir.patch，误伤已验证的单成员 UI/语言 BIG。
+自动门槛：tools/check_data0_layout.py；原版 PASS、历史 append 坏版因 directory_offset_order FAIL、有序候选 PASS，且除明确允许的 DB 成员外其余压缩数据相同。
+实机门槛：无新 native dump → 出现正常窗口 → 收到 locale/login 请求 → 原经理可用 → 新卡列表/详情/市场可用 → 比赛加载。前一项不能代替后一项。
+证据：outputs/FO3ID/启动检查/启动崩溃取证.json、data_0-ordered.json、正式data0布局验证.json；outputs/FO3ID/强化20/显示修复/实机验证.json；work/startup_crash/ab-client-baseline.json。布局报告的 native_runtime_verified=false 是检查器本身的能力边界，不应改成 true 来冒充实机检查。
+
+FO3-001 续：以后续发新球员、新赛季，不能重跑首批三卡初始化
+已确认的工具边界：旧三卡原型工具含 season13、60174 原始行数等专用假设。当前已安装双端一致的 60177 行才是下一次增量基线；不得把首批工具改几个名字重跑后覆盖当前客户端/服务端。通用续发工具是 work/season_expansion/roster_import.py、roster_import_admin.py、publish_roster.py，仍须核对每次真实源 hash 与审定候选 hash。
+卡包概率隔离：新增数据库行会自动漂入依赖实时 DB 查询的旧宽池，哪怕没有编辑 PACKS 配置也会改变已售包概率。发布新 DB 前，必须有 enabled 且签名有效的 cadence，冻结当前 102 个旧包的具体 SPID、每个权重和强化分布；不能只保存过滤条件。私有 HTTPS 在新增 12 卡后逐项证明 102 个旧池/强化权重完全不变，这也是后续每次导入的门槛。
+赛季语义：FO3 历史商业标签以实际 FA_SEASONS 映射和市场许可为准，例如 91=WB、93=WL、30=UL。native ALL_TIME_BEST、XBOX_LEGEND 等常量名不能直接当商业标签。DB 里存在行不代表可交易，已调查的 26/38 虽有行但 market 数为 0；不能因此直接做成可售赛季。玩法若将多个商业赛季合为一个奖励档，应在文案明确说明，不混淆来源。
+中文命名隔离：新自定义季使用独立 FC_CUSTOM_SEASON_12/13 一类 key，不覆盖旧 TRANSFERMARKET_SEASON_12 等预置键。getSeasonString 的 method14 改动和经验等级 Module method54/111 改动必须在同一最新基线上组合；不能最后写入某一份旧 SWF、把另一功能静默覆盖。组合回放已通过，仍不能代替原生页面和比赛。
+后台与发布分工：validate/build/history 可在后台走异步 worker；大 DB 压缩和构建不能占着 admin STATE_LOCK 运行，让普通请求卡住。真正 publish 是独立停机文件事务，必须退出游戏并停止服务，使用精确审定 SHA；state/shop 不替换，构建完成不代表自动发布。
+候选换版：首批新增 12 张官方来源 ICON 的 v1，在私有协议验收中 +1 POSOVR 为 87..91。未发行 v2 已单独重建、签名并重新完成 7+4+4 组私有回归，+1 POSOVR 为 90..94；33 属性调整仅作用于未发行 12 卡，旧季13、存档和模板模型不改。v1 的测试和签名不能替代 v2，也不能把 ratings_report_v2 单文件当成完整回归。v2 manifest SHA256 ae8ac40c1226b9d7c394667cc6398b02d3b2e668b3a37d83e4ac0c991867ebb8，DB 8051a85c2e23539ad907b721528635521e0c7a5667d88e83174f59c7e8f8cd13，data0 94d687a5b18d6c8818ddeea9bed7739e1a790e81cb45e97e772f505b675baaee。仍是私有 QA 候选，原生新卡/比赛未验收，不应进入正式 NPC 市场或公开发行。
+回退资产门槛：新卡若已进入任何经理 owned、市场 escrow、交易素材/结果，或已发出的库存包仍引用新 DB，不能盲目卸载数据库。检查当前真实资产依赖；恢复旧文件不得顺手覆盖 state/shop 或回滚玩家之后的进度来伪造“没有依赖”。安全迁移另行明确处理；不允许删除新卡来强行通过回退。
+已取得的证据范围：7 组导入/构建/事务测试 PASS（60189 双端、270 非目标成员不变、坏输入拒绝、故障回滚、依赖拒绝恢复）；4 组真实私有 HTTP/HTTPS 协议测试 PASS（102 旧池不变、12 卡可搜、季12与13共存、私有未售新包可开）；4 组显式 rebase 测试 PASS（保留新语言增量、篡改拒绝、append 不能改已发季名、运行中的游戏/服务阻止发布）。这些是 v1 私有证据，未发生真实发卡，不称已可比赛。
+v2 独立证据：outputs/FO3ID/新赛季导入/验证/后台与事务回归.json、HTTPS卡池与检索回归.json、语言重基与追加校验.json，共 15 组；交付清单.json 精确绑定上述候选。正式只读预检确认 13155 旧语言 key 全保留，仅新增 FC_CUSTOM_SEASON_12/13 至 13157；正式 cadence 与 Module 依赖不满足时按预期拒绝 apply。root 选择停正式服务后用私有 QA 副本 443 与客户端候选验收，state/shop 仅写 QA；这项验收尚不能写成已正式发布或可比赛。
+历史 v1 证据保留：work/season_expansion/test-20261106-093027/result.json、protocol-20261106-093834/result.json、test-20261106-093027/rebase-result.json，不能冒用为 v2 结果。
+
+FO3-002：经理存在，但在界面里看起来“找不到”
+现象：用户说选不到原经理。当前与安装前的 state.json SHA256 完全一致；仍有 active 的 ggmu、slot 0、97 名球员。
+已确认：live /coaches 和 /coach/me 把 name 显示成“曼联”，而存档 name 仍是 ggmu。localization_zh.walk 只要看到 teamid+name 就套用球队中文名，误把经理实体当球队。
+修复方向：按实体语义识别球队名称。经理、自定义名称、玩家名称必须保留；嵌套 summary/team 的原球队名称仍可翻译。不能只看通用数字 ID 就决定名称的含义。
+验证状态：修复已通过 10 个私有 HTTP 请求及逐次 GET 后 state hash 不变。2026-11-06 正式客户端已确认以 ggmu 进入大厅/球员管理，仍为 97 名球员；没有通过重建经理来解决显示问题。
+禁止重犯：不要重建经理、清空球队、把当前 state 换成测试 fixture，或因为界面显示不对就先回滚整份存档。不要给所有含 teamid+name 的对象统一重命名。
+自动门槛：英文自定义经理名、中文自定义名、恰好与球队同名的经理都保持原值；/coaches 与 /coach/me 均测；summary/team 仍是正确中文；GET 不写存档。
+证据：outputs/FO3ID/经理选择修复/经理名称回归.json。
+
+FO3-003：启动提示 unknown Device : Controller (XBOX For windows), id : 0
+已确认：原生根目录 buttonDataXenon.ini 的 My XBox 360 Controller profile 有 Xbox 360/One/XInput 别名，但缺截图中的精确设备名。不能由此断言手柄硬件损坏。
+已安装修复：只给现有 Xbox profile 添加 AddAlias “Controller (XBOX For windows)”。原 48 条按键映射、其余字节、ASCII 与 CRLF 保持不变。
+验证状态：hash、单行差异和安装器语法已验证；2026-11-06 这一次完整启动未再出现该弹窗。该结论只有一次实测，不表示所有 Xbox 型号、热插拔或每次启动都已测试。
+禁止重犯：不要为一个缺失别名重置用户键位、死区、驱动或 Windows 设备设置。不要把“候选已写好”说成“手柄已修好”。
+自动门槛：原/候选 SHA 校验；只允许一条 AddAlias；原 48 条 AddMap 完整保留；游戏运行时安装器拒绝覆盖。
+证据：outputs/FO3ID/启动检查/手柄兼容/别名补丁验证.json、说明.txt。
+
+FO3-004：商城外层价格正常，购买确认弹窗显示 NaN
+已确认的客户端合同：CoachProxy.expandMoney 取 STATICVALUES/mp_base_unit，然后计算 mp - mp % int(value)。缺表时未知 GET 回 {}，转 int 后是 0，0 % 0 为 NaN。现金弹窗还会无条件用 useable_mp 参与减法，因此即使商品外层 price 是数字，最终价仍会变 NaN。
+已安装修复：STATICVALUES 整表与独立 /static/db/STATICVALUES/mp_base_unit 两条读取路径均给数值 1；当前没有里程折抵的现金商品明确 mileage_use_min=0、mileage_use_max=0。
+验证状态：真实 654420 字节码和接口回归已确认。正式客户端“日常精选75+”购买弹窗实测单包最终价 30、十包最终价 285，折扣栏显示 0，均为数字且无 NaN；两次均取消购买，没有真实扣币。这只覆盖该 SKU 的单包/十包，不代表 153 个商品、所有礼包和连锁逐个原生验收。
+禁止重犯：不要在没有读取客户端计算链时猜 price/discount 字段；不要用“外层价格正确”“服务端成功扣款”代替内层价格和折抵计算验证；不要把 NaN 强行显示成 0 导致免费购买。
+自动门槛：整表和单键都返回正确 JSON 类型；现金、EP、MP 分支不互相混用；单包/十包/礼包/连锁的最终价是有限非负数；余额不足不扣任何资产。
+证据：outputs/FO3ID/商城修复/coach-expand-money.txt、mp-base-closure.txt、static-fetch.txt、shop_popup_compat.py、实机单包价格与详细说明.png、实机十包最终价格.png。
+
+FO3-005：卡包详情是空白
+已确认：用户实际看到空白介绍；原 pack item_def 不等于客户端一定会读取 description。
+已确认合同：ShopPopupItemDescription.onCurrentTimeReceived 优先读取 product.staticdata.description，并传给 ShopItemDescription.generateCustomDescription；非月包分支原文返回，draw 写入 textBox.htmlText，因此可用 HTML BR 换行。不能先加一个自造字段就宣称介绍可见。
+修复要求：从实际冻结卡池和规则生成说明：赛季/位置、评分口径、候选数量、强化分布、最高强化不是保证强化、权重并非等概率、新版本保底/供应/印记规则。已售旧版本必须对应原概率。
+验证状态：正式客户端“日常精选75+”弹窗和 tooltip 已看到中文说明：3707 个候选、52 个赛季、+1 口径评分范围 75..94、+1 概率 66.67%/+2 概率 33.33%、最高强化非保证、球员权重不均等、1 包 30/十包 285。原生截图已确认关键文字可见，但不是所有 SKU 和所有长说明都逐个验收。该次只查看并取消，没有真实购买。
+自动门槛：介绍引用的字段/key 确实存在于原生渲染路径；显示数字可由真实配置复算；换行/HTML 转义正确；详情不能只写“随机获得球员”而缺范围和概率。
+实机门槛：进入详情/确认/tooltip 看到非空中文，变量已替换且不截断关键规则。
+证据：outputs/FO3ID/卡包说明/安装与字段证据.txt；outputs/FO3ID/商城修复/实机单包价格与详细说明.png、实机十包最终价格.png。
+
+FO3-005 续（2026-11-06，卡包赛季与自选）：主版本安装独立 season-choice-v1 卡包层。14种现有发行包只改短名称与详情的缩写/中文赛季对应；新增54个冻结SKU（42随机、12自选），旧cadence、state、shop不由安装器改写。原生自选采用DRAFTPACK，独立DraftPackScreen搜索仅返回该SKU冻结候选；使用opaque库存opening ID与持久化receipt防止重复/并发开包复制资产。27项隔离HTTP/资产回归及8项发布门禁正反回归通过，六文件增量安装和再次执行零写入已验证。备份D:\fifaol3\pack_release\installation.json所指server/backups目录；不要回写state/shop备份覆盖后续进度。
+实机范围：正式ggmu已进入3D大厅/商城；推荐名称可换行完整显示；纯传奇及TOP10 tooltip的中英赛季对应完整；原8赛季包购买详情完整显示CP队长、LP忠诚、CC洲际冠军、UB终极最佳、16EC、14T、MUA、WB；TOP10购买确认最终价31,500非NaN，已取消。尚无实际购买/自选发卡，等待用户允许一次游戏点券消耗，不能称为自选原生端到端通过。证据D:\fifaol3\pack_release\native-results.json及native目录PNG；后续验收另写native-results，不改已安装receipt以免破坏其它启动层祖先绑定。复验：server\.venv\Scripts\python.exe -B D:\fifaol3\pack_release\test_release.py（仅隔离副本）；门禁结果preflight-tests.json。本次不改Module/语言BIG/DB，不认证另一个聊天的market启动增量或图形修复。
+
+FO3-006：一度出现 /coaches 超时，不等于已经证明日志死锁
+已确认：曾观察到 15 秒超时。随后确认服务 PID 已更换；新 live /coaches 可在约 0.141 秒返回，且发现 FO3-002 名称覆盖。
+代码风险：H._log 同步 print(flush=True) 后才写文件，start_all pump 又同步输出到 console，存在 stdout 背压风险。
+禁止误判：没有当时进程/线程栈和阻塞复现，不能把这次超时写成“确定由控制台 QuickEdit/日志死锁引起”，也不要为猜测同时修改启动、锁与日志三条链。
+后续可靠性改动须单独做：用阻塞 stdout 故障注入证明 HTTP 仍能响应，文件日志可追溯，控制台队列有界；与经理名称修复分开验收。
+
+FO3-006 续（2026-11-06，经理选择空白/无法选择）：本次已确认控制台输出背压；不能反推此前那次未取栈的超时也是同一根因。现场 HTTP PID 75748 的三个请求线程停在 http_config.py:4293 的 print(line, flush=True)，启动器 PID 78856 的两个 pump 线程均停在 start_all.py:22 的 sys.stdout.flush；/coaches 5 秒超时，正式日志停在 17:59:19，原生界面经理槽为空、确认按钮灰色。
+修复版本 console-backpressure-v1：仅修改 start_all.py。pipe pump 先将完整子进程输出写入 captures/http_config.py-service.log / messenger.py-service.log，再用 put_nowait 投递控制台镜像；队列最多 256 条、每条镜像最多 16384 字符。独立 daemon 写控制台；队满只丢控制台镜像，不丢文件日志、不阻塞 HTTP/Messenger。未改经理接口、HTTP 业务代码、客户端资源、state/shop。
+失败样本与回归：D:\fifaol3\evidence\manager-select-20261106 保留修改前启动器、两个现场线程栈和 backpressure-result.json。test_console_backpressure.py 使用临时目录、真实子进程 PIPE、阻塞 stdout 和本地随机端口 HTTP，不导入生产业务模块。旧版在 1500 条输出时 HTTP 3 秒超时；修复版约 0.047 秒成功、1500 条文件日志全部保留、队列有界。命令 D:\Users\anaconda3\python.exe -B D:\fifaol3\evidence\manager-select-20261106\test_console_backpressure.py。
+部署与数据保护：已重启正式服务，/coaches 返回 200；重启和只读 GET 后 state/shop SHA256 与修复前一致。备份只作取证，不得覆盖玩家后续进度。回退代码为同目录 start_all.before.py；回退需重启服务，且会恢复已复现的控制台阻塞缺陷。原生选经理/进入大厅验收另记后续结果。
+当前正式复核：/coaches HTTP 200，约 0.156 秒，ggmu/slot 0/active；state 与 shop 逐字节均未变化，repair-result.json 已记录正式启动器 SHA256。原生重启已到“请点击任意键”画面；本次经启动器直接启动的游戏为提权进程（普通进程无法读取命令行/结束，自动输入无响应），正在等待用户手动按键验证。后续请使用既有 play-local.bat 的 RunAsInvoker 启动方式；不得将本次原生验证写成已通过。
+
+FO3-007：强化属性正确，部分列表图标仍错误或损坏
+已确认的格式问题：GFx tag 1009 的外部图像资源 ID 是 UInt32，并含高位资源类型命名空间；普通 shape/sprite/subimage 使用 UInt16 character ID。把 tag 1009 放进 UInt16 definitions 表会截断高位并与普通图形 ID 冲突。
+当前版本已确认的引用链：shape 的 bitmap ID → tag 1008 subimage character → subimage 的 image index → tag 1009 的 0x00090000 | image index。原 atlas 是资源 0x00090006；新增 atlas 用独立 0x0009EA60（image index 60000），普通 shape/subimage 也使用已检查无冲突的独立 UInt16 ID。
+已验证修复边界：保持 0..10 的原 11 帧逐字节不变；新增 11..20 的引用链能解析，atlas 格式/尺寸/文件名长度正确，DDS 为 1024×256。已有 871 帧动画不能简单缩成 21 帧，否则原 frame script 和回调边界可能失效。严格回归会拒绝旧的错误 atlas，而非只检查“帧数=21”。
+独立组件教训：强化预览、PlayerInfoNew、TileList、Label、ScrollingList、SmoothList、俱乐部概览并非共享同一条渲染路径。修一个面板不能推定所有面板都正确。
+外部图像路径教训：tag 1009 引用的 DDS 按当前 GFx 所在目录解析。components 下的列表可用 data/ui/components，而概览 GFx 位于 data/ui，所带 Grade20_Atlas.dds 也须放在 data/ui；不能把别的组件目录硬套过来，或只证明 BIG 里“某处有这个 DDS”就算引用正确。
+实机状态：2026-11-06 08:57，俱乐部管理→球员管理→阵容中范巴斯滕 +20、雅辛 +10、小罗 +8、欧文 +9 均可见，97/200。仅查看，未强化/购买/出售/删除球员。当时俱乐部信息概览仍把该 +20 卡显示为 +10，必须作为独立组件问题保留。
+后续安装与验收：概览组件 TeamManagementTeamInfoTabPage.big 已作为第 7 项资源正式安装，SHA256 为 AE1AD60AA8E83A6B6C82F263B9C79CA79B87BBFF6092C4C173525F22450BE294，安装前后 state hash 不变。2026-11-06 09:04 重登原经理 ggmu 后，在大厅→俱乐部信息实测范巴斯滕强化 +20、OVR 137；先前管理列表 +20 与 +8/+9/+10 正常也保留为独立实测。该项显示待办已解除，但不能推成全部页面或全项目无待办。
+自动门槛：逐条验证资源命名空间与引用解析、原低阶 154 帧不变、旧错误样本被拒绝；再分别实测受影响的各独立列表和概览。
+证据：outputs/FO3ID/强化20/显示修复/build_display_fix.py、严格显示回归.json、实机验证.json、实机球员管理+20.png；概览补充/build_overview_fix.py；outputs/FO3ID/运行检查/20261106原生界面验收.json（overview_verified_at 单独记录）。
+
+FO3-008：安装器解析通过，但 Windows PowerShell 5.1 的路径绑定和数组展开不同
+已确认：曾对 File.Replace 的 string 类型 backupFileName 参数传 $null；在目标 Windows PowerShell 5.1 调用绑定中变成空字符串，触发非法路径。不能由 PowerShell 7 的语法 Parser PASS 推断 WinPS5 实际 I/O 可运行。
+修复：目标已存在时使用显式、有效、同卷的备份路径，例如 [IO.File]::Replace($temporary,$manifestPath,(Join-Path $run 'manifest-replaced.json'))；目标不存在时使用 File.Move。不要传空路径，也不要通过删掉旧清单来掩盖替换失败。
+本次结果：失败后安装器 catch 路径恢复各目标到本次安装前副本，未损坏目标资源；修正显式备份路径后再安装。保留失败批次和 manifest-before，不能因“后来成功”删除失败证据。
+第二个独立故障：新增第 7 项资源前，使用 $manifest=@(if(...){Get-Content | ConvertFrom-Json}) 读取既有多记录 JSON，在 WinPS5 可形成嵌套数组，使 Where-Object Name 匹配失败，误判成未登记备份。这一次在安装前检查阶段就拒绝，尚无客户端写入。
+第二项修复状态：已改为单独读取 $parsed，再用 $manifest=@($parsed | ForEach-Object { $_ }) 显式展开；此版已完成本次 7 项正式安装。单次实装不能推成下述 0/1/6/7 条记录与故障矩阵全部通过，未执行的检查仍需单列。这里不把某一种 PowerShell 的流水线展开行为当成所有版本都相同。
+自动门槛：用实际 WindowsPowerShell\v1.0\powershell.exe 在隔离目录跑“目标存在/不存在/中途异常/重复执行”，并覆盖 0/1/6/7 条 manifest 记录、数组无嵌套、记录名可检索且唯一，逐次比对目标与清单 hash；不能只解析脚本或只在 pwsh 7 测试。
+证据：outputs/FO3ID/强化20/显示修复/install-grade20.ps1；D:\FO3ID\backup\enhancement20\display-run-20261106-085119-0668、display-run-20261106-085201-8868、display-run-20261106-085229-9314。
+
+FO3-009：退出游戏后 messenger 报 WinError 10054，不等于整个服务器退出
+现象：2026-11-06 09:00:11，客户端发送 safeout 后，接收路径出现 ConnectionResetError / WinError 10054。当时是为安装概览资源而主动正常退出游戏；原 443、8088、28002 进程仍监听，不能仅看到一条连接 traceback 就宣布“整服崩溃”。
+已确认范围：单个 TCP 对端可用 EOF、RST 或发送时断开结束连接；safeout 是本协议正常退出消息。先区分连接关闭、处理线程异常、监听进程退出，再决定是否需要重启服务。
+已应用修复：在连接边界只捕获 ConnectionResetError、ConnectionAbortedError、BrokenPipeError，并在 finally 记录 closed；safeout 处理后直接 return，不继续等待下一次 recv。没有把所有 Exception/OSError 静默吞掉。
+验证状态：真实私有 TCP 5 项回归 PASS：auth 碎包与 ping/signon 合包；safeout 与普通 EOF；真实 RST 后无服务异常并可建立新连接；发送阶段 BrokenPipe；非预期 OSError 仍抛出。私有端口 12817，测试未借用生产端口或日志。
+正式版本：messenger.py SHA256 为 7D3BA71AE84CB48278B7EA78EF76AC7C76F01B8A73E0E11CFA91A24DF691EF06；部署前备份在 D:\FO3ID\backup\disconnect-overview-20261106-090237。已更新生产源码，不能把这组私有测试称为“正式服已经实际经历过所有断线类型”。
+禁止重犯：不要用 except Exception: pass 隐藏真正实现错误；不要因单连接重置就停掉其他玩家/接口；也不要只有端口仍监听就推定所有业务都健康。
+自动门槛：协议编解码/碎包/合包保持不变，safeout 后干净结束，真实 RST 后新 auth 成功，发送断线可处理，意外 OSError 仍可见。若怀疑整服退出，核对实际 PID、监听端口和新连接握手，不能只看旧日志或旧进程号。
+证据：outputs/FO3ID/运行检查/通知连接修复/messenger.py、test_disconnect.py、result.json；生产 captures/messenger.log 的 09:00:11 safeout 及后续新连接。
+
+二、修改边界
+
+可以在相应验证后改：
+1. 服务端玩法参数、公开价格与限购、明确版本的新卡包、市场模拟、正常代码修复。
+2. 已确定格式的客户端资源成员；必须保持该格式的布局、索引、编码、类型与引用约束。
+3. 设备配置的精确兼容别名；保留原映射，不替用户改操作习惯。
+4. 内置球队/联赛/国家的显示语言；不能扩大到用户自定义名称或协议标识。
+
+不能顺手改：
+1. state.json 的经理/球队/卡实例、余额、经验、角色、阵容；测试必须在副本。真实修复若需要迁移，先备份、明确目标字段和可逆方案。
+2. 已售卡包的卡池、概率、版本承诺；未来售价/发行可公开改，既有库存按原版本开。
+3. 协议 ID、资产归属、SPID/真实 playerid、同事务的扣费/发卡/领取幂等。复制卡或现金不是“显示小问题”。
+4. 刚验证通过的无关模块；修 data0 不能覆盖 +20 UI，修商城不能丢 theme/roster/cash hooks，修名称不能改球队存档。
+5. 用户系统安全、驱动和硬件设置；不能用禁用防护或重置设备来掩盖未知客户端错误。
+
+三、每次发布实际执行的顺序
+
+1. 写变更清单：本次改哪些文件/成员/字段，明确不写哪些真实数据。核对当前源 hash，不能拿聊天里的旧状态当事实。
+2. 保存基线：源文件、客户端目标、state/shop 的 hash 与备份；记录经理 ID/名字、队伍人数、钱包摘要。不要把完整私人数据贴进公开报告。
+3. 在副本中做单变量修复：坏版必须能复现；修复版必须使对应检查通过；旧功能的相关回归也通过。多项候选不得混成一个无法归因的大包。
+4. 区分三个门槛：结构/格式 → 服务端协议/资产事务 → 原生客户端启动与对应操作。Python 回读/SQL 检查只属于第一层的一部分。
+5. 安装器默认 dry-run；目标目录明确，所有被写文件先备份；失败原子回滚；再次执行幂等；恢复不能覆盖安装后的新改动。复合安装按逆序恢复。
+6. 真实部署只重启必要组件，避免在游戏持有资源文件时覆盖。部署/重启已经获用户授权时继续执行，不新增重复批准问题。
+7. 发布后检查 state 未被安装器改变；经理显示名与原值一致；启动正常；商城外层与弹窗价格均可计算；卡包介绍有内容；改动涉及的功能真实可用。
+8. 用户暂时跳过实机时，写“已安装/接口通过/实机待验证”，不能改写成“全部可用”。保留可复现候选、测试记录和下一步检查。
+9. 故障处理完，把真实根因、修复版本、失败样本和已执行检查补回本文件，再更新 AGENTS 和检查脚本。不是只在日志里写一句“已修”。
+
+四、只读布局检查命令
+
+结构与非 DB payload 保持：
+D:\FO3ID\server\.venv\Scripts\python.exe tools\check_data0_layout.py <候选data_0.big> --baseline <原data_0.big>
+
+历史失败样本回归：
+D:\FO3ID\server\.venv\Scripts\python.exe tools\check_data0_layout.py --known-regression <原data_0.big> <append坏版data_0.big> <有序候选data_0.big>
+
+两条命令只读输入文件并向 stdout 输出 JSON；不会写客户端、服务端或 state。默认 271 项只适用本版本 data0。工具通过后依然必须做原生启动与功能验收。
+
+
+经济复合发行安装器候选（2026-11-06，暂停最终freeze）
+workspace候选 outputs/FO3ID/经济整合发行，私有I/O测试 installer-io-results.json PASS，生产写入0。默认dryrun，正式apply要求精确QA seal、fifazf退出、实际五端口无监听；单事务备份、先stage全部文件后逐个atomic switch、故障逆序恢复；state/shop仅保留安全快照，绝不写回。测试包括第7文件switch失败、完整恢复、幂等和保留部署后合法state改变。完整旧经济组合行为QA另见 outputs/FO3ID/组合发布验证/组合验证结果.json，不等于新+20理论价值/BP保护已通过。用户新需求到达后暂停最终freeze，现有旧payload不能先发布再追溯改价；新模块确定后重建并重新固定最终SHA与QA seal。
+
+
+BP付费保级原生候选（2026-11-06，未部署）
+证据位于 outputs/FO3ID/BP保级保护客户端。两个UI BIG以当前+20正式资源为基线，仅改目标ABC方法，所有sprite/shape/原上限和非目标资源压缩字节保持。字段合同必须从preview携带signed quote/token，经原生完整条款Dialog显式OK后才附ack发最终PUT；取消不发增强请求。旧pending恢复权益提供准确ES报价、原价恢复、二次明确放弃、关闭取消三路径，不能仅可见阻塞造成永久失去原生入口。保护失败success=false不改成成功；原生失败渲染会硬置grade0、simplify自动恢复且显示0 ES恢复，需要单独阻断并保留真实等级/经验/角色。结构、stack-height/branch-join、确定性字节码合同回放均PASS；真实AVM类型检查/布局与端到端native pending。候选强化页58d5d87a…、popupd42a57c2…；禁止与旧七项安装器互相覆盖，最终发布须固定两者SHA并保留当前+20回退基线。
+
+
+成熟市场单独发行（2026-11-06，quality-v2 已部署并完成供应显示原生验收）
+以下两段保留本项从旧候选到 quality-v2 的历史；最终正式状态以其后的封签及 FO3-010 为准。
+用户反馈正式市场仍只有+1..3，检查发现成熟市场模拟尚未接入正式http启动hook。先发布module7d3bf9da…与最小http8559da90…：仅persistence后/pack_descriptions前安装，不把新估值/BP/经验30/v3/ICON混入。workspace outputs/FO3ID/市场独立发行，实际六文件事务（module/http/中央与两cache语言/验证结果）。现有13153旧键保持，仅market两key→13155，sha f0207dfc…，更新中央验证结果避免下次install-zh覆盖。七项+20、messenger7d3ba、正式description42a79d与其它依赖冻结SHA，安装器不写state/shop。私有I/O与故障回退PASS；市场only精确source smoke和native供应验收分别记录，不由候选安装器测试推成正式已启用。
+
+市场窄发行更新：用户要求能力低球员高强较多、能力高球员高强较少，旧7d3固定grade供应的30组seal已SUPERSEDED，未部署。新quality×grade有限供应9a9e7a91…已替换私有六文件包，http/语言不变，待新seal；不可把旧通过套用新表。BP候选另已改为动态读取preview.protection.version生成增强与discard ack，v1/v2回放通过，未部署、不混本次市场。
+
+quality-v2新窄发行封签：实际h8559da90/module9a9e7a91/languagef0207dfc组合32组HTTP PASS（general6/trade7/quality6/migration2/原baseline11），新seal精确绑定release manifest15442299…及source manifest999da32…。私有六文件安装/幂等/故障回滚/恢复重新PASS。
+
+FO3-010：市场高强供应不仅要按总量分层，还要归一单球员出现率
+已确认设计问题：当前 44706 人池中 low 层有 43418 人、elite 仅 54 人。只控制各层总供应量，会出现“低能力总量很多，顶级单卡反而更容易被刷出”；必须同时核对 quality×grade 的单 SPID 出现率。审定的 1/.9/.8/.7 相对参数按该口径验证，不用“总量较多”代替单卡概率证据。
+持久化边界：当前 batch 固定卡池快照、参数和报价；刷新不能补货，重启或以后新增 ICON 不得重抽当前 batch。新数据库与旧市场供应必须保持明确版本边界。
+正式安装：09:44 六文件安装已完成，备份 D:\FO3ID\server\backups\market-20261106-094451-590952。正式 market SHA256 9a9e7a9124b31178df8e57624de79b47f508e2a1f3a5c5532e5d25fe2ab2a118；http 8559da90…、语言 f0207dfc…/13155 key。旧固定 grade 的 30 组结果已被替代，不再当正式版本凭据。
+资产验证：verify_live_assets 严格确认原经理 name/slot/levelinfo/cash/es/items/chain 保持、球队 JSON 及 97 卡全不变、shop 字节不变；仅新增 market_simulation 与 coach._market_owner 归属字段。不要求整个 state 字节不变，因为新增模拟状态是本项明确目标；也不允许借此放宽真实资产检查。
+原生验证：09:50 原经理 ggmu（Lv17）正常进入市场，达伊内利 +8 库存1、价 1,200,000,000；列表底部 L.德玛伊 +7 库存1、价 1,400,000。客户端按价格排序可把便宜高强放到底部，不能仅凭默认首屏多为 +1 就判定没有高强供应。保存的 PNG 只覆盖 +8，+7 来自当次工具画面观察。
+未验证：这次原生检查取消/浏览，没有实际购买、挂牌、取消挂牌或等待成交；相应资产事务由隔离 HTTPS 验证，不冒充真实买卖验收。旧经济组合、growth/XP/v3/ICON 等仍各自候选，不能写成“全部已上线”。
+证据：outputs/FO3ID/市场二维供应/正式安装与原生验收.json、正式市场+8库存.png；对应 quality-v2 32 组封签与安装回滚记录。
+
+FO3-001 续：ggmu 贝林厄姆单卡正式加入（2026-11-06）
+已确认：正式数据库仅新增 SPID 13252371（内部自定义季13，来源 FC519，非2013年份），旧数据库全部行保留。客户端主库与六种语言独立 names 表同步；旧候选仅写主库导致原生首发页 unknown 的失败样本已保留。修复包 D:\FO3QA\ggmu-bellingham-20261106\bellingham-only-v3。
+已安装：贝林模型/头像、六语言姓名、FC图标（Label.big），Module/中文缓存仅增自定义季说明并保留经验方法。图标生成源 D:\fifaol3\fc-season-badge.png；结构检查仅替换4个季13图形，其他SWF标签/ABC保持。最终姓名/图标及比赛原生验收仍待完成。
+正式发卡：通过正式本地 admin API 新建 +1 贝林实例 de3aa4569bb4589f0b12b47a，再放入 RCM 首发；球员114→115，替下的马特乌斯保留，所有旧卡逐项相同、coaches（含余额/进度）完全相同。没有将私有 state/shop 写回正式。证据 D:\FO3QA\ggmu-bellingham-20261106\formal-grant-result.json。
+备份：D:\FO3ID\server\backups\bellingham-20261106-134249；当前正式已有新卡依赖，不能直接恢复旧数据库或用旧state覆盖后续进度。旧52文件测试覆盖已恢复，10文件单卡覆盖转为published，后续按正式增量发行处理。
+启动兼容：保留原商城manifest/installed/native proof不变，新增独立roster manifest/receipt；play-local改为先验证两份发行的组合文件。安装时51文件+46稳定守卫通过，真实WinPS5的语言/强化安装器执行后，FC资源不被旧包覆盖。后台随后观察到 market_simulation.py 独立修改，严格校验按预期拒绝未登记新hash；未覆盖或自动认可该市场修改。
+回归命令：D:\Users\anaconda3\python.exe -B D:\FO3ID\server\patches\roster_release_preflight.py。原生状态、市场后续发行状态应各自记录，不能把接口发卡成功写成比赛通过。
+
+FO3-010 续：市场供应扩容 quality-v3（2026-11-06）
+反馈：用户认为可买球员太少，尤其高强化基本没有。确认旧常规书只有+1..6；+7以上依赖稀疏全市场窗口，+11以上投放间隔可达数周，单次曝光还小于整个机会窗口。
+已安装：只更新 market_simulation.py，SHA256 912aed641522f82b8dd73c3f0a792c9c5e99d828cde105fed81d7ba49032cf2b。正式目录 D:\FO3ID\server 与此前运行的 ggmu-bellingham-20261106-02 私有目录均备份后安装；未替换 http_config、数据库、shop 或 state。验证期间原私有进程已被其它工作切换为正式 start_all；本次按当前正式进程及其父进程核验后重启正式服务，环境保持 chi/+20。
+规则：每个可交易 SPID 的15分钟常规库存增加+7/+8/+9/+10，低能力概率95%/85%/70%/55%，其余能力层逐档乘 .9/.8/.7；每档库存1。+11..20 低能力全市场日机会分别768/576/384/192/144/96/48/36/24/12，逐强化独立有限档位；其它能力层按实际池大小归一，单SPID日出现率严格为1/.9/.8/.7。机会从本槽起点可见直到槽尾，仍不积攒离线补发。
+推荐：保留稀有库存优先，增加整个可交易球员池中轮换的+7..10推荐，预留10个普通行；推荐/单卡搜索/购买共用同一库存。刷新、重启、切经理不会重置已买数量。同一epoch旧书只补建新强化档，不重置旧+1..6；旧已报价稀有货保留到原到期，迁移仅执行一次。
+验证：隔离真实HTTPS扩容6组、原市场交易安全14组通过，涵盖54赛季、10万概率试验、扣款/耗尽/重复购买/经理归属/escrow/取消/领取/强化与交易来源保护；位置筛选采用真实 /transfer/top/50/position/<position> 并逐行核验DB。
+正式协议：top50返回50行、49个不同SPID、40行+7以上，+11..20每档都有；+8/+10/+14/+20逐卡搜索与推荐一致，热请求0.219秒。GET前后玩家资产不变、shop字节不变、全部114张安装前卡实例保持。另一个并行工作添加1张卡并更换一个阵容位置；未回滚该并发进度，也未声称整个state与早先备份相同。
+状态：代码已安装、正式协议通过；本次没有原生界面与比赛验收，不把HTTP证据写成实机通过。失败样本：原quality-v2模块保存在安装备份，旧日/周供应表可复现稀缺；首次资产全等校验因并发新增卡失败，已细分为GET前后不变和旧卡逐实例保持。
+证据与回归：D:\fifaol3\market-supply-v3\installation.json、live-result.json、test.log、transactions.log；备份 install-20261106-134338。回归命令：D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\market-supply-v3\test_supply.py；同目录 test_transactions.py。生产 verify_live.py 仅GET市场，购买测试仅在隔离副本。
+
+FO3-006 实机验收补充（2026-11-06，console-backpressure-v1）：用户在上述手动验收问题中明确回复‘已能选择并进入大厅’。因此本次经理选择与进入大厅已获用户实机确认，解除前述该项待验证状态；不扩展为比赛或其它页面验收。证据：D:\fifaol3\evidence\manager-select-20261106\repair-result.json。
+
+FO3-001 续：13号现役赛季移除退役球员（2026-11-06，fc13-retire-ronaldinho-v1）
+已确认：原13号258张混有小罗13028130；真实存档未持有该SPID，但仓库仍有引用该卡的旧包93000001/93000002，不能硬删双端DB或追改旧包概率。
+已安装：活动注册表移除13028130，归档为retired_cards，现役精选257张；活动注册总数503。12号12028130与84号84028130保留。NPC边界同时排除归档卡，候选、普通书、遗留库存和稀有书不可再投放该卡；历史包兼容行和旧包卡池保持。旧包仍可能按原合同产出13号小罗，不称其已从兼容数据库彻底删除。
+命名：FC_CUSTOM_SEASON_13由FC精选移植改为现役精选，服务端注册表、正式语言包与两份客户端缓存一致，其他语言key保持。此命名沿用本次导入卡池分类，不是截至今日对所有球员职业状态逐人审核的证明。
+验证：实际Market候选与遗留book隔离回归通过；正式HTTP活动名单257、NPC搜索13028130空、CDN语言正文SHA一致、等级30保持；安装前后state/shop/数据库/旧包配置SHA相同，GET前后玩家资产相同。当前发布链1133文件检查通过，真实Windows PowerShell5.1中文安装器执行通过；原生页面/比赛仍待验证。
+失败样本：第一次安装前检测到fifazf运行，尚未变更正式文件即拒绝；用户正常退出后重试安装通过。此前旧边界只排除84号，无法排除13号小罗。
+发布与证据：D:\fifaol3\releases\fc13-retire-ronaldinho-v2\live-PASS.json；安装回退备份D:\FO3ID\server\backups\fc13-retirement-20261106-183427；历史发行manifest/receipt未改，以独立子层组合验证。
+回归命令：D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\verify_fc_retirement.py；启动前置patches/fc_retirement_preflight.py。仅回退本层文件，不回写state/shop。
+
+FO3-EP-001（2026-11-06）：后台 EP 单次设置/发放限制与高强化身价不匹配；球员身价千分之一与中文大数显示
+用户确认口径：仅球员身价及转会市场价格÷1000，现有 EP 余额保留；商城、点券价格、奖励及其他 EP 收费不变。后台上限提高到 10^18，不自动补币或迁移钱包。
+确认根因：admin.set_ep 与 admin_grant_guard 各有 10^13 限制；浏览器 Number 在 2^53 以上不能逐 EP 表达。修复新增严格十进制字符串 EP 输入、后台 ep_exact 字段与 BigInt 显示；整数、重放 receipt、经理绑定及原子保存规则保留，拒绝浮点/科学计数法/越界。
+身价规则：新增 player_value_price，正价取 max(1,原价//1000)，+0 保留0；owned_team、公开球员价格、市场 reference 与后台球员价格使用该函数。card_price 继续作为旧商城/奖励/强化费用的不可变锚；不全局改 stat_price 或现金产品。现存 NPC book/rare/legacy 的价格在 prepare 中带 player_price_divisor=1000 一次转换，不补库存、不重置 epoch。历史成本、玩家挂牌合同和已成交待领款保留原金额。本次实际存档不存在需要改价的玩家挂牌。
+正式协议证据：D:\fifaol3\ep-limit-release\live-result.json，125 张原卡的价格逐项为旧价//1000，除 price 外球员字段全部相同；余额仍为 9792579784199 EP；/shop/list 整份响应完全相同，重启和只读检查后 state/shop 原字节不变。之后其它聊天或玩家新增进度不属于这份快照，不得恢复此快照覆盖进度。
+私有回归：test_ep.py 覆盖大额精确加减/设置、重复请求、非法输入无写入、余额不足不变、真实市场购买扣款发卡、库存耗尽不重复扣款、旧玩家完整保留、报价迁移幂等及商城/奖励/强化函数 AST 保持。test_admin.js 验证 >2^53 十进制字符串传输和 BigInt 格式化。测试只写 D:\fifaol3\ep-limit-release\server。
+首轮原生失败样本：仅修改 components/Label.big 中 PriceLabel.value 的文本显示，通过协议/栈检查；用户实机确认购买球员价格已下降，但“兆/京”字形缺失，顶部余额/其它页面仍是长数字。不能将首轮静态测试写成完整原生验收。
+补齐显示路径：独立 child 保留上一发行及并行 FC retirement，修改当前 libs/Module.big 的 StringUtil.formatToCurrency，新增万/亿/兆/京、最多2位小数（截断）分支，小数额原逗号路径保留；数字输入仍由独立 PriceInput 处理，当前 Input.gfx 无共享 formatToCurrency 依赖。Module 除此方法外所有方法原字节保持，包括 XP30 与 AI 过滤；PriceLabel 的数值 getter 及 _value 保持数值。
+字体原因/修复：fontconfig.dat 的 chi 段原 $NormalFont 映射为仅西文字体 HelveticaNeueLT Std Med；改为同一 chi 段已使用的 FZLanTingHei-R-GB18030 Regular。其余语种段原样、UTF-16 BOM/换行保留；不下载或安装系统字体。共同 formatter 覆盖 formatToCurrency 相关字符串金额路径，PriceLabel 覆盖购买价格控件；后续实机确认顶部余额与经理页仍有独立 addComma，需下一增量补齐。仍需逐页面实机确认，不能凭“共享”宣称所有隐藏页面都验收。
+已安装：player-value-20261106-183038-214493 备份为身价/后台/Label 发行；player-value-20261106-184043-951308 为共用 formatter/chi 字体增量备份。当前顶层为 patches/compact_currency_preflight.py，组合校验1137项通过；旧清单与回执不重写。FC retirement 父层只有物理 preflight，最新 child 对其审定源 SHA 做精确规则投影，保留该层注册/退役约束，不覆盖它。
+启动回归：真实 Windows PowerShell 5.1 install-grade20.ps1 七项零写入、install-zh.ps1 后组合校验通过；patches/Label.big 与实际 Label 同步，避免下次启动被旧强化安装器覆盖。安装器在私有完整 guard 投影下验证故障回滚、重复安装幂等、源码/字体篡改拒绝、错误父 SHA 拒绝；未向真实 state/shop 写 fixture。
+回归命令：D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\ep-limit-release\test_ep.py；node D:\fifaol3\ep-limit-release\test_admin.js；D:\Users\anaconda3\python.exe -B D:\fifaol3\ep-limit-release\test_module.py；D:\FO3ID\server\.venv\Scripts\python.exe -B D:\FO3ID\server\patches\compact_currency_preflight.py。安装器 fixture 使用一次性目录，重复运行应新建私有目录，不能删除正式目标或回写存档。原生修复验收追加后续结果。
+
+FO3-GLOBALDB（2026-11-06）：全局球员数据库编辑器，独立页面版本 global-player-editor-v1
+需求：编辑全库赛季卡基础数据，不限于当前俱乐部卡实例。代码与独立入口位于 D:\fifaol3\global-player-editor，127.0.0.1:8090；原8088管理器未嵌入新入口，正式admin/http_config/play-local未由本次改写。
+已确认：读取正式60678张卡，可按姓名/SPID/playerid/赛季检索，编辑33能力、身高/体重、原始OVR、惯用脚/花式/逆足、四位置，共43字段；可显式选择同一playerid跨商业赛季暂存。草稿和双端候选只写独立workspace；后台构建不占正式STATE_LOCK。
+版本与验证：私有完整双端库13组回归PASS；所有非目标表和非目标球员字段保持，SQLite完整、加解密/压缩回读、BIG目录顺序、270非DB成员保持；私有五路径发布与五个写入边界失败回滚通过；过期候选/错误SHA/越界字段/冲突草稿拒绝。真实本地HTTP9项PASS，含Host/POST/header保护和非法写入拒绝。浏览器已检查精确SPID检索及43字段编辑页面。
+失败样本与状态：当前既有console_backpressure预检因server/http_config.py与登记hash不符而失败。这是本任务开始前已存在的版本不一致。本次没有覆盖或自动认可该变更；正式应用入口按同一门槛拒绝。页面可用，正式数据库未改；没有原生游戏或比赛验收。原始OVR与按位置权重基础评分分别显示，不能把编辑值当作比赛物理量。
+证据：D:\fifaol3\global-player-editor\tests\20261106-184305\result.json；同目录私有server/client/work包含可复现候选、布局回读和事务故障样本；使用说明.md记录入口与停服/备份边界。
+回归命令：D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\global-player-editor\test_database.py；D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\global-player-editor\check_http.py。
+
+FO3-011：市场后台持续推进（2026-11-06，正式版本直接修改）
+需求：离开市场页面后仍持续模拟补货、挂牌成交与价格变化。旧实现仅在市场接口调用时按时间追算；服务运行但无人查询时不会保存新的市场进展。
+已安装：market_simulation.Market 增加15秒后台worker，tick在现有STATE_LOCK内读取最新state，prepare→settle→rare_stock→刷新近期与24张轮换推荐书，仅变化时原子保存。保留原15分钟常规刷新及高强投放节奏；不因15秒轮询增加抽签次数或重置耗尽库存。上架为已有可交易卡库存轮换，不自动创造新球员/赛季。
+启动边界：http_config仅在真实HTTP监听与全部roster/NPC排除hook安装完成后启动单例worker；导入模块不启动线程。服务退出finally停止worker并关闭监听。异常记录完整日志和后台错误计数，下次重试，不静默吞错；admin只读market_status公开运行状态、间隔、tick数、最后完成时间及错误。
+成交与估值：已有真实挂牌按原等待时间、概率、24小时到期与有限买家规则自动转sold/expired；每笔只记录一次。成交EP仍需用户主动领取，不后台改余额。符合条件的实际成交调用原record，3笔/跨度至少30分钟后高价推动报价上调，保留单步0.5%、每日2%、0.6..1.6基础锚区间与NPC来源转卖不拉价规则。
+正式变更与备份：backups/market-background-20261106-184233 保留market_simulation.py、http_config.py、play-local.bat。新增market_background_preflight.py及独立manifest/installed凭据，启动器改查该组合子层；原商城、球员、价格与字体发行的历史清单和验收记录未覆盖，state/shop/数据库未替换。启动校验1140文件PASS。
+验证：正式文件语法通过；内存合成数据7组通过（无HTTP生成供应、同epoch耗尽不补、4线程同时成交仅一次且不自动领取、常规跨epoch轮换、三笔高价成交涨价、单例/异常重试/停止、无经理不创建账号）。测试只使用内存SQLite/字典，不写真实存档。
+正式运行证据：用户明确允许游戏运行中短暂重启，未终止客户端；按精确正式服务与supervisor进程重启。market_status间隔18秒观测ticks1→2、errors0、last_error空，说明无市场查询也持续推进。观测期间teams、coaches、shop保持；当时真实offers=0，所以没有把合成成交测试冒充真实挂牌成交验收。客户端之后仍在正常请求商城与事件接口，不代表市场原生页面或比赛验收完成。
+失败样本与回归：原模块备份可复现无人查询不推进；内存测试注入OSError后worker记录1次错误并继续。回归 D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\market-background\test_background.py；生产只读状态及资产观察 verify_live.py；启动组合校验 D:\FO3ID\server\.venv\Scripts\python.exe -B D:\FO3ID\server\patches\market_background_preflight.py。
+证据：D:\fifaol3\market-background\unit-result.json、live-result.json、preflight.json、live.stdout.log、live.stderr.log；正式patches/market-background-release-manifest.json 精确绑定本次代码hash。服务关闭时worker停止；页面不会被该后端线程主动推送刷新。
+FO3-EP-001 原生遗漏修正续：第二候选仍未覆盖 MenuScreen.addComma 与 StartupCoachCreationScreen.addComma，不能称“共享 formatter 已覆盖所有页面”。对正式 data/ui 全量394个GFx的定义扫描没有异常，找到且仅找到3处 addComma 定义：MenuScreen.big/method178、StartupCoachCreationScreen.big/method20、StartupTest.big/method20。独立 currency-screen 增量将 >=1万 的数字接入同一 StringUtil.formatToCurrency，小额原递归逗号路径、所有其他方法和其他BIG成员原样保留。通过原字节断言、操作数/作用域栈分支检查、0/9999/万/亿/兆/京/100京确定性回放；未改PriceInput，未向玩家钱包写测试金额。
+第三增量已安装：D:\FO3ID\server\backups\player-value-20261106-185149-130125；顶层 patches/currency_screen_preflight.py，1170守卫通过。重基保留同期 market-background、player-editor 和 moments-display release-v5；三处原未登记基础页面用审定原SHA作为外部父身份新增守卫，没有跳过校验或覆盖新赛季Label。证据 D:\fifaol3\ep-limit-release\native\comma-inventory.json、screen-currency\build-test.json、gate-test.json、installed-result.json。gate-test 的完整祖先物理预检基于当时player-editor父层，最终安装已重基并完整物理校验Moments release-v5；私有故障注入、幂等、篡改拒绝均通过，不冒称执行了新的全部历史层测试。
+字体实机已看到“万”正常显示；“兆”、顶部余额和经理页最终视觉确认正在等待用户答复。此前18:41:53的 CLIENT_CLOSE 用户明确确认是手动关闭，不能记成补丁启动崩溃。当前聊天已停止进一步正式源码/资源写入与服务重启，等待该短确认后交还GUI时段。
+
+FO3-005 续（2026-11-06，独立次数与高强正式同步）：independent-product-packs-v1已接入player_editor_current最新父层，1179完整物理guard PASS。停售原54个+1商品并上架42个+6～+11随机、12个固定+8自选，附2冒险包/3多包礼包、两条10轮连锁；所有购买次数按SKU独立，旧计数/旧卡池/旧库存权益保留。新增min/max与six-anchor-v1概率编辑，默认30/28/25/10/6/1，手调须合计100%，预览和抽取共用公式，已发行概率锁定。新池过滤retired_cards，旧库存不改。37项隔离交易与连锁检查、10项概率检查、PowerShell5.1隔离安装回滚/幂等与1179guards通过；正式HTTP10项/181商品及8088表单视觉核对通过，无正式购买/发放。原127卡、经理、余额、阵容与安装前快照一致，主服务443/8088/28002恢复。证据D:\fifaol3\pack_limits\v2\installed-handback.json；失败样本test-release.log（调试转储timer时隔离Python异常，移除timer后37项通过），旧共享限购候选已废弃不可安装。完整回归命令：正式.venv\Scripts\python.exe patches\product_packs_preflight.py；只读HTTP：python D:\fifaol3\pack_limits\v2\verify_live.py。新商城native显示/真实自选操作仍待后续独占游戏窗口，不把协议或后台视觉验收冒充游戏native验收。
+
+FO3-011 续：后台运行但推荐页仍反复同一批卡（2026-11-06，market-discovery）
+确认原因：后台status运行且errors0，但部分高能力稀有档位单次可见33.6至168小时；原top先塞全部稀有行，轮换常规行又按全池抽取、被低能力大池淹没。之前只验后台ticks及即时top，未验真实推荐跨时段换人，不能由后台运行推断用户可见列表更新明显。
+正式修复：推荐独立每300秒确定性轮换，四能力档轮流选取有货的+7..10卡，50行中稀有最多16行且尽量覆盖11..20各档；稀有行也按300秒排序轮选。移除重复固定最高+1补位。所有报价/库存/购买仍共用原book，不修改供应概率或长期稀有合同，15分钟库存刷新与5分钟推荐换人是两件事，15秒后台tick继续运行。搜索仍可见没有进入本页的其它有效库存。
+正式范围与交接：备份backups/market-discovery-20261106-190554；只改market_simulation.py、play-local入口并新增market_discovery_preflight与manifest/receipt。父层fresh product-packs：注册时用正式父compose构造guards，旧模块及入口SHA与备份全等。新receipt INSTALLED_MARKET_DISCOVERY；manifest a4b98343178ef4453b6a1e92a1e1e8df93a5fd49202be3ef6538696b85b32efa，模块2c06a290a3b0318fd6c3d18349b9c47e38bebe150394b990b04d176f40788b6b。顶层compose_manifest(server,client)/preflight(server,client)，组合1182文件通过，未覆盖任何历史父票据。安装时客户端未运行，使用现有stop-server脚本和正式start_all恢复；coaches/teams前后不变。收到主协调聊天单writer要求后已交还，仅进行只读GET和其明确允许的本条经验追加，不再写正式代码/票据/状态或重启。
+回归：内存轮换4组及后台7组PASS。首个按尝试次数轮流抽样的版本可能使某能力档过少，失败样本为min4断言；已改按成功选中行轮流，四档约8/9行且稳定。正式总榜50行=16稀有+34常规高强，GK/DF/MF/FW各50行。实际时钟19:08:26与19:10:21两次GET，跨5分钟边界后50行中39个SPID+grade组合更换（非改时钟模拟），证据live-rotation.json；本次未进行原生页面或购买验收，页面仍需重新请求，不宣称客户端自动推送。
+证据与命令：D:\fifaol3\market-discovery\test-result.json、live-first.json、live-rotation.json、positions.json、preflight.json。回归 D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\market-discovery\test_discovery.py；正式只读预检 D:\FO3ID\server\.venv\Scripts\python.exe -B D:\FO3ID\server\patches\market_discovery_preflight.py。
+
+FO3-012：经验券选择球员不响应并崩溃（2026-11-06，exp-selection-native-v1）
+已确认：用户反馈选人卡住，正式http_config.log在19:33:25记录CLIENT_CRASH；现装经验页SHA256为1f39daf0…，与本日15:19失败样本完全一致。旧A实机证据显示原生经验页8b721548…可在30级Module/backend下选人。只能确认修改版页面触发路径存在故障，不能据此断言具体AVM闭包/方法体根因。
+正式修复：只将TeamManagementExpCapsuleScreen.big恢复原生页8b72154883406f94b68d5411ab7e9e5e9fa467676c7f4e34c55e2296090b93d8；保留当前Module dd0abd20…、后端经验30级8873024c…及全部最新父层。批量数量控件撤下，当前恢复单张原生流程；加减/手输/MAX统一预览及批量持久化需求仍未完成，不得称批量已修好。新增exp_selection_preflight.py/exp-selection-installed.json/exp-selection-receipt.json及play-local最小入口变更；基于player_database父层完整物理检查1189项PASS，不改历史父票据。
+本轮实机：正式经理ggmu，PID88700。500经验券选贝林厄姆Lv1显示实际卡、勾选、Lv3 66%预览和可用按钮；初始化清空正常，再选雅辛Lv2显示实际卡、勾选、Lv4预览和可用按钮；取消返回库存正常，券仍3张，未点击最终使用、未实际扣券升级，不宣称消耗或比赛验证通过。正式/info/player/level_rules返回200、max_level30；/coaches返回200。业务对比仅market_simulation自然变化，coaches/teams完全相等，shop字节不变。未重启服务，游戏保持运行，道具库存界面交还用户。
+备份D:\FO3ID\server\backups\exp-selection-20261106-193546；坏经验页0.backup与原play入口、事务记录保留。失败样本及本轮native-result.json、repair-result.json、http-observed.log、工程经验修改前备份位于D:\fifaol3\evidence\exp-select-20261106。回归命令D:\FO3ID\server\.venv\Scripts\python.exe -B D:\FO3ID\server\patches\exp_selection_preflight.py；手工重复上述选择/初始化/取消。禁止为回归覆盖state/shop或重新安装坏1f39页面。后续正式写、停服和GUI已交还主协调，完整批量修复需基于届时最新父层增量接续。
+
+
+FO3-022：强化恢复逐级动画等待过长（2026-11-06，restore-space-v1）
+需求：恢复动画开始后按空格直接显示服务端本次返回的最终恢复等级；不改变恢复概率、付费确认、真实卡等级或余额。
+已确认：正式 TeamManagementPlayerEnhancingPopupScreen 的 restoreStart 从 0 开始，通过 restorePlayerCardLoop 递增 _restoreCount，ON_MIDDLE_RESTORE_ANI 检查完成，导致高等级逐级等待。恢复等级来自 _result.resultgrade。
+修复：只增量修改该 UI BIG 内目标 ABC；onAttached 注册 ObjectUtil 管理的 stage keyDown；只在恢复 active 状态接受 Space。暂停 timeline，复制服务端最终等级，异步补齐最终静态信息，再调用原卡片更新与 restoreComplete。pending/done 防止长按、旧异步回调和排队动画重复完成；其它按键、恢复前/后的 Space 无作用。原其它方法及 DDS payload 逐字节保留。没有修改服务端或 state/shop。
+证据：D:\fifaol3\evidence\enhance-restore-space\build.json、shortcut-checks.json、patch_restore_space.py、check_shortcut.py。栈高度/分支检查通过；临时对象执行真实新增字节码，覆盖恢复等级 0..20、连按、旧回调、无恢复时空格，零 PUT。此证据不等于 native 验证。
+状态：用户明确要求不做实机验证；安装尝试被仍运行的 fifazf 对资源文件的锁拒绝（WinError 5；r+b 同样拒绝），正式 UI 尚未写入。文件未损坏，备份位于 server/backups/restore-space-*。待用户正常退出后执行 patch_restore_space.py --install，禁止为安装强杀游戏。后续安装结果以同证据目录 installation.json 及本文续记为准。
+
+FO3-ENHANCE-SETTINGS-001（2026-11-06，enhancement-settings-20261106-194738）
+需求：管理页按 +1→+2 至 +19→+20 设置合卡基础成功率，保存即时生效，初始保留既有概率。
+已写入正式源码：http_config在enhancement20之后安装enhancement_settings；admin.start注册GET /api/enhancement和POST /api/enhancement_set；管理页增加「强化概率设置」。独立gamedata/enhancement_rates.json保存百分数，未保存不建文件、不改变默认ENHANCE_RATE。保存使用同一STATE_LOCK与fsync+原子replace，成功写盘后更新内存；版本号阻止多页旧数据覆盖。原材料倍率/点数/道具/活动/掉级/费用保留，不修改真实state/shop。
+验证：Python与全页JS语法、19行前端填默认/提交/精确小数、399默认与材料组合、19等级热更新、重载持久化、非法类型/NaN/无限/越界/缺行、旧版本拒绝、磁盘replace失败无污染，全部PASS。从正式源码抽取v1/v2.5实际preview与roll handler，以内存临时卡验证0%失败/100%成功；HTTP管理handler仅绑定临时回环端口验证GET与POST/header权限，无第二套游戏服务，无真实卡/余额写入。测试期间正式state/shop SHA前后相同。
+失败样本：首次HTTP精确百分数比较因二进制浮点往返出现7.000000000000001未通过；改为保留已验证百分数副本供GET返回，默认百分数恢复时沿用原始概率浮点，随后回归PASS。未将浮点误差解释成实际抽卡分布故障。
+登记：保留exp-selection父manifest/receipt，追加新top patches/enhancement-settings-installed.json及receipt/preflight；启动入口仅改预检调用，新top 1193文件PASS。备份server/backups/enhancement-settings-20261106-194738，差分仅本次功能；未回写历史哈希。配置属于有意可变文件，不列不可变guard。
+运行状态：用户明确答复「等我通知再重启」，故未启停正式服务、未调用GUI，API尚未装入当前进程，不能写成正式热更新或原生界面已验收。待用户通知首次重启后验证正式GET/保存同默认值、实际监听PID与游戏预览；不得消耗用户卡作测试。未来每次保存不需要重启。
+证据/命令：D:\fifaol3\enhancement-settings\installation.json、test-result.json；D:\FO3ID\server\.venv\Scripts\python.exe -B D:\fifaol3\enhancement-settings\test_settings.py；node D:\fifaol3\enhancement-settings\test_page.cjs；D:\FO3ID\server\.venv\Scripts\python.exe -B D:\FO3ID\server\patches\enhancement_settings_preflight.py。
+
+FO3-022 安装续记：用户明确“已退出”后，协调聊天授予client-only独占窗口，继承enhancement-settings最新父层完成正式安装。restore-space-20261106-195512；正式popup SHA256 c580e933c5afd45a4c2a16d54160a0b3542b722b3f4209795d8109ab677d7464。新入口patches/restore_space_preflight.py，1196项正式文件/父回执检查PASS，compose_manifest可继续组合；旧历史manifest不改。备份server/backups/restore-space-20261106-195512。无服务重启、无游戏启动/GUI操作，未写state/shop；用户重新进入游戏后加载。实机按用户要求跳过。安装器prepare锁曾因Windows默认文本模式将LF转CRLF未自动清理，检查PID13452已结束且两个锁内容均精确属于本次后移除，改O_BINARY后正式事务完成、双锁正常释放。证据同目录handback.json及installation.json。
+
+FO3-012 续（2026-11-06 19:57，exp-batch-bound-local0-v1，正式已安装，native待验证）
+用户明确要求完成批量，随后通知已退出；实际无fifazf。依主协调排队在restore-space单资源更新之后获得唯一client writer，未停服、未重启、未启动游戏、未执行ComputerUse。
+本次正式增量5目标：TeamManagementExpCapsuleScreen.big由原8b721548恢复页变为2555f22d92b0e7b0bcc29da37be1e1082271bdcad7d38dda6ba290e29fd0644c；新增exp_batch_preflight.py/exp-batch-installed.json/exp-batch-receipt.json；play-local改选新层。父为restore_space_preflight，popup c580e933、当前Module和全部server最新变更继承保留。1199完整物理guards与receipt policies校验PASS，旧metadata未改。备份server/backups/exp-batch-20261106-195715-418393；前后state/shop SHA完全一致，无存档回写或测试资产。
+实现区别：新方法32作为公开实例trait fo3BatchRefresh；所有新增页面字段访问直接local0，不再使用findpropstrict猜owner，无数量newfunction32/Function.call。保留原选人前327字节；统一处理真实按钮加减/MAX、可多位输入框CHANGE、选人/换券/清选/提交前/失败解锁。提交expected(level,exp,remains)，pending禁用控件，服务端返回after/count驱动结果，封顶余券保留。对旧4408失败不能直接推定新版本成功或失败，具体旧AVM故障原因仍未证实。
+验证证据：evidence/exp-select-20261106 下15项实际字节码数量/提交回放、10组精确生产函数内存回归、7组临时I/O安装回归全部通过，包含运行游戏拒绝、共同发布锁冲突保留、第二文件切换失败还原、重复零写、state/shop不写、资源篡改拒绝；7方法CFG通过。独审D:/FO3QA/xp_independent_native/batch-bound-v1-audit/review.json确认真实local0/新trait/原非目标压缩字节保持及提交锁、现API；native_pass=false。
+尚未验证：新页面真实GFx事件/类型执行、加减/MAX布局、手输和预览、实际批量扣券升级、重登经验与库存持久化；安装与回放不能写成native通过。遵守当前人类待通知再重启和停止CUA约束，本次不自动打开游戏。用户下次手动启动后先验证选人、加减/手输/MAX、初始化/取消，再按明确的真实卡/券目标实用；禁止造fixture到真实存档或用备份覆盖新增进度。
+复验：正式.venv/Scripts/python.exe -B patches/exp_batch_preflight.py；工作目录evidence/exp-select-20261106的validate_batch_bound.py、test_batch_server.py、test_batch_install.py。install_batch.py默认只读plan，--apply强制gameclosed+共同.shop-release.lock+最新parent核验、目标hash并发保护、原子替换、play最后切换、失败仅恢复自己payload；不启停服务。
+
+
+FO3-NOSTALGIA-019（2026-11-06，nostalgia-20261106-200540，正式安装，native待验证）
+人类明确“安装吧”，主协调分配唯一正式writer及一次受管服务重启。游戏实际已退出；按.shop-release.lock→.fo3-publish.lock执行源freshcheck、备份及文件事务，无游戏启动或Computer Use。父层exp_batch1199物理PASS，保留新EXP2555、恢复空格popupc580、Module经验30/金额/筛选及Label84/金额等既有修改，历史manifest/receipt不改。
+正式新增独立19“怀旧神兽”88卡，60678→60766；14ST/16边路/20MID/16CB/16FB/6GK。各卡沿用准确FO3身份/原型模型、身体、特性及惯用脚等，仅能力按主位置升至原始88..89（1级/+1为93..94），指定主位置保留原位兼任；原WB博格巴手改与全部旧行保留。六许可表各新增88行，所有其它表无增删。新双端DB解密回读一致，data0目录有序，270非DB成员原压缩字节完全一致。
+新增中文key FC_CUSTOM_SEASON_19，static_roster/registry追加19，88张赛季头像及双缓存。Module只改PlayerListUtil.getSeasonString/method14，其它方法原字节保留；Label两尺寸OG矢量季标各追加19season末帧，旧帧/ABC保持；PlayerInfoNew卡背景追加19season末帧，复用UL显示列表，原ABC/旧帧保持。server补丁源与client同步，避免启动安装器覆回旧Label/PlayerInfo。
+安装191payload及新manifest/receipt，完整1379物理guard PASS，compose_manifest(server=None,client=None)可继续组合，无_compose。备份server/backups/nostalgia-20261106-200540。新top nostalgia_preflight.py SHA5cdbb7bc9d2bfb3b1b63fbd3a8205a619dcf93fd27c7d81e11c6c731f85c77b3，manifest99ee9eb8453add8a37bc34efc42ada157c2567ce9257a80e7ff791bed834faf0，receipt1673807ff74bd418395a2709674f1c1d32bc126401b0fc226891f01e836f2dfa。
+验证：真实443/8088新PID93772、28002新PID33544；8088全库60766、19季88行分页集合、7核心详情精确字段、registry/static_roster与88张CDN头像均PASS；正式就绪提示版本检查通过。停服事务期间state/shop及3概率配置SHA完全保持；重启后排除市场自然推进的全部业务顶层指纹与安装前相等，shop字节保持，不回写快照、不创建或赠送测试卡。
+冻结池：执行生产源的cadence/catalogue/product适配函数，102legacy/14cadence/54catalogue/56product共226已发行item球员/强化权重保持，19卡未混入旧池；这是离线函数证据，不冒充真实开包验收。194临时文件晚期191/最终校验失败回退与完整安装测试PASS，测试仅一次性文件。先前prepare遇到其它合法writer的http_config中间态失配按预期拒绝，无正式修改；新父完整通过后才重建release-v2。
+能力、结构、HTTP和静态资源通过，不等于GFx实际显示或比赛通过。人类停止Computer Use约束仍有效，本次未自动启动或操作游戏，19徽标/背景/原经理启动/比赛加载均待实机。当前没有专属新售怀旧连锁，追加链需求交统一商城owner新SKU实现，不改变已售旧池或库存权益。
+证据D:/fifaol3/nostalgic-season/sealed-result.json、contracts-result.json、transaction-result.json、release-v2/installed-result.json、live-result.json；复验正式.venv/Scripts/python.exe -B patches/nostalgia_preflight.py，工作verify_live.py及verify_contracts.py。新卡一旦进入真实资产，不得盲目卸载DB或恢复旧state/shop；先核对资产依赖再迁移。
+
+
+FO3-NOSTALGIA-019 名称回调补齐（2026-11-06 20:16，nostalgia-name-20261106-201608）
+88卡安装后复核发现PlayerListUtil.method12的默认回调仍以数字拼赛季名，新增19即使method14已有中文也会漏到该路径。另一赛季名owner明确继续暂停且不写Module，本怀旧聊天在独立人类安装任务内只补19，不抢其12/13/84待处理范围。
+基于实际25a5669... Module仅method12 offset111插入40字节，19调用已有getSeasonString14；method14新19和所有其它方法records/常量池、其它SWF tag与BIG成员压缩字节保持。实际128季字节码有界回放只有19从数字名变“怀旧神兽 测试球员”，其它127季相同、栈不超过原max_stack。静态代码缺漏确认，不冒称用户在某具体原生页面的根因或实机已通过。
+游戏实际已退出，共同双锁和最新nostalgia1379物理门槛通过后，5文件事务（Module、新helper/manifest/receipt、最后play）直接安装；新top nostalgia_name_preflight.py1382PASS，compose_manifest(server=None,client=None)完整dict无_compose。Module SHA1b9519f979ae58ac11a0d5442b726be1e36919b3f8018a1a313c05c7ba0a8016。三元组：helper4071e53aaab431e533151cbfd88e58d8d971fea8da667b9afe69ef84520dca63，manifest a15b686c802cae410e6fda472af1961c604e4250d5a0dd1c3419d980d5af95f6，receipt54b923e2f387215236a38143f2bd84f70117e39412584a0f6afb1afd06b865e0。备份server/backups/nostalgia-name-20261106-201608。
+DB/registry/shop/3旧概率配置完全不变，全部非market业务指纹保持；此次无服务启停、无游戏启动或CUA，PID仍93772/33544。新画面与比赛仍未验证。证据nostalgic-season/name-callback/callback-v1/build.json、replay.json及name-callback/installed-result.json。后续12/13/84修复必须继承当前method12的19分支，不能用dd0/25a或旧callback全方法覆盖。
+
+FO3-005 续（2026-11-06 20:38，elite-product-chains-v1，正式已安装/服务重启/协议通过，native待验证）：人类明确允许现在重启直接上线。继承nostalgia_name完整父层，仅4个server目标增量发布，1388物理guards通过；Windows PowerShell5.1安装边界12项、回滚/幂等及3种并发坏样本通过。备份见本次installed-result.json，不覆盖任何旧manifest/receipt。旧97300011/97300012及97400020/97400100停止未来购买，已持有旧池、强化、礼包及receipt规则保持；新97310011纯经典传奇115人，95%其它经典传奇/5%UL大罗，强化6..11为30/28/25/10/6/1%，新97310012主流85+能力池75%/经典传奇25%，独立每日100份。单卖时刻97310084固定+1、600000点券、每经理每周1份。三条新10轮链：传奇登顶68包/轮、传奇百包873包/轮、怀旧神兽52包/轮（50随机19季+1固定19季11+1时刻1），逐档价格与奖励实时协议验证通过。原54高强度/自选包和原两条10轮连锁仍在，14项实时检查通过。修复同一堆栈补购后token复用导致旧receipt回放而不开新包：monotonic product_open_seq与扣包/发卡/receipt同事务，旧待用token兼容、新iid序号0，13项失败/并发/重放/经理生命周期样本通过；不改旧概率。原始坏样本和回归：pack_limits/elite/reproduce_nonce_bug.py、test_nonce_sequence.py、test_moments_rights.py、test_controlled_moments.py、test.py及verify_live.py。全部67项针对性功能检查通过，真实验收只读无购买/赠送，经理/卡/余额/库存/阵容与fresh安装快照保持，未恢复state/shop。未启动/操作游戏，原生画面与真实开包未冒称通过。证据D:/fifaol3/pack_limits/elite/installed-handback.json、live-results.json及installed-result.json。
+
+FO3-005 续（2026-11-06，nostalgia-legend-set-v1，正式已生效，native待重登）：人类要求怀旧卡享受传奇套加成。fresh elite父层1388完整通过后，仅http_config.py中传奇套20043的SQL由_S(*TC_LEGENDS)改为_S(*TC_LEGENDS,19)，全部88张19季怀旧神兽与旧139张传奇混搭计数，仍为5/7/9首发不同球员全能力+2/+3/+4。其它套装成员集合逐一完全保持，不改卡原始能力、其它传奇分类、旧概率或存档。新增独立nostalgia_legend_preflight/manifest/receipt，play切换新层，1391 guards通过。源代码仅一行差异。PS5.1实际隔离I/O测试通过回滚、重复安装、外部双锁与写前/回滚并发变更保护；首次准备测试因unique计数仍为4被严格拒绝，修正为3后全通过，无正式失败写入。正式源21项检查通过，包含88入集/其它集合不变、纯怀旧和混搭4/5/7/9人数档及精确OVR增量、同人重复/替补不误计。实际无进行中比赛，短暂受管服务重启未关闭客户端，实时/static/info/teamcolor的46张真实已持有传奇集合、原档位/boost和字符串teamid均验证通过。当前用户尚无19季卡，故未声称真实已拥有怀旧阵容或原生显示验收；需重登刷新客户端每登录一次加载的teamColorSpecials。fresh安装前后coaches/teams完全相同，无赠卡/扣款/改阵容，不回写备份。正式备份和完整哈希见D:/fifaol3/pack_limits/nostalgia-legend/installed-handback.json；回归.venv/Scripts/python.exe patches/nostalgia_legend_preflight.py及D:/fifaol3/pack_limits/nostalgia-legend/verify_rule.py；后者只读正式数据/纯内存阵容，不启动第二游戏服务。
+
+FO3-005 续（2026-11-06，legend-plus2-v1，正式生效）：人类将上一条传奇套加成调整为“整体能力+2吧”。传奇套20043保留5/7/9名不同首发的三个档位、旧传奇及88怀旧成员集合，三个档位均全能力+2，取消原7人+3/9人+4；其它套原加成完全保留。http仅20043配置值和该套boostgroups分支两处变更，未改球员基础值/存档/旧概率。继承nostalgia_legend层，新增legend_plus2_preflight独立发布凭据，1394完整guard PASS；PS5.1临时I/O回滚/幂等/双锁及并发保护PASS，正式源21项内存阵容/精确OVR测试PASS。无进行中比赛时短暂重启受管服务，实际/static/info/teamcolor三档boosts均ovr2，真实owned集合保持。fresh安装前后coaches/teams完全一致，无发卡/扣款或快照回写。需用户重登刷新每登录一次加载的客户端套装表，未声称原生画面通过。证据D:/fifaol3/pack_limits/legend-plus2/installed-handback.json；复验正式.venv/Scripts/python.exe patches/legend_plus2_preflight.py，以及该工作目录verify_rule.py、verify_live.py。
+
+FO3-005 纠正续（2026-11-06，nostalgia-stats-plus2-v1，正式安装及双端/实时接口通过，native未启动）：人类澄清“不是传奇套+2，是怀旧赛季整体能力再上涨俩点”。已撤销上一层错误的统一+2套装配置，http字节精确恢复nostalgia-legend版本，仍让19季88卡享受5/7/9人+2/+3/+4传奇套。88张19季卡原始主位评分88/89→90/91，即1级/+1的93/94→95/96；33能力属性+2但保留99cap，其中1张因cap截断需对未封顶的主位相关能力最小补点，使所有88张主位精确+2，potential同步并不低于overall。仅这88张的能力/overall/potential变，身份/模型/身体/特性/位置和其它全部表/旧球员行保持。双端SQLite加密/RefPack解压回读一致，271成员顺序通过，270非DB成员原压缩字节保持；check_data0_layout正式输入比对PASS。不是改强化或经验补偿，不写真实卡实例和阵容。
+安装继承legend_plus2完整父层，仅HTTP、服务端DB、客户端data0、启动器和独立nostalgia_stats_preflight五目标；1397 guards通过。PS5.1真实临时I/O回滚/幂等/共同锁/写前漂移/回滚保留后来合法改动通过。首次客户端运行前置拒绝、随后共同shop锁冲突均零payload写入；受管停服一度非零或未完全退出时active-services门槛拒绝，未绕过，保留失败日志。新增apply_locked在停服前取得双共同锁并fresh父层/目标，以免停服后再抢锁；最终正式事务成功并恢复正式服务。最新11项正式验证包括88全行/精确主位+2/恢复套档/全88实时admin详情/客户端payloadhash和fresh coaches/teams相等。未关闭游戏、未赠卡/扣款/回写快照，用户后来明确“已退出”；实际安装前已核无fifazf。源快照不是旧state恢复点，任何后续用户进度不得回滚。
+证据D:/fifaol3/pack_limits/nostalgia-stats2/installed-handback.json、build-results.json、install-test-results.json、data0-layout-results.json、formal-install-locked3.log；回归.venv/Scripts/python.exe patches/nostalgia_stats_preflight.py及工作目录verify_formal.py。实际游戏启动和显示未冒称通过，客户端下次启动加载新库。
+
+
+强化20显示修复续记（2026-11-06，grade-color-v1）：用户要求+9～+13金色，+14及以上闪色，不能继续银卡。只读图集与引用证据已确认：多数原生+9/10本来为金；先前扩展复用了+11～+15银色旧图块，+16～+20又回到金色，造成新高阶显示不一致。
+正式修复：6个UI BIG、17个徽章sprite；非canonical的原生0～10帧原字节保留，11～13使用金色矢量颜色变换，14～20放入独立48帧色相/GlowFilter流光子clip，父级gotoAndStop选择强化档时子动画继续循环。TileList完整21档canonical里旧铜9/10另改金。PlayerInfoNew原871帧与21后原时间线不缩短，所有ABC、外部DDS ID和纹理payload逐字节不改，非目标SWF tag完全不改。不是改真实强化、概率或卡资产。
+已安装：grade-color-20261106-212316；备份server/backups/grade-color-20261106-212316。对应server/patches六个启动源同步更新，避免下次install-grade20.ps1覆盖新显示；未修改旧发行manifest或存档。当前top patches/grade_color_preflight.py，完整继承nostalgia-stats最新parent全部guards/receipt policies，1402正式文件检查PASS，compose_manifest可供后续容量/保护层组合。
+验证：六份正式资源解压/长度/每级字符引用、颜色变换有符号位、48帧GlowFilter、alpha保留、边界帧与非目标字节检查PASS；实际Windows PowerShell 5.1运行install-grade20.ps1返回“全部7项已是当前版本，无需安装”，随后1402复检PASS。资源投影预览只说明颜色设计，不能冒充游戏native。没有自动GUI/游戏启动或服务启停，实机显示/动画仍未验证。无state/shop写入。失败样本：prepare曾因旧层未登记这些UI/启动源而拒绝；改为显式12路径+fresh当前父字节pin后新增合法guards，不放宽其它路径。证据D:/fifaol3/grade-color/build.json、checks-installed.json、handback.json、installation.json。
+
+FO3-023：解除200名球员容量限制（2026-11-06，player-capacity-v1，正式已生效）
+用户新请求取消原200人上限。先核正式进程/端口、gameclosed与新共同writer，按stats2→grade-color→capacity顺序交接；root旧goal继续暂停，未借暂停记录判定实时空闲。父grade_color_preflight完整1402PASS，容量子层1405PASS，包含全部既有guards/receipt policies，不改旧票据。
+确认机制：http_config.MAX_PLAYERS=200为统一策略容量，FIRST_TEAM_MAX直接继承；市场购买/取消、开包、自选/连锁、bag单个及批量领取、admin发卡、移入一队等11处比较共享该值。正式TransferPurchaseTabPage实际ABC显示limits.players/baseplayers用于购买条件，_limitPlayerCount为uint，不能用null/-1/Infinity代表无限。采用2147483647作为最大有符号32位兼容容量，解除200人的游戏策略限制；底层整数范围仍存在，不声称数学无限或无限内存。
+最小增量：HTTP只替换MAX_PLAYERS一处整数常量，FIRST_TEAM_MAX随之继承；AST与备份对照除该常量完全相同。只写HTTP、play、新player_capacity_preflight.py/player-capacity-installed.json/player-capacity-receipt.json，共5目标。客户端BIG/DB、球队/球员/卡实例/经验/强化/余额/库存/阵容均不改、不生成测试卡。安装前备份server/backups/player-capacity-20261106-212452-542556。共同.shop-release.lock、fresh parent、目标hash并发校验、play最后原子切换、失败仅还原自有payload、重复安装零写均具备。
+验证：内存精确生产endpoint保留旧200失败样本，验证200→201购卡/开包/领取/一队移动、批量领取到202；1000人不自动移预备队，资金不足仍拒绝；11处实际容量谓词在200/201/1000/10000通过。5项临时真实安装I/O回归通过（游戏运行/其他writer锁拒绝、switch失败回滚、完整物理gate、重复零payload写）。证据evidence/player-capacity/test-results.json、install-tests.json、client-capacity-contract.json。
+正式生效：已按本任务必要服务reload授权，在实际无游戏时正常managedstop/start（未自动启动游戏/CUA）。新HTTP PID93180、Messenger72372，443/8088/28002正常；live GET /coach/me HTTP200，limits.players/baseplayers/firstTeam均2147483647。前后coaches/teams完全相等，shop逐字节一致，仅market_simulation自然推进。完整安装/hash/API/备份见D:/fifaol3/evidence/player-capacity/handback.json。
+未验证：实际原生超过200人的长列表性能、实机收卡/开包流程；不以API和内存回归冒充原生通过。回归：正式.venv/Scripts/python.exe -B D:/fifaol3/evidence/player-capacity/test_capacity.py；test_install.py；verify_live.py；正式patches/player_capacity_preflight.py。后续writer必须从实际最新容量子层compose继续，不回退200或覆盖用户后续进度。
+
+FO3-PROTECTION40-001（2026-11-06，protection40-20261106-213014-383471）
+用户明确要求客户端可选强化保护，并确认「每次收40%，替代原手续费」；随后明确「现在可以重载并生效」。正式实现使用目标卡强化前player_value_price，fee=ceil(value*2/5)，成功/失败每次收取，仅此一笔、不叠原enhance_cost；失败保持主卡强化/经验，材料正常消耗，成功正常升1，强化点数按原规则扣与失败发放。不提升成功率、不修改后台rates配置。+1..4原本不掉级、+0材料或必成功组合拒绝保护收费；+20满级不能升。
+客户端：原生强化道具itemCombobox增加合成只读服务选项1000090「强化保护（身价40%，替代手续费）」，与成功率加成道具共用选择栏所以互斥，默认“不用”。无真实保护券发放或存档库存行；服务不允许gift/inventory_add。预览显示保护费/本次总计，确认弹窗列精确费用与后果；取消/关闭不发PUT，明确同意才附180秒签名报价。报价绑定经理/卡实例与快照/材料/当前等级/目标身价/后台rates版本/点数/活动，过期和配置变更要求重新预览。失败回显保级和真实price、禁止虚假恢复按钮；已有恢复权益先提示按原价恢复或二次明确放弃，不能静默删除，别的经理报价只读。
+正式增量：HTTP仅主入口前追加新enhancement_protection40.install，安装在全部原hook之后；两强化BIG及对应patchsource增量修改9个方法并追加5callback，其余所有方法记录/原class trait/旧签名/非ABC标签/其它BIG成员压缩字节保持。基于最新shop_value1410父层，继承容量2147483647、stats2/传奇套2/3/4、金卡9..13/彩卡14..20、EXP批量与原空格跳过；没用旧BP指数费用或growth默认覆盖。新增独立protection40 preflight/manifest/receipt，play最后切换，1415物理guards PASS；旧历史元数据不改。
+验证：生产最新版完整hook实际路由内存/临时state 9类PASS：四种成功失败×ES选择精确fee/grade/XP/material/原ES，余额不足无写，原子保存失败重试，双并发一次commit，改率/过期/篡签拒绝，低档/零材料/满级拒绝，旧恢复权益保护，未选保护仍原手续费/掉级/恢复。10组真实ABC确定性回放、14方法栈/作用域高度与branch join PASS；原指令/分支重定位保留。Python安装器临时I/O覆盖早/晚失败回滚、10文件完成、双锁冲突保留、asset/path逃逸拒绝、游戏运行拒绝。
+失败样本与处理：REA明确不支持BIg4，故用已有bigdir/ABC/RefPack解析器对实际最新正式BIG逐字节取证；初始按同名类定位遇到二个EnhanceControlPanel严格拒绝，改为已实际列出的精确DoABC偏移0x246ff/0x929ae。首次apply在首写前因shop-value owner双锁存在安全拒绝，无正式写/启停；收到新parent handback并fresh重prepare后安装。未删他人锁，未用旧容量HTTP覆盖新shop。
+正式生效：按人类最新批准重载managed服务，HTTPS443/admin8088=62040，messenger28002=41516，命令均正式目录，未开游戏/未用GUI。/info/enhancement/protection/rules返回enabled/fraction40/ordinary_fee_replaced，/coach/me恰好一个可选服务，后台19档概率GET正常。restart前后全部非market业务指纹一致，保护配置/商城/三旧概率文件字节一致；真实经理/卡/余额/库存/阵容保留，无测试卡或测试余额写入。正式只读检查未执行付费强化，未覆盖旧enhance_restore；实际合卡preview未验，不以fixture伪装真人。
+状态：正式源码/资源已安装、服务已生效、协议与字节码回放通过；真实GFx菜单/字体/布局/类型验证及实际付费成功失败仍待用户实机确认，未冒称比赛通过。下次正常启动可在强化道具下拉框选保护并查看二次费用确认；与加成道具互斥。
+备份：D:/FO3ID/server/backups/protection40-20261106-213014-383471。证据D:/fifaol3/enhancement-protection40/{installed.json,cutover-result.json,live-result.json,server-tests.json,client-build.json,客户端契约回归.json,栈与分支回归.json,install-tests.json}。复验正式.venv/Scripts/python.exe -B patches/protection40_preflight.py；工作test_server.py、test_client.py、test_stacks.py、test_install.py、verify_live.py，后三种脚本仅临时/内存资产，不启动第二游戏环境。保护模块sha028d1403e3a7f37895adc5f769d379a5c4b3667790ca6d5a583f461032ef37c0；后续改动必须新top组合，不能重写本层历史manifest。
+
+
+FO3-001 续：12号自定义赛季图标（2026-11-06，season-icons-v1）
+确认：正式注册表12=FC传奇精选·ICON，91=世界最佳11人。卡卡12138449/瓦拉内12201535是独立12号卡，不能将其冒充91号WB。Label大图sprite144第7帧12season指shape45，小图sprite735第7帧指sprite614，其3状态依次指shape609/611/613；仍为旧12赛季美术。
+正式修复：仅四个专用shape替换为金色ICON矢量标识，保留各自原RECT、sprite614三状态时间轴、全部其它SWF tag/ABC及所有非目标BIG成员压缩字节。server patches/Label.big与client data/ui/components/Label.big同步，WB91/XI、时刻84/IM、怀旧19/OG及字体金额均保持。未修改数据库、SPID或真实资产；服务未重启。
+验证：四个shape闭合路径解析、全部引用定位与非目标tag逐字节比较PASS；完整当前父层1420 guards先检查再组合。游戏运行时安装在锁与首写之前拒绝，用户退出后才允许安装。等待期间choice-search成为新顶层，旧父层预检按预期拒绝，随后按实际play最新父层重新组合保留其修改，无正式覆盖。初次构建因正式venv无PIL终止且无正式写入，改用现有anaconda/PIL完成预览；REA不支持BIg4，实际字节由现有bigdir/SWF解析工具读取。native页面/比赛仍待验证，不由资源检查替代。
+证据D:/fifaol3/season12-display/icons-work2/resource-proof.json、badge-preview.png；安装回执D:/fifaol3/season12-display/icons-installed-handback.json，备份见该回执。复验：正式.venv/Scripts/python.exe -B patches/season_icons_preflight.py；资源预检python -B D:/fifaol3/season12-display/fix_icons.py preview --work D:/fifaol3/season12-display/icons-work2（仅安装前基线）。
+
+FO3-005 自选搜索修复续（2026-11-06，choice-search-callback-v1，正式已安装，native待重新启动）：真实21:45请求/packchoice/97610910/search?q=&league=-1&team=-1后UI telemetry报告ArgumentError1063 method68期望1参数但0，调用栈PlayerListUtil.cachingPlayerStaticData/expandPlayersStaticData。实际TeamManagementDraftPackScreen新增method69将method68交给expandPlayersStaticData，后者完成时done(0)，但旧构建通过通用ABC.add_method给method68声明了必填Object；不是接口失败或卡包不足。仅将method68签名改为零参数，不改任何70方法body、其它69签名、常量池/trait、其它SWF tags或其它BIG成员。method69仍保持必填响应事件。REA明确BIg4 unsupported，使用现有ABC解析器与精确源hash定位；原签名+真实回调body可确定复现1063，零参数签名回放执行setSearchingComplete(true)恰好一次。
+正式三目标为客户端DraftPackScreen.big、play、新choice_search_preflight/manifest/receipt，继承最新protection40（含容量/卡色/怀旧能力+2/原传奇套/40%保护），1420 guards通过。PS5.1临时安装回归验证回滚、幂等、外部双锁、写前漂移/后来合法变更不被回滚覆盖；二进制可变目标在fixture必须复制，不能hardlink后原位写坏样本。本轮第一次fixture硬链接写被运行客户端的共享锁拒绝，正式资源sha随后确认为原E9E97D45...完全保持，修正为复制后全回归通过；保留失败日志。14种当前自选SKU实际生产路由的冻结卡池/等级/空结果/非法筛选纯内存检查通过，_save mock禁止写，write audit限制在本目录。真实state存在用户操作/市场推进，不能把字节变动误称此只读测试写入。
+用户明确已退出后才安装，未自动开游戏、未GUI、未重启服务。正式目标sha6d78308f004837b086875e7cffcec5a13530eb996c25435b6fc6d4c26a002806；fresh安装前后coaches/teams完全相同、未付费/发卡/消耗包，不恢复旧state/shop。修复资源已安装并通过结构/签名/有界回放/接口检查；实际GFx搜索/选择/取消仍需原生重新启动验证，不冒称已native通过。证据D:/fifaol3/pack_limits/choice-search-fix/installed-handback.json、build-results.json、contract-results.json、install-test-results.json；坏样本before.abc及telemetry，回归test_contract.py、test_install.py与正式patches/choice_search_preflight.py。
+
+FO3-001 续，season-icons收尾修正：初次安装将共享工程记录纳入新完整hash guard，另一聊天合法追加FO3-005记录后触发门禁。只回退本事务仍匹配后版本的运行文件，保留全部共享记录及其它聊天修改；重新组合choice-search父层，工程记录继续保留但不新增为运行资源guard。最终1421 guards通过，正式图标一致、四专用shape以外资源保持；备份D:\FO3ID\server\backups\season-icons-20261106-215557-468115。失败事务及保留范围见season12-display/icons-first-attempt-preserved.json。未改历史层hash/receipt，未回滚资产或重启服务，native仍待用户启动验收。
+
+
+FO3-005 连锁价奖与整轮购买续记（2026-11-06）
+需求与确认：人类给定100点券=1元；好的连锁每轮4～5千元，少垃圾包、各连锁比例均衡，并明确直接改正式；后追加一键整轮按钮，已正常退出允许必要reload。
+chain-rebalance-v2正式已生效：新增5条独立新期10轮连锁、20个冻结固定档卡包；每轮分别141400、439300、489600、406800、440000点券。新包主要TOP精品固定高强/自选，每轮6/9/5/5/5张，不再870个低阶包凑量；四premium均40～50万点券。同一现行EP价格系数、同类统一6.5折，整轮预期价值/价差小于0.17%；自选用可选最大值、随机用等权均值，只作为设计平衡不是现金回收保证。旧三个配置/cadence、已买库存和旧档原价原奖均保留。旧根停开新轮，实际怀旧第2轮第4档起保留为“旧期续购”，可不续买而选择新版，不清空既有奖励或进度。前层1425完整门禁与5链正式价格/限额/权益只读检查通过。
+round-buy-v1正式已生效：仅在当前最新TileList的ShopChainedListItemRenderer ABC增量加1个Object状态slot与5个事件方法、修改原setData末尾绑定；标题右侧生成170×27金色原生Sprite按钮“一键购买本轮”，保留全部图形/时间线/所有其它ABC及卡色流光、DDS压缩字节。client与server patches/TileList.big同步。点击先取180秒HMAC签名报价，确认弹窗列本轮剩余档位总价/卡包，取消不发POST；POST失联保留已确认quote显示“重试本轮购买”，复用receipt键，避免误买下一轮。
+服务端chain_round_purchase.py在HTTP __main__前最后安装：展示元数据、单档响应refresh均覆盖实际/shop/list入口；只购买当前轮剩余档。RLock内重验经理生命周期/报价签名/轮次档位/服务端价格/余额；一次扣款、发包、推进本轮、写receipt，恰好一次_save原子保存。失败不部分扣款/发奖，重复报价响应幂等；已完成第10轮不开放第11轮；旧未完轮可整轮收尾但不开下一旧轮。
+验证：新版5链×10轮真实handler内存回归+20新包真实开包/自选冻结候选+并发/存档失败共16项；一键事务18项（全轮/剩两档/报价篡改/过期/价格变更/余额不足/写入或发包失败/相同报价并发/经理切换/第10轮/旧轮）、8项实际新增ABC确定性回放、6方法栈/作用域/分支检查；两阶段安装器各6项临时I/O（早晚故障回滚、完整安装幂等、共同锁、写前漂移保留、路径约束）均PASS。重复事务回归只屏蔽不相关的旧商城列表构建，完整实际生产列表在正式只读验收；没有启动第二套服务。
+失败证据与修复：构建新TOP池先拒绝已退役老冻结卡，改为只对新期过滤保留旧卡池原样；早期测试把整个存档每SKU deepcopy导致慢，改保留生产listing_snapshot并用内存底层reader、临时回归不复制无关市场。安装器旧未登记UI路径曾拒绝，该问题在早前卡色层已用精确scope登记，此次完整继承。辅助嵌套PS5.1继承PS7的PSModulePath后Get-FileHash无法加载，切换为正式play中同样的系统PS5.1模块路径后，install-grade20.ps1返回全部7项已是当前无需改写；正式资源和服务已成功安装，无需为辅助检查重复reload。保留powershell-helper-diagnostic.json和修复后check及cutover原失败日志。
+最终状态：round-buy-20261106-224307-951421，top patches/round_buy_preflight.py，1429 guards/父回执完整PASS，compose_manifest(server=None,client=None)可继续组合，未改任何历史发行manifest/receipt。HTTP/admin PID90408，Messenger80412，均正式目录。五新根实际GET报价/剩档总价正确、无quote的POST明确拒绝，PS5.1启动源检查通过；重载前后所有非market_simulation业务JSON完全相同，shop逐字节相同，未执行正式付费购买/发卡，不写任何fixture或测试余额回真实存档，不恢复旧存档。
+原生限制：未自动启动游戏/未使用GUI，按钮实际游戏布局/AVM类型校验和真人点击仍未验证；静态/接口检查不得写成native或比赛通过。重新进入加载新按钮。备份server/backups/round-buy-20261106-224307-951421；第一阶段备份见chain-rebalance-v2/installed-handback.json。证据D:/fifaol3/chain-round-buy/{installed-handback.json,server-tests.json,client-tests.json,client-build.json,install-tests.json,powershell-installed-check.json}；价格与每档内容summary.json在chain-rebalance-v2。
+
+
+FO3-俱乐部履历-20261106：球员历史俱乐部户口增量
+现象与确认：旧playerhistory仅1040人/5258行，队套生产逻辑本已支持当前俱乐部并历史俱乐部；缺失与过时履历导致漏算。
+正式修复：2026-11-06采集Nexon FC Online官方公开PlayerInfo职业履历（年份/租借），与现有EA playerid精确匹配；19834个重合ID中7775份有效履历。只更新playerhistory至8121人/47149行，7586人变化，新增31265组球员-俱乐部资格；其它所有表双向EXCEPT一致。原有户口集合全保留、同队同开始年的结束年/租借状态采用官方记录，重复效力阶段分别保留。
+球队映射边界：俱乐部下拉表用官方EA teamid；米兰131681→47、国米131682→44、拉齐奥115841→46、亚特兰大115845→39经多个独立球员/加入年份核对，排除同年多次转会歧义。无法精确匹配的队名和客户端缺少名称资源的新俱乐部（含迈阿密国际）单独列coverage-report，未猜测导入，不能声称所有生涯已完整。
+验证：SQLite integrity、其它表不变、旧户口保留、双端解密回读、271项BIG目录有序及270个非目标压缩payload一致；8项生产队套函数回归（跨赛季共享履历、重复效力、租借、4名前曼联触发及同人多卡去重）；6项小型临时I/O事务/锁/回滚/后续合法修改保留/真实新门槛篡改拒绝。Windows PowerShell 5.1子进程使用原生PSModulePath，确认Get-CimInstance/Get-Process/Stop-Process可用。
+安装状态：从实际round_buy_preflight最新父层组合，1432 guards PASS，继承全部既有guards和receipt policies，未修改历史hash/receipt；正式服务已恢复，真实本次停服state/shop快照前后完全一致。只读HTTPS locale/messenger/teamcolor、8088和28002服务检查通过。未操作GUI、未强制关游戏；详情tooltip及比赛实际加成仍待原生验证，native=PENDING。
+备份：D:\FO3ID\server\backups\club-history-20261106-224609-710785。证据D:/fifaol3/club-history/{build/coverage-report.json,build/player-changes.json,build/layout-report.json,history-test-results.json,install-test-results.json,formal-verification.json,installed-handback.json}；复验test_history.py、test_install.py及正式patches/club_history_preflight.py。
+
+
+FO3-MUL-048（2026-11-06，manutd-legends-20261106-225113-492606，正式已安装）
+需求：扩充现有48赛季MUL曼联传奇；人类纠正95～99方案，统一为1级、+1强化、主位置显示能力88～92，不含球队套/教练加成；不是数据库overallrating直接填88～92。沿用真实GRADE_BOOST[1]=5，数据库主位置加权基础83～87。
+正式增量：7卡扩为41卡，新增34人，德赫亚91、博格巴90、B费91；完整门将/后卫/中场/前锋。原有7卡SPID及球员身份保持，只调整能力与potential；新增卡沿用对应身份模型/身体/特性/惯用脚，曼联teamid=11。49赛季TCO92保持独立未动；其它赛季原有全部行及playerhistory47149行完全保留。保留最新club_history父层及round_buy全部内容，不覆盖旧DB/资源。
+双端资源：当前数据库增量写入客户端data_0.big；加密/压缩解码回读完全一致，271成员物理顺序合法，270非目标成员压缩字节逐个一致。六许可表各新增34行，其余非players表双向EXCEPT不变；非48球员行保持。
+卡包：新增98248001随机+1和98248002自选+1，固定本期41人；随机逐卡1/41、自选1人，日限100/10份。新配置gamedata/manutd_legends_products.json由product_packs只追加读取，不替换旧SKU。使用实际生产player_value_price及统一估值比例，当前随机3点券/自选4点券；89个已发行product卡包的实际生产pool/grades逐一相等，旧概率配置及shop逐字节保持。未实际消费用户库存或购买测试卡。
+验证：临时文件实际事务早/晚写入故障回滚、最终预检失败回滚、成功、并发目标漂移与后续合法改动保留5项PASS；1514完整正式guards及receipt policies PASS，compose_manifest(server=None,client=None)可组合，历史manifest/receipt不改。本次停服fresh state/shop快照核对，停服期间哈希保持；重启后除market_simulation自然推进外全部业务字段指纹保持，未恢复任何旧state/shop。
+正式只读接口：41张database_detail全部属性精确、database_search季卡集合、registry、两包真实/static/cache/item与/shop/list上架/价格、39张赛季头像CDN全通过。HTTP/admin PID51140，Messenger70968，443/8088/28002恢复。未操作GUI、未启动/强杀游戏，原生布局/比赛待验证。菲尔·内维尔/尼基·巴特头像本地缺失且官方公共旧头像403，保持默认、不冒用他人头像；其余39头像齐全。曾试用不存在/static/item路径得到兜底空对象，已修正验证为实际/static/cache/item并明确断言名称/描述/可购列表，不将空200当有效商品证据。
+备份：D:/FO3ID/server/backups/manutd-legends-20261106-225113-492606。证据：D:/fifaol3/manutd-legends/{installed-handback.json,verification.json,pack-verification.json,transaction-tests.json,latest-build.json}。回归命令：正式.venv/Scripts/python.exe -B D:/fifaol3/manutd-legends/verify.py；verify_pools.py；test_install.py。安装完双锁正常释放，正式修改完成。
+
+
+FO3-005 旧连锁下架续记（2026-11-06，legacy-chain-hide-v1，正式已生效）
+用户明确要求去掉旧期连锁。新增legacy_chain_hide.py并在当前最新HTTP __main__前最后安装，基于manutd_grade8最新父层组合，未回旧MUL/HTTP。仅过滤已退休root及70000001/71010101历史root：/shop/list、限购cache、from_file与购买响应均移除旧根/旧档；旧chained_entry隐藏禁购。旧单档/MP与ST别名、旧GET整轮报价与未提交旧签名整轮请求统一返回LEGACY_CHAIN_WITHDRAWN，不扣款；已提交旧receipt仍幂等可取原结果，不发新奖励、不恢复旧商城行。旧库存定义/余额/进度/历史记录全部保留，新五连锁及曼联+8商品逐字段保持；不改product配置、DB、client。
+验证：8项最新真实handler临时内存检查（旧入口/cache、旧续购/别名/旧报价阻断、库存及旧进度保持、五新链单档与整轮成功/资源不回流旧行、旧receipt重试、当前真实MUL商品对比）及6项临时I/O安装检查PASS。测试最初固定旧曼联+1商品ID，因别聊天已发行+8而失败，改为真实当前MUL商品全字段前后对比；从未旧配置覆盖新发行。
+正式事务legacy-chain-hide-20261106-230927-434196，top legacy_chain_preflight.py，1522 guards/父回执PASS，compose_manifest可组合；实际GET无退休旧根，五新链/当前MUL报价完全相同，正式旧单档、旧报价和重载前真实签名旧POST均明确拒绝；停服fresh非market_simulation业务JSON完全相同，shop逐字节相同。没有真实付费/fixture/测试余额写入，不恢复旧state，未GUI/启动游戏。已完成必要managedreload，native未自动验证。
+补记曾与随后合法all-item-icons writer遇共用锁而停止，未删锁/未改任何运行文件；其完成后按实际新all_item_icons_preflight核3289PASS，说明其组合保留本层。未将旧父门禁用作新子层验收，也不覆盖其最新play/observer。备份及三元组/hash/真实检查：D:/fifaol3/legacy-chain-hide/installed-handback.json和server/backups/legacy-chain-hide-20261106-230927-434196；临时回归test.py、test_install.py，生产只读检查在cutover.py。当前入口以actualplay为准。
+
+
+FO3-MUL-048／卡包统一BP估值续记（2026-11-06，正式生效）
+用户要求曼联单卖至少+8、检查时刻售价；之后明确价格必须按预期BP，并否决旧1点券10万BP，改以连锁整轮500000点券反推。采用本任务涉及的传奇时刻收藏五档为参考，期望BP总和135015000000（1350.15亿）。保留一次性45%／连锁65%／普通100%关系：普通每点券175519.5BP，连锁实际每点券270030BP；points_per_ep=500000/(135015000000×0.65)。其它连锁按实际预期BP变动，不强行都等价50万。
+随机包价值=逐卡概率×逐强化概率×正式player_value_price的双重加权；自选按最高可选BP估值，礼包按数量累加。230个卡包/礼包统一报价，旧货币单位不再倒推9.3万整轮。Decimal消除浮点尾差多收1点；参考五档按最大余数分配，十轮每轮都精确500000（13214/17912/50402/114802/303670）。新增五条71350101..71350501价格版连锁，旧550档价格逐档保持；旧根只停止新开轮，已经开始的本轮原价续购，不改已有进度/receipt。
+曼联：旧98248001/98248002（+1）及97500048（+6～+11）停止未来售卖；已持有原包的卡池/强化规则保持。新98248008固定+8随机41人，预期620731707.317BP，售价3537点券；98248018自选+8，选择估值940000000BP，售价5356点券。原始48卡1级/+1主位置88～92不变，固定+8按+17强化加成显示100～104（无队套/教练）。
+时刻：97310084原始配置60万曾被通用估值覆盖成1397，初步恢复60万已装；收到用户统一BP比例指示后，以最终50万参考比例重算为1718点券（预期301383821.138BP），最终不采用60万孤立旧价。原123人池、固定+1、每经理每周1份均不变，真实经理已用周限仍为0余量，未清次数。
+安装与整合：grade8层后另有all_item_icons合法新层，使用实际最新play/compose_manifest继承全部guards/receipt policies，不覆盖其图标或历史metadata。BP层物理安装后首次启动被新图标模块的完整性检查拒绝：新250个价格版连锁商品编号未登记，服务暂时未就绪。补独立bp_price_icons子层，将250新编号映射至内容/强化不变的原商品图像；原881映射和所有图片字节完全保留，不修改校验器。正式服务已恢复，最终top patches/bp_price_icons_preflight.py，3296物理guards与父回执PASS；三元组和PID/HTTP证据见bp-pricing/final-handback.json及verification.json。期间没有强退/启动游戏、没有GUI。
+失败证据：bp_pricing首次apply因复用sale模块全局SELF改写后错误选择模板路径，正式写前拒绝；改用稳定模板常量。图标子层安装后共享观察文件的相对目录层数错误导致后记失败，正式数据和新gate已成功安装；随后显式恢复受管服务，并将共享观察路径固定到工作根、补最终回执。保留captures/manutd-legends-restart.log中的启动拒绝堆栈。最初断言时刻必须可购未考虑真实周限已使用，已改验证buy与实际remained一致，未动存档。
+最终验证：263个已发行pack生产pool/grades指纹完全一致；550旧连锁档价格完全一致；新250档生产价格及十轮500000总价、实际GET /shop/chain/round/quote=500000、真实/static/cache/item和/shop/list价格/限购/停售信息通过。正式本次停服fresh快照前后state/shop保持，重载后除market_simulation全部业务内容相等；卡/余额/强化/库存/球队等未写回或恢复。验证没有真实付费购买/开包，native和比赛待验证。
+备份：server/backups/manutd-grade8-20261106-230515-770661、bp-expected-price-20261106-231304-100488、bp-price-icons-20261106-231523-455012。证据D:/fifaol3/manutd-legends/{sale-grade8,bp-pricing}，主要为bp-pricing/{build.json,tests.json,verification.json,final-handback.json,icon-extension/installed.json}。回归D:/FO3ID/server/.venv/Scripts/python.exe -B D:/fifaol3/manutd-legends/verify_bp_pricing.py；正式preflight用实际play当前顶层，不能以旧父物理门槛核新子层。
+
+
+FO3-卡包全量校准（2026-11-06，all-pack-prices-20261106-232239-341759，正式生效）
+用户要求所有卡包均按上一轮50万参考连锁的BP比例校准。全量审计263球员包、28非连锁礼包、3月卡和19 BP卡/奖励随机箱，共313项，发现43项遗漏（含已停售旧包展示价）。补独立all_pack_expected_prices.json覆盖全部313定义；product_packs仅追加读取此层，将自动估值fallback扩到礼包/月卡及EP_LOTTERY/ITEM_LOTTERY，不改变其它消耗道具价格。参考比例和一次45%/连锁65%/普通100%保持，原263池/强化指纹、800新旧连锁档价和参考十轮每轮500000全部保持。
+验证：真实生产函数抽取回归覆盖新包/礼包/月卡/两类随机箱自动定价、once优惠、无关经验道具原价保留、已冻结链档价格优先；313项全部符合期望报价，无单包/多包报价差异。HTTPS/static/cache/item验证310项和381组数量报价；3月卡在现有cadence中已归档，因此原本不出现在实际商店列表，保留归档并核对其正式metadata，不把校准价格宣称成重新上架。首次测试错误假设所有月卡都可见，已按真实归档策略修正；另把扣款调用误猜为hc.add_cash，实际是闭包add_cash，改用AST验证真实add_cash(st,-b['price'])，没有执行付费购买。
+正式增量6个server文件、实际最新bp_price_icons父层完整继承，3300 guards/receipt policies PASS，新增自动fallback不创建SKU/不改图标。受管服务正常重载，fresh停服state/shop快照保持，重载后除自然市场外业务数据相等。真实卡、余额、库存、限购、阵容、旧包概率未更改，未启动/关闭客户端或操作GUI。native与真实购买未验收。
+备份server/backups/all-pack-prices-20261106-232239-341759；证据D:/fifaol3/manutd-legends/all-prices/{audit-before.json,audit-after.json,build.json,tests.json,verification.json,installed.json}。复验正式.venv/Scripts/python.exe -B D:/fifaol3/manutd-legends/verify_all_prices.py；最新top patches/all_pack_prices_preflight.py，compose_manifest(server=None,client=None)。
+
+
+FO3-奖励升级（2026-11-06，reward-upgrade-20261106-233648-608756，正式生效）
+用户在全卡包按50万参考连锁完成校准后，要求月卡/签到等奖励升级。签到点券100→10000，仍按原WIB日和原cash_daily_day防重；不重置连续登录、总次数或已领日，不补写已领日余额。默认七天BP为1/2/3/4/5/7/10亿；每日另附卡包依次MUL+8、精选TOP100+8、MUL+8、精选TOP30+9、MUL+8、经典传奇+10、传奇TOP30+11。当前没有管理员自定义daily_rewards.json，因此改原DAILY_DEFAULT默认值，仍保留管理页以后自定义表的机制。
+真实非模拟比赛：胜/平/负60/40/25→1000/700/400点券，日上限600→10000。原match ID幂等和模拟比赛排除保持，旧余额/奖励ledger不清。代码只调整发奖常量，不实际跑比赛/发放fixture。
+三月卡保留原30天期限及所有购买/每日旧物品，再增奖励并按完整30天总预期BP×45%计价：81000001 BP成长月卡43603点券，购买另20亿BP、每天另5亿BP；81000002 曼联传奇月卡50158，购买另曼联自选+8一包、每天另曼联随机+8一包；81000003 高强典藏月卡137027，购买另传奇TOP10自选+11一包、每天另精选TOP100固定+8一包和5亿BP。均每经理每月独立限购1份，使用既有原生MONTHLYPACK、购买立即发奖和每日/monthlypack领取流程。以前三卡被cadence按子包归档，此次通过新产品限购规则明确开放，不删除历史归档配置/旧概率；已有订阅后续每日也享受增量福利，原since/expire/rewarded不重置。未领取日奖励不跨天补发。
+接口补齐：/static/cache/item原允许PACKS/ITEMS/PACKAGES但漏MONTHLY，新增允许MONTHLY，为现已重新上架月卡提供正确静态元数据；原所有item定义保持。月卡实际tooltip由既有brief适配器生成，显示完整购买/每日物品、有效30天、每月1份、基准价和实际价；不把源码desc包含45%就声称tooltip一定含45%。
+预期BP修正：审核奖励时确认EP_LOTTERY原生随机为random.triangular(lo,hi,lo)，再round(...,-4)、max(lo,...)；旧ValueModel按(lo+hi)/2高估。新增常数时间整数CDF/阈值平方和算法，精确计入低端众数、万位取整和下限夹取；独立逐区间积分样本与大额范围测试PASS。用新模型重算本期313卡包/礼包/月卡/奖励箱报价，保留3个原生旧连锁stage合同价；其余810个全部链档价格也逐项保持，参考每轮500000不变，全部263已售卡包pool/grade指纹完全一致。
+验证：执行真实生产daily_login/reward_items/bag_add与economy daily/match函数的内存回归，覆盖7天递进、重复同日、断签、旧现金已领标记、胜平负、同match重放、模拟排除、日封顶；真实ep_monthlypack内存执行三订阅重复/次日/过期，所有原有月卡项保留。真实HTTP只读GET /api/daily、/shop/list与POST /static/cache/item确认七日表、3月卡可见可购/原生now和dailyitems/30天/独立限购及313项报价，未实际领签到、月卡、购买或造卡。
+正式事务继承安装当时实际最新top及全部5569 guards/父receipt（含其它聊天合法新增图标），共同双锁、fresh停服state/shop快照、目标前hash、play最后切换、受管服务恢复。重载后除market_simulation外业务完全相同，未改state/shop/DB/registry/卡/余额/强化/库存/球队/阵容，未操作GUI或强制退出客户端。新top patches/reward_upgrade_preflight.py；compose_manifest(server=None,client=None)，native与比赛实际领取待验证。
+失败样本：构建最初把原生3个历史链档当普通包过滤而错误计数310，改显式保持其旧价、完整报告313；测试初猜metadata必须含45%被实际brief描述证据纠正，改核真实now/dailyitems、限购、价格函数和once报价一致；工作审计器原仅允许all-prices目录写文件，奖励验证报告写同任务另一子目录被拒绝，扩大到本任务工作根仍禁止正式文件写入后PASS。这些失败未写真实资产。
+备份server/backups/reward-upgrade-20261106-233648-608756；证据D:/fifaol3/manutd-legends/reward-upgrade/{build.json,tests.json,verification.json,installed.json}，回归正式.venv/Scripts/python.exe -B D:/fifaol3/manutd-legends/test_rewards.py（安装前plan基线已变，历史完整结果见tests.json；日/月/比赛内存测试独立提取可接续），只读复验verify_rewards.py及实际play顶层preflight。
+
+
+FO3-012：NPC彼此买卖与纯属性单卡估值（2026-11-07，正式已启用）
+用户明确要求NPC之间持续交易，后明确估值输入为身高体重及各项能力，不按姓名/赛季/历史逐卡价查表；2026-11-07本聊天明确允许当前游戏运行时短暂重启服务，不关闭客户端。
+正式增量：新增npc_exchange.py/npc_attribute_value.py及gamedata/npc_attribute_value.json，market_simulation.tick在同一个STATE_LOCK/state事务内推进NPC世界。32个独立NPC钱包，各初始10^15模拟EP；最多192张持卡，每15秒最多从已有有限供给购入3张、NPC之间成交6笔，不自造新卡/不购入+10以上供给。每张卡有唯一批次和owner；报价冻结5分钟、买入30秒后挂牌，至少持有60秒才成交；速度/控球/身体/防守偏好形成不同支付意愿，资金与持卡上限参与匹配；完成交易时买卖双方实际换卡换钱，收1%费，最近300事件保存。
+估值接口：仅39项身高体重/33能力/逆足花式/攻防倾向预测+1，历史EP预测除1000沿用当前单位。姓名/ID/赛季/OVR/声望/潜力/历史逐卡价都不是模型输入。npc_exchange.install在所有hook后抓取最新hc.player_value_price为grade参考，实际value=model_plus1*reference(g)//reference(1)，+0仍0；增强owner只控制倍率。本次未改card_price、GRADE_PRICE、强化率、费用锚、旧pack配置/概率/限购。市场quote另外保留0.6..1.6及Number安全限制；真实NPC同行成交与玩家成交进入原3笔/30分钟、单步0.5%/日2%门槛。旧quote已展示库存不清空重抽，旧成交与权益保留，旧估值pending样本清空避免混口径。
+玩家交易：原搜索/推荐可见NPC所持挂牌，购买按grade与price精确匹配；同一事务扣EP、转出一张NPC卡、记NPC所得及手续费，库存耗尽不因刷新或重启重置。不会自动操作/领取玩家挂牌EP。NPC自身买卖不直接改玩家钱包、卡、库存、经理、球队和阵容。
+发布：共同.shop-release.lock→.fo3-publish.lock独占事务，fresh reward_upgrade_preflight父层、5575 guards与全部receipt policies PASS；只改7个业务/启动文件并加独立manifest/receipt。顶层patches/npc_peer_market_preflight.py，compose_manifest(server=None,client=None)。安装fresh停服state/shop快照只备份不恢复，首tick后除market字段及归属外业务完全保持。启动使用现有stop-server/start_all，无游戏GUI或强杀；客户端出现预期断线后日志确认Messenger重连。
+验证：7组临时内存回归PASS，40分钟936笔真实批次与钱包转移、39卡报价移动；验证钱包+源卖家所得+费严格守恒，资产数量=采购-转给玩家，买卖owner不同，日涨幅限额，重复tick/重启幂等，离线一天不追补爆发，真实handler购买事务，保存失败不提交且重试一次，独立强化倍率与+0保持。不是在正式写fixture。
+正式实钟：后台ticks7/errors0，采购21、NPC同行成交9、公开挂牌9，首次同行批次1/SPID12009676/+9，seller20→buyer12，price1962909634，at1793981089.4033644。只读API与持久化state核验现金/卡守恒；原生search路由确实返回所持挂牌且不泄漏_market私有字段，+1报价等于纯属性预测/1000。没有以修改时钟伪造正式成交，native GUI和真实玩家购买未验。
+失败与边界：首次安装因fifazf运行按设计拒绝，未写正式文件；用户同意后--allow-live-restart安装成功。研究原型约52.4%未见球员误差在2倍内，属于粗估值，不声称实测手感。既有+11..20旧供给表未改，本次NPC不额外批量产生高阶成品；后续强化owner基于本子层继承，不可回旧HTTP覆盖最终NPC价值hook。交易history仅最近300条，不宣称永久全量明细。
+备份与交还：D:\FO3ID\server\backups\npc-peer-market-20261107-000335-042315。D:/fifaol3/npc-peer-market/installed-handback.json、current-task-status.json完整记录实际parent/top/API/三元组SHA/服务恢复与冻结。代码writer已交还、双锁释放；不再改正式代码/票据或重启。
+回归：正式.venv/Scripts/python.exe -B D:/fifaol3/npc-peer-market/test_peer_exchange.py（仅临时内存/只读真实DB）；verify_live_peers.py只读API/state，live-peer-verification.json保存初次证据；patches/npc_peer_market_preflight.py只读完整预检。当前数值/数量以后可自然变化，不固定早先经理卡数或回滚旧存档。
+
+
+FO3-UI-NAMES（names-route-20261107-001134，正式安装，native待人类重启验证）：
+真实23:57:32 telemetry/ui/errors：进入首页前 PLAYERGRADE 回调上下文报 no such table: names。当前正式6语言DB均有names，离线完整性与5569父guards通过，不能据此认定模型导致此UI报错。
+兼容修复仅Module ConnectionPool.execute前插入姓名查询路由：eng/chi/tha/vie/ind的精确FROM names空格查询走fifadb中names+locale表，整表66280行逐列等价已验证；其余数据库、非姓名SQL和kor原路径保持（kor有9条本地化差异，已严格排除）。无新method/trait/签名，原方法全部原指令与分支重定位保持；仅一个DoABC tag修改，其它SWF tag和BIG成员保持。真实新增前缀字节码回放、五语全行及查询等价、缺表失败样本和原子临时I/O回滚/并发漂移检查通过。
+不写DB/data0/state/shop，不更换真实球员/卡实例/余额/阵容，不重启服务、不操作GUI。贝林首页带球导致全屏黑屏/退出仍单独未修复，不能将本次姓名修复声称为模型或比赛通过。证据 D:/fifaol3/new-player-models/home-black-screen/names-route-build.json、names-route-installed.json；复验正式patches/names_route_preflight.py。
+
+FO3-PROGRESSION20-001（2026-11-07，progression20-20261107-000846-389515，正式生效）
+用户认可「+13常规目标、+15精品、+17以上稀有、+20顶级」完整强化重做，并明确「我已退出，可以安装」，实际进程71848仍存在时严格等待，用户从游戏内正常退出、实际无fifazf后才安装；未强杀或操作GUI。
+新默认（当前等级→下一级）：+1..+19依次100/95/90/85/80/75/70/65/60/55/50/45/35/28/20/14/9/6/4%。当前没有enhancement_rates.json，故新默认直接生效；以后显式保存的后台rates仍优先，不强制覆盖。默认revision包含完整默认表，旧页面拿更新前默认revision保存会被拒绝；已有配置文件的字节revision机制保持。
+失败：+5及以下保持等级；其余普通失败只掉1且不跌破+5/+10，+10失败仍+10；有付费保护则保留当前级，材料照耗、主卡经验不清。无掉级失败协议明确protection.applied=true/paid=false/kind=safe_floor，走已安装的保级结果分支，不会诱导无权恢复。原有效恢复报价保留；旧报价恢复级低于当前级时拒绝降级/扣费，不静默清权益。
+费用校正：旧enhance_cost取未缩放card_price/50，在身价÷1000后实际约显示身价20倍。普通费改ceil(最终显示player_value_price×2%)、最低1000 BP；保护仍ceil(最终显示身价×40%)且替代普通费，成功/失败都收、已安全的+5/+10或必成功组合不卖保护。普通费动态取最终h.player_value_price，避免新NPC属性估值安装后闭包仍按旧OVR收费。未改card_price/旧商城奖励锚。
+加成：当前+13起，免费可重复使用的ES加成为材料倍率后基础概率的相对10%，保护+19时4%→4.4%，不是14%；低档ES仍加10个百分点。已售Gold/Silver/Bronze原有+15/+10/+5个百分点保留，与保护共用选择栏不能同时用；因此4%是普通+1材料无加成基础值，不冒称所有道具组合最终都4%。材料倍率和低档活动保持，概率预览保留3位小数、执行共用同函数。
+身价：不改变当前NPC属性模型基价及+1..+10；+11..20逐级倍率1.25/1.35/1.45/1.55/1.70/1.85/2.10/2.40/2.80/3.20。使用有理数累计/整数上取整，不按每级全额预期保护成本指数回填。早装高阶曲线供market参考，保留随后npc_exchange的能力基价和graded/anchor接口；现有旧NPC挂牌/玩家合同/持卡/钱包不迁移或重置。高阶曲线安全边界5.6e15（留1.6市场系数），当前正式卡未触边界；新NPC报价原有限幅与Number-safe上限保持。
+资源：只将实际最新强化popup一个现有ABC字符串改为中性「本次失败已保级…按确认的普通或付费保护方案收费」，所有class/signature/方法records/非目标BIG成员压缩字节保持；client与server patches同步。原空格跳过、卡色流光、EXP/容量/DB/其它图标和连锁按钮保持，不改其它客户端。新增规则模块、HTTP最小接入、保护/设置模块及管理页说明，独立progression20三元组；继承实际npc_peer_market5575父层，最终5579完整guards/receipt policies PASS，历史元数据不改。
+验证：真实最新全hook在内存编译、仅D盘临时state执行19概率/9边界×v1-v2.5失败收费/阶段保底与恢复/保护收费与4.4%/旧恢复拒绝降级/显式0%重载持久化；所有当前OVR代表身价递增、旧+1..10保持、Number-safe；263已发行pool/grades与1128现金报价保持，全部PASS。10项原生ABC确定性回放、14方法栈流与分支检查、11文件Python事务早晚失败回滚/双锁/资产路径拒绝/运行游戏拒绝PASS。期望次数仅理论：无加成且保级路径从+10单调升到+13平均约6.04次、到+20约77.39次，非保底、非掉级路径结果、非实机次数。
+失败样本：v1原本无ES恢复，首次回归错误要求v1掉级生成restore而失败，修正按v2.5条件验证；C盘已满导致临时测试fsync报ENOSPC，正式写尚未开始，停止清理尝试（自动审核拒绝且未给原因），改D盘后完整PASS。准备后合法NPC新层已安装，旧基线自然失配；fresh继承新属性估值、修正普通费用动态引用终值，再回归PASS，未用旧文件覆盖新层。
+正式生效：共同双锁→gameclosed→fresh父proof→停受管服务→fresh业务快照/本次文件备份→11文件原子事务（play最后）→正式Hidden restart。HTTPS443/admin8088 PID93940、messenger28002 PID85384健康；重载前后除自然market_simulation之外业务指纹完全相同、shop/旧概率文件字节一致，没有测试卡/余额/存档回写。/api/enhancement及/info/enhancement/progression/rules返回新表、+5/+10阶段线及2%/40%；真实现有+12/+1材料HTTP预览45%、费用182196396=ceil(9109819756×2%)，两组+10预览55%与2%精确通过；/api/market_status确认32 NPC继续运行。仅GET预览，无真实付费强化/领币/发卡，不把协议或回放写成native或比赛通过。
+证据：D:/fifaol3/enhancement-progression/{baseline.json,source-diff.json,tests.json,client-text.json,客户端契约回归.json,栈与分支回归.json,install-tests.json,installed.json,cutover-result.json,live-result.json,handback.json}；正式备份server/backups/progression20-20261107-000846-389515。复验.venv/Scripts/python.exe -B patches/progression20_preflight.py；工作test_progression.py（安装前源码基线测试，保留历史PASS）、test_client.py、test_stacks.py、test_install.py、verify_live.py。后续新商城发行价值和NPC高阶供给由各owner继承新曲线核对，本次不追改已售池/旧进行中合同。
+
+
+FO3-PROGRESSION20-001 第二轮（2026-11-07，ratesv2）
+用户明确指定current+11..+19到下一级基础概率20/15/12/10/8/6/5/4/3%，其余档位保留；已通过现有后台POST /api/enhancement_set实际保存配置，立即生效并持久化。重载时不覆盖新配置。同步新版默认表及冲+13（current+12）起ES相对10%，15%→16.5%、3%→3.3%；原已售加成道具、材料倍率、2%普通费/40%保护费、阶段线/经验/身价曲线均保留。228组真实原函数组合与不变代码AST检查PASS。
+人类明确允许游戏运行时短暂重载，不退出客户端；本层仅6个server payload（含本账本追记）与2凭据，严格无client/DB/HTTP/资源目标。共同双锁+fresh实际parent，停服务后fresh业务/概率配置快照和文件备份，原子安装，play最后切换，再Hidden恢复受管服务；不强退/启动游戏，不用GUI。实际运行与真实预览验证以D:/fifaol3/enhancement-rates-v2/{cutover-result.json,live-result.json,handback.json}为准，未执行付费合卡或真实资产测试。
+父names_route新门禁曾将工程账本纳入不可变guard，当前账本仅本聊天上一轮合法追加而失配。严格确认父guard180249e1...等于progression20/工程经验修改前.txt，当前acc016fe...完整以前者为前缀，其余全部父guard/receipt policies逐项验证；通过本独立子层登记精确追加delta与本条，不改父manifest/receipt洗旧hash，也不删除历史证据。后续owner需继承实际最新层并识别账本追加，禁止恢复旧账本抹掉条目。
+工程证据：D:/fifaol3/enhancement-rates-v2/hot-save.json、tests.json、prepared.json、installed.json与上述运行回执；本条不代替native/比赛验收。新门禁patches/ratesv2_preflight.py，compose_manifest(server=None,client=None)。
+
+
+FO3-UI-NAMES 续（native-sql-fallback-20261107-003348）：
+上一names-route未解决实机故障：00:17:47真实UI telemetry已从no such table: names变成no such table: nameschi，证实路由已加载但客户端读取主库仍失败。不能把离线存在表与整表等价当原生打开成功。该失败样本保留captures/http_config.log及本任务sql-fallback-build.json。启动临时7BC7.tmp为0字节、7BD8.tmp为完整chi加密库，尚未证明底层读取失败的唯一原因，不修改内存池掩盖问题。
+修复为SQLConnection.execute原生错误回调单次兜底：原生成功直接按原数据/错误回调；仅原生查询失败才使用原客户端既有/static/sql/<db> HTTP分支及原method7响应处理，读取正式fifadb或当前data0语言库的只读查询。不是忽略错误或返回虚构空球员。新增Reader只读URI/query_only/authorizer/超时和行数上限，写入、删表、ATTACH、PRAGMA、load_extension、多语句拒绝。原生3D/比赛是否恢复仍待实机确认。
+实际回调字节码回放5种成功/缺表样本通过；6语言姓名、主库真实贝林属性、履历及恶意写语句16类只读回归通过。仅一个Module DoABC中的SQLConnection.execute包装原native回调并增加双参闭包，原HTTP回调、其它方法/签名/trait/非目标tags保持。正式HTTP仅追加install hook，保留最新ratesv2/市场等修改。共同双锁+fresh parent+停服新资产快照，保留经理/球队/卡/余额/库存/阵容，绝不回写旧state/shop。
+证据D:/fifaol3/new-player-models/home-black-screen/sql-fallback-installed.json；回归build_sql_fallback.py与正式patches/native_sql_fallback_preflight.py。状态：正式安装、只读API通过，native首页/贝林/比赛待人类验证。
+
+
+FO3-UI-NAMES 再续（sql-http-20261107-003953）：
+前一双参native错误回调封装未通过实机：00:36:06点击经理开始后仅有PLAYERGRADE请求、未出现任何兜底SQL HTTP，00:36:51 CLIENT_CRASH。未获得崩溃栈，不能将其当底层损坏已确诊；此回调封装撤回。保留前一正式版本备份及build证明，不覆盖其它聊天代码/资产。
+本次严格证明当前SQLConnection除本聊天execute和新增callback外与原始一致，再移除本聊天新增callback，恢复原始method数量/全部签名/traits；只在原execute的backend选择前加一条跳转，直接进入原程序现成HTTP SQL分支。原HTTP响应method7、SQLStatement回调、全部原指令及分支重定位保持，不再包装native回调。主服务前一层只读SQL端点保持，姓名/属性/履历真实API已通过，所有写/删表/ATTACH/PRAGMA/load_extension拒绝。
+仅修改Module及新gate/play/本条账本，不改HTTP/服务/数据库/原生模型/经理资产，不需要重启服务。5种前序字节码测试未覆盖真实native回调ABI，不能再以其冒充native验收；当前原HTTP分支也须以实际/static/sql请求和原生首页为准。
+证据D:/fifaol3/new-player-models/home-black-screen/sql-http-installed.json、sql-http-build.json；回归build_sql_http.py以及正式patches/sql_http_preflight.py。实机首页/贝林/比赛仍PENDING。
+
+
+FO3-UI-NAMES / FO3-001 模型续（bellingham-impact-20261107-011545）：
+失败样本：本聊天names路由、native回调兜底和强制HTTP SQL分支均未通过实机；00:42:36经理开始后仅一次nameschi SQL请求，00:43:21 CLIENT_CRASH。此次撤回本聊天Module全部改动，严格当前8a8f3a97…基线及原始备份1b9519f9…匹配，非gfx成员逐字节一致，原始gfx解压与修改前current-Module.swf一致；不回退其它聊天服务/资源/发行层。只读HTTP端点保留但原始Module不会被强制路由过去。
+确认：用户00:55:59正式客户端经理列表只读dump，PID84080，7EA8.tmp=54134784、7EC8.tmp=5647360，与当前主库/chi库完整长度相同；原生FileGetSize离线重放三路径成功。早先主库临时文件为0异常未稳定复现，池容量不足仍是假设，不据此改内存池。
+确认：贝林头/近发/远发源255骨骼，原生ImpactEngine252，编号存在不同语义。使用作者FIFA Converter25.09.14静态CIL提取的BoneStrToIEIndex别名及FIFA14_Switch/ImpactEngine骨骼表，将实际正权重骨骼逐名映射，合并同骨骼整数权重，总权重不变；保留目的原生skin模板252矩阵，与作者ConvertToRx3策略一致。未执行第三方转换器。仅修改三份RX3的blend索引/权重、remap和skin；所有位置/法线/UV/三角索引/材质/贴图/section offset/文件长度不变，skin尾部192字节留零空隙。
+正式data4只改贝林头和近发，data6只改贝林远发，BIG目录/其它成员原压缩字节全相同；独立有界解析器验证5个mesh均252矩阵、骨骼范围/重映射覆盖/权重/索引/有限数值通过。保留贝林两张卡及全部其它真实资产/阵容，不改state/shop/DB/data0/player.lua/其它新球员。此静态兼容修复不等于原生首页或比赛通过，真正崩溃原因尚待用户手动启动验收。
+证据D:/fifaol3/new-player-models/home-black-screen/bellingham-impact/{report.json,independent-mesh-validation.json,archive-build.json}、bellingham-impact-installed.json；坏样本原始导入资源与此前Module备份保留。回归retarget_bellingham.py仅用于构建前源基线，安装后使用正式patches/bellingham_impact_preflight.py及独立mesh解析器。无GUI操作，无启动/强制关闭游戏，无服务重启。
+
+FO3-024：HTTPS响应中途被对端断开刷SSLEOFError（2026-11-07，http-peer-close-v1，正式已生效）
+用户原始坏样本D:/fifaol3/evidence/https-peer-close/reported-failure.txt：01:17:15附近多个请求线程在H._respond→wfile.write→SSL.write抛SSLEOFError。此为连接写响应阶段对端中断，不能据此推定整服崩溃或客户端native崩溃根因。另观察正式日志01:20:42 CLIENT_CRASH，保留为不同证据，不把本修复说成解决客户端闪退。
+修复：只在H新增handle连接边界，捕获ssl.SSLEOFError/ConnectionResetError/ConnectionAbortedError/BrokenPipeError，close_connection=True并记录一行时间/错误类型/IP。不发送第二响应、不重放请求、不回滚已提交事务；未知OSError、ValueError及非EOF SSL错误仍抛出。其余HTTP AST逐节点相同，保留完整原业务与后续hook。
+本次5目标（HTTP、play、http_disconnect_preflight.py/http-disconnect-installed.json/http-disconnect-receipt.json），父bellingham_impact_preflight，全部5599guards/receipt policies PASS，所有客户端BIG/模型/DB/商品/容量/保护费率不变。备份server/backups/http-disconnect-20261107-012407-672999，旧票据不改。安装器共同.shop-release.lock、freshparent/hash并发保护、play最后切换、原子失败还原、重复零写。最初只装源码未重载，发现用户重新打开游戏后按约定询问时机；用户明确答“现在可以重载服务”后才managedstop/start，未启动/退出游戏或CUA。
+验证：临时真实TLS服务在提交一次内存POST后由客户端RST中断响应，旧H稳定复现相同SSLEOFError，修复H无未处理异常且短日志记录，新GET200；提交仍一次、不重放。所有4类已知读写断连单次关闭；未知3类错误仍可见。5项临时发布I/O（锁保留、第二步故障回滚、完整gate及资产字节不变、二次零写、篡改拒绝）通过。回归test_disconnect.py/test_publish.py均在evidence/https-peer-close，未使用正式业务资产或端口。
+正式live验证：使用只读GET language_chi.big响应中途RST，正式HTTP记录HTTP peer disconnected(SSLEOFError)，随后/messenger/2、/coaches、/coach/me全200；live结果handback.json。新HTTP85048/Messenger60024，443/8088/28002正常。reload前后coaches/teams完全相等，shop逐字节相同，仅market_simulation自然变化，无真实测试资产。接口/连接验证不等于客户端闪退或比赛已修复。复验：正式.venv/Scripts/python.exe -B evidence/https-peer-close/test_disconnect.py；test_publish.py；verify_live.py（后者只读GET断连探测）；正式patches/http_disconnect_preflight.py。
+
+
+FO3-001 / FO3-UI-NAMES 原生球员库续（native-roster-20261107-013154）：
+实机失败：用户确认前一层能进入首页，切换贝林仍黑屏卡死；01:20:32只读dump PID85916保留，01:20:42 CLIENT_CRASH。骨骼转换未解决此崩溃，不能再据静态mesh校验声称原生修复通过。
+确认根因路径：崩溃线程保存EXCEPTION_POINTERS=45b44a9c，record C0000005，EIP008fd780，读地址4，EAX0。原生查询解析器当前token=trainingteamplayers，条件playerid=252371；数据库符号表24表中无此表。原生902b40先SELECT players WHERE playerid，空返回后902bcb走trainingteamplayers并在表符号查找空指针崩溃。当前data/db/fifa_ng_db.db的players62081条确实没有贝林，前序只加SQLite/名字/模型不完整。静态函数解码与真实dump逐项对应；不依赖误导性的最近导出符号名。
+本次只在EA二进制库players追加贝林真实记录，全部102字段逐项编码、位宽/范围/回读验证；整数按meta rangelow偏移，float按IEEE32，日期按EA Gregorian编码（32483条原生生日与SQLite匹配）。原生headtype13bit容不下UI保留30001选择器，原生用正常专属头规则headtype1023/headclass0/headasset252371，直接指向贝林原模型；UI主库与Lua映射保持原样。未用姆巴佩外貌/能力替代贝林，仅借有效原生record布局模板且全部字段覆盖。
+原62081条raw record逐字节相同，所有其他EA表逐字节相同，players只增1条；修复表与文件CRC、RefPack回读通过。data0按原目录顺序重建，271条成员中270条原压缩payload及size/usize全部相同，正式check_data0_layout PASS。只改data0/新gate/play/本条账本，Module/三份贝林已转换网格/SQLite/语言库/真实state与shop不改，无服务重启。
+继承实际http_disconnect最新层，保留HTTP断连修复。该owner完成handoff后单独追加本账本而未登记新hash；严格证明原guard字节为本聊天Impact账本完整前缀，当前只增FO3-024段2710字节，owner五文件与handback哈希一致，其余5598物理guards和所有receipt policies通过；新子层登记该精确append与本条，历史manifest/receipt不改。parent-doc-reconciliation.json保留前缀/追加/现值sha256与完整核验范围。
+证据D:/fifaol3/new-player-models/home-black-screen/native-roster/{build.json,crash-evidence.json}与native-roster-installed.json。回归正式patches/native_roster_preflight.py、tools/check_data0_layout.py --changed-member data/db/fifa_ng_db.db --baseline 本次data0备份；原生首页切贝林及比赛仍PENDING。其余8个原缺失球员同样未入EA库，此轮不盲目批量加入：例如部分源skillmoves5越过原生0..4语义范围，需后续逐项转换，不能宣称全部新增球员通过。
+
+
+FO3-MU-MARKET-FILTER（2026-11-07，manutd-filter-20261107-014643-851410，原生验收PENDING）
+用户反馈转会市场选“曼联”无筛选结果。实证：语言包TRANSFERMARKET_SEASON_55=曼联、49=曼联传奇；static_roster中MUL=48，TCO92=49，55=原曼联。SQLite中55共7张，permid的transferable/ licensed全0，TransferUtil本地SQL明确要求transferable=1，并可能加licensed=1，故该季查询为空。此前扩充41人属于48季，其中新34张许可正确，原7张仍0；49季5张也未完整可见。REA SQLite证据ev_333a3326d11eaf57f35de0ecacf919d56a4dfc3ef65a2cee10f88efac0b36954确认正式SQLite许可表结构；具体分季计数来自只读SQL，语言来自当前资源解包。
+修复范围：只将48/49/55既有卡的六地区许可表licensed与transferable置1，分别可筛选41/5/7；所有players/名字/履历/经验/身体等表和非目标许可行完全保持，无新增或重编号。已知53张全在既有server市场集合，FA补集前后集合严格相同，旧商品卡池/概率/报价保持。人类随后明确“统一一下命名，反正都叫曼联传奇”，故三组选项及相关赛季名全部统一“曼联传奇”；static_roster只改三条显示key，value及赛季分组原样，不混合或迁移已有卡。
+客户端data0仅替换data/db2/fifadb.db.db2；双端解密回读一致，目录271条有序，270非目标成员原压缩字节保持。尤其最新data/db/fifa_ng_db.db（原生贝林追加）逐字节保持，绝不使用旧data0全包覆盖。中文只改/补相关11个赛季显示key，其它key值保持；同步server语言源、两缓存及语言校验元数据。无需修改Module/运行中的进程内存，不操作游戏GUI，不强制结束游戏。
+按用户约定，仅在正常退出游戏后以共同双锁、实际最新父层及fresh目标hash安装，必要受管服务重载；备份本次正式目标并只回退本事务后版本。保护本次停服新state/shop及用户新增进度。因本账本已被最近原生修复层登记guard，此次将本段本身纳入正式delta/新guard，不安装后再裸追加，也不改历史manifest或receipt。
+构建、目录/SQL回归、安装与只读接口结果位于D:/fifaol3/manutd-legends/market-filter-fix/{latest-build.json,tests.json,installed.json,verification.json}；native转会页实际筛选和比赛仍须用户手动重进确认，接口/静态SQL通过不等于实机通过。
+
+
+FO3-001 全量修复与导入防回归（player-import-20261107-020304）：
+人类已确认 native-roster-20261107-013154 贝林首页正常显示并能带球，独立证据new-player-models/home-black-screen/native-roster/human-home-validation.json；未声称比赛通过。用户进一步要求覆盖其它新球员并沉淀经验。
+全量632自定义卡/446身份核对：原生还缺11身份（8个现代新面孔+Beckham250/Carragher5467/Cantona167198），故不是全员必崩，但这些缺项确实会走同一危险训练表fallback。正式EA players新增11条至62093；19个已登记专属面孔统一绑定本人assetID/class0/type1023；原生新记录逐字段偏移、浮点、日期、位宽、CRC/行数检查；Cantona仅引擎基底potential按schema99，UI卡118保留。其余非目标旧记录和全部其它EA表字节保持。
+18套余下导入模型255→252逐名/作者别名retarget，57个网格逐项范围/权重和remap/索引/有限数值检查；贝林已通过的3个网格字节保持。新换54个网格只改bindings/skin/remap，不改脸型/发型/位置/法线/UV/三角/贴图和内层offset。完整19套五件套都有明确回执，未知rig和加权骨骼拒绝。
+另确认旧build24/build_bulk_seasons直接把HTML★数写skillmoves，未转FO3 0..4；按原始hash绑定的官方快照修正255张FC卡的星数编码，主库其它字段保持。另修Beckham4条UI记录的已有preset1505类别0→1，实际资源只有head_1505_1，保留同一已配置脸型，不替换为其它人。合计259目标行，其它表/行/字段逐项EXCEPT/精确delta证明；server/client主库加密回读一致，六语言库原字节保持。历史Pogba48继承91195864的5原值无FC星数来源，不猜测下调，以显式历史例外保留。
+新增tools/player_import/{prepare.py,check.py,native_db.py,rx3.py,ordered_big.py,rig-map.json,README.md}、gamedata/player-imports.json及语义证书，play每次启动先独立检查。覆盖双端库、原生身份/新增row回执、六语言姓名、登记资源/来源星数单位/选择器和Lua路由；证书绑定全部输入和checker SHA，变化后不能复用；新身份未知来源/缺五件套/错rig/错palette/错CRC拒绝。server AGENTS增加强制流程，工作区AGENTS同样补充链接。
+验证：18套转换和所有非目标压缩payload逐字节保持，data0只改两个DB成员、目录有序；11项有界格式/错误骨骼/坏CRC/缺字段/新BIG成员/I-O拒绝回归PASS；旧正式输入作为失败控制稳定被新检查拒绝缺原生记录及255骨骼，修复输入632/446/19及六语言66280行FULL_PASS。未写任何fixture到真实state/shop，没有新增测试经理或卡。两张既存曼联卡48000249/48000245缺头像来源、官方CDN403，显式旧缺项保留默认头像，不伪称已补真人图片，不允许新导入使用此例外。
+正式发布继承当前最新父层，保留其它聊天曼联筛选/名称/HTTPS和费率等改动；共同双锁、正常游戏关闭、停受管服务fresh资产快照、备份、CAS原子替换、play最后、只回退自己后版本、Hidden恢复服务。历史回执不改、不恢复旧state/shop。
+工作证据D:/fifaol3/new-player-models/bulk-repair/{current-audit.json,missing-and-meshes.json,built/build.json,built/mesh-conversions.json,built/native-changes.json,tool-tests.json,original-rejection.json,installed.json}。正式验证命令.venv/Scripts/python.exe -B tools/player_import/check.py --full、patches/player_import_preflight.py；check_data0_layout与本次备份比较只允许两个DB成员变化。原生其它球员/近远景/比赛仍待逐项验收，不能从贝林推定全员。
+
+
+FO3-MU-MERGE-ORDER（2026-11-07，season-strength-20261107-020706-435365，原生验收PENDING）
+用户反馈同名“曼联传奇”重复，明确要求合并；随后补充shortname占位名和整体能力+2，最后明确不精简其它赛季，按卡种强度高低排序。
+本次仅将static_roster的48/49/55三个筛选项合为一个value=[48,49,55]，共53张原卡；全部其它赛季原条目和value保留，只按本次更新后的1级/+1主位置加权OVR均值降序、同分最高值、再原序排序，58→56仅减少曼联重复2入口。原生TransferPurchaseFilterSmoothPanel回调51逐项push服务器顺序；TransferUtil25/26本就支持数组值OR多个季号，因此不改Module/页面BIG/进程内存。原始编号、SPID、存档、卡包和队套代码不变。
+精确53张曼联卡每张主位置实际显示OVR+2；同位置原始数值按原技能分布增量，在99边界截断后选择最小平移保证主位置恰好+2，overallrating同步+2。其它球员所有字段、53张身体/模型/位置/特性/身份保持，强化/等级不改；48季41人主池从88～92到90～94，其余49/55旧卡各按原能力+2，不冒称53张全都90～94。
+确认名字根因：主SQLite nameschi和客户端独立chi.db的names都保存Shortname_36/Shortname_239，故本次同时将两份真实short字段修为约克/安迪·科尔；两位身份的其它赛季共享显示名也同步纠正，不涉及经理/球队或其它球员名字。所有名字full、英文名与jersey字段保留。
+data0仅两项SQLite成员（fifadb.db.db2、chi.db.db2）增量加密/压缩替换并完整解码验证，269其它成员原压缩字节保持，尤其EA原生fifa_ng_db.db和贝林最新修复完全保持，目录顺序/271项数量不变。主DB除53张属性与2条短名、chi库除2条short外均逐行保持。已有商品内容/概率/静态报价、市场供给代码、强化规则、真实state/shop均不改。
+只能在用户正常退出游戏后按共同双锁/最新父层和fresh快照安装；不自动关游戏或操作GUI，play最后切换，账本本段也纳入新guard，不安装后裸追加。构建、SQL/原生数组回放、排序和资源证据在D:/fifaol3/manutd-legends/season-organize/{latest-build.json,native-order-proof.json,tests.json,installed.json,verification.json}；真实市场UI重进筛选/新短名与能力显示待用户验证，静态/协议检查不冒充native。
+首轮准备曾遇另一聊天player_import合法更新DB/data0，基线检查在正式写前严格拒绝；随后完整事务锁内从最新player_import父层重建，全部新增球员/模型/名字和EA原生记录原字节保留，未用旧构建覆盖新结果。
+
+
+FO3-012 续（2026-11-07，exp-quantity，原生验收PENDING）
+用户确认旧2555页面在背包经验券“使用”入口、尚未进入选人时卡死；日志02:22:50 CLIENT_CRASH，未观察到对应经验券使用POST。旧15项值回放不能证明原生初始化/事件派发安全，不再将旧页称为可用。
+本次保留单球员多张的手输、加减、MAX、统一预览及提交快照，去掉动态构造BlueAquaButton皮肤，数量操作改原生TextField点击；使用mouseEnabled并防护控件尚未完整创建时的早期refresh。皮肤初始化是待验证假设，未获崩溃栈，不宣称唯一根因。原始业务其它方法/资源保持，不改Module、HTTP、数据库或真实资产。
+实际字节码7方法CFG、15项数量/提交回放、4项缺控件早期回调回放通过；临时文件事务7项（运行中拒绝、锁冲突、失败回滚、完整门禁、重复零写、资产不写、篡改拒绝）通过。静态/模拟均不等于原生通过。用户已正常退出并选择自行测试；不操作GUI、不启动游戏、不重启服务。共同锁、最新父层组合与CAS备份，继承所有guards/receipt policies，play最后切换；工程账本也在同事务guard内。
+证据D:/fifaol3/evidence/exp-select-20261106/batch-text-v3，正式页面SHA256 e8c1e7cc0d0b69027f2b04d1dd8eac5ffcf8ea58805154a0404d03969fae826a；安装/回执evidence/exp-select-20261106/quantity-install-result.json，正式patches/exp_quantity_preflight.py。原生打开页、选人、张数输入/加减/MAX和预览待用户手动验收，真实消耗未测试。
+
+
+FO3-LAUNCHER（2026-11-07，native-launcher）
+用户要求不再靠bat启动，并指出服务端、客户端应分开。本次新增原生WinForms控制台与桌面两入口：“FO3 服务端”和“FIFA Online 3”。启动/停止服务与打开客户端为独立动作，打开客户端不重启服务，未就绪则提示先开服务。窗口关闭不停止后台服务或游戏。
+所有子进程直接调用exe/py/ps1，无cmd/bat执行。保留最新发布门禁与独立player_import检查；play-local.bat仅读取唯一版本gate行，兼容其它发布者更新，不作为执行脚本。保留中文与强化资源检查。游戏运行中禁止停服或改客户端资源，共同发布锁防止与安装并行。后台服务使用正式start_all.py和同样环境FO3_GAME/chi/20；不写state/shop或测试资产，不自动操作游戏GUI。
+验证：C#编译、编排器语法/分支回归、正式最新版本门禁及原生exe --check-only只读检查；原生按钮实际启动游戏由用户自行操作，不把只读检查当比赛通过。工程账本和exe/源文件/编排器纳入最新子层guard，安装前备份，所有父层guards和receipt policies保留。证据D:/fifaol3/native-launcher，实际服务启动/停止未在本轮自动执行。
+
+
+FO3-012 再续（2026-11-07，exp-entry-font，实机PENDING）
+用户手测e8c1页面仍在经验券“使用”入口卡死，02:42:06 CLIENT_CRASH。02:41:12另有商城ListItemRenderer/setData空引用，调用栈非经验券页，不能直接认定同一原因。02:41:22小dump曾被目录观察到，后续读取时已消失，未取到异常栈，不编造根因。
+找到本聊天继承的configUI初始化隐患：数量输入框在未选球员时读取selectedPlayerInfo.player.playerLevelTextField.defaultTextFormat/embedFonts。新页删除该32字节中的详情依赖，使用现有$NormalFont别名构造独立TextFormat；embedFonts此前已设false。4种空/尚未就绪详情状态，实际原字节码均失败，新字节码均通过；构造/渲染为模拟，不是原生验证。
+仅改方法5字体初始化这一段，NOP填充保持所有原偏移，方法6/10/11/15/18/32及全部其它方法记录逐字节保持，批量数量/预览/提交逻辑保留。原生页SHA256 63531b563e2755064f17add12e5092092b38436d6165cc67abd393293485a0c1。确切native崩溃原因仍待实机证据，不能再用离线检查称修好。
+正式安装沿用共同锁、最新父层、精确e8c1输入CAS、逐文件备份及只回退自己后版本；不启动/强退游戏、不消耗券、不停服、不写state/shop。证据D:/fifaol3/evidence/exp-select-20261106/entry-font-v4与entry-font-install-result.json，实机由用户手动反馈。
+
+FO3-LAUNCH-LOCK-001（2026-11-07）：确认 native launcher 对 client-start 申请发布锁，撞上 wonderkid 安装时直接报 Errno 17。用户要求有发布锁也可启动游戏。正式 launcher/fo3_control.py 改为 client-start 只检查游戏未重复运行、正式服务就绪并启动已安装 fifalauncher，不申请/删除发布锁，不重装语言或强化资源、不停服、不读取正在变化的发布门禁。已有服务就绪的 server-start 直接返回；真正启停服务仍锁保护并显示中文冲突原因。安装/独立check/新服务启动的完整版本及player_import检查保留，play独立player_import行保留。本次仅Python启动控制/账本/新子层元数据，无客户端资源或state/shop写入，无服务重启、无游戏GUI操作。回归 D:/fifaol3/launcher-lock-free/test_control.py 验证有锁/无锁启动、离线拒绝、重复游戏拒绝、服务启停冲突保留锁及启动失败；模拟Popen不代表实机启动或比赛通过。
+
+
+FO3-MU-SERVICE（2026-11-07，manutd-service-20261107-030053-701716，原生实机PENDING）
+用户要求补瓦拉内、卡塞米罗，核查其它遗漏，并明确马奎尔、卢克肖、埃雷拉和暗黑四天王均可收录。卢克肖/埃雷拉/纳尼/瓦伦西亚原卡保持；新增26名曼联效力球员到48季，主池41→67、合并筛选53→79，90～94为1级+1主位置口径。全部沿用现有真实playerid/原生身份及历史卡模型，不伪造新人身份；新卡按原技能分布平移校准，所有旧卡数据逐行相同。data0仅UI SQLite单成员替换，其它成员含EA原生库/模型/Lua/六语名字原压缩字节保持。
+注册表只追加新卡，筛选条目不删不增，按现值平均能力降序；全部旧商品/已发卡包池/概率/报价冻结，未把扩充强塞进已售卡包。新增卡市场初价依现行神经模型一次性预测，停服后对最新价格库仅追加26个seeds/prices，已有价格、成交事件、元数据精确保留。完整player_import语义检查通过后同步更新有效证书与双份真实头像。按最新父层/共同双锁/本次停服新快照备份与CAS安装，继承全部guard及receipt policy，不写state/shop，不自动退出或启动游戏。
+证据D:/fifaol3/manutd-legends/service-expansion；接口/SQLite/资源和语义验证不是游戏内市场或比赛验收。
+
+FO3-BOOT-HEADER-001（2026-11-07）：用户02:58启动后选经理前黑屏，HTTP仅locale/_timestamp/language_chi，无经理握手；02:50同样样本早于02:58:54只读启动器修改。确认wonderkid Label把新DefineShape(65018/65019)置于GFx ExporterInfo1000/ExternalImage1009/FileAttributes69之前，改变已运行版本头顺序。本层只将这两个完整tag原字节移至头/脚本元数据之后、原第一个图形定义之前；全部tag字节多重集、两个徽章、144/735新增18season帧和其它资源保持，不回退整个Label、不动Module/语言/球员/DB/state/shop。双份Label同步，完整继承实际最新父层guards及receipt policies。无服务重启/GUI/自动游戏启动。静态格式顺序修复确认，黑屏根因仍为推断，须人类重新启动验证；不能写成实机或比赛通过。证据D:/fifaol3/evidence/boot-black-header/{build.json,installed-handback.json}，回归fix.py --build，正式patches/boot_header_preflight.py。
+
+
+FO3-012 根因续（2026-11-07，exp-loop-label，修复后实机PENDING）
+用户确认63531b56页仍卡死。先保留03:05:26原生dmp/crh，再经用户手动复现03:12:33故障；只用QUERY_INFORMATION|VM_READ读取331块内存，不调试/写进程/暂停/GUI。EIP0x7917c3，EAX0，读空指针；捕获字节码前128字节和1010长度精确匹配新增回调method32。原生tracer失败块start418/end0/state指针0，精确对应库存循环466→418；该入口首字节为getlocal0x62，缺少AVM2后向分支应有label0x09。
+此前生成器Code.label只记Python偏移，未输出AVM2 label；简化CFG/值回放没有检查原生单遍trace要求，因此会报通过。前三次皮肤/早期控件/字体调整未解决此原生故障，均保留为失败证据，不再称修复。
+本次只在method32偏移418插入label0x09，并重新定位跳转；所有其它方法/traits/signature/资源保持，数量、加减、MAX、预览、快照、锁和提交保留。不修改历史生成器或别的聊天资源。整页全部方法后向跳转门槛旧635稳定拒绝、新657e通过，另做7方法CFG、15数量提交、4缺控件回放及临时发布事务检查。此为native故障证据驱动修复，仍不能冒称更新后实机/比赛已通过。
+新页SHA256 657e82a5e3af97869e85b4d0050e35a2717deda7e0c5f582b7be7d75bb77be04；证据evidence/exp-select-20261106/{entry-failure-v4,native-fault-watch,loop-label-v5}，回归test_loop_markers.py和validate_loop_label_v5.py，安装install_loop_label.py。共同锁、最新父层、备份CAS、只回退自身后版本，play最后、继承所有guards/receipt policies，不写state/shop、不启停服务、不控制游戏。
+
+
+FO3-MU-MAIN-MINUS3（2026-11-07，manutd-main-minus3-20261107-031522-247256，实机PENDING）
+用户最终明确只将主赛季48的67张统一-3；合并筛选中49/55的另外12张原行精确保持。67张主位置1级+1实际OVR逐卡恰好-3，主池90～94变87～91；原技能分布平移校准，overallrating同步-3，potential下调并不低于主位置基础能力。除67行技能/overall/potential，其它全部SQLite行与表、球员身份/模型/身体/位置/特性保持；现有强化等级经验不写。注册表67条当前显示/base值同步，筛选仅按新平均强度排序，不增删赛季。data0只有UI SQLite成员替换，其它压缩成员保持；完整导入语义检查与新证书同步。
+市场已有初价/现价/成交事件、已售和现售卡包配置/概率/报价、真实state/shop不改。安装采用最新父层、共同双锁、正常退出客户端后停服新快照及逐文件CAS/备份，所有父guard和回执策略继承。资源/语义/API验证不冒充游戏内或比赛验收。证据D:/fifaol3/manutd-legends/main-minus3。
+
+
+FO3-MU-MAIN-RESTORE-THREE（2026-11-07，manutd-main-restored-20261107-032343-378172，实机PENDING）
+用户反馈琼斯实际页面82，明确只把刚下调的三点加回主赛季67张。先核对最新67行目标属性仍等于本聊天-3后版本，再只恢复本次备份中的33项技能/overallrating/potential，非属性字段沿用当前最新。逐卡主位置基础OVR恰好+3，基础区间82～86→85～89，琼斯82→85；不再将额外+5计算值误报为当前页面显示。49/55另外12张历史卡、全部其它球员/名字/模型/表逐行相同；不修改重复卡的市场显示策略。
+注册表当前基础值同步；赛季条目仅按新平均强度重排。data0仅UI SQLite成员变化，其它原压缩成员保持；完整player_import语义检查后同步证书。正式服务停服新快照、共同双锁、最新父层继承全部guard/回执策略及逐文件备份/CAS安装。真实经理/强化/等级/经验/余额/阵容/库存及state/shop不写；现存市场价格/初价/成交事件和商品卡包配置不改。证据D:/fifaol3/manutd-legends/main-restore-three。资源与接口检查不冒充游戏内或比赛验收。
+
+FO3-NONINTERRUPT-001（2026-11-07）：用户要求游戏期间安装新功能不影响游玩且不要要求退出。确认旧stop-server.ps1无游戏进程保护，部分服务端安装脚本直接停服。正式stop-server现于查目标前和每次终止前检查fifazf，运行时抛“更新已延后，当前游戏继续运行”，不终止任何游戏或服务。工作/正式AGENTS与coordination补充：仅已验证在线兼容配置可热应用；需服务重启/协议DB变更/客户端资源替换均延期，不能把写磁盘称为已热加载，不能绕过停止保护。此保护不能替代安装器正式写入前影响判定，也不能阻止外部任意taskkill；未实现通用Python热加载或自动更新队列。本次无服务重启/客户端资源/state/shop写入。实Windows PowerShell5.1隔离模拟回归覆盖游戏运行、无游戏、停止前出现游戏；不会实际停止服务。证据D:/fifaol3/evidence/noninterrupt-updates。
+
+FO3-HOT-BUSINESS-001（2026-11-07）：用户明确允许先做好热更新、退出游戏后再重启接入，当前不打断游玩。本层仅在磁盘安装首次引导与版本化精确HTTP业务路由加载器，不执行重启/GUI/客户端资源/state/shop写入。仅shop/bag/items/item/events/specifictarget/monthlypack及独立hot路径；连接/经理/比赛/存档核心/后台worker不热换，不盲目reload模块。编译及发布凭据校验在存档锁外、请求完整事务结束后在同一STATE_LOCK切换，旧请求保留原函数；加载失败保留旧版，运行时业务异常不重试以防重复扣款。发布工具共同双锁+fresh父层+guard/receipt全继承+备份CAS+activation最后原子提交；不可变代码与历史凭据保留，回退/disable仅切业务不回存档。框架回归17项及首次引导静态/派发回归，不代替每项业务的契约/幂等测试或游戏比赛验收。当前进程尚未加载，须游戏自然结束后的正常首次重启；不得将磁盘安装写成当前热更新已激活。证据D:/fifaol3/hot-update/{tests.json,bootstrap-tests.json,installed-handback.json}，正式docs/hot-update.md。
+
+FO3-HOT-BUSINESS-001 文档续（2026-11-07）：首次接入重启完成，实际hot_update_status为ABI1/bootstrap/routes空/error空/watcher_running真。按用户要求同步工作/正式AGENTS：优先业务热更新、范围/发布/激活判断/回退/资产与不中断边界；不把连接完成写成实际业务包或实机比赛通过。本次纯文档增量+新组合门禁，无服务启停/游戏操作/资产写入。证据hot-update/agent-docs-handback.json。
+
+
+## draw-first 动态开包热更新已接入（2026-11-07）
+
+- 当前实际机制已升级为 ABI 2，仍须每次执行 hot_update_control.py 读取实际状态。ABI 1 固定路径热包继续兼容；新增仅限 `/item/{item_id}/use`、`/item/depottoitem/{item_id}`、`/bag/{bag_id}/unpack` 三种模板。只匹配完整原生路径及 \w+ 参数；不能扩成任意正则或核心路径。
+- 模板函数仍为 `(host, query, body)`；从只读 `host.hot_path_params` 取参数，不改写 host 全局、连接、类，不重跑 install hooks。开包业务复用原生库存序列、HMAC、回执和原子存档事务；框架升级不代表普通 Python 文件或新增 SKU 注册都可自动热加载。
+- 本次框架与卡包组合安装在安装器检测游戏自行关闭后完成；之后发布 `draw_first_full_20261107_02` 无服务重启。36种随机新版、五条连锁300份随机卡包奖励和88张图标已安装；原36种自选及旧礼包定义保留。临时数据回归通过36种动态开包/重放、5条连锁购买/重放及篡改报价拒绝，框架原18项和动态9项通过。
+- 运行时已核对 abi=2、revision=draw_first_full_20261107_02、watcher_running=true、error=null，正式接口36种随机定义、36种旧自选定义及5条当前轮随机报价通过。未使用真实余额购包，未操作游戏GUI，实机显示/比赛仍待验收。证据：D:\fifaol3\draw-first\full-live-result.json 和 full-installed-handback.json。今后仍遵守游玩期间不得停服/强退。
+
+
+FO3-CHAIN-VOLUME-001（2026-11-07）：连锁每档包数过少、价格梯度不明显。
+已确认/已热生效：chain_volume110_20261107_01，ABI2/error=null/watcher_running=true。用户将310包方案收敛为110包；最终5/10/20/30/45包，依次入门连抽、进阶连抽、豪华补给、海量抽卡、终极盛宴。精品数量随档位增加；基础包复用固定+8/传奇+6～+11/主题随机包，无新SKU或概率修改。各档价格至少前档1.6倍，按新增数量沿用原精品价格和基础包65%连锁价，没有给同样内容空加价。
+实现边界：热包请求内构造局部宿主视图，覆盖连锁展示/报价/逐档和整轮购买，保持宿主全局/原目录定义不变。沿用STATE_LOCK、签名、经理生命周期、一次原子保存和回执幂等；只追加兼容的展示版本标记，不迁移存档或数据库。已购旧档位保留原展示；未完成轮次只报价剩余档位；旧已提交回执可重放，旧未付报价因内容/价格变化拒绝并要求刷新。普通商品仍只调用原购买一次，动态开包函数原样保留。
+验证：250档配置、50整轮事务/重放、25逐档事务/重复与乱序、篡改报价、10轮封顶、余额不足不变、其它连锁和卡不变、旧回执/旧报价兼容；最终源码契约检查（名称/图标/包数/价格/全局不变/普通商品委托）通过。正式5条当前轮报价均为110包，列表金额和报价一致。服务PID/创建时间未变；无服务启停、客户端资源替换、真实测试购买或GUI操作。实机显示/比赛仍待用户验收。
+证据：D:\fifaol3\chain-volume\tests.json、contract-tests.json、live-verification.json、installed-handback.json。回归：正式.venv Python -B D:\fifaol3\chain-volume\test.py 及 test_contract.py。后续修改须读实际活动热包，不可仅从原product_packs闭包推断正在销售的奖励。回退只切换热版本，不撤销已发资产或回退state/shop。
+
+
+FO3-ENHANCE-PROBABILITY-UI-001（2026-11-07）
+用户要求强化页面全部显示成功率。两强化BIG仅四个Control方法与popup onQuery追加数字TextField，读取实际preview.probability，不从等级表重算；0/100/16.5/3.3等数字保留，小数不转uint，缺失/NaN/越界显示破折号，新请求显示计算中，换卡/清空清旧值。确认弹窗使用同一info.probability，blocked保护显示实际概率和不可用后缀，不改label/blocked守卫、支付/签名/恢复/执行。只读字节证明所有其它方法records/trait/旧签名/非ABC标签/其它BIG成员压缩字节保持，原空格/保级/费用显示保留。
+构建和临时回放见D:/fifaol3/enhancement-probability-ui/build.json、tests.json、stacks.json；原生字体/布局/GFx类型与实际游玩未验证，不把字节码回放写成native通过。Control y92..116处于ES行与cost y120之间，popup使用原caution label父坐标上移40，静态边界验证不等于实际画面。
+游戏运行期间只分析构建，没有正式写/服务启停/GUI，也没有要求退出。protection-preview-fix owner先完成非fatal读取修复并交还后，按实际最新父层、seed/在线cfg验证、全部guards/receipt policies、player_import独立入口、共同锁与目标CAS提交本纯资源层；如果游戏重开则零写延期，不停服/断线。安装状态与确切基线/hash/备份/资产保护见本目录installed-handback.json；不改任何概率、保护费、真实存档或旧商品。
+
+
+FO3-CLUB-SEASON-PACKS（2026-11-07，club-season-packs-20261107-112102-211528，实机PENDING）
+用户要求曼联传奇/神童赛季卡包，并改为随机强化等级为主、少量固定包。冻结48主季67人及18神童40人，不混入49/55重复版本；各有+8～12（50/25/15/8/2%）、+10～15（50/25/12/7/4/2%）和每周3包固定+10，球员逐卡等概率且与强化独立；随机档每日100/30包。不销售自选新包或低于+8的新包。预期BP按当前持久市场价格及各强化档真实系数联合加权，沿用现行500000点券连锁参考校准所得1点券=175519.5 BP普通包比例，Decimal上取整冻结新售价；市场价格后续正常波动，旧商品/概率/报价/连锁及已持有权益均保持。
+仅注册6个新SKU和现有原生图标映射，仅追加6款原生风格图标，旧图标不变；使用现有注册引擎、STATE_LOCK、库存序列/HMAC/开包回执和ABI2动态热路由。新增SKU注册不属于当前在线ABI，因此仅在检测游戏自然关闭后停服安装，游玩中直接延期且不要求退出，不绕过stop-server保护，不在线重跑install hooks。保持安装时实际最新业务热包不变，恢复后核验watcher/ABI/revision/error。
+临时存档购买扣款、6包开包/重放、299种旧包池/强化/类别保持及联合预期值计价通过；未用真实余额购买、未发测试资产。共同双锁、最新父层guard/回执策略、停服新快照与备份/CAS；state/shop及市场现价不写。证据D:/fifaol3/club-season-packs；原生商城展示与真实购买待用户实机验收。
+
+FO3-MUL-FULL-AUDIT-002（2026-11-07，正式联合安装）
+检查原有两张及其余65张；新增修正61张：奥谢1张来源/岗位修正，60张只撤销机械抬高的门将五项。累计63张有最小变更，4张保持整行不动。
+保持不动：范德萨、坎通纳、彼得·舒梅切尔、德赫亚。
+所有67张主位置整数评分、身份/身体/位置/逆足/花式/模型字段保持；60张保留原有28项外场能力。
+三张岗位源修正：瓦伦西亚、阿什利·扬、奥谢；真实本人FB模板只校准FB必需属性，其它能力取可信模板。
+保留贝克汉姆、鲁尼等有来源依据的特长99，不因数值99一律削弱。
+仅市场行情基准和报价游标按新模型显式校准；经理资产、余额、库存、阵容及原成交/种子记录保留。无GUI操作。
+SQLite全表差异、有序BIG且非目标成员原压缩字节保持、完整player_import及回归通过。实机/比赛未验证。
+
+所有67卡33项调分链均从只读原始导入/扩容备份精确回放，来源备份哈希与旧安装记录匹配。只读取备份用于5项源数据核对，绝不恢复旧DB/state/shop。奥谢原LP中卫来源按全33项+13再+2使SW92.53、右后卫85.75；改用本人原生FB69003484，岗位字段+15保留整数85，重估36,597,026→1,674,174 EP。
+证据D:/fifaol3/value-diagnosis/manutd-full-audit/{audit.json,regression.json,handback.json}；回归test_full.py；后续可fresh运行build_full.py。
+
+联合估值 v11：身份先验来自17842条真实历史记录，10880人，跨赛季共享因子2/3至1.5；未知1。GPU及独立验证通过。显式一次性校准后继续成交驱动，不在后台重新推理/重新播种。旧种子、历史回执及成交不改，校准另记追加事件。既有挂单合同价保留至自然到期。未作实机/比赛验收。
+
+
+FO3-AI-PROGRESSION-001（2026-11-07，ai-opponents-grade10-level30-v1）
+用户要求不改AI难度参数，电脑对手全部+10、30级。只在match_side的user is None分支深拷贝本场电脑阵容，给全部首发/替补/后备设置grade=10、levelinfo={level:30,exp:0}，再交原序列化/阵型/摘要逻辑；身份、模型、战术、难度和用户侧保持原逻辑。既有等级30属性曲线继续复用。原始roster、创建经理、玩家卡及真实state/shop不迁移不改写；仅之后新建比赛应用，不改已保存/进行中的比赛。
+临时内存验证40项通过：四队全员与原输入/用户侧隔离、已有高强化/经验不回写、15级联赛手控及经理模式、5档杯赛/加时规则。正式/运行时验证以D:/fifaol3/ai-opponent-progression/installed-handback.json为准；游戏GUI、实际比赛待用户验收。该钩子不属于ABI2热更新范围，只在游戏未运行且取得共同双锁时提交/正常重启。回归：正式.venv Python -B D:/fifaol3/ai-opponent-progression/test.py。
+
+
+FO3-CHAIN-NAMES-001（2026-11-07）：连锁与奖励文案缺乏FIFA ONLINE商品命名风格。
+失败样本：臻选新期/BP统一价/终极盛宴/抽卡版；首次纠正后的“第几档·几包”仍被用户否定。最终遵循国服主题连锁礼包及赛季/混合/BEST/强化档的商品名结构，各档沿用主题礼包名，轮数/档位/包数/价格只在说明和原生步骤状态呈现。
+已热生效：chain_native_names_20261107_02；金牌强化、传奇巨星、经典赛季、传奇时刻、传奇混合五类连锁礼包。奖励名称如传奇混合BEST10球员包（12强）、经典赛季混合球员包（8强）。同步连锁列表、礼包内奖励静态定义和文字介绍、报价消息；本次未修改宿主全局道具注册或客户端图片内文字。
+验证：250档经济数据剔除纯文案字段后完全相同，购买/签名/回执/其余热函数AST一致，原待支付报价仍通过正常校验，历史已购内容数量/道具类别保留；市场供给激活路由函数及路由集合完整继承。正式五条主题名、奖励名称和报价消息已核对，价格/奖励/进度不变，ABI2对应revision/error=null/watcher=true。未使用真实资产购买；正式服务进程未变，无游戏GUI/重启。实机视觉仍未验证。
+证据：D:\fifaol3\chain-names\tests.json、live-verification.json、sources.json、installed-handback.json；命名参考链接见sources.json。回归：正式.venv Python -B D:\fifaol3\chain-names\test.py。后续不得从旧product_packs闭包推断热更新后的连锁名字。
+
+
+FO3-TEAM-BONUS20-001（2026-11-07，team-bonus20-moments-v1）
+新增强化+11..+20套，11名首发全部达到门槛时全属性+8..+17，只取最佳强化套，原低阶规则不变。
+84赛季传奇时刻首发去重计数：3..5人额外+2，6..8人额外+3，9..10人额外+4，11人额外+5，仅作用于传奇时刻球员。
+错误模式：作为普通special套会与原最佳俱乐部/国家/赛季套互斥，不符合额外叠加。本层复用当前正式Module已有feature分类、选择、应用、清理路径，服务摘要按base/grade/feature独立取最佳，无客户端BIG变更。
+离线50项包括全部人数边界、强化1..20与混合首发、替补/重复身份排除、原套装不变、原生协议与正式DB只读身份归属；不写真实测试卡/余额或state/shop。
+用户已结束游戏并明确授权本次安装。沿用最新父层全部guards/receipt policies、共同双锁、正式保护停服、新快照/备份/CAS、play最后切换；只改HTTP五个球队加成函数及相关常量。
+正式运行时验证与服务恢复见D:/fifaol3/team-bonus20/installed-handback.json。离线/接口通过不代表原生游戏、半场、换人或比赛通过，后者仍PENDING；本轮无GUI操作。
+
+
+FO3-ENHANCE-PROBABILITY-NUMBER-BOX-001（2026-11-07）
+用户反馈新增成功率中文乱码且位置不明显，要求放在“成功率加成”区域的框中，并把该标题直接改成“成功率”。仅替换上一概率显示层五个显示/清空方法中的注入，强化页字段改挂Control._owner.infoPanel.enhanceRate，复用原生中文标题__id7_和原有字形改文案为“成功率”；数字框位于标题下x0/y36/180x40，深底边框、Arial24居中，只显示ASCII数字与百分号，缺失“-”、取数中“...”。保留服务端preview.probability小数和0/100，根据用户截图，确认页定位boostInfoPanel.boostInfoContainer.boostRate，复用原生__id15_标题改为“成功率”，隐藏旧箭头rateContainer，在其原位置添加带边框数字框（宽度跟随原容器、40号Arial、仅百分比），不再在底部提示附近加成功率文字；移除上一新增TextField中的中文输出。其它方法、扣费/签名/blocked保卫/恢复、其它SWF标签和BIG资源成员保持。
+工作证据D:/fifaol3/probability-number-box。已做原生静态显示列表路径核对、确定性回放和五方法完整栈流检查，不能代替游戏画面或GFx类型验收。未改变概率/手续费/保护费或真实资产。不启动第二套服务、不启停服务、不操作游戏GUI。游戏运行中准备构建，安装器在任何正式写入前检查并延期；自然结束后fresh顶层、完整guards/receipt policies、seed/valuation/在线配置校验、独立player_import及共同双锁/CAS增量安装。
+
+
+FO3-IM-BALANCE30-001（2026-11-07，im-best-other-plus30-v1）
+用户指出IM难以强化到+20，原基础+15会被其它赛季高强化反超。本层按当前同人非IM卡在IM主位置的最高真实加权能力+30作底线；对现有IM的33项能力作同幅上移，保留其属性差、原本强项及全部身份/位置/身体/花式/逆足/特性/模型元数据，已有更强者不下调。
+123张既有84赛季卡全部校准；未新增身份/资源。原IM贝克汉姆取10季65模板仅得80，低于MUL88，现校至118；大罗104→120，范巴斯滕103→120。基础主位置111..122。此为当前数据库同位置、同等级的数值口径，不代表实机手感。
+当前强化曲线+10属性24、+20属性44；IM基础领先至少30使IM+10在不计套装时至少领先同人非IM+20约10点；再计满首发强化套7对17及IM额外5后，理论仍至少+5（未计两队原俱乐部/国家/特殊套差异）。不改强化概率、道具、套装规则、NPC强化上限或价格/成交历史。
+数据只改服务端UI SQLite中IM的33项字段，BIG只替换同一UI SQLite成员，注册表追加当前平衡来源/前后行哈希；其它球员/表、原生EA身份库、模型、Lua、语言与非目标成员原压缩字节保持。不得改历史模板回执或把旧存档回写。
+发布沿用fresh最新父层完整guards/receipt policies、共同双锁、正式保护停服、停服实时state/shop快照、备份/CAS、player_import独立检查及更新绑定正式输入的完整校验证书。用户游戏运行则延后，禁止强退/GUI操作。
+验证：123卡×33项、123卡×28位置差值、同人最好锚点和高强化追平、数据库全表非目标差异、有序BIG/非目标原字节、双端解密一致、player_import --full；正式接口/服务/热包与资产核对见D:/fifaol3/im-balance30/installed-handback.json。首页/比赛/半场/换人仍待实机验收。
+
+
+FO3-IM-HIERARCHY22-002（2026-11-07，im-role-hierarchy-plus22-v2）
+用户纠正：IM+10不应压过其它赛季+20，但应强于+18；IM内部也应有合理强弱，允许以整体同档趋势而非逐人同卡严格限制为准。本层替代此前+30；不通过修改旧回执或恢复旧数据库实现。
+123张现有IM按当前本地FC ICON(12)共同来源的overallrating分档，同档再按IM原位置的加权能力排序。内部参考是本地游戏设计数据，不冒称客观足球历史排名。按同位置排序后的其它赛季同档基线配对，IM底板领先21..23点（中心22）；最高参考档+23，中档+22，低档+21。较高参考档不低于较低档。
+33项属性使用本人ICON的同一份属性形状再作等幅移位；当前IM的playerid、位置、模型、身体、花式、逆足、特性及所有非能力字段保持。原平衡记录嵌入prior_balance留痕。其它赛季与数据库其它表逐行保持，BIG只替换UI SQLite成员，原生身份/模型/Lua/语言及非目标成员原压缩字节保持。
+同等级、同位置、同排名档次，双方满强化套、IM触发11人额外加成时：IM+10（24+7+5）对普通+18（40+15）领先2..4点，对普通+20（44+17）落后2..4点。未计各队原俱乐部/国家/特殊套差异，不保证每个同人比较，更不以OVR证明实机手感。
+发布沿用最新父层全部guards/receipt policies、共同双锁、保护停服、新资产快照、备份/CAS、独立player_import及正式完整证书。游戏运行即延后，不自动强退、停服、改资源或使用游戏GUI，不改变真实卡/经验/强化/余额/库存/球队/阵容、价格/成交历史、强化概率或套装规则。
+验证：123卡×33项与28位置、全部同位置参考档排序、同档+18/+20边界、五组主要排序、有序BIG/非目标字节、全表差异、双端回读及player_import --full。正式安装/接口/服务/热包/资产验收看D:/fifaol3/im-balance22/installed-handback.json；工作产物及延期不代表正式生效，原生/比赛/半场/换人仍待验证。
+
+
+FO3-IM-BASEMINUS5-003（2026-11-07，im-base-minus5-feature-double-v3）
+用户要求IM基础能力再降5，并提高传奇时刻额外套装。仅现有123张84赛季卡的33项能力在本次最新值上各减5；内部排序、属性差、身份/位置/身体/模型/花式/逆足/特性保持，所有非IM及其它表保持，不从旧版本整包覆盖。
+独立feature额外套：3..5人由2→4、6..8人3→6、9..10人4→8、11人5→10；不足3人仍无额外加成。同步服务端常量和说明，沿用原独立叠加及首发去重/替补排除，不改其它套装与强化成长。
+相对上一层：单卡少5；3..5人套后的IM净少3，6..8人少2，9..10人少1，11人套净能力保持。非IM不会获得额外feature。满套同等级同位置同档次的IM+10仍比其它赛季+18高2..4、比+20低2..4；未计俱乐部/国家/特殊套差异，数值检验不等于实机手感。
+DB与客户端BIG/UI同步，BIG非目标成员原压缩字节、原生EA身份/模型/Lua/语言保持；注册表保留prior_balance及新前后行哈希，更新正式完整player_import证书。真实state/shop不写，资产快照以本次停服时最新进度核对。
+安装沿用fresh最新父层全部guards/receipt policies、共同双锁、游戏保护/正式停服、备份/CAS和入口最后切换。游戏运行即延期不强退/GUI。正式状态、组合API、三元组哈希、全资源/123卡接口/feature分档/服务热包及资产验收见D:/fifaol3/im-base-minus5/installed-handback.json。原生比赛/半场/换人仍待实机验证。
+
+
+FO3-ENHANCE-EMBEDDED-FONT-BUTTON-001（2026-11-07）
+用户实机截图证实此前自建TextField使用Microsoft YaHei/Arial出现方块/缺字。正式fontconfig.dat的chi段将$NormalFont映射FZLanTingHei-R-GB18030；已直接解析正式fonts_cn.gfx的DefineFont3字表，含28454字形，确认数字、小数点、百分号和强化保护费用中文有字形。仅将两强化ABC的这两个新增字体常量替换成$NormalFont，六处embedFonts false改true，保留索引、全部其它指令、原生标题和数字框位置；字体配置及字库只读并加入完整guard，不改字体资源本身。
+用户报告马特乌斯+5/+3按钮灰色：正式只读预览result=true、100%、手续费1324217915，实时EP10494743721853足够，两个实例无锁，未发真实强化测试。静态发现原生余额通知只更新文字而不重算按钮；Control22补重算、Control26末尾按当前两实例对象严格匹配的最新预览同步费用/按钮。保留_available忙锁、余额限制、正数有限费用、过期对象不启用；blocked报价仅允许已有只读说明，原首条guard继续零PUT。不静默切普通付费、不改成功率/保护费/服务端执行/真实资产。按钮漂移修正通过模型回归，不能冒称已重现实机全部触发时序。
+D:/fifaol3/enhancement-font-fix保存字体证据、完整指令差分、数值/保护/按钮状态回放和七方法栈流检查。游戏运行只构建/临时回归，任何正式写入前检测并延期；自然退出后fresh正式父层、共同锁、完整guards/receipt policies、seed/valuation/在线配置校验、player_import及目标CAS增量安装，无服务重启/GUI。字体及按钮最终画面待原生验收，不把回放等同实机通过。
+
+
+FO3-INDEPENDENT-PROTECTION-CHECKBOX-001（2026-11-07）
+用户要求保护与黄金强化加成不冲突，保护改独立勾选框；并指出数字框本身太丑。新增默认不勾选的保护选项，下拉保留黄金/白银等原生加成道具，重置/换卡取消保护，忙时不可切换。百分比在贴合原图标区域的深色圆角块中居中，去掉生硬矩形文字边框和旧箭头；其它布局不改。继续使用已验证的$NormalFont与嵌入字形。
+勾选时预览URI附protection=1，原生确认页沿用实际preview的完整保护条款/签名，执行路径保留所选黄金等itemid；服务端签名绑定经理/卡实例/等级/经验/价格/概率/配置/加成道具itemid和库存快照，单STATE_LOCK/一次_save扣40%保护费（替代2%手续费）、材料和1个加成道具；成败均耗费，失败保级经验保留，点数/活动继续叠加。旧1000090路径兼容，但不再把伪保护道具注入下拉库存。过期/缺库存/改加成/改数量/改概率/伪造签名拒绝，达到100%和安全档不收费保护、非fatal提示取消勾选，不静默改普通付费。旧恢复权益不覆盖，放弃仍双确认。
+Control34拒绝先前勾选/道具/点数/卡组的迟到响应，防止取消保护后旧报价覆盖。原强化执行、恢复、确认和签名URI方法字节保留；上轮字体及按钮重算保留。D:/fifaol3/protection-checkbox含真实路由临时存档回归、客户端交互/样式/字节差分、10方法栈流与事务故障验证。所有测试无真实购包/强化或测试资产写入；未操作GUI，不把回放当实机显示通过。运行中不写正式文件/启停；自然结束后fresh最新父层、双锁、备份/CAS、完整guards/policies/seed/valuation/在线cfg/player_import并守护重启加载服务模块。
+
+
+FO3-ENHANCEMENT-CAPPED（2026-11-07，enhancement-capped-20261107-140809-397588，原生/比赛PENDING）
+按主卡当前等级1..19，同级材料成功率及所有叠加最终上限为90/85/75/65/55/45/38/32/28/25/20/15/12/10/8/6/5/4/3%。材料低于主卡1/3、2/3、同级及同级以上分别取上限35/50/75/100%；+0不升级。所有等级ES相对+10%，铜银金道具相对+5/10/15%，比例相加，不突破同级上限；已达上限不消耗ES/加成道具；常驻概率活动关闭。保护仍收主卡尝试前身价40%替代普通费，失败保级、耗材，失败ES奖励和原有恢复权益保留。
+估值改为最低预期EP生产成本：V(g+1)=V(g)+[V(m)+手续费+(1-p)*(V(g)-V(失败等级))]/p，在所有1..g材料及可用保护/普通策略中取最小值；保护无重做损耗。包含普通2%且至少1000EP手续费及40%保护费，每级上取整。以持久市场当前+1价格为起点，不重新初始化市场数据库。无ES/道具补贴假设；原有5.6e15显示安全上限可能使高等级封顶，不宣称等于无界真实预期成本。原card_price商城/奖励锚不改，不改已有卡包售价/概率、挂单或历史交易。
+强化函数和市场闭包超出现有ABI2热包范围；游玩中安装器在任何正式写入或停服前延期，不触碰游戏GUI，不reload宿主。仅游戏自然关闭时共同双锁、最新父层完整guards/receipt policies、备份/CAS、新鲜state/shop快照安装；独立player_import检查保留。回退仅自己的文件后版本，不恢复存档。证据D:/fifaol3/enhancement-capped。
+
+
+FO3-UPSTREAM-LIVE-001（2026-11-07，upstream ed08cf1 增量合并）
+逐项比较12个上游提交，保留本地镜头/自选包/经验券/专属图标/强化20/等级30/AI+10/30/连锁热包与市场估值。增量补国家队名单、队徽尺寸回退及资源根优先、赛后/模拟位置与完整赛季、管理员比赛EP/经验/翻牌权重；奖励复用现有league_reward_guard暂存事务、回执、单次保存及点券奖励，不覆盖经理资产和历史奖励。配置写入原子替换，非法值拒绝，坏文件回退默认，已移除奖品不参与抽取。
+新增上游卡数据688张（26 LIVE 666、25 LIVE 22），386个身份复用同人本地外貌，302个新身份明确使用内置通用脸与标注剪影，不冒称真人模型。上游发布包只有data0/Label，没有新增head/hair/hairLOD/贴图。源RAR SHA256 6e04422b2903a308d440f95dcc7856a7682fbf7d8d5aa78698c6d45734531b7d。源姓名/生日映射消除与本地贝林等已有身份重复；不把赛季当新身份。
+正式prepare/check增加显式通用脸路线及同一身份跨赛季专属选择器验证，沿用原完整专属五件套/骨骼/保留选择器检查；302新身份原生spid按身份ID，避免300/325赛季卡号超过原生字段位宽。一个上游通用模板在本地已有专属脸，改用同头型/肤色的另一已存在通用模板；其它已有记录、Lua、模型和非目标BIG成员保持。双端数据库/6语姓名/头像、原生CRC、完整player_import与新证书按正式输入绑定。
+688张新卡价格只追加新种子与导入事件，使用既有v11模型一次离线推断；不修改旧种子、旧价格/交易/挂单/校准事件或行情元数据。旧卡包原池排除新赛季，已售库存不扩池，不自动赠卡/经验/余额。不复制上游整套客户端覆盖本地资源。
+验证与状态见D:/fifaol3/upstream-review/compat-tests.json、live-data-tests.json、transaction-tests.json、installed-handback.json。首次导入静态拦截了原生spid溢出与模板被本地专属脸替换，修正后完整通过；测试宿主导入行情重放已隔离到临时行情库。游戏运行时安装器在锁、正式写入和停服之前延期，不强退/GUI。正式安装时fresh父层、双锁、备份/CAS、最新资产快照；保留所有guards/policies、种子与v11校准核验；停止失败不继续写/重复启动。实机首页/近远景/比赛/半场/换人仍待用户逐项验证。
+
+FO3-GRADE-FIVE-SIX-005（跨聊天最终交接）：仅+5/+9/+12/+16/+20五档，分别额外+3/+5/+7/+9/+12；首发至少6人达到对应强化即解锁，6..11人同值，逐卡取最高适用档，不叠加，替补不计。所有旧强化套人数/区间声明由此替代，IM底板与feature不改。组合245项临时回归通过；未做游戏实机验收。
+
+
+FO3-PROTECTION-BOTH（2026-11-07，protection-both-20261107-142124-662073，原生/比赛PENDING）
+按主卡当前等级1..19，同级材料成功率及所有叠加最终上限为90/85/75/65/55/45/38/32/28/25/20/15/12/10/8/6/5/4/3%。材料低于主卡1/3、2/3、同级及同级以上分别取上限35/50/75/100%；+0不升级。所有等级ES相对+10%，铜银金道具相对+5/10/15%，比例相加，不突破同级上限；已达上限不消耗ES/加成道具；常驻概率活动关闭。保护仍收主卡尝试前身价40%替代普通费，失败主副卡均保留（等级/经验/阵容位置），成功消耗副卡，失败ES奖励和原有恢复权益保留。每份签名尝试在经理事务内写到期回执，保留副卡失败后同一令牌仍只扣费一次；回执随资产同一原子存档提交。
+估值改为最低预期EP生产成本：普通V(g+1)=V(g)+[V(m)+手续费+(1-p)*(V(g)-V(失败等级))]/p；保护V(g+1)=V(g)+V(m)+保护费/p，在所有1..g材料及可用保护/普通策略中取最小值；保护失败无主卡重做损耗且不消耗副卡，包含所有自然保级档。包含普通2%且至少1000EP手续费及40%保护费，每级上取整。以持久市场当前+1价格为起点，不重新初始化市场数据库。无ES/道具补贴假设；原有5.6e15显示安全上限可能使高等级封顶，不宣称等于无界真实预期成本。原card_price商城/奖励锚不改，不改已有卡包售价/概率、挂单或历史交易。
+强化函数和市场闭包超出现有ABI2热包范围；游玩中安装器在任何正式写入或停服前延期，不触碰游戏GUI，不reload宿主。仅游戏自然关闭时共同双锁、最新父层完整guards/receipt policies、备份/CAS、新鲜state/shop快照安装；独立player_import检查保留。回退仅自己的文件后版本，不恢复存档。证据D:/fifaol3/protection-both。
+
+
+FO3-RANDOM-PACK-BULK-001（2026-11-07）
+同类型随机球员包一键全开，以同itemid背包数量和实际球员空位取最小值；不动仓库、自选包及单开流程。一次STATE_LOCK/原子_save提交发卡、扣包、原概率/保底/积分兑换及经理绑定防重回执。客户端复用原生滚动球员结果列表一次展示全部结果。业务使用ABI2模板热更新，不reload模块/不重启服务。客户端仅在游戏关闭时备份/CAS安装。临时存档回归与BIG/ABC静态检查见D:/fifaol3/random-pack-bulk；未写真实测试资产，未操作游戏GUI，实机显示和比赛待验收。
+
+
+FO3-CHINA-FUTURE-001（2026-11-07）：新增327中国明日之星32名真实身份，王钰栋92/李昊炎92等，+1/LV1/无套装加成主位置显示85–92。能力为用户授权的自定义潜力设定，按真实位置权重计算，不能只填overallrating。出生日期逐人来源记录在registry；依木兰采用新疆体育局2005-05-03，李昊炎采用原达姆官网2012-01-28；体型数值是游戏建模参数，不冒称官方当前测量。32新身份明确内置通用脸+实名剪影，native playerid唯一、六语姓名/双端UI/原生身份/技能码/资源回执经正式prepare与full check；不改变已有模型或同人身份。新卡加入现有传奇系列及传奇时刻额外加成成员，混搭首发人数累计，原加成参数/取最高/替补排除规则不变；旧卡包原池排除327，新卡可市场检索并按已有v11模型仅追加新种子。保留此前上游688卡、双卡强化保护、五档六人、AI+10/LV30及所有旧guards/policies/校准事件。安装依实际游戏状态在写前延期，fresh停服快照，不写测试卡/经理/余额；静态、首页近远景及比赛验收分别记录，无GUI/实机不得冒称通过。证据D:/fifaol3/china-future/tests.json及installed-handback.json。
+用户随后明确加入更年轻一批并提高李昊炎：最终32人，原16人另补2009/2010年出生的邝兆镭、万项、谢晋、周雨诺、帅惟浩、吕孟洋、金昱成、南子勋、李钧鹏、张旭尧、秦子牛、江承恩、潘朝伟、徐正鹏、赵松源、顾博宇。李昊炎最终92，与王钰栋同第一档；旧16人/91工作产物已废弃，最终完整产物prepared-v3。
+
+
+FO3-RANDOM-PACK-DUAL-001（2026-11-07）
+随机球员包保留单张开启、原生连续逐张翻开，并单列一键全开。原生连续翻开方法按已绑定历史基线仅恢复目标方法，不回滚整个BIG；批量请求/回执/集中滚动结果展示及服务端全部热业务不变。自选包/draft沿原逻辑，按钮按库存/球队空位与忙状态控制；客户端资源必须在游戏关闭且共同双锁空闲时fresh最新父层、完整guards/policies、备份/CAS安装，不启停服务、不写state/shop。字节码定向回归、栈流和中文字形证据见D:/fifaol3/random-pack-dual/client；未操作游戏GUI，实机显示待验收。
+
+
+FO3-HIGH8-PACKS-001（2026-11-07）：用户明确除传奇时刻外在售卡包最低+8。中国明日之星新增随机+8..12（50/25/15/8/2）与固定+8自选；32人冻结池，普通点券价格按现有估值、随机按期望/自选按最大可选值重新计算。低强化在售包和连锁后续低强化奖励采用新SKU，球员逐卡概率不变；已有高强包、传奇时刻+1、已持有旧编号和已完成连锁档位保持原定义/数量/价格，旧回执不改。新业务仅扩展中国明日之星自选商品例外并更新未来连锁包与报价；保留原ABI2七路由、批量随机开包/幂等及旧连锁资产。冷注册配置需要游戏关闭后受保护停服；业务用正式发布工具原子切换，不盲目reload。全量图标清单与两缓存绑定，沿用最新父层全部guards/policies/原生导入检查。临时购买/开包/重放/篡改/满员/并发/保存失败/旧链已完成显示回归，不向真实存档写测试卡/余额。实机显示未验收。证据D:/fifaol3/china-future-packs。
+
+
+FO3-PACK-PRICE-001（2026-11-07）：曼联传奇10～15强单包5581499点券，固定10强3804864点券。已确认旧value_prices固化的全期望BP值未跟随现行估值，且小概率高强化贡献过大；用户明确要求统一礼包定价，并将高强化档作为不额外收费的奖励。
+修复版本pack_base_prices_20261107_01，最低保证档+玩家加权中位数基础价，排除全部更高强化权重；卡池、所有强化概率、道具ID、发放数量、旧库存/已售权益/旧回执保持。普通礼包/月包/110包连锁统一以新子项价格汇总。修复通过请求内原生闭包重绑定实现显示与实际扣款一致，原validate/before_commit钩子执行顺序不变，单次保存，无全局重载、改闭包原件或两步扣款退款。
+回归：主套件358价格、14普通购买、35连锁购买/重放、限购并发/异常数量/余额不足/原子保存失败、旧已完成high8/v1/无版本实付价格保留，开包与市场供给代码AST未改；请求快照优化另有最终源码定向回归。现场仅做只读商城/5链报价核验，84普通条目和三种曼联价一致；未真实购买/实机GUI，正式服务进程没变化。证据D:/fifaol3/pack-reprice，命令正式.venv Python -B test.py / test_snapshot.py / verify_live.py。后续不得重新用全强化期望抬价或覆盖活动定价热包。
+
+
+FO3-CHINA-PORTRAITS-002（2026-11-07）：通用3D外貌与卡面头像是独立资源。先前仅导入实名剪影占位，虽然HTTP200/完整性检查通过，但不等于真人头像已配齐。此次32人逐人核对署名照片：足协队员页25人、达姆官网李昊炎、署名资料吕孟洋、按名字/俱乐部/年龄区分的5个Sofa球员档案；原图/来源URL/SHA及导入PNG均记录，拒绝默认/重复头像，不通过面相猜身份。仅标准化为有界等比纹理，不生成/改造脸、不裁切换背景。双缓存同一SPID同图并更新registry来源、完整player_import证书及新层，原照片来源另存manifest。此前测试使用剪影完整性不能冒充真人照片验收；今后新增头像类型必须实查。游戏运行或启动期间延期，文件CAS原子替换并继承完整guards/policies，不改BIG/SQL/身体参数/强化/商品/热包/真实资产，不需服务重启。界面显示和缓存刷新仍需分别验收，实机未测不得宣称通过。证据D:/fifaol3/china-portraits。
+
+
+FO3-ENHANCEMENT-REMEMBER（2026-11-07，enhancement-remember-20261107-155340-726245，原生GUI待验收）
+用户要求强化失败返回后保留保护勾选、强化券与ES选择，并明确仅取消保护额外收费弹窗，保留原生强化确认页。当前强化页的checkbox动态子对象保存三个偏好；仅真实点击更新，普通清空/选卡/失败返回/库存重建恢复。强化券按当前有效列表的同一itemid恢复，不换券；程序化默认选择不覆盖用户偏好。ES余额不足暂不选，足够时恢复；首次进入不强开选项，手动取消与重置可清除。记忆范围为当前页面，不宣称跨客户端重启保存。每次重新获取预览与签名，不保存报价或token；旧响应筛选、忙锁、余额/库存/过期校验保留。
+原生确认按钮点击时，只有当前非blocked且带version/token的保护预览才跳过第二层费用对话框；原生确认页与同一签名PUT、恢复及结果处理字节保留。无自动PUT，无新收费或保护规则变化。checkbox文案注明40%和失败双卡保留，沿用$NormalFont嵌入字库。
+基于当时实际两BIG增量修改12个方法，完整旧指令/跳转、其它方法/traits/signatures、非ABC标签和所有其它archive成员不变。绑定实际输出的回放覆盖连续5次失败返回、券耗尽/补货/库存重建、点数不足/恢复、手动取消/重置、签名URI、完整原生确认一次PUT零额外弹窗；12方法栈/作用域流通过，不能替代原生AVM类型验证/GUI。
+资源更新只在游戏关闭且持共同双锁时进行，备份/CAS、最新父层全部guards/receipt policies、player_import独立检查保留。服务不停止/重启，不写真实state/shop/测试资产。证据D:/fifaol3/enhancement-remember。
+
+
+FO3-ENHANCEMENT-PAIR-REMEMBER（2026-11-07，原生GUI待验收）
+用户要求保护失败回来后，主卡和副卡也保留选中。基于前一层已安装的保护/券/ES记忆和取消额外收费弹窗，增量给原生确认数据附原控制器回调；仅结果成功返回且success=false、protection.material_kept=true，在原生结果页完成detach后调用一次。取消、错误、普通失败及成功都不恢复。回调在原玩家面板按_id找到当前库存的双方最新对象，核对spid/grade、native availableEnhancePlayer/isPlayerLocked，并拒绝已离开/隐藏页面、缺卡、等级变化或已有人工新选择；不按SPID替换另一实例。调用原生selectTarget及invalidatePlayerList恢复主副顺序、列表勾选和新报价，保留上一层保护/券/ES选项，不自动PUT、不重用旧报价或token。
+两BIG只改三个既有方法并新增一个闭包回调；其余方法及全部旧指令/跳转、traits/signatures、非ABC标签和其它archive成员保持。回放覆盖五次失败恢复、11种过期/缺卡/锁卡/换卡/隐藏页面条件、取消/错误/成功跳过、重复detach仅一次；四方法栈/作用域流通过。静态/回放不等于原生类型验证、GUI或比赛通过。
+游戏运行时正式写入前延期；游戏关闭时共同双锁、备份/CAS、最新父层全部guards/receipt policies及player_import独立检查保留。仅更新双端两UI BIG、doc/新层/play，不重启服务，不写state/shop/测试资产。证据D:/fifaol3/enhancement-pair-remember。
+
+
+FO3-RANDOM-PACK-CLICK-FIX-001（2026-11-07）
+用户实机反馈一键全开不可点击且样式不一致。旧新增裸MovieClip仅监听click，未复用PlayerCardPackScreenAllButton/ButtonEx/CLIK的ButtonEvent及screen按钮管理链。原btnFive的PlaceObject3初始y=40，configUI回调17以TweenMax单独将原按钮移至y=0；旧新增按钮在draw只复制当时y且未参与该Tween，可能停在y=40，截图正好低约40像素且被底边裁切。本次复用与连续翻开相同的原生symbol/组件、受管理ButtonEvent事件与按钮使能链，去掉自绘图形/文字，使用原生皮肤和最终静止y=0，三按钮统一宽240；不增加新的入场动效链。保留单开、连续翻牌、批量请求和集中展示，服务端高强包业务与所有路由原样保留。不能用仅直接调用回调的mock测试替代真实按钮输入接线验证；需核对原生按钮类型/事件/命中范围及使能状态。测试和本次实际修复证据见D:/fifaol3/random-pack-click-fix/client。游戏运行时在正式写入前延期，不请求退出、不停服、不操作游戏GUI。仅fresh最新父层和目标资源，继承全部guards/policies，双锁/备份/CAS安装；不写state/shop，不回退其它聊天的高强包、模型或进度。实机效果待验收。
+
+
+FO3-RANDOM-PACK-CLICK-FIX-002（2026-11-07）
+用户实机再次反馈点击无响应，日志无新的bulk请求且原单开/连续仍可点。此前动态新组件+newfunction的事件链模型未证明真实鼠标入口，不能把模拟派发通过写成实机修复通过；ObjectUtil清理闭包强持有listener，不能仅凭weak=true判定GC根因。本次把第三原生按钮放入mainButtonContainer首帧PlaceObject3，追加同类型slot，按原生configUI绑定新的screen实例method68；复用旧bound26已实际发过bulk的事务代码与原65/66回调作用域，保留26连续及单开。三按钮同原生皮肤、宽240、最终y0；入口与忙/教学/库存/空位guard提供可见文字状态，避免静默返回。仅修改客户端目标BIG和新发布层/工程记录，不改后台热包、价格、头像、强化或存档；完整guards/policies、双锁、最新基线备份/CAS及游玩保护继续保留。证据见D:/fifaol3/random-pack-click-fix-v2/client；未操作游戏GUI，实际点击仍需以本次运行证据验收，不用真实测试卡或余额造验证。
+
+
+FO3-ENHANCEMENT-ENTRY-FIX（2026-11-07，崩溃唯一原因未证明，实机待验收）
+用户报告尚未选卡进入强化页即卡住。只读证据为16:22:53 GET PE2STATICVALUES后16:23:36 CLIENT_CRASH，期间无强化preview；复测同静态接口HTTP200/约90ms。最近便捷UI改动只有局部回放，没有原生完整入页验证，不能把接口/栈流通过写成实机通过，也不能宣称唯一根因已证明。
+修正将control init8/money22/item23和玩家面板公共query18恢复至15:41实机成功强化时对应的已绑定ABC原始方法记录；control26的偏好恢复只在_available=true时进入，空页不读写偏好控件、不再第二次setEsLabel或发GET。保留显式选择记忆和失败双卡恢复，但恢复改为玩家面板原生绑定的公开fo3RestoreSelectedPair方法，不再覆盖公共query分发，也不创建新的跨对象词法闭包；废弃闭包槽保留为空stub，保持旧索引稳定。该公开方法的初始作用域与同类原生实例方法一致，只有一次保护失败结果页退出后才调用，继续校验最新库存同一_id/grade/spid/锁及手动新选择，并获取新预览，不自动PUT。不取消原生确认页，原免额外收费弹窗和服务端双卡保护均保留。
+回放覆盖空页无新增控件/标签/GET/PUT回调、原生入口方法逐字节对齐、五次恢复及11种无效场景、旧query精确恢复和绑定方法载入；原生GUI/类型验证/唯一根因仍未知。只读诊断与工程证据位于D:/fifaol3/enhancement-entry-fix。游戏运行严格延期，不强退/不停服/不改真实state/shop。后续安装fresh当前父层及全部guards/policies、备份/CAS；只更新实际变化的强化Tab BIG及文档/新层/play，不覆盖其它聊天卡包修复或其它新层。
+
+
+FO3价值模型v12：能力曲线、同人跨赛季与行情约束
+
+1. 单卡价格由可解释有效能力分决定：各原生岗位的正权重评分取最大值，加原生+1的5点强化能力，再按逆足和花式每星各1分修正。不是直接拿主位置整数总评定价；主位置评分、有效能力分同时提供。
+2. 所有位置使用统一币值尺度。曲线对数斜率限制0.06—0.28，有效能力100以上转为价格线性尾部，避免超历史分布的属性造成指数爆价。
+3. 名字通过原生playerid共用历史身份修正，范围0.85—1.15，无可用历史时1。姓名显示文字、赛季标签、身体字段和主位置标签不会硬编码价格。历史报价低于2000EP的样本不能决定新经济的曲线形状；曲线币值由明确来源的UL/WL顶级报价定标。
+4. 同人跨赛季的经济价值倍率由同一曲线解释；有效能力相差1分，倍率至多exp(0.28)=1.323；相差5分至多4.055。此上界指扣除严格属性保底后的经济价值，并非主位置总评每差1分必按固定倍率增长。
+5. 每项原始能力提高1点，至少增加1EP；逆足/实际花式提高1星至少增加25EP。保底不随行情折价。原生特殊花式码5按既有实际最高星解释，不改球员字段。
+6. 市场因子按同一球员全部赛季共用，区间0.85—1.15。沿用至少3笔、跨度30分钟的有效成交条件、单次0.5%与每日2%的变动预算；预算和成交量也按球员共用，不能轮换赛季绕过。所有相联系赛季的价格、公共因子、追加成交事件在同一SQLite事务更新。
+7. 旧种子、校准事件、历史成交和原发行回执保留。新模型另建fair_values与player_market_factors、新增校准事件；不修改历史哈希或将行情数据库冻结进文件guards。
+8. 启动校验把全体卡的原生身份、33项能力、逆足和实际花式与估值目录绑定。运行时发现源DB变化会重新核对语义指纹，拒绝沿用已失配价格；不会自动重启、断开比赛、写资产或盲目重训。正式属性导入必须在同一发布事务重新生成估值目录，否则新层预检不能通过。
+9. 高强化单卡价改由实际强化能力加成进入同一曲线；不再将期望锻造成本当作市场价值，避免大量+20价格一起撞显示上限。成功率、保级/掉级、能力加成、ES和保护规则不变。强化手续费仍沿用现有费率、按新卡价计算；实际手续费金额会随卡价变化。等级/队色/赛季组合不是本次基础卡报价输入。
+10. 已展示的有效挂单、库存、旧NPC成本、经理资产、经验、强化、余额、球队与阵容保留；旧合同价自然到期前继续有效，不用重置库存来展示新价格。现行独立卡包定价规则不在本次替换范围。
+
+验证界限：全量单调性、同人支配、共享行情两端、价差上界、1..20强化等级、事务回滚、重放幂等、属性过期拦截和原生业务函数接入分别回归。静态/接口通过不是实机或比赛通过。
+币值重新按顶级锚点定标，不把“重现旧市场全部报价”作为目标；旧报价包含稀缺、时代差异和低价饱和。原始历史误差完整保存在training-report.json，没有因结构约束通过就宣称历史价格预测更准。
+正式安装前必须fresh当前最顶层及全部guards/receipt policies，共同双锁、备份/CAS、最新停服资产快照。游戏运行时零正式写入、延后，不强退客户端。正常恢复服务后先释放发布锁，再等待原ABI2热包/路径全部恢复。
+
+
+FO3-ENHANCEMENT-UI-STABILIZE（2026-11-07，原生入页仍待验收）
+16:55:40 PE2STATICVALUES后无preview；用户截图证明上一轮入口修正仍失败，不能称已修复。撤下当前聊天新增的选项记忆/双卡自动重选实现，Tab完整回到15:41成功强化的520499d9 UI；Popup回到f6c65102基础，仅保留method33的原生确认后免额外保护费弹窗。没有新增类成员/词法闭包；保留原独立保护、数值概率及字体修正。概率/身价/40%双卡保护后端均不回退。选项记忆和双卡自动重选暂不可用；今后须完成原生加载验证才重新交付，不以自制VM通过代替。
+所有非ABC资源及其它BIG成员与当前版本逐字节一致，原生确认回放验证有签名非阻塞报价仅发一次PUT，仍携带新鲜token；异常报价不绕过收费确认。根因未确证，当前只是撤销回归范围内改动，不能宣称实机已恢复。安装沿用最新父层全guards/receipt policies、双锁、备份/CAS；真实state/shop不写入/不恢复、不停服/不操作GUI，游戏运行则延期。证据D:/fifaol3/enhancement-ui-stabilize。
+
+
+FO3-ENHANCEMENT-UI-LOOP-FIX（2026-11-07，恢复全部便捷功能，原生游戏入页待验收）
+真实Redtamarin AS3虚拟机对失败版本的control.updateBoostItemList30稳定报VerifyError #1021，稳定旧版不报；新增循环回跳目标没有label opcode0x09，且没有预先的前向分支目标帧。Adobe AVMplus Verifier::checkTarget明确拒绝这种回跳。上一轮局部VM/栈高度校验没有这个规则，导致漏检；不能再以它们代替真实虚拟机验证。
+恢复entry-fix完整功能资源，仅在control30强化券恢复循环和owner89双卡搜索循环的回跳入口各插入一个0x09 label并重定位分支。其余方法/类traits/签名和所有非ABC资源逐字节保留；无新增闭包或方法，原生确认仍保留，额外费用弹窗继续免除。选项记忆、受保护失败后同一主副卡恢复、新鲜预览、锁/等级/库存检查均恢复。后台概率/身价/保护和真实资产不写入/不回退。
+工程证据D:/fifaol3/enhancement-avm-check及enhancement-ui-loop-fix。真实AVM校验使用隔离的外部UI依赖桩，不等同游戏内页面和比赛验收；正式输入安装沿用最新父层guards/policies、双锁、备份/CAS，游戏运行时延期，不停服/不操作游戏GUI。
+
+
+FO3怀旧属性与价格修订v13
+
+怀旧88张卡的33项属性恢复为已验证原型赛季的真实数据库数值，删除“神兽名单目标89/其余88”及后续全33项+2的机械造数。保留同一身份、模型、动作、特性、身体、位置、逆足花式；整体评分按真实岗位属性计算。旧原型卡、其它赛季、经理卡实例和升级进度不改。
+
+价格尺度撤销此前沿用的KR/1000币值压缩，经济价值币值倍率恢复1000；严格属性保底仍按整数EP计入。身份偏好重新参考同赛季同岗位、相近属性的历史价差：对照排除本人，取最近12张、至少8张、最大有效属性分差5；跨至少两季取中位并按n/(n+6)收缩，溢价限制1—1.5。它是历史市场偏好代理，可能同时包含模型、稀缺与版本影响，不能宣称已测出真实实战能力。未知球员正常按属性计价，名字不修改面板。
+
+原生模型和特性优势保留，不采用“大个子一律加分”或“硬把某人总评排到贝尔前面”的规则。原本称有效能力分的字段只应解释为属性估值分；对抗、制空、回追、转身、动作等实用性尚需对应引擎证据和独立实机验证。
+
+同人跨季的价格曲线、逆足/花式严格增价、按实际生效强化能力计价、共享0.85—1.15行情因子及2%日预算继续保留。新代际迁移保留已赚取行情因子，旧成交量样本归档，不让换币值重放旧成交影响新价格。v12公平价、模型摘要和属性指纹逐行存入历史代际表；旧模型/目录文件和旧成交/种子回执均不改写。新层必须同时核验历史代际和当前新属性绑定，不能拿旧物理预检检查新属性。
+
+EP价格尺度变化不扣改经理余额，不重置卡实例/经验/强化/阵容/库存，也不将商城点券价格或点券余额乘1000。既有有效挂单、旧成交与支付合同按原约定保留；新报价使用新估值。手续费沿原费率随新身价计算，实际费用会变化。全套属性、UI BIG、registry、完整player_import证书和估值目录必须同一正式事务发布。
+
+游戏运行中零正式写入与重启；等待用户自行结束游玩，再fresh实际入口/组合API/全部guards及receipt policies，取得共同双锁，最新停服快照、备份/CAS后正常安装。完成先释放锁，再验原ABI2热包恢复；不操作游戏GUI。静态/接口验证不能标为比赛通过。
+
+
+FO3-ENHANCEMENT-PROTECTION-CLICK-FIX（2026-11-07）
+实机17:23:35 telemetry/ui/errors报告TypeError #1006 getChildByName is not a function at method45：勾选先切换成功，新增偏好记忆代码把事件闭包local0误当control，记忆写入/新保护preview中断。只修正45：使用原生回调已取得并校验的event.currentTarget(local2)记录fo3RememberProtection；保持原生词法requestPreview查找，禁止用闭包receiver找面板。其它方法、类traits/签名、全部便捷记忆与双卡重选及循环label修复、概率/身价/保护后端均保留。
+真实AVM诊断以原生init作用域创建45闭包，用独立事件receiver实际分发：旧方法复现#1006，新方法连续勾选/取消并保存偏好、标记同步、每次一次新preview；禁用或无双卡不发请求。外部UI依赖为桩，仍不冒称游戏内结果已验证。工程证据D:/fifaol3/enhancement-protection-click-fix；游戏运行则在锁及正式写入前延期，不停服/强退/操作GUI。安装fresh最新父层全部guards/policies、备份/CAS，真实state/shop不写入。
+
+
+2026-11-07 强化单卡价格 v14：v13全部+1基价和球员属性不变；强化价由+1乘独立倍率。采用现有成功率/失败规则/材料选择归一化成本，+1至+5保留原倍率，+5以上对数压缩，+20倍率5000，避免原生数值上限；这不是原始制造期望成本。强化成功率、能力增幅、用户资产、玩家订单、已成交记录不变。新代际保留历史和共同市场因子，系统旧报价按新参考价撤换重挂，数量/期限/NPC钱包和成本不变。纯临时数据校验、正式接口校验不等于实机比赛通过；游玩期间禁止停服。
+
+
+FO3-ENHANCEMENT-RESTORE-HANG（2026-11-07，客户端恢复流程修复，游戏实测待验收）
+失败保留原生+0显示，点击恢复后直接绘制服务器resultgrade目标等级，不逐级播放。修复restorePlayerCardLoop与restoreComplete在pushscope之前错误查询实例状态；恢复开始异步加载目标卡一次，沿用原完成回调与付费恢复确认，不发送额外恢复或扣费请求。
+最新正式版已通过event.currentTarget修复保护勾选回调，本轮原样保留整个TabPage。恢复方法采用精确指令作用域回放、栈检查，原/新完整Scaleform弹窗在独立AVM均因依赖报#1107，不能声称原生弹窗或游戏验证通过。
+证据D:/fifaol3/enhancement-restore-hang；保留其余方法、traits、资源及当前保护/身价/概率逻辑。安装仅更新客户端资源及其镜像、发布记录，不停服，不写真实资产；游戏运行时延期。
+
+
+FO3-NOSTALGIA-ENHANCED-MEAN87（2026-11-07，nostalgia-mean87-20261107-181326-756088，实机PENDING）
+用户澄清不是恢复历史原卡强度，而是强化卡种平均基础87，并允许顶级92～93。本次19季88张按原主位置基础强弱层次，最小85/最高93约束下求统一平移目标并最大余数分配，使总和7656、平均精确87；不是额外算强化+5。各卡原33技能分布按最小平移、99封顶校准到目标，overall同步，potential不低于目标；身体/身份/星数/特性/动作/位置/模型与其它赛季所有行保持。分布85x48、86x6、87x3、88x5、89x10、90x3、91x4、92x2、93x7。注册表保留旧纠正历史并记录本次卡种增强，筛选不增删，只按新实际强度排序。
+当前公平估值强制绑定属性，不能只改UI库后声称完成。本次复制最新v14模型参数，仅新建v15目录与属性摘要；只88张估值数据改变，保留其它61500余张现价、身份市场因子、原事件与强化价格曲线。停服先按旧属性flush已提交价格事件，再从当前市场库快照生成新一代；真实存档只迁移market_simulation代号/待报价与已flush事件队列，经理/卡/强化/等级/经验/余额/库存/球队/阵容逐字段保持。现行pack_base_prices热包及全部路由/低档定价规则不改，不从旧value_prices推断实收。
+客户端data0仅UI SQLite成员增量替换，其它成员原压缩字节/布局保持；完整player_import与新证书同步，原生身份/六语/模型不增删。安装器游戏运行时先延期，不提示退出、不停服、不写正式文件；仅自然退出后fresh最新父层、共同双锁、新资产快照、备份与CAS。所有guard/回执策略继承，历史模型/目录/回执不改。证据D:/fifaol3/nostalgia-mean87，静态/资源/完整导入/估值回归不能代替首页近远景、带球或比赛验收。
+
+
+FO3-ENHANCEMENT-MATERIAL-GRADIENT（2026-11-07，enhancement-material-gradient-20261107-202855-637189，实机PENDING）
+按原有整数档位起点逐级线性插值：最低有效副卡、ceil(主卡/3)、ceil(2*主卡/3)、同级分别继承旧起点概率，重合锚取旧规则较高档。档内每升一级提高概率，不削弱任何材料组合；同级和所有点数/道具叠加的上限、+0语义均保留。主卡+9时副卡+6/+7/+8/+9无加成为21/23.333333/25.666667/28%。保护v3双卡保留、40%替代费、签名库存/消费/恢复实现未改；既有估值函数与市场数据库不迁移。
+游戏运行时在任何正式写入、锁、备份和停服前延期；只能自然结束后fresh实际父层与完整guards/policies、双锁、备份/CAS及新资产快照安装。无GUI/真实卡或余额验证。证据D:/fifaol3/enhancement-material-gradient。
+
+
+FO3-HOUSEHOLD-20261107-VERIFIED
+正式增量：仅playerhistory；复用当前47149行旧履历，校验7775份Nexon职业履历原文与解析，并刷新137名普通传奇的官方履历。16组缺失队名通过至少3名不同球员的唯一加入年/租借记录一致映射找回，另核实莫斯科迪纳摩等明确历史队名；18名旧身份按姓名/生日/国籍逐一核实，旧Chen Yang对应1974年杨晨、Li JunYu对应1977年李金羽，未改姓名或生日。Piyapong生日年份存在来源分歧，保留本服1963，单独标注该例外。
+本次2057人变更，新增2561组俱乐部资格，履历共50315行。33名无履历普通传奇中19名补入有可靠本服ID的球队；14名东南亚名宿只登记已查生涯及未核实球队映射，不猜国家队/同名俱乐部ID。保留全部旧户口；执教/青训不冒充职业效力；重复效力及租借独立保留。FC27官方可取得当前球队/球员ID，非完整履历，未凭观察日期编造加盟年份、未导入属性。
+双端UI SQLite一致、全部非history表不变、BIG有序重建且270个非目标成员原压缩payload不变、正式player_import完整校验。按442/433/4231及自然位置、同一球员只选一卡，对普通赛季+本队普通传奇重新计算；传奇时刻/中国明日之星不混入普通队套池，属性/模型/概率/强化及现行套装数值未改。
+保护：共同双锁、fresh当前父层全部guards和receipt policies、备份/CAS；游戏运行则延后，不强退、不GUI；本次停服实时state/shop快照只核对不恢复。接口和结构通过不等于比赛通过，实机/比赛=PENDING。证据D:/fifaol3/team-balance-household/；正式证据patches/club-household-refresh-20261107-evidence.json.gz。
+
+
+FO3-HOUSEHOLD-20261107-VERIFIED-EXTENDED
+正式增量：仅playerhistory；复用本批最新50315行旧履历，校验7775份Nexon职业履历原文与解析，已刷新203名普通传奇官方履历。球队缺失名称仅在至少3名不同球员的唯一加入年/租借记录一致时恢复映射，另核实莫斯科迪纳摩等明确历史队名；补查ICON和怀旧传奇，包括博辛瓦、博德梅尔、西西尼奥、阿比达尔、迪亚比、埃梅尼克、伊巴尔博。25名手工匹配身份按姓名/生日/国籍核实；旧Chen Yang对应1974年杨晨、Li JunYu对应1977年李金羽，未改姓名或生日。Piyapong生日年份来源分歧保留本服1963，单独标注。
+本批7人变更，新增41组俱乐部资格，履历共50361行。前批33名无履历普通传奇中19名已补，扩展ICON/怀旧传奇另补7人；14名东南亚名宿仍只登记已查生涯及未核实球队映射，不猜国家队/同名俱乐部ID。保留全部旧户口；执教/青训不冒充职业效力；重复效力及租借独立保留。FC27官方可取得当前球队/球员ID，非完整履历，未凭观察日期编造加盟年份、未导入属性。
+双端UI SQLite一致、全部非history表不变、BIG有序重建且270个非目标成员原压缩payload不变、正式player_import完整校验。按442/433/4231及自然位置、同一球员只选一卡，对普通赛季+本队普通传奇重新计算；传奇时刻/中国明日之星不混入普通队套池，属性/模型/概率/强化及现行套装数值未改。
+保护：共同双锁、fresh当前父层全部guards和receipt policies、备份/CAS；游戏运行则延后，不强退、不GUI；本次停服实时state/shop快照只核对不恢复。接口和结构通过不等于比赛通过，实机/比赛=PENDING。证据D:/fifaol3/team-balance-household/；正式证据patches/club-household-refresh-20261107-v2-evidence.json.gz。
+
+
+FO3-LINEUP-ENHANCE-SHORTCUT (2026-11-07, native pending)
+球员管理-阵容选中行在搜索、锁定/解锁之后新增向上强化矢量图标。只调整该行三个原生图标的位置以留出一格，保留原图标对象/处理函数。回调读取当前renderer.data实例ID，使用原生Tab.switchTabPage两层导航至强化页；请求放在本次TeamManagementScreen下的不可见MovieClip，不写存档或本地持久配置。
+强化面板start/updatePlayers结尾读取一次请求；必须实际挂载且所有祖先可见、60秒内、最新_players具有完全相同_id/spid/grade，才调用原生clearSelectedPlayer、availableEnhancePlayer、selectTarget(main,null)和invalidatePlayerList；消耗请求先于原生回调，重复事件不重复选择。同SPID其它卡不替代目标，材料为空，保留原生锁/资格限制，不自动解锁、不自动强化/购买。
+字节码栈流及显示/跳转/精确实例/异步空列表/隐藏/脱离/超时/卡变化/原生不可选回放通过，原方法与未修改资源逐字节保留。静态/回放不是原生类型验证或GUI验收。游戏运行期间安装立即延期；无服务启停，无GUI操作，不写真实state/shop。安装须fresh当前正式资源与父层、继承全部guards/receipt policies、共同双锁、备份和CAS；后续合法修改不覆盖。REA不支持此私有BIG格式，本次通过已有bigdir/ABC格式解析工具检查。
+
+
+FO3-PLAYER-DETAIL-TRAITS-20261107-V1
+
+放大镜详情增加独立俱乐部经历页：按playerid聚合当前正式playerhistory，合并卡片当前球队与客户端原生履历，去重；过滤>=900000赛季占位队，不编造年份或真实经历。historyopen=0时以本层绑定的8208身份快照兜底，后续履历更新须同步重建本页，不能继续沿用旧UI快照。原有能力、合同、特性与可选价格页保留，价格页索引移至3。IM原生特性超过8条时使用相同字体的完整滚动文本，普通赛季沿用原生渲染。
+
+仅123张84赛季的trait1/badges增量：保留已有位、合并同人其它赛季适用正面特性，并按主位置补足，使可见正面特性数严格多于同名普通赛季最高值。113名非门将具备主位置对应的原生全能金徽章；10名门将补齐原生扑单刀/大力手抛/拳击球等适用特性，不造门将金徽章。原生徽章、特性通过不证明比赛胜率/手感。能力值、身份、模型、其它赛季、playerhistory、价格和资产不改。
+
+AVM2离线执行验证新页去重/空履历/隐藏履历/大于8条/普通赛季切换，非游戏实机；双端SQLite一致、BIG非目标原压缩字节/顺序、player_import完整校验通过。共同双锁、fresh父层全部guards/receipt policies、备份/CAS、停服实时资产快照保护。游戏运行时必须在写入与停服前延期；不强退、不GUI。实机显示/比赛PENDING。工作证据D:/fifaol3/player-detail-traits/。
+
+
+FO3-MARKET-SALE-FIX (2026-11-07; native GUI pending)
+实际原生TransferMarketProxy.STATUS_SELLING与挂牌renderer期待waiting；存档内部仍用selling，仅响应副本映射waiting，并为原生撤单URI接受waiting别名，不能直接改真实存档状态。客户端原有改价弹窗复用/transfer/offer/from/{id}；允许在售改价，先结算再判断，已成交保留原价款项；同价重放不重排买家时间。卡实例/经验/强化/球衣/队伍/出处保留。
+现价及以下挂牌保证买家，半价约1至3分钟、八折约3至10分钟、现价约10至30分钟，后台tick另有至多一个轮询周期；不受旧同SPID高强化每日两人额度阻挡。高于现价仍有需求概率和买家限额。电脑买入/衍生卡保留原有一小时持有约束，手续费和手动领取保持。仍在售旧挂牌安全采用新策略，旧已到达成交时刻不延期、旧已成交权益/原手续费不回算，旧已过期单不复活。
+65项临时资产事务/并发/失败/重放回归及5项实际客户端字节码契约验证通过；未做真实测试买卖、GUI或比赛验证。REA不支持私有BIG，使用已有bigdir/ABC工具只读核对，无客户端资源替换。后台worker/对象方法不属ABI2业务热更新，必须游戏自然结束后经正式stop-server保护、共同双锁、fresh顶层/资产快照、备份及CAS组合安装并正常重启；不得用reload或强退游戏实现激活，不恢复旧state/shop。
+
+
+FO3-CLUB-BASE-BALANCE-20261107
+队套基础：首发4-5人全属性+1、6-7人+3、8-9人+5、10人+7、11人+8；保留原命名球队专项加成。
+按用户最新要求，取消普通赛季额外奖励整项；各卡种统一按球队人数获得基础加成，不创建普通卡额外feature或新成员集。
+保留传奇时刻原属性/模型/专属加成及强化套；本次只改服务端队套定义/普通奖励资格，不写DB/BIG或真实state/shop。核心队套不在业务热更新范围；游戏运行则延后，正常停服后备份/CAS增量、继承当前全部guards/receipt policies，保护实时资产。25UCL仅完成来源/覆盖研究，本次未导入卡或模型；新赛季导入仍须原生身份/资源/等级码和完整player_import校验。临时数据回归及正式接口验证各自记录，不代表客户端实机/比赛验证。证据D:/fifaol3/club-balance-live/。
+
+
+FO3-LINEUP-ENHANCE-REPAIR (2026-11-07, native verification pending)
+用户报告首版图标样式不一致、解锁按钮不可见、点击卡死。服务日志21:58:57 CLIENT_CRASH，期间未见强化静态PE2请求；无当前崩溃dump/实机调试，唯一根因未证实。不得把回放通过写成原生无崩溃。
+恢复首版对原按钮坐标的所有移动；时间轴证据搜索x407、锁定/解锁x467。新增按钮使用同一原生Button库的PlayerGrowthIncreaseButton类与原生ButtonEvent.CLICK，以原锁按钮尺寸显示在其右60px位置（x527），原按钮位置、可见逻辑、事件保持。废弃手绘图标与首版父节点遍历/隐藏MovieClip载荷，旧函数置空。
+按钮仅通过原生ZoneManager.currentZone.query把精确实例ID/spid/grade送至TeamManagementScreen.onQuery，存放在屏幕实例的新Object槽；导航由一次enterFrame回调在原按钮事件返回后执行。强化面板start/updatePlayers不直接选卡，只安排下一帧处理，复用Zone查询读取和一次消费请求，再走原生clearSelectedPlayer/availableEnhancePlayer/selectTarget(main,null)/invalidatePlayerList。60秒过期、同ID但spid/grade变化、缺失卡均拒绝，不以同SPID替代；无自动解锁/购买/强化或材料选择。屏幕detach清除请求及延迟导航。
+回归执行所发字节码及原生Zone.query/callOnQuery/getScreenFromLoader/getLoaderName链，覆盖原按钮对象不变、原生类解析、可见/空数据/缺锚点、点击和选卡异步边界、11种选卡与重复回调、退出取消；包含栈流与未改资源/方法保留检查。类型验证器与实际GUI/点击/比赛仍待验证。继承安装时最新父层、全部guards/policies，保留其它聊天合法后续更改和最新资产。安装不启停服务、不操作GUI、不写真实state/shop。
+
+
+FO3-UPSTREAM-SOCIAL-9104FAB（2026-11-07）
+新增虚拟经理、单用户Rank人机排位和AI聊天、Messenger推送、经理记录与任务成就、赛前设置和独立设备预设；裁判改为原生存在的112/178/157。当前市场/估值/供给、商城最低保证强化定价、40%保护、+20/30级、AI+10/30级及全部已售包/回执保留。排位结算接入league_reward_guard一次提交；新任务领取/GP报价做失败、并发与重放检查。兼容模块只在进程引导安装，不通过ABI2热包重跑hook。控制页面仅55字节方法增量；非目标BIG成员保持。游戏运行时安装器在锁/正式写/停服之前返回延期，不退出客户端、不请求用户退出。
+验证与来源：D:/fifaol3/upstream-integration/{social-tests.json,preservation-tests.json,control-tests.json,installer-tests.json,installed-handback.json}。临时内存回归不能代替Rank原生连接/比赛、消息叠层、裁判与控制页面实机验收；实际安装/激活以installed-handback为准。回归命令正式.venv Python -X utf8 -B D:/fifaol3/upstream-integration/test_social.py。回退仅代码/CAS，不恢复旧state/shop；新Rank记录/任务权益不得通过删除存档回退。
+
+
+FO3-LINEUP-ENHANCE-V3 (2026-11-07, runtime not verified)
+用户反馈第二版按钮丑且进入强化页后卡死；截图为空的强化页面，服务日志22:12:08 PE2STATICVALUES、22:12:51 CLIENT_CRASH，不能证明唯一根因。用户明确禁止游戏GUI操作，只允许继续静态排查，本次不启动/操作客户端。
+视觉静态证据已提取正式Button DDS原生像素：搜索/解锁使用64x37胶囊，原第二版PlayerGrowthIncreaseButton是25x25方形加号且还带额外图层，整体拉伸属于错误选型。第三版采用原生空胶囊TransferMarketRollOverButton固定64x37，在内部用代码绘制与原图标近似色的向上箭头，不再读取其它复合控件的动态width/height；搜索/锁/解锁原坐标不变，额外按钮仍按原60px间距放置。
+强化BIG撤下本聊天全部新增ABC方法、traits、常量池及初始化/库存/逐帧钩子；当前输入仅含本聊天对该ABC的改动已经逐字节核对，最小块恢复后整个强化BIG SHA为cd8f7b2d8dd747eb617b6b64b93631602a99ad77bdead962403b690fbbdde314，与加快捷键前的正式稳定资源完全一致。其余正式最新文件和所有后续合法改动保留，不回退存档或旧state/shop。
+导航与一次请求只放在TeamManagementScreen。一次导航后等待原生DataProvider非空、精确_id/spid/grade、原生行renderer就绪且两帧稳定；仅通过原生ListEvent(itemClick)分发给原onClickListItem，不直接调用/注入强化私有方法或改玩家对象。先移除请求与监听，再原生clear selected player和原生点击；材料不自动选择。未就绪最多30秒或600帧，逐帧有界检查，无同步轮询死循环；退出屏幕撤下监听。
+回归执行新增字节码、原生ListEvent构造和原生onClickListItem，覆盖15种加载/空列表/renderer/过期/卡变化失败状态、两帧就绪、一次导航、原生资格拒绝和完整强化资源精确恢复。回放与栈流通过不等于原生类型验证或卡死消除；crash_fixed_proven=false，GUI/native/match验证均未做。安装fresh最新父层和全部guards/receipt policies，双锁、备份/CAS；不启停服务，不写真实资产。
+
+
+FO3-PLAYER-DETAIL-NATIVE-CARRIER-20261107
+
+用户实机反馈放大镜无响应。本层修正上一层SquadAssets.gfx载体签名错误：原生资源CFX被写成CWS，同时仍含1000/1008/1009扩展标签。恢复原CFX，仅成员前三字节改变；全部已安装ABC、时间轴、字体与纹理标签、其它BIG成员原压缩字节完全不变；保留新增俱乐部经历页与IM特性数据，不回退后续阵容快捷入口/社交等合法子层。
+
+此前AVM2测试绕过原生GFx加载器，不能证明客户端成功加载。新增签名/专用标签/完整50个ABC与成员差异回归。载体修正只是静态修复证据，放大镜实机打开及比赛均需单独确认；若仍无响应继续查实际加载路径，不把该静态检查称为实机通过。
+
+游戏运行时安装在任何正式写入/停服前延期；共同双锁、fresh最新compose_manifest全部guards/receipt policies、备份/CAS、最新state/shop快照只核对不恢复。无游戏GUI操作，无测试资产写入。
+
+
+FO3-REMOVE-MBAPPE-20261107
+按用户要求移除playerid231747全部4种赛季卡、双端UI/六语言姓名及权限/履历、原生身份、登记和卡池；market_spids旧价并集与add_player阻止所有赛季复入。保留历史经济目录/种子/交易回执与原模型rig内部资源，不改变历史哈希、不将其作为可用球员。原生prepare布局模板改20801，既有骨骼转换基准资源保持。精确原属性归档仅供历史价格完整性验证，当前原目录哈希仍须通过，未来生成目录不加入归档。真实存档仅在停服后fresh事务定点清除目标活动引用，保其它资产与历史回执；游戏运行先延期不写正式、不停服。完整player_import/资源布局/非目标字节校验不代表实机或比赛通过。工作和回执D:/fifaol3/remove-mbappe。
+
+
+FO3-REMOVE-MBAPPE-20261107
+按用户要求移除playerid231747全部4种赛季卡、双端UI/六语言姓名及权限/履历、原生身份、登记和卡池；market_spids旧价并集与add_player阻止所有赛季复入。保留历史经济目录/种子/交易回执与原模型rig内部资源，不改变历史哈希、不将其作为可用球员。原生prepare布局模板改20801，既有骨骼转换基准资源保持。精确原属性归档仅供历史价格完整性验证，当前原目录哈希仍须通过，未来生成目录不加入归档。真实存档仅在停服后fresh事务定点清除目标活动引用，保其它资产与历史回执；游戏运行先延期不写正式、不停服。完整player_import/资源布局/非目标字节校验不代表实机或比赛通过。工作和回执D:/fifaol3/remove-mbappe。
+
+
+FO3-LINEUP-ENHANCE-V4 (2026-11-07, real AVM verifier evidence)
+用户报告v3点击强化按钮即卡死且样式仍难看，日志22:34:22 CLIENT_CRASH，之前没有PE2STATICVALUES；Windows历史22:02:45 AppHangB1，未发现对应新dump。不能仅凭客户端通用CRASH遥测认定原生异常地址。
+静态定位新增循环的后向跳转缺AVM2强制label0x09：v1点击回调有父遍历循环，v2强化面板自动选择回调有选卡循环，v3TeamManagementScreen.fo3LineupDriveV3(method20)有两个遍历循环，吻合各版卡住位置变化。使用现有redshell_dd/stock AVMplus对v3生产方法逐字节测试，替换隔离构造器和UI依赖stub后，原方法明确报VerifyError #1021，添加两个label后同方法返回DRIVE_RETURNED。生产新method20与该修复验证方法逐字节相同；本次不再把仅栈高度回放当成完整AVM验证。
+正式最小修正仅对method20两个后向目标194/300插入label并重定位；对全部该ABC方法新增强制后向目标必须label检查，防止同类回归。其它方法、traits、启动处理和容器资源不变，强化BIG保持cd8f7b2d8dd747eb617b6b64b93631602a99ad77bdead962403b690fbbdde314。
+按钮method43改用与搜索/锁定同一原生库的小胶囊PlayerSwapButton，使用原生双箭头/自然尺寸和35帧状态，不拉伸、不画新背景、不叠加自制箭头；搜索/锁/解锁不动。不以固定方形加号或复合控件动态bounds换算尺寸。按钮实际外观/操作尚未游戏GUI验收。
+保留v3就绪后原生ListEvent选主卡的业务，不自动材料/强化/交易；15种未就绪/缺失/变化状态及原生资格拒绝回归通过。stock AVMplus验证有UI依赖stub，不等于运行中游戏点击或唯一崩溃根因证明；native_game_verified=false，unique_game_crash_cause_proven=false。用户明确禁止游戏GUI，未启动/操作游戏，未写真资产。安装fresh实际最新父层、双锁、备份/CAS、完整guards/receipt policies，不回退其它聊天更新。教练成就页语言缺键另由用户明确指定subagent独立修复，严格串行正式写入。
+
+
+FO3 ACHIEVEMENT ITEMNAMES LOCALES (2026-11-07)
+原生CoachAchievementListTabPage.onUpdateTooltipData直接把ITEMNAMES[itemid][Localization.LOCALE || kor]传入StringUtil.removeHTML，不对当前语言缺失做逐项回退；旧服务只有ind/kor，chi/eng/tha/vie/tai会得到null，符合22:12:03 UI_ERROR #1009。补齐7种原生locale非空名称，保留原ID与已有ind/kor内容。1222项×7语言及空locale回退的精确字节码片段回放通过；不改成就进度、奖励、领取逻辑或真实资产。未做游戏GUI/原生实机验收。该静态路径不在业务hot ABI范围，游戏关闭后正常受保护重启加载，不能冒称热更新。
+
+
+FO3-LINEUP-ENHANCE-V5 (2026-11-07)
+用户明确要求升级图标而非交换图标，并要求跳转后选对应主卡。新增独立Fo3LineupUpgradeButton原生SWF符号：复制原PlayerSwapButton的胶囊外框/35帧状态/原方法体，以代码原生DefineShape替换图标中心为双色向上双箭头；原交换图标、所有其它符号及全部DDS像素逐字节保留，不拉伸、不运行时自绘。三个新Shape复用原状态位图的无图标竖条恢复中心渐变，再绘制向上双箭头。
+主卡选择不再依赖屏幕行renderer或默认重复卡过滤。进入原强化页后打开原生显示全部并触发原生按钮事件，等待原生DataProvider中的精确_id/spid/grade；保持原锁策略和原生TimerUtil/DateUtils锁定时间语义，拒绝禁用/变化卡。原生clear selected player清旧对，再用原生post selected players和selected player公共query契约设置(main,null)，等价于原selectTarget的setter和owner消息，不自动选材料/解锁/强化/购买；单张卡也可仅作为主卡展示，真正交易继续原服务端校验。
+离线回放实际原生EnhancePlayerPanel.query18和first/second setter2/4，验证同SPID诱饵不替代、重复/单卡主卡正确、材料null、一次性、锁/失效锁/禁用/数据变化/未加载/离页等情形。增强页BIG完全未改，没有新增启动/库存钩子或别名。根screen所有后向分支都有显式label，精确最终driver通过stock AVMplus真实验证，旧缺label负对照继续#1021。UI符号静态解析及原生方法体一致通过；stock与回放不等于游戏GUI/实机验收。用户仍禁止游戏GUI。
+正式安装仅在游戏关闭、fresh实际top和基线、共同双锁/备份/CAS、完整guards/receipt policies下执行；游戏运行即延期，不要求退出、不强退/停服/重启，不改真实state/shop或其它聊天合法修改。
+
+
+FO3-LINEUP-ENHANCE-V5-GLYPH (2026-11-07)
+用户明确要求升级图标而非交换图标，并要求跳转后选对应主卡。新增独立Fo3LineupUpgradeButton原生SWF符号：复制原PlayerSwapButton的胶囊外框/35帧状态/原方法体，以代码原生DefineShape替换图标中心为双色向上双箭头；原交换图标、所有其它符号及全部DDS像素逐字节保留，不拉伸、不运行时自绘。三个新Shape复用原状态位图的无图标竖条恢复中心渐变，再绘制向上双箭头。静态像素边界复核发现旧蓝箭头最左x19，现中心覆盖扩为x18..47，并采样无图标的x12..13竖条，避免旧交换箭头抗锯齿残边和邻像素串色；原DDS不改。
+主卡选择不再依赖屏幕行renderer或默认重复卡过滤。进入原强化页后打开原生显示全部并触发原生按钮事件，等待原生DataProvider中的精确_id/spid/grade；保持原锁策略和原生TimerUtil/DateUtils锁定时间语义，拒绝禁用/变化卡。原生clear selected player清旧对，再用原生post selected players和selected player公共query契约设置(main,null)，等价于原selectTarget的setter和owner消息，不自动选材料/解锁/强化/购买；单张卡也可仅作为主卡展示，真正交易继续原服务端校验。
+离线回放实际原生EnhancePlayerPanel.query18和first/second setter2/4，验证同SPID诱饵不替代、重复/单卡主卡正确、材料null、一次性、锁/失效锁/禁用/数据变化/未加载/离页等情形。增强页BIG完全未改，没有新增启动/库存钩子或别名。根screen所有后向分支都有显式label，精确最终driver通过stock AVMplus真实验证，旧缺label负对照继续#1021。UI符号静态解析及原生方法体一致通过；stock与回放不等于游戏GUI/实机验收。用户仍禁止游戏GUI。
+正式安装仅在游戏关闭、fresh实际top和基线、共同双锁/备份/CAS、完整guards/receipt policies下执行；游戏运行即延期，不要求退出、不强退/停服/重启，不改真实state/shop或其它聊天合法修改。
+
+
+FO3-25UCL-FINAL-072-20261107
+新增25UCL 360张；使用Nexon官方2026-11-07已计入最终现实表现的33项基础细项，统一乘0.72、四舍五入一次；总评按本服位置权重生成。星数显式1-5转FO3等级码0-4，逆足与主脚独立转换；身高/体重不缩放。旧卡属性/模型/强化曲线不变。普通卡额外奖励为0，不新增25U赛季专属能力奖励；未重复人工叠加冠军/亚军加成。
+保留已移除/屏蔽的姆巴佩，未导回该身份或历史卡。273人沿用现有原生身份（含121人跨来源编号对齐），87人使用登记的内置通用脸型，不冒称真人脸；保留原有所有UI/原生记录，新增身份按playerid唯一。六语言姓名/头像/注册表/卡框/市场筛选同步；新姓名使用官方拉丁名，原中文名保留。新增卡只映射FO3已存在的0-29号特性，其余FC新特性留证未伪造效果；无额外金标。
+市场估值复用现行模型参数，仅追加新卡；归档旧估值代际，保留所有已有价格、种子、交易回执及共同球员系数。保留已售通用卡包卡池与当前业务热包全部路由及定价；未发测试卡、未改真实余额/球队/阵容。游戏运行则延后，使用共同双锁、最新父层guards/receipt policies、备份/CAS、停服实时快照；player_import独立启动检查保留。静态/完整校验/接口通过不等于实机；首页、近远景、带球和比赛=PENDING。证据D:/fifaol3/ucl25-import/。
+
+
+FO3-CUSTOM-HOUSEHOLDS-VERIFIED-20261107-V1
+用户明确安装已核实部分：1776张当前注册新增卡、1101个身份；打开1319张原生履历开关，32张中国明日之星当前球队统一999327/中国明日之星。历史真实球队保留。
+本批600人新增1443组已核实俱乐部资格（含租借、俱乐部青训），只追加新户口，原51076行完整保留。明确身份及已安装/官方EA球队ID才加入；不靠加入年对齐自动认定新球队，不创建猜测的小俱乐部ID。
+仍有133个身份资料、1153个未匹配俱乐部名待核；本次不宣称全部补齐。未知日期保留未知；国家队/纯校队/足协训练中心不当俱乐部；能力、星数、位置、模型选择器、估值属性指纹不变。保留最新姆巴佩删除及所有并发合法修改。
+双端数据库与六语言team/TEAMNAMES校验、非目标BIG成员压缩字节保留、player_import完整验证、生产套装逻辑临时数据回归；不改现行套装数值、价格、概率、热包路由或资产。共同双锁、fresh全部guards/receipt policies、备份/CAS、保护停服和本次实时资产快照；游戏运行即延后。未知日期实机显示、首页和比赛尚未验收，不将结构/接口通过写成实机通过。
+证据D:/fifaol3/all-custom-households/；正式证据patches/custom-households-verified-20261107-evidence.json.gz。
+
+
+FO3-STARTUP-BLACK-DISPLAY-ISOLATION-20261107
+用户报告启动后全黑、尚未进入主页。HTTP停在外部语言包加载后，转储未发现同先前缺原生球员记录的访问异常；不能宣布已定位根因。先使用正式迁移函数将实时state市场代际从v15对齐新增25U的v16；仅清理已入账价格事件，1100条未完成采样完整归档，所有非市场资产字段及shop逐项不变。本层仅撤下刚新增的PlayerListUtil12/14两个赛季显示方法，使用该次安装前的直接基线ABC；其它Module标签逐字节一致，不撤25U球员、原生身份、户口或徽章。25U名称的专用前缀暂待重做；这是黑屏隔离修复，静态检查不代表用户启动通过。保留全部新父层guards和receipt policies，不修改历史哈希/回执，不操作GUI。
+
+
+FO3-STARTUP-RESOURCE-COMPATIBILITY-20261107
+名称方法隔离后用户仍报启动黑屏，本层不宣称已定位根因。仅撤下本次新增25U徽章，保留原全部徽章/强化图集；六语言TEAMNAMES使用安装前已使用的stored JSON方式重打包，JSON内容逐字节保留，所有新增俱乐部名称与户口/球员/能力/资产不删。界面与比赛仍PENDING。
+
+
+FO3-RANK-SORT-LEAF-20261108
+实机日志定位RoomProxy.onStaticDataFetched空引用：/static/db/SORTLEAGUE/18返回{}，应为[16,17]。上游兼容合入漏选两条匿名SORTLEAGUE/SORTTEAM分表路由；同调用栈随后也在进入比赛时出现，不能据uri=/info/server/time误修时间接口。使用现有from_file每请求重读机制，在线补齐19个国家/28个联赛共47份当前运行表分表数组；不reload模块、不停服、不操作游戏、不写state/shop。所有分表来自正式通用表的同次只读快照，完整国家→联赛→球队链和在线GET逐条核对。该在线缓存绑定本次DB/source指纹；后续注册表/联赛变更需重生成，不能沿用旧分表。工作目录rank-ui-language-fix另准备动态路由修复，待游戏自然关闭后安装，届时分表绕过静态快照实时生成。客户端已经缓存的错误对象不保证自动失效，游戏内恢复/整场比赛仍待验证。AI聊天自动语言属于另一个待加载的代码修改，不因本JSON发布而声称已生效。
+证据D:/fifaol3/rank-ui-language-fix/{captured-ui-errors.json,online-tests.json,online-installed-handback.json}。不修改旧历史凭据来消错。

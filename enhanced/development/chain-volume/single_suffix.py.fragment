@@ -1,0 +1,22 @@
+    def counts(st):
+        return [dict(shopid=r['shopid'],**{key:r[key] for key in ('step','buy','remained','remainedperaccount') if key in r}) for r in listing(st) if 'remained' in r]
+    h.ENDPOINTS['/shop/remained/limited']=lambda q,b:h._json(counts(h._state()))
+    def single(req,i):
+        root,rn,k=stages[i];st=h._state();coach=h.my_coach(st)
+        current=snapshot(st,root)
+        if isinstance(req.get('bunch',0),bool) or req.get('bunch',0)!=0 or req.get('shopid',root) not in (root,i) or current is None or current['round']!=rn or current['stage']!=k:
+            return h._json(dict(result=False,reason='请按当前轮次的档位顺序购买。'))
+        amount=price(i,1)
+        if int(coach.get('cash',0))<amount:return h._json(dict(result=False,reason='NOT_ENOUGH_CASH'))
+        h.add_cash(st,-amount,'shop:'+str(i))
+        for child,n in tracks[root]['packages'][str(i)]['contents']:h.inventory_add(coach,child,n)
+        record=copy.deepcopy(st.get('product_chain_rounds',{}).get(str(root),{}))
+        record.update(owner=str(coach['_id']),owner_appat=coach.get('appat'),rounds=rn,stage=k+1)
+        if k+1==5:record.update(rounds=rn+1,stage=0)
+        record.setdefault('volume_stage_versions',{})[str(i)]='volume110-v1'
+        st.setdefault('product_chain_rounds',{})[str(root)]=record
+        h._save(st)
+        receipt=dict(root=root,spent=amount,round_completed=record['rounds'])
+        out=json.loads(response(st,receipt)[1]);out['message']='本档购买完成，卡包已进入背包。';out['chain_round']=record
+        return h._json(out)
+    return dict(listing=listing,counts=counts,quote=quote,purchase=purchase,single=single,stages=stages,snapshot=snapshot)

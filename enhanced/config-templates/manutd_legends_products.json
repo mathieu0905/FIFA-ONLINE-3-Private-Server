@@ -1,0 +1,368 @@
+{
+  "schema": 1,
+  "edition": "manutd-legends-88-92-v1",
+  "limits": {
+    "98248001": {
+      "count": 100,
+      "period": "day"
+    },
+    "98248002": {
+      "count": 10,
+      "period": "day"
+    }
+  },
+  "risk_packs": {},
+  "strength_packs": {
+    "98248001": {
+      "name": "MUL曼联传奇·41人扩充版·随机+1",
+      "price": 3,
+      "mode": "random",
+      "grades": [
+        100
+      ],
+      "tiers": [
+        {
+          "name": "48赛季MUL曼联传奇",
+          "weight": 100,
+          "pool": [
+            48000036,
+            48000239,
+            48000240,
+            48000241,
+            48000244,
+            48000245,
+            48000246,
+            48000249,
+            48000250,
+            48000393,
+            48001845,
+            48003484,
+            48005740,
+            48007289,
+            48007826,
+            48010264,
+            48013130,
+            48020801,
+            48021146,
+            48030110,
+            48039943,
+            48051539,
+            48052091,
+            48053019,
+            48054050,
+            48138782,
+            48139068,
+            48140601,
+            48167198,
+            48167905,
+            48190053,
+            48191740,
+            48193080,
+            48195864,
+            48205988,
+            48212198,
+            48226764,
+            48230024,
+            48230025,
+            48230026,
+            48231677
+          ]
+        }
+      ],
+      "search": {},
+      "description": "每包获得1名48赛季MUL曼联传奇球员，固定+1；本期冻结41人。<BR>能力口径：1级、+1强化、主位置88～92，不含球队套与教练加成。<BR>41张卡逐张等概率，每张1/41，无指定球员保底。"
+    },
+    "98248002": {
+      "name": "MUL曼联传奇·41人扩充版·自选+1",
+      "price": 4,
+      "mode": "choice",
+      "grades": [
+        100
+      ],
+      "tiers": [
+        {
+          "name": "48赛季MUL曼联传奇",
+          "weight": 100,
+          "pool": [
+            48000036,
+            48000239,
+            48000240,
+            48000241,
+            48000244,
+            48000245,
+            48000246,
+            48000249,
+            48000250,
+            48000393,
+            48001845,
+            48003484,
+            48005740,
+            48007289,
+            48007826,
+            48010264,
+            48013130,
+            48020801,
+            48021146,
+            48030110,
+            48039943,
+            48051539,
+            48052091,
+            48053019,
+            48054050,
+            48138782,
+            48139068,
+            48140601,
+            48167198,
+            48167905,
+            48190053,
+            48191740,
+            48193080,
+            48195864,
+            48205988,
+            48212198,
+            48226764,
+            48230024,
+            48230025,
+            48230026,
+            48231677
+          ]
+        }
+      ],
+      "search": {
+        "48190053": {
+          "team": 11,
+          "league": 13,
+          "name": "Peter Schmeichel 舒梅切尔"
+        },
+        "48051539": {
+          "team": 11,
+          "league": 13,
+          "name": "Edwin van der Sar 范德萨"
+        },
+        "48193080": {
+          "team": 11,
+          "league": 13,
+          "name": "David De Gea Quintana 德赫亚"
+        },
+        "48000244": {
+          "team": 11,
+          "league": 13,
+          "name": "Gary Neville 加里·内维尔"
+        },
+        "48053019": {
+          "team": 11,
+          "league": 13,
+          "name": "Denis Irwin 丹尼斯·欧文"
+        },
+        "48005740": {
+          "team": 11,
+          "league": 13,
+          "name": "Jaap Stam 斯塔姆"
+        },
+        "48007289": {
+          "team": 11,
+          "league": 13,
+          "name": "Rio Ferdinand 费迪南德"
+        },
+        "48140601": {
+          "team": 11,
+          "league": 13,
+          "name": "Nemanja Vidic 维迪奇"
+        },
+        "48052091": {
+          "team": 11,
+          "league": 13,
+          "name": "Patrice Evra 埃弗拉"
+        },
+        "48003484": {
+          "team": 11,
+          "league": 13,
+          "name": "John O'Shea 奥谢"
+        },
+        "48013130": {
+          "team": 11,
+          "league": 13,
+          "name": "Wes Brown 韦斯·布朗"
+        },
+        "48167905": {
+          "team": 11,
+          "league": 13,
+          "name": "Antonio Valencia 瓦伦西亚"
+        },
+        "48205988": {
+          "team": 11,
+          "league": 13,
+          "name": "Luke Shaw 卢克·肖"
+        },
+        "48000249": {
+          "team": 11,
+          "league": 13,
+          "name": "Phil Neville 菲尔·内维尔"
+        },
+        "48000246": {
+          "team": 113703,
+          "league": 2028,
+          "name": "Paul Scholes 斯科尔斯"
+        },
+        "48000241": {
+          "team": 11,
+          "league": 13,
+          "name": "Ryan Giggs 吉格斯"
+        },
+        "48000240": {
+          "team": 11,
+          "league": 13,
+          "name": "Roy Keane 罗伊·基恩"
+        },
+        "48000250": {
+          "team": 11,
+          "league": 13,
+          "name": "David Beckham 贝克汉姆"
+        },
+        "48230025": {
+          "team": 113703,
+          "league": 2028,
+          "name": "Sir Bobby Charlton 博比·查尔顿"
+        },
+        "48230024": {
+          "team": 11,
+          "league": 13,
+          "name": "Bryan Robson 布莱恩·罗布森"
+        },
+        "48021146": {
+          "team": 11,
+          "league": 13,
+          "name": "Michael Carrick 卡里克"
+        },
+        "48000245": {
+          "team": 113703,
+          "league": 2028,
+          "name": "Nicky Butt 尼基·巴特"
+        },
+        "48039943": {
+          "team": 113703,
+          "league": 2028,
+          "name": "Park Ji Sung 朴智星"
+        },
+        "48195864": {
+          "team": 11,
+          "league": 13,
+          "name": "Paul Pogba 博格巴"
+        },
+        "48212198": {
+          "team": 11,
+          "league": 13,
+          "name": "Bruno Miguel Borges Fernandes 布鲁诺·费尔南德斯"
+        },
+        "48138782": {
+          "team": 11,
+          "league": 13,
+          "name": "Darren Fletcher 弗莱彻"
+        },
+        "48191740": {
+          "team": 11,
+          "league": 13,
+          "name": "Ander Herrera Aguera 埃雷拉"
+        },
+        "48054050": {
+          "team": 11,
+          "league": 13,
+          "name": "Wayne Rooney 鲁尼"
+        },
+        "48167198": {
+          "team": 11,
+          "league": 13,
+          "name": "Eric Cantona 坎通纳"
+        },
+        "48226764": {
+          "team": 11,
+          "league": 13,
+          "name": "George Best 乔治·贝斯特"
+        },
+        "48230026": {
+          "team": 113703,
+          "league": 2028,
+          "name": "Denis Law 丹尼斯·劳"
+        },
+        "48000036": {
+          "team": 113703,
+          "league": 2028,
+          "name": "Dwight Eversley Yorke 约克"
+        },
+        "48000239": {
+          "team": 113703,
+          "league": 2028,
+          "name": "Andrew Alexander Andy Cole 安迪·科尔"
+        },
+        "48010264": {
+          "team": 11,
+          "league": 13,
+          "name": "Ruud van Nistelrooy 范尼斯特鲁伊"
+        },
+        "48020801": {
+          "team": 11,
+          "league": 13,
+          "name": "C. Ronaldo dos Santos Aveiro C罗"
+        },
+        "48001845": {
+          "team": 11,
+          "league": 13,
+          "name": "Ole Gunnar Solskjaer 索尔斯克亚"
+        },
+        "48000393": {
+          "team": 11,
+          "league": 13,
+          "name": "Teddy Sheringham 谢林汉姆"
+        },
+        "48007826": {
+          "team": 11,
+          "league": 13,
+          "name": "Robin van Persie 范佩西"
+        },
+        "48030110": {
+          "team": 11,
+          "league": 13,
+          "name": "Dimitar Berbatov 贝尔巴托夫"
+        },
+        "48231677": {
+          "team": 11,
+          "league": 13,
+          "name": "Marcus Rashford 拉什福德"
+        },
+        "48139068": {
+          "team": 11,
+          "league": 13,
+          "name": "Luis Carlos Almeida da Cunha 纳尼"
+        }
+      },
+      "description": "每包获得1名48赛季MUL曼联传奇球员，固定+1；本期冻结41人。<BR>能力口径：1级、+1强化、主位置88～92，不含球队套与教练加成。<BR>从41人中自选1人，取消不消耗。"
+    }
+  },
+  "bundles": {},
+  "chains": {},
+  "value_prices": {
+    "98248001": {
+      "expected_ep": 567804.8780487805,
+      "standard_points": 2.630519255497301,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3
+    },
+    "98248002": {
+      "expected_ep": 860000,
+      "standard_points": 3.984197119795311,
+      "quotes": {
+        "ordinary": 4,
+        "chain": 3,
+        "once": 2
+      },
+      "kind": "ordinary",
+      "price": 4
+    }
+  },
+  "hash": "66d7561767a72d8ac567481dfefd64fa559c0c5d32c7fabacecfc116cd19295a"
+}

@@ -1,0 +1,341 @@
+{
+  "scope": "Source routing references only; not runtime installation certificates",
+  "revisions": [
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "chain_names_20261107_01",
+      "code": "hot_updates/revisions/chain_names_20261107_01/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        },
+        {
+          "path": "/hot/market/supply/activate",
+          "function": "market_supply_activate"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "chain_native_names_20261107_02",
+      "code": "hot_updates/revisions/chain_native_names_20261107_02/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        },
+        {
+          "path": "/hot/market/supply/activate",
+          "function": "market_supply_activate"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "chain_volume110_20261107_01",
+      "code": "hot_updates/revisions/chain_volume110_20261107_01/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "draw_first_full_20261107_02",
+      "code": "hot_updates/revisions/draw_first_full_20261107_02/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 1,
+      "revision": "draw_first_shop_20261107_01",
+      "code": "hot_updates/revisions/draw_first_shop_20261107_01/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "high8_shop_20261107_151843_720658",
+      "code": "hot_updates/revisions/high8_shop_20261107_151843_720658/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        },
+        {
+          "path": "/hot/market/supply/activate",
+          "function": "market_supply_activate"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "market_minute_20261107_113058",
+      "code": "hot_updates/revisions/market_minute_20261107_113058/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        },
+        {
+          "path": "/hot/market/supply/activate",
+          "function": "market_supply_activate"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "pack_base_prices_20261107_01",
+      "code": "hot_updates/revisions/pack_base_prices_20261107_01/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        },
+        {
+          "path": "/hot/market/supply/activate",
+          "function": "market_supply_activate"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "random_pack_bulk_20261107_143414_710006",
+      "code": "hot_updates/revisions/random_pack_bulk_20261107_143414_710006/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        },
+        {
+          "path": "/hot/market/supply/activate",
+          "function": "market_supply_activate"
+        }
+      ]
+    },
+    {
+      "schema": 1,
+      "abi": 2,
+      "revision": "shop_cleanup_20261107_01",
+      "code": "hot_updates/revisions/shop_cleanup_20261107_01/business.py",
+      "routes": [
+        {
+          "path": "/shop/list",
+          "function": "shop_list"
+        },
+        {
+          "path": "/shop/remained/limited",
+          "function": "remained"
+        },
+        {
+          "path": "/shop/purchase",
+          "function": "purchase"
+        },
+        {
+          "path": "/shop/chain/round/quote",
+          "function": "round_quote"
+        },
+        {
+          "path": "/shop/chain/round/purchase",
+          "function": "round_purchase"
+        },
+        {
+          "path": "/item/{item_id}/use",
+          "function": "open_pack"
+        },
+        {
+          "path": "/hot/market/supply/activate",
+          "function": "market_supply_activate"
+        }
+      ]
+    }
+  ]
+}

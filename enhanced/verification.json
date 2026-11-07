@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "inventory_files": 1593,
+  "python_files_parsed": 1440,
+  "category_counts": {
+    "runtime": 124,
+    "installation-source": 158,
+    "business": 10,
+    "documentation": 3,
+    "development-history": 1220,
+    "source-fragment": 1,
+    "configuration-template": 69,
+    "runtime-data-template": 8
+  },
+  "active_business_revision": "shop_cleanup_20261107_01",
+  "compiled_active_routes": [
+    "/hot/market/supply/activate",
+    "/item/{item_id}/use",
+    "/shop/chain/round/purchase",
+    "/shop/chain/round/quote",
+    "/shop/list",
+    "/shop/purchase",
+    "/shop/remained/limited"
+  ],
+  "compiled_history_revisions": [
+    "chain_names_20261107_01",
+    "chain_native_names_20261107_02",
+    "chain_volume110_20261107_01",
+    "draw_first_full_20261107_02",
+    "draw_first_shop_20261107_01",
+    "high8_shop_20261107_151843_720658",
+    "market_minute_20261107_113058",
+    "pack_base_prices_20261107_01",
+    "random_pack_bulk_20261107_143414_710006",
+    "shop_cleanup_20261107_01"
+  ],
+  "compressed_json_payloads_checked": 37,
+  "root_external_imports": [
+    "cryptography"
+  ],
+  "failures": [],
+  "live_services_started": false,
+  "live_assets_written": false,
+  "upstream_launch_integration_verified": false,
+  "native_game_verified": false,
+  "formal_python_source_files": 275,
+  "formal_python_source_files_missing": [],
+  "source_files_changed_at_final_check": [],
+  "fresh_config_preparation": {
+    "status": "PASS",
+    "config_files": 39,
+    "fresh_signing_keys": true,
+    "player_state_created": false,
+    "frozen_npc_inputs_unchanged": true
+  },
+  "framework_regressions": {
+    "status": "PASS",
+    "fixed_route_checks": 18,
+    "dynamic_route_checks": 9,
+    "distribution_unit_tests": 5
+  },
+  "source_snapshot_note": "Includes the rank-sort release layer completed during this source export. No live service or client changes made by this export."
+}

@@ -1,0 +1,300 @@
+{
+  "schema": 1,
+  "regular_refresh_seconds": 900,
+  "discovery_seconds": 300,
+  "background_seconds": 15,
+  "regular_counts": {
+    "1": 12,
+    "2": 6,
+    "3": 3,
+    "4": 1,
+    "5": 1,
+    "6": 1,
+    "7": 1,
+    "8": 1,
+    "9": 1,
+    "10": 1
+  },
+  "regular_chances": {
+    "low": {
+      "4": 0.85,
+      "5": 0.65,
+      "6": 0.45,
+      "7": 0.95,
+      "8": 0.85,
+      "9": 0.7,
+      "10": 0.55
+    },
+    "mid": {
+      "4": 0.65,
+      "5": 0.45,
+      "6": 0.25,
+      "7": 0.855,
+      "8": 0.765,
+      "9": 0.63,
+      "10": 0.49500000000000005
+    },
+    "high": {
+      "4": 0.4,
+      "5": 0.25,
+      "6": 0.12,
+      "7": 0.76,
+      "8": 0.68,
+      "9": 0.5599999999999999,
+      "10": 0.44000000000000006
+    },
+    "elite": {
+      "4": 0.2,
+      "5": 0.1,
+      "6": 0.04,
+      "7": 0.6649999999999999,
+      "8": 0.595,
+      "9": 0.48999999999999994,
+      "10": 0.385
+    }
+  },
+  "rare_overrides": {
+    "low_11": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.08,
+      "quantity": 1
+    },
+    "low_12": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.065,
+      "quantity": 1
+    },
+    "low_13": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.05,
+      "quantity": 1
+    },
+    "low_14": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.04,
+      "quantity": 1
+    },
+    "low_15": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.035,
+      "quantity": 1
+    },
+    "low_16": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.025,
+      "quantity": 1
+    },
+    "low_17": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.015,
+      "quantity": 1
+    },
+    "low_18": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.008,
+      "quantity": 1
+    },
+    "low_19": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.004,
+      "quantity": 1
+    },
+    "low_20": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.002,
+      "quantity": 1
+    },
+    "mid_11": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.104,
+      "quantity": 1
+    },
+    "mid_12": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0845,
+      "quantity": 1
+    },
+    "mid_13": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.065,
+      "quantity": 1
+    },
+    "mid_14": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.052,
+      "quantity": 1
+    },
+    "mid_15": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0455,
+      "quantity": 1
+    },
+    "mid_16": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0325,
+      "quantity": 1
+    },
+    "mid_17": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0195,
+      "quantity": 1
+    },
+    "mid_18": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0104,
+      "quantity": 1
+    },
+    "mid_19": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0052,
+      "quantity": 1
+    },
+    "mid_20": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0026,
+      "quantity": 1
+    },
+    "high_11": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.128,
+      "quantity": 1
+    },
+    "high_12": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.104,
+      "quantity": 1
+    },
+    "high_13": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.08,
+      "quantity": 1
+    },
+    "high_14": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.064,
+      "quantity": 1
+    },
+    "high_15": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.056,
+      "quantity": 1
+    },
+    "high_16": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.04,
+      "quantity": 1
+    },
+    "high_17": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.024,
+      "quantity": 1
+    },
+    "high_18": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0128,
+      "quantity": 1
+    },
+    "high_19": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0064,
+      "quantity": 1
+    },
+    "high_20": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.0032,
+      "quantity": 1
+    },
+    "elite_11": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.16,
+      "quantity": 1
+    },
+    "elite_12": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.13,
+      "quantity": 1
+    },
+    "elite_13": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.1,
+      "quantity": 1
+    },
+    "elite_14": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.08,
+      "quantity": 1
+    },
+    "elite_15": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.07,
+      "quantity": 1
+    },
+    "elite_16": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.05,
+      "quantity": 1
+    },
+    "elite_17": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.03,
+      "quantity": 1
+    },
+    "elite_18": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.016,
+      "quantity": 1
+    },
+    "elite_19": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.008,
+      "quantity": 1
+    },
+    "elite_20": {
+      "period_seconds": 300,
+      "slots": 5,
+      "chance": 0.004,
+      "quantity": 1
+    }
+  },
+  "rare_listing_seconds": 1800,
+  "npc_listing_seconds": 1800
+}

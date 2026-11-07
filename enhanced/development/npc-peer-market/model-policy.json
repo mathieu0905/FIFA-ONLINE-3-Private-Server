@@ -1,0 +1,41 @@
+{
+  "status": "OFFLINE_VALUE_MODEL_PROTOTYPE",
+  "production_installed": false,
+  "npc_peer_exchange_installed": false,
+  "formula": "market_reference = historical_or_model_plus1_anchor * server_currency_scale * existing_grade_multiplier * demand_factor",
+  "anchor_policy": [
+    "Exact SPID with valid historical price: preserve observed relative premium.",
+    "Missing price with known original season: use fitted model, with explicit uncertainty.",
+    "Custom seasons or ratings outside training range: flag and calibrate; do not silently treat as an ordinary historical season."
+  ],
+  "attributes_are_correlations_not_handfeel_measurements": true,
+  "trade_policy_proposal": "NPC styles have differing reservation values; finite wallets/cards and completed peer trades determine supply/demand, never synthetic random quote ticks.",
+  "validation": {
+    "ovr_only": {
+      "log_mae": 1.0345063924390971,
+      "median_error_factor": 1.9668210653799136,
+      "within_2x": 0.506951596292482,
+      "within_3x": 0.6678681771369722,
+      "p90_error_factor": 9.590614344224822
+    },
+    "ovr_season_position": {
+      "log_mae": 0.7446891652006072,
+      "median_error_factor": 1.6163331728880763,
+      "within_2x": 0.6266735324407827,
+      "within_3x": 0.7767765190525232,
+      "p90_error_factor": 5.833651633874135
+    },
+    "full_attributes": {
+      "log_mae": 0.7383315692782376,
+      "median_error_factor": 1.6371743695155658,
+      "within_2x": 0.627188465499485,
+      "within_3x": 0.7811534500514933,
+      "p90_error_factor": 5.376849890302448
+    }
+  },
+  "pending": [
+    "Choose current-server currency calibration before installing.",
+    "Implement persistent finite NPC wallets, holdings, listings and peer settlement after value-model review.",
+    "Backtest high-rare and new custom seasons separately."
+  ]
+}

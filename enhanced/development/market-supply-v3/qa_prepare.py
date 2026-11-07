@@ -1,0 +1,11 @@
+from pathlib import Path
+p=Path('D:/fifaol3/market-supply-v3/market_simulation.py');s=p.read_text('utf8')
+s=s.replace('                    visible=min(900,duration/2)\n','')
+s=s.replace("                    if tier['quality']=='low' and grades in ([7],[8]) and epoch==0 and i==0:\n                        release=start\n",'')
+s=s.replace("'discovery':'all live quality-grade groups appear before ordinary rows in native top50'", "'discovery':'live rare tiers plus up to 24 rotating +7..10 players before ordinary rows in native top50'")
+p.write_text(s,'utf8')
+p=Path('D:/fifaol3/market-supply-v3/test_supply.py');s=p.read_text('utf-8-sig')
+s=s.replace("response=request('/transfer/top/50/'+pos)","response=request('/transfer/top/50/position/'+pos)\n  assert response and len(response)<=50\n  with h.closing(h._db()) as db:\n   assert all(db.execute('SELECT preferredposition1 FROM players WHERE spid=?',(r['spid'],)).fetchone()[0] in h.LINES[pos] for r in response)")
+p.write_text(s,'utf8')
+p=Path('D:/fifaol3/market-supply-v3/fixture.py');s=p.read_text('utf8');a=s.index(' # A global +20 opportunity');b=s.index(' # Persist original card fields',a)
+s=s[:a]+s[b:];Path('D:/fifaol3/market-supply-v3/test_transactions.py').write_text(s,'utf8')

@@ -1,0 +1,3768 @@
+{
+  "schema": 1,
+  "edition": "all-313-pack-box-monthly-reference-BP-prices-v1",
+  "limits": {},
+  "risk_packs": {},
+  "strength_packs": {},
+  "bundles": {},
+  "chains": {},
+  "value_prices": {
+    "739": {
+      "expected_ep": 5189.725485686958,
+      "standard_points": 0.029567800077409962,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "7618": {
+      "expected_ep": 5798.980504357153,
+      "standard_points": 0.0330389529616775,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "7622": {
+      "expected_ep": 2285.406446642089,
+      "standard_points": 0.013020812198314656,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "7675": {
+      "expected_ep": 11219897.330255326,
+      "standard_points": 63.92393625924941,
+      "quotes": {
+        "ordinary": 64,
+        "chain": 42,
+        "once": 29
+      },
+      "kind": "ordinary",
+      "price": 64,
+      "bp_per_point": 175519.5
+    },
+    "8135": {
+      "expected_ep": 237432.6549703853,
+      "standard_points": 1.352742316212075,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8157": {
+      "expected_ep": 57276.42145881894,
+      "standard_points": 0.3263251174873387,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8194": {
+      "expected_ep": 843105.2582128592,
+      "standard_points": 4.803484844777128,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "8329": {
+      "expected_ep": 98848.3504077952,
+      "standard_points": 0.5631758887633295,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8334": {
+      "expected_ep": 499870.3852504098,
+      "standard_points": 2.8479478647694974,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8335": {
+      "expected_ep": 1506946.0884918696,
+      "standard_points": 8.585633439543011,
+      "quotes": {
+        "ordinary": 9,
+        "chain": 6,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 9,
+      "bp_per_point": 175519.5
+    },
+    "8336": {
+      "expected_ep": 820000.0,
+      "standard_points": 4.671845578411515,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "15031": {
+      "expected_ep": 84.36936130650393,
+      "standard_points": 0.00048068369216243173,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "16001": {
+      "expected_ep": 80.37188670364404,
+      "standard_points": 0.00045790858966464717,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28001": {
+      "expected_ep": 63.86351248620002,
+      "standard_points": 0.000363854229793271,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28002": {
+      "expected_ep": 48.76095573411509,
+      "standard_points": 0.0002778093359092015,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28003": {
+      "expected_ep": 64.49054819494502,
+      "standard_points": 0.00036742668589498617,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28004": {
+      "expected_ep": 54.05834184781869,
+      "standard_points": 0.0003079905187048658,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28005": {
+      "expected_ep": 36.76810195252394,
+      "standard_points": 0.00020948157869936926,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28006": {
+      "expected_ep": 30.383896820854268,
+      "standard_points": 0.00017310838294807283,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28007": {
+      "expected_ep": 21.008960647556194,
+      "standard_points": 0.00011969587793695967,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28008": {
+      "expected_ep": 21.18551536908523,
+      "standard_points": 0.00012070177597979273,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "28009": {
+      "expected_ep": 24.6051422665376,
+      "standard_points": 0.00014018466476110975,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45004": {
+      "expected_ep": 9352.302515312422,
+      "standard_points": 0.05328355262698687,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45006": {
+      "expected_ep": 4442.830351985192,
+      "standard_points": 0.02531246016531036,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45007": {
+      "expected_ep": 2721.9742033069374,
+      "standard_points": 0.015508101397889907,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45011": {
+      "expected_ep": 15044.480127801118,
+      "standard_points": 0.08571400971288728,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45012": {
+      "expected_ep": 12799.533673710752,
+      "standard_points": 0.07292371316982302,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45013": {
+      "expected_ep": 9826.40178383308,
+      "standard_points": 0.05598467283597025,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45020": {
+      "expected_ep": 4852.124294620034,
+      "standard_points": 0.02764436028258988,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45026": {
+      "expected_ep": 12336.017780357617,
+      "standard_points": 0.07028289039313362,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45027": {
+      "expected_ep": 8771.214184377272,
+      "standard_points": 0.04997287585924796,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45028": {
+      "expected_ep": 5228.623485081717,
+      "standard_points": 0.029789416475558085,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45063": {
+      "expected_ep": 24662.49712490733,
+      "standard_points": 0.1405114367629086,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "45097": {
+      "expected_ep": 766709.4484711541,
+      "standard_points": 4.368229447275967,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 3,
+        "once": 2
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "45130": {
+      "expected_ep": 2186.3117073831477,
+      "standard_points": 0.012456232540447915,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "880047": {
+      "expected_ep": 2852.1969759279173,
+      "standard_points": 0.01625002906188724,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8223508": {
+      "expected_ep": 55.56400352268483,
+      "standard_points": 0.0003165688343613378,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8223509": {
+      "expected_ep": 37.85543696460957,
+      "standard_points": 0.0002156765314657891,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8223510": {
+      "expected_ep": 45.7899592934648,
+      "standard_points": 0.00026088246202538636,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8223562": {
+      "expected_ep": 934898.6916745452,
+      "standard_points": 5.326466242637116,
+      "quotes": {
+        "ordinary": 6,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 6,
+      "bp_per_point": 175519.5
+    },
+    "8223600": {
+      "expected_ep": 59.32371048658282,
+      "standard_points": 0.00033798928601427657,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8223601": {
+      "expected_ep": 40.5753162720203,
+      "standard_points": 0.00023117269746108157,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8223602": {
+      "expected_ep": 42.60909092597163,
+      "standard_points": 0.00024275986956418877,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "8223603": {
+      "expected_ep": 48.532954420921484,
+      "standard_points": 0.0002765103274617435,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "82214007": {
+      "expected_ep": 106057.29001300738,
+      "standard_points": 0.6042479041531419,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "82214068": {
+      "expected_ep": 715.5065349615094,
+      "standard_points": 0.004076507367907893,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "82214180": {
+      "expected_ep": 6853.684474349199,
+      "standard_points": 0.03904799452111703,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "82214356": {
+      "expected_ep": 45.58693345822876,
+      "standard_points": 0.0002597257481831293,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "82231307": {
+      "expected_ep": 1048026.0053435068,
+      "standard_points": 5.970994706249202,
+      "quotes": {
+        "ordinary": 6,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 6,
+      "bp_per_point": 175519.5
+    },
+    "82232124": {
+      "expected_ep": 70869.76622128706,
+      "standard_points": 0.4037714682487534,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000000": {
+      "expected_ep": 9.614117051195343,
+      "standard_points": 5.4775207604826494e-05,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000006": {
+      "expected_ep": 37.255424899273166,
+      "standard_points": 0.00021225803913111173,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000008": {
+      "expected_ep": 84.00347663189417,
+      "standard_points": 0.0004785991108218413,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000009": {
+      "expected_ep": 107.08645002267778,
+      "standard_points": 0.0006101114122515036,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000010": {
+      "expected_ep": 104.40391035544474,
+      "standard_points": 0.0005948279841011668,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000011": {
+      "expected_ep": 130.75843331978757,
+      "standard_points": 0.0007449795226159348,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000014": {
+      "expected_ep": 10.841038683922038,
+      "standard_points": 6.176543736691387e-05,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000015": {
+      "expected_ep": 12.76609136060212,
+      "standard_points": 7.273317984954447e-05,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000016": {
+      "expected_ep": 17.643201648019616,
+      "standard_points": 0.0001005198946442966,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000022": {
+      "expected_ep": 10174.877516679817,
+      "standard_points": 0.05797006894777969,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000023": {
+      "expected_ep": 8078.83015580695,
+      "standard_points": 0.046028106027005265,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000024": {
+      "expected_ep": 9939.815329026418,
+      "standard_points": 0.05663083206724278,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000027": {
+      "expected_ep": 489219.1350416351,
+      "standard_points": 2.7872637230714257,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000028": {
+      "expected_ep": 321463.85439605627,
+      "standard_points": 1.831499374121145,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000029": {
+      "expected_ep": 33.54990766919202,
+      "standard_points": 0.0001911463265858894,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000030": {
+      "expected_ep": 1283788.1142611052,
+      "standard_points": 7.314219299058539,
+      "quotes": {
+        "ordinary": 8,
+        "chain": 5,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 8,
+      "bp_per_point": 175519.5
+    },
+    "92000031": {
+      "expected_ep": 383339.53965310665,
+      "standard_points": 2.1840282114130147,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000035": {
+      "expected_ep": 3694.5247201392826,
+      "standard_points": 0.021049084119652135,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000044": {
+      "expected_ep": 190.43219574009947,
+      "standard_points": 0.0010849631849458293,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000045": {
+      "expected_ep": 35.0094128309224,
+      "standard_points": 0.0001994616713864978,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000047": {
+      "expected_ep": 131.93286308999876,
+      "standard_points": 0.0007516706866758324,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000048": {
+      "expected_ep": 351630.2772924299,
+      "standard_points": 2.003368727078358,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000049": {
+      "expected_ep": 28761.004723234484,
+      "standard_points": 0.16386216188648262,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000051": {
+      "expected_ep": 196628.5973560168,
+      "standard_points": 1.120266394081665,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000053": {
+      "expected_ep": 1749.596968742231,
+      "standard_points": 0.009968105929781198,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000055": {
+      "expected_ep": 135152.06304157854,
+      "standard_points": 0.7700116684560891,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000061": {
+      "expected_ep": 266220.0755029164,
+      "standard_points": 1.5167549788081462,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000063": {
+      "expected_ep": 142.87248818422458,
+      "standard_points": 0.0008139978075611233,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000065": {
+      "expected_ep": 159.36669432125575,
+      "standard_points": 0.0009079714465985588,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000067": {
+      "expected_ep": 173.54319833707424,
+      "standard_points": 0.000988740272944455,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000069": {
+      "expected_ep": 170.82025822202772,
+      "standard_points": 0.0009732266683874311,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000071": {
+      "expected_ep": 155321.67752260278,
+      "standard_points": 0.8849254784944282,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000073": {
+      "expected_ep": 83.40873833788575,
+      "standard_points": 0.00047521066512772514,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000077": {
+      "expected_ep": 193.68710185057787,
+      "standard_points": 0.0011035075980194672,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000088": {
+      "expected_ep": 1773.0153169606015,
+      "standard_points": 0.010101528986583267,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000089": {
+      "expected_ep": 7687.431515174975,
+      "standard_points": 0.043798162114038475,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000091": {
+      "expected_ep": 116091.96941217614,
+      "standard_points": 0.6614192121797073,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000093": {
+      "expected_ep": 371169.13102753717,
+      "standard_points": 2.114688858090054,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000095": {
+      "expected_ep": 14519.90928832213,
+      "standard_points": 0.08272533415559029,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "92000097": {
+      "expected_ep": 80.67197144464815,
+      "standard_points": 0.0004596182842627067,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000001": {
+      "expected_ep": 1958.3275617681404,
+      "standard_points": 0.011157321903082794,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000002": {
+      "expected_ep": 25601.398951658284,
+      "standard_points": 0.14586071035787068,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000003": {
+      "expected_ep": 241850.68774660808,
+      "standard_points": 1.3779134953472867,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000004": {
+      "expected_ep": 3141785.3176939026,
+      "standard_points": 17.89992176193473,
+      "quotes": {
+        "ordinary": 18,
+        "chain": 12,
+        "once": 9
+      },
+      "kind": "ordinary",
+      "price": 18,
+      "bp_per_point": 175519.5
+    },
+    "93000005": {
+      "expected_ep": 70116420.84179844,
+      "standard_points": 399.4793788826794,
+      "quotes": {
+        "ordinary": 400,
+        "chain": 260,
+        "once": 180
+      },
+      "kind": "ordinary",
+      "price": 400,
+      "bp_per_point": 175519.5
+    },
+    "93000006": {
+      "expected_ep": 819019.5248661648,
+      "standard_points": 4.666259446193528,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "93000007": {
+      "expected_ep": 4596.157906127379,
+      "standard_points": 0.02618602437978332,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000008": {
+      "expected_ep": 14385.87998166332,
+      "standard_points": 0.08196171924864941,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000009": {
+      "expected_ep": 11469.691295946155,
+      "standard_points": 0.06534710556915987,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000010": {
+      "expected_ep": 10489.146377200508,
+      "standard_points": 0.05976057576053093,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000011": {
+      "expected_ep": 11777.267556962022,
+      "standard_points": 0.06709948214849075,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "93000012": {
+      "expected_ep": 1574677.3036276745,
+      "standard_points": 8.971523412655998,
+      "quotes": {
+        "ordinary": 9,
+        "chain": 6,
+        "once": 5
+      },
+      "kind": "ordinary",
+      "price": 9,
+      "bp_per_point": 175519.5
+    },
+    "97010001": {
+      "expected_ep": 3912606.5014367816,
+      "standard_points": 22.291577297318998,
+      "quotes": {
+        "ordinary": 23,
+        "chain": 15,
+        "once": 11
+      },
+      "kind": "ordinary",
+      "price": 23,
+      "bp_per_point": 175519.5
+    },
+    "97010002": {
+      "expected_ep": 140969159.66386554,
+      "standard_points": 803.1538356927039,
+      "quotes": {
+        "ordinary": 804,
+        "chain": 523,
+        "once": 362
+      },
+      "kind": "ordinary",
+      "price": 804,
+      "bp_per_point": 175519.5
+    },
+    "97010004": {
+      "expected_ep": 1539162473.347548,
+      "standard_points": 8769.182189714238,
+      "quotes": {
+        "ordinary": 8770,
+        "chain": 5700,
+        "once": 3947
+      },
+      "kind": "ordinary",
+      "price": 8770,
+      "bp_per_point": 175519.5
+    },
+    "97010005": {
+      "expected_ep": 3203000000.0,
+      "standard_points": 18248.684619087908,
+      "quotes": {
+        "ordinary": 18249,
+        "chain": 11862,
+        "once": 8212
+      },
+      "kind": "ordinary",
+      "price": 18249,
+      "bp_per_point": 175519.5
+    },
+    "97010006": {
+      "expected_ep": 209292035.3982301,
+      "standard_points": 1192.414719721912,
+      "quotes": {
+        "ordinary": 1193,
+        "chain": 776,
+        "once": 537
+      },
+      "kind": "ordinary",
+      "price": 1193,
+      "bp_per_point": 175519.5
+    },
+    "97010007": {
+      "expected_ep": 2347826086.956522,
+      "standard_points": 13376.440150276876,
+      "quotes": {
+        "ordinary": 13377,
+        "chain": 8695,
+        "once": 6020
+      },
+      "kind": "ordinary",
+      "price": 13377,
+      "bp_per_point": 175519.5
+    },
+    "97010010": {
+      "expected_ep": 141236972.4025974,
+      "standard_points": 804.6796646674438,
+      "quotes": {
+        "ordinary": 805,
+        "chain": 524,
+        "once": 363
+      },
+      "kind": "ordinary",
+      "price": 805,
+      "bp_per_point": 175519.5
+    },
+    "97010011": {
+      "expected_ep": 144831250.0,
+      "standard_points": 825.1576035711132,
+      "quotes": {
+        "ordinary": 826,
+        "chain": 537,
+        "once": 372
+      },
+      "kind": "ordinary",
+      "price": 826,
+      "bp_per_point": 175519.5
+    },
+    "97010012": {
+      "expected_ep": 139334722.2222222,
+      "standard_points": 793.8418365037629,
+      "quotes": {
+        "ordinary": 794,
+        "chain": 516,
+        "once": 358
+      },
+      "kind": "ordinary",
+      "price": 794,
+      "bp_per_point": 175519.5
+    },
+    "97010013": {
+      "expected_ep": 137211250.0,
+      "standard_points": 781.7436239278258,
+      "quotes": {
+        "ordinary": 782,
+        "chain": 509,
+        "once": 352
+      },
+      "kind": "ordinary",
+      "price": 782,
+      "bp_per_point": 175519.5
+    },
+    "97010100": {
+      "expected_ep": 747600000.0,
+      "standard_points": 4259.355798073719,
+      "quotes": {
+        "ordinary": 4260,
+        "chain": 2769,
+        "once": 1917
+      },
+      "kind": "ordinary",
+      "price": 4260,
+      "bp_per_point": 175519.5
+    },
+    "97010110": {
+      "expected_ep": 3810000000.0,
+      "standard_points": 21706.98982164375,
+      "quotes": {
+        "ordinary": 21707,
+        "chain": 14110,
+        "once": 9769
+      },
+      "kind": "ordinary",
+      "price": 21707,
+      "bp_per_point": 175519.5
+    },
+    "97010130": {
+      "expected_ep": 2756666666.6666665,
+      "standard_points": 15705.757290025704,
+      "quotes": {
+        "ordinary": 15706,
+        "chain": 10209,
+        "once": 7068
+      },
+      "kind": "ordinary",
+      "price": 15706,
+      "bp_per_point": 175519.5
+    },
+    "97010209": {
+      "expected_ep": 390588235.2941176,
+      "standard_points": 2225.326731754122,
+      "quotes": {
+        "ordinary": 2226,
+        "chain": 1447,
+        "once": 1002
+      },
+      "kind": "ordinary",
+      "price": 2226,
+      "bp_per_point": 175519.5
+    },
+    "97100006": {
+      "expected_ep": 216.49367088607596,
+      "standard_points": 0.0012334451208331609,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100007": {
+      "expected_ep": 215.98492462311557,
+      "standard_points": 0.0012305466037854232,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100008": {
+      "expected_ep": 304.06277056277054,
+      "standard_points": 0.0017323589148941887,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100009": {
+      "expected_ep": 256.3170731707317,
+      "standard_points": 0.001460333884102517,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100010": {
+      "expected_ep": 199.0647948164147,
+      "standard_points": 0.001134146318878613,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100011": {
+      "expected_ep": 347.39540229885057,
+      "standard_points": 0.0019792410660858227,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100013": {
+      "expected_ep": 509500.0,
+      "standard_points": 2.902811368537399,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100014": {
+      "expected_ep": 5.423525546246098,
+      "standard_points": 3.0899846149550895e-05,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100015": {
+      "expected_ep": 6.046140035906642,
+      "standard_points": 3.4447112918545476e-05,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100016": {
+      "expected_ep": 7.595105403440756,
+      "standard_points": 4.327214584955379e-05,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100022": {
+      "expected_ep": 15640.75294117647,
+      "standard_points": 0.0891111981356856,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100023": {
+      "expected_ep": 15578.737541528239,
+      "standard_points": 0.08875787329344169,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100024": {
+      "expected_ep": 18044.00934579439,
+      "standard_points": 0.10280344546215316,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100027": {
+      "expected_ep": 590588.2352941176,
+      "standard_points": 3.364801263074004,
+      "quotes": {
+        "ordinary": 4,
+        "chain": 3,
+        "once": 2
+      },
+      "kind": "ordinary",
+      "price": 4,
+      "bp_per_point": 175519.5
+    },
+    "97100028": {
+      "expected_ep": 334000.0,
+      "standard_points": 1.9029224673042027,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100029": {
+      "expected_ep": 1087.9473684210527,
+      "standard_points": 0.0061984415886613894,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100030": {
+      "expected_ep": 1444000.0,
+      "standard_points": 8.227006116129548,
+      "quotes": {
+        "ordinary": 9,
+        "chain": 6,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 9,
+      "bp_per_point": 175519.5
+    },
+    "97100031": {
+      "expected_ep": 482857.14285714284,
+      "standard_points": 2.7510170827580005,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100035": {
+      "expected_ep": 2079.8805496828754,
+      "standard_points": 0.011849854572756164,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100044": {
+      "expected_ep": 315.5652173913044,
+      "standard_points": 0.0017978926409390659,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100045": {
+      "expected_ep": 51.63636363636363,
+      "standard_points": 0.0002941916062680422,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100047": {
+      "expected_ep": 1540.533464566929,
+      "standard_points": 0.008776993237599976,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100048": {
+      "expected_ep": 547142.8571428572,
+      "standard_points": 3.1172767535393913,
+      "quotes": {
+        "ordinary": 4,
+        "chain": 3,
+        "once": 2
+      },
+      "kind": "ordinary",
+      "price": 4,
+      "bp_per_point": 175519.5
+    },
+    "97100049": {
+      "expected_ep": 34000.0,
+      "standard_points": 0.1937106703243799,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100051": {
+      "expected_ep": 245000.0,
+      "standard_points": 1.3958563008668554,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100053": {
+      "expected_ep": 7273.0888888888885,
+      "standard_points": 0.041437497764572534,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100055": {
+      "expected_ep": 202428.57142857142,
+      "standard_points": 1.1533110077716233,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100061": {
+      "expected_ep": 274166.6666666667,
+      "standard_points": 1.5620296700176715,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100063": {
+      "expected_ep": 2838.425,
+      "standard_points": 0.01617156498280818,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100065": {
+      "expected_ep": 1196.4888888888888,
+      "standard_points": 0.006816843079480564,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100067": {
+      "expected_ep": 1135.0500894454383,
+      "standard_points": 0.006466803343477154,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100069": {
+      "expected_ep": 1315.1628787878788,
+      "standard_points": 0.007492973024580624,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100071": {
+      "expected_ep": 171666.66666666666,
+      "standard_points": 0.9780489727162319,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100073": {
+      "expected_ep": 196.58823529411765,
+      "standard_points": 0.0011200364363738368,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100077": {
+      "expected_ep": 375.8847262247839,
+      "standard_points": 0.002141555361226439,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100088": {
+      "expected_ep": 55.42025664527956,
+      "standard_points": 0.0003157498548325375,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100089": {
+      "expected_ep": 14371.42857142857,
+      "standard_points": 0.08187938417912866,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100091": {
+      "expected_ep": 192162.7906976744,
+      "standard_points": 1.0948230293367656,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100093": {
+      "expected_ep": 548095.8904109589,
+      "standard_points": 3.1227065392219036,
+      "quotes": {
+        "ordinary": 4,
+        "chain": 3,
+        "once": 2
+      },
+      "kind": "ordinary",
+      "price": 4,
+      "bp_per_point": 175519.5
+    },
+    "97100095": {
+      "expected_ep": 59475.0,
+      "standard_points": 0.3388512387512499,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100097": {
+      "expected_ep": 274.0625,
+      "standard_points": 0.0015614361936992756,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97100900": {
+      "expected_ep": 585008.6206896552,
+      "standard_points": 3.333012119392177,
+      "quotes": {
+        "ordinary": 4,
+        "chain": 3,
+        "once": 2
+      },
+      "kind": "ordinary",
+      "price": 4,
+      "bp_per_point": 175519.5
+    },
+    "97200022": {
+      "expected_ep": 320000.0,
+      "standard_points": 1.823159250111811,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97200023": {
+      "expected_ep": 320000.0,
+      "standard_points": 1.823159250111811,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97200024": {
+      "expected_ep": 320000.0,
+      "standard_points": 1.823159250111811,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97200027": {
+      "expected_ep": 860000.0,
+      "standard_points": 4.899740484675492,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "97200030": {
+      "expected_ep": 2100000.0,
+      "standard_points": 11.96448257885876,
+      "quotes": {
+        "ordinary": 12,
+        "chain": 8,
+        "once": 6
+      },
+      "kind": "ordinary",
+      "price": 12,
+      "bp_per_point": 175519.5
+    },
+    "97200091": {
+      "expected_ep": 820000.0,
+      "standard_points": 4.671845578411515,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "97200093": {
+      "expected_ep": 2100000.0,
+      "standard_points": 11.96448257885876,
+      "quotes": {
+        "ordinary": 12,
+        "chain": 8,
+        "once": 6
+      },
+      "kind": "ordinary",
+      "price": 12,
+      "bp_per_point": 175519.5
+    },
+    "97200900": {
+      "expected_ep": 2100000.0,
+      "standard_points": 11.96448257885876,
+      "quotes": {
+        "ordinary": 12,
+        "chain": 8,
+        "once": 6
+      },
+      "kind": "ordinary",
+      "price": 12,
+      "bp_per_point": 175519.5
+    },
+    "97200910": {
+      "expected_ep": 2100000.0,
+      "standard_points": 11.96448257885876,
+      "quotes": {
+        "ordinary": 12,
+        "chain": 8,
+        "once": 6
+      },
+      "kind": "ordinary",
+      "price": 12,
+      "bp_per_point": 175519.5
+    },
+    "97200911": {
+      "expected_ep": 2100000.0,
+      "standard_points": 11.96448257885876,
+      "quotes": {
+        "ordinary": 12,
+        "chain": 8,
+        "once": 6
+      },
+      "kind": "ordinary",
+      "price": 12,
+      "bp_per_point": 175519.5
+    },
+    "97201091": {
+      "expected_ep": 820000.0,
+      "standard_points": 4.671845578411515,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "97201093": {
+      "expected_ep": 2100000.0,
+      "standard_points": 11.96448257885876,
+      "quotes": {
+        "ordinary": 12,
+        "chain": 8,
+        "once": 6
+      },
+      "kind": "ordinary",
+      "price": 12,
+      "bp_per_point": 175519.5
+    },
+    "97300011": {
+      "expected_ep": 2430760.877368957,
+      "standard_points": 13.848950557453485,
+      "quotes": {
+        "ordinary": 14,
+        "chain": 10,
+        "once": 7
+      },
+      "kind": "ordinary",
+      "price": 14,
+      "bp_per_point": 175519.5
+    },
+    "97300012": {
+      "expected_ep": 17102946902.880953,
+      "standard_points": 97441.86203174549,
+      "quotes": {
+        "ordinary": 97442,
+        "chain": 63338,
+        "once": 43849
+      },
+      "kind": "ordinary",
+      "price": 97442,
+      "bp_per_point": 175519.5
+    },
+    "97310011": {
+      "expected_ep": 756695333.3333334,
+      "standard_points": 4311.175301509709,
+      "quotes": {
+        "ordinary": 4312,
+        "chain": 2803,
+        "once": 1941
+      },
+      "kind": "ordinary",
+      "price": 4312,
+      "bp_per_point": 175519.5
+    },
+    "97310012": {
+      "expected_ep": 269453131.3220941,
+      "standard_points": 1535.1749026295888,
+      "quotes": {
+        "ordinary": 1536,
+        "chain": 998,
+        "once": 691
+      },
+      "kind": "ordinary",
+      "price": 1536,
+      "bp_per_point": 175519.5
+    },
+    "97310084": {
+      "expected_ep": 301383821.1382114,
+      "standard_points": 1717.0959416942928,
+      "quotes": {
+        "ordinary": 1718,
+        "chain": 1117,
+        "once": 773
+      },
+      "kind": "ordinary",
+      "price": 1718,
+      "bp_per_point": 175519.5
+    },
+    "97500006": {
+      "expected_ep": 253621.32911392406,
+      "standard_points": 1.4449752256240707,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500007": {
+      "expected_ep": 251341.22613065326,
+      "standard_points": 1.4319846292329528,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500008": {
+      "expected_ep": 354244.1818181818,
+      "standard_points": 2.018261115250339,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500009": {
+      "expected_ep": 298718.1640798226,
+      "standard_points": 1.7019087000579571,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500010": {
+      "expected_ep": 232407.44276457885,
+      "standard_points": 1.3241118095971038,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500011": {
+      "expected_ep": 404517.9816091954,
+      "standard_points": 2.3046896875230125,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500013": {
+      "expected_ep": 644265999.9999999,
+      "standard_points": 3670.6234919766744,
+      "quotes": {
+        "ordinary": 3671,
+        "chain": 2386,
+        "once": 1652
+      },
+      "kind": "ordinary",
+      "price": 3671,
+      "bp_per_point": 175519.5
+    },
+    "97500014": {
+      "expected_ep": 6808.16937736159,
+      "standard_points": 0.03878867805207735,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500015": {
+      "expected_ep": 7501.0727109515265,
+      "standard_points": 0.04273640655853923,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500016": {
+      "expected_ep": 9307.286164283983,
+      "standard_points": 0.053027077699537566,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500022": {
+      "expected_ep": 18144153.411764707,
+      "standard_points": 103.37400352533312,
+      "quotes": {
+        "ordinary": 104,
+        "chain": 68,
+        "once": 47
+      },
+      "kind": "ordinary",
+      "price": 104,
+      "bp_per_point": 175519.5
+    },
+    "97500023": {
+      "expected_ep": 18092727.57475083,
+      "standard_points": 103.08101136768752,
+      "quotes": {
+        "ordinary": 104,
+        "chain": 68,
+        "once": 47
+      },
+      "kind": "ordinary",
+      "price": 104,
+      "bp_per_point": 175519.5
+    },
+    "97500024": {
+      "expected_ep": 20877630.05607477,
+      "standard_points": 118.94763861607838,
+      "quotes": {
+        "ordinary": 119,
+        "chain": 78,
+        "once": 54
+      },
+      "kind": "ordinary",
+      "price": 119,
+      "bp_per_point": 175519.5
+    },
+    "97500027": {
+      "expected_ep": 686018823.5294118,
+      "standard_points": 3908.5048870889664,
+      "quotes": {
+        "ordinary": 3909,
+        "chain": 2541,
+        "once": 1759
+      },
+      "kind": "ordinary",
+      "price": 3909,
+      "bp_per_point": 175519.5
+    },
+    "97500028": {
+      "expected_ep": 385452000.0,
+      "standard_points": 2196.0636852315556,
+      "quotes": {
+        "ordinary": 2197,
+        "chain": 1428,
+        "once": 989
+      },
+      "kind": "ordinary",
+      "price": 2197,
+      "bp_per_point": 175519.5
+    },
+    "97500029": {
+      "expected_ep": 1275612.6315789472,
+      "standard_points": 7.26764052757071,
+      "quotes": {
+        "ordinary": 8,
+        "chain": 5,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 8,
+      "bp_per_point": 175519.5
+    },
+    "97500030": {
+      "expected_ep": 1680440000.0,
+      "standard_points": 9574.092907055912,
+      "quotes": {
+        "ordinary": 9575,
+        "chain": 6224,
+        "once": 4309
+      },
+      "kind": "ordinary",
+      "price": 9575,
+      "bp_per_point": 175519.5
+    },
+    "97500031": {
+      "expected_ep": 560195714.2857143,
+      "standard_points": 3191.6437449156037,
+      "quotes": {
+        "ordinary": 3192,
+        "chain": 2075,
+        "once": 1437
+      },
+      "kind": "ordinary",
+      "price": 3192,
+      "bp_per_point": 175519.5
+    },
+    "97500035": {
+      "expected_ep": 2422372.530655391,
+      "standard_points": 13.80115902025354,
+      "quotes": {
+        "ordinary": 14,
+        "chain": 9,
+        "once": 7
+      },
+      "kind": "ordinary",
+      "price": 14,
+      "bp_per_point": 175519.5
+    },
+    "97500044": {
+      "expected_ep": 365772.17391304346,
+      "standard_points": 2.0839403821970977,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500045": {
+      "expected_ep": 58972.0,
+      "standard_points": 0.3359854603049804,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500047": {
+      "expected_ep": 1794268.7893700786,
+      "standard_points": 10.222617939146811,
+      "quotes": {
+        "ordinary": 11,
+        "chain": 7,
+        "once": 5
+      },
+      "kind": "ordinary",
+      "price": 11,
+      "bp_per_point": 175519.5
+    },
+    "97500048": {
+      "expected_ep": 633994285.7142857,
+      "standard_points": 3612.101707868845,
+      "quotes": {
+        "ordinary": 3613,
+        "chain": 2348,
+        "once": 1626
+      },
+      "kind": "ordinary",
+      "price": 3613,
+      "bp_per_point": 175519.5
+    },
+    "97500049": {
+      "expected_ep": 39629200.0,
+      "standard_points": 225.7823204829093,
+      "quotes": {
+        "ordinary": 226,
+        "chain": 147,
+        "once": 102
+      },
+      "kind": "ordinary",
+      "price": 226,
+      "bp_per_point": 175519.5
+    },
+    "97500051": {
+      "expected_ep": 282300000.0,
+      "standard_points": 1608.3683009580134,
+      "quotes": {
+        "ordinary": 1609,
+        "chain": 1046,
+        "once": 724
+      },
+      "kind": "ordinary",
+      "price": 1609,
+      "bp_per_point": 175519.5
+    },
+    "97500053": {
+      "expected_ep": 8461578.666666668,
+      "standard_points": 48.20876692713156,
+      "quotes": {
+        "ordinary": 49,
+        "chain": 32,
+        "once": 22
+      },
+      "kind": "ordinary",
+      "price": 49,
+      "bp_per_point": 175519.5
+    },
+    "97500055": {
+      "expected_ep": 233822857.14285713,
+      "standard_points": 1332.1759527736642,
+      "quotes": {
+        "ordinary": 1333,
+        "chain": 866,
+        "once": 600
+      },
+      "kind": "ordinary",
+      "price": 1333,
+      "bp_per_point": 175519.5
+    },
+    "97500061": {
+      "expected_ep": 315816666.6666666,
+      "standard_points": 1799.3252411650367,
+      "quotes": {
+        "ordinary": 1800,
+        "chain": 1170,
+        "once": 810
+      },
+      "kind": "ordinary",
+      "price": 1800,
+      "bp_per_point": 175519.5
+    },
+    "97500063": {
+      "expected_ep": 3308627.278125,
+      "standard_points": 18.850482585268306,
+      "quotes": {
+        "ordinary": 19,
+        "chain": 13,
+        "once": 9
+      },
+      "kind": "ordinary",
+      "price": 19,
+      "bp_per_point": 175519.5
+    },
+    "97500065": {
+      "expected_ep": 1393300.7203703704,
+      "standard_points": 7.938153426658408,
+      "quotes": {
+        "ordinary": 8,
+        "chain": 6,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 8,
+      "bp_per_point": 175519.5
+    },
+    "97500067": {
+      "expected_ep": 1324945.649373882,
+      "standard_points": 7.5487091142231035,
+      "quotes": {
+        "ordinary": 8,
+        "chain": 5,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 8,
+      "bp_per_point": 175519.5
+    },
+    "97500069": {
+      "expected_ep": 1525651.9772727273,
+      "standard_points": 8.69220785880046,
+      "quotes": {
+        "ordinary": 9,
+        "chain": 6,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 9,
+      "bp_per_point": 175519.5
+    },
+    "97500071": {
+      "expected_ep": 198006666.66666663,
+      "standard_points": 1128.1177684910601,
+      "quotes": {
+        "ordinary": 1129,
+        "chain": 734,
+        "once": 508
+      },
+      "kind": "ordinary",
+      "price": 1129,
+      "bp_per_point": 175519.5
+    },
+    "97500073": {
+      "expected_ep": 226915.0588235294,
+      "standard_points": 1.2928196515118229,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500077": {
+      "expected_ep": 437353.1930835735,
+      "standard_points": 2.4917641235507935,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500088": {
+      "expected_ep": 65159.44042163153,
+      "standard_points": 0.37123761417752177,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500089": {
+      "expected_ep": 16758857.142857142,
+      "standard_points": 95.48145444156998,
+      "quotes": {
+        "ordinary": 96,
+        "chain": 63,
+        "once": 43
+      },
+      "kind": "ordinary",
+      "price": 96,
+      "bp_per_point": 175519.5
+    },
+    "97500091": {
+      "expected_ep": 222348093.0232558,
+      "standard_points": 1266.7999454377195,
+      "quotes": {
+        "ordinary": 1267,
+        "chain": 824,
+        "once": 571
+      },
+      "kind": "ordinary",
+      "price": 1267,
+      "bp_per_point": 175519.5
+    },
+    "97500093": {
+      "expected_ep": 638127123.2876712,
+      "standard_points": 3635.648023653618,
+      "quotes": {
+        "ordinary": 3636,
+        "chain": 2364,
+        "once": 1637
+      },
+      "kind": "ordinary",
+      "price": 3636,
+      "bp_per_point": 175519.5
+    },
+    "97500095": {
+      "expected_ep": 68800500.0,
+      "standard_points": 391.98208746036767,
+      "quotes": {
+        "ordinary": 392,
+        "chain": 255,
+        "once": 177
+      },
+      "kind": "ordinary",
+      "price": 392,
+      "bp_per_point": 175519.5
+    },
+    "97500097": {
+      "expected_ep": 318794.625,
+      "standard_points": 1.8162917795458624,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "97500900": {
+      "expected_ep": 680418103.4482758,
+      "standard_points": 3876.595497641435,
+      "quotes": {
+        "ordinary": 3877,
+        "chain": 2520,
+        "once": 1745
+      },
+      "kind": "ordinary",
+      "price": 3877,
+      "bp_per_point": 175519.5
+    },
+    "97600022": {
+      "expected_ep": 350000000.0,
+      "standard_points": 1994.0804298097933,
+      "quotes": {
+        "ordinary": 1995,
+        "chain": 1297,
+        "once": 898
+      },
+      "kind": "ordinary",
+      "price": 1995,
+      "bp_per_point": 175519.5
+    },
+    "97600023": {
+      "expected_ep": 350000000.0,
+      "standard_points": 1994.0804298097933,
+      "quotes": {
+        "ordinary": 1995,
+        "chain": 1297,
+        "once": 898
+      },
+      "kind": "ordinary",
+      "price": 1995,
+      "bp_per_point": 175519.5
+    },
+    "97600024": {
+      "expected_ep": 350000000.0,
+      "standard_points": 1994.0804298097933,
+      "quotes": {
+        "ordinary": 1995,
+        "chain": 1297,
+        "once": 898
+      },
+      "kind": "ordinary",
+      "price": 1995,
+      "bp_per_point": 175519.5
+    },
+    "97600027": {
+      "expected_ep": 940000000.0,
+      "standard_points": 5355.530297203445,
+      "quotes": {
+        "ordinary": 5356,
+        "chain": 3482,
+        "once": 2410
+      },
+      "kind": "ordinary",
+      "price": 5356,
+      "bp_per_point": 175519.5
+    },
+    "97600030": {
+      "expected_ep": 2300000000.0,
+      "standard_points": 13103.957110178642,
+      "quotes": {
+        "ordinary": 13104,
+        "chain": 8518,
+        "once": 5897
+      },
+      "kind": "ordinary",
+      "price": 13104,
+      "bp_per_point": 175519.5
+    },
+    "97600091": {
+      "expected_ep": 900000000.0,
+      "standard_points": 5127.635390939468,
+      "quotes": {
+        "ordinary": 5128,
+        "chain": 3333,
+        "once": 2308
+      },
+      "kind": "ordinary",
+      "price": 5128,
+      "bp_per_point": 175519.5
+    },
+    "97600093": {
+      "expected_ep": 2300000000.0,
+      "standard_points": 13103.957110178642,
+      "quotes": {
+        "ordinary": 13104,
+        "chain": 8518,
+        "once": 5897
+      },
+      "kind": "ordinary",
+      "price": 13104,
+      "bp_per_point": 175519.5
+    },
+    "97600900": {
+      "expected_ep": 2300000000.0,
+      "standard_points": 13103.957110178642,
+      "quotes": {
+        "ordinary": 13104,
+        "chain": 8518,
+        "once": 5897
+      },
+      "kind": "ordinary",
+      "price": 13104,
+      "bp_per_point": 175519.5
+    },
+    "97600910": {
+      "expected_ep": 2300000000.0,
+      "standard_points": 13103.957110178642,
+      "quotes": {
+        "ordinary": 13104,
+        "chain": 8518,
+        "once": 5897
+      },
+      "kind": "ordinary",
+      "price": 13104,
+      "bp_per_point": 175519.5
+    },
+    "97600911": {
+      "expected_ep": 2300000000.0,
+      "standard_points": 13103.957110178642,
+      "quotes": {
+        "ordinary": 13104,
+        "chain": 8518,
+        "once": 5897
+      },
+      "kind": "ordinary",
+      "price": 13104,
+      "bp_per_point": 175519.5
+    },
+    "97601091": {
+      "expected_ep": 900000000.0,
+      "standard_points": 5127.635390939468,
+      "quotes": {
+        "ordinary": 5128,
+        "chain": 3333,
+        "once": 2308
+      },
+      "kind": "ordinary",
+      "price": 5128,
+      "bp_per_point": 175519.5
+    },
+    "97601093": {
+      "expected_ep": 2300000000.0,
+      "standard_points": 13103.957110178642,
+      "quotes": {
+        "ordinary": 13104,
+        "chain": 8518,
+        "once": 5897
+      },
+      "kind": "ordinary",
+      "price": 13104,
+      "bp_per_point": 175519.5
+    },
+    "97610910": {
+      "expected_ep": 16000000000.0,
+      "standard_points": 91157.96250559055,
+      "quotes": {
+        "ordinary": 91158,
+        "chain": 59253,
+        "once": 41022
+      },
+      "kind": "ordinary",
+      "price": 91158,
+      "bp_per_point": 175519.5
+    },
+    "97700511": {
+      "expected_ep": 4461043478.26087,
+      "standard_points": 25416.2271329446,
+      "quotes": {
+        "ordinary": 25417,
+        "chain": 16521,
+        "once": 11438
+      },
+      "kind": "ordinary",
+      "price": 25417,
+      "bp_per_point": 175519.5
+    },
+    "97819000": {
+      "expected_ep": 12208272727.272728,
+      "standard_points": 69555.07922067193,
+      "quotes": {
+        "ordinary": 69556,
+        "chain": 45211,
+        "once": 31300
+      },
+      "kind": "ordinary",
+      "price": 69556,
+      "bp_per_point": 175519.5
+    },
+    "97819011": {
+      "expected_ep": 26545454545.454548,
+      "standard_points": 151239.34688427523,
+      "quotes": {
+        "ordinary": 151240,
+        "chain": 98306,
+        "once": 68058
+      },
+      "kind": "ordinary",
+      "price": 151240,
+      "bp_per_point": 175519.5
+    },
+    "97819084": {
+      "expected_ep": 301383821.1382114,
+      "standard_points": 1717.0959416942928,
+      "quotes": {
+        "ordinary": 1718,
+        "chain": 1117,
+        "once": 773
+      },
+      "kind": "ordinary",
+      "price": 1718,
+      "bp_per_point": 175519.5
+    },
+    "97950008": {
+      "expected_ep": 747600000.0,
+      "standard_points": 4259.355798073719,
+      "quotes": {
+        "ordinary": 4260,
+        "chain": 2769,
+        "once": 1917
+      },
+      "kind": "ordinary",
+      "price": 4260,
+      "bp_per_point": 175519.5
+    },
+    "97950009": {
+      "expected_ep": 2756666666.6666665,
+      "standard_points": 15705.757290025704,
+      "quotes": {
+        "ordinary": 15706,
+        "chain": 10209,
+        "once": 7068
+      },
+      "kind": "ordinary",
+      "price": 15706,
+      "bp_per_point": 175519.5
+    },
+    "97950010": {
+      "expected_ep": 3711217391.304348,
+      "standard_points": 21144.188487913583,
+      "quotes": {
+        "ordinary": 21145,
+        "chain": 13744,
+        "once": 9515
+      },
+      "kind": "ordinary",
+      "price": 21145,
+      "bp_per_point": 175519.5
+    },
+    "97950011": {
+      "expected_ep": 7776666666.666666,
+      "standard_points": 44306.56802615474,
+      "quotes": {
+        "ordinary": 44307,
+        "chain": 28800,
+        "once": 19938
+      },
+      "kind": "ordinary",
+      "price": 44307,
+      "bp_per_point": 175519.5
+    },
+    "97950111": {
+      "expected_ep": 16000000000.0,
+      "standard_points": 91157.96250559055,
+      "quotes": {
+        "ordinary": 91158,
+        "chain": 59253,
+        "once": 41022
+      },
+      "kind": "ordinary",
+      "price": 91158,
+      "bp_per_point": 175519.5
+    },
+    "98100001": {
+      "expected_ep": 1831313131.3131316,
+      "standard_points": 10433.67336001488,
+      "quotes": {
+        "ordinary": 10434,
+        "chain": 6782,
+        "once": 4696
+      },
+      "kind": "ordinary",
+      "price": 10434,
+      "bp_per_point": 175519.5
+    },
+    "98100002": {
+      "expected_ep": 6466666666.666667,
+      "standard_points": 36843.00984600952,
+      "quotes": {
+        "ordinary": 36844,
+        "chain": 23948,
+        "once": 16580
+      },
+      "kind": "ordinary",
+      "price": 36844,
+      "bp_per_point": 175519.5
+    },
+    "98100003": {
+      "expected_ep": 7776666666.666666,
+      "standard_points": 44306.56802615474,
+      "quotes": {
+        "ordinary": 44307,
+        "chain": 28800,
+        "once": 19938
+      },
+      "kind": "ordinary",
+      "price": 44307,
+      "bp_per_point": 175519.5
+    },
+    "98100004": {
+      "expected_ep": 13000000000.0,
+      "standard_points": 74065.84453579232,
+      "quotes": {
+        "ordinary": 74066,
+        "chain": 48143,
+        "once": 33330
+      },
+      "kind": "ordinary",
+      "price": 74066,
+      "bp_per_point": 175519.5
+    },
+    "98100005": {
+      "expected_ep": 16000000000.0,
+      "standard_points": 91157.96250559055,
+      "quotes": {
+        "ordinary": 91158,
+        "chain": 59253,
+        "once": 41022
+      },
+      "kind": "ordinary",
+      "price": 91158,
+      "bp_per_point": 175519.5
+    },
+    "98100006": {
+      "expected_ep": 19000000000.0,
+      "standard_points": 108250.08047538878,
+      "quotes": {
+        "ordinary": 108251,
+        "chain": 70363,
+        "once": 48713
+      },
+      "kind": "ordinary",
+      "price": 108251,
+      "bp_per_point": 175519.5
+    },
+    "98100007": {
+      "expected_ep": 12840000000.0,
+      "standard_points": 73154.26491073641,
+      "quotes": {
+        "ordinary": 73155,
+        "chain": 47551,
+        "once": 32920
+      },
+      "kind": "ordinary",
+      "price": 73155,
+      "bp_per_point": 175519.5
+    },
+    "98100008": {
+      "expected_ep": 15720000000.0,
+      "standard_points": 89562.69816174272,
+      "quotes": {
+        "ordinary": 89563,
+        "chain": 58216,
+        "once": 40304
+      },
+      "kind": "ordinary",
+      "price": 89563,
+      "bp_per_point": 175519.5
+    },
+    "98100009": {
+      "expected_ep": 27000000000.0,
+      "standard_points": 153829.06172818405,
+      "quotes": {
+        "ordinary": 153830,
+        "chain": 99989,
+        "once": 69224
+      },
+      "kind": "ordinary",
+      "price": 153830,
+      "bp_per_point": 175519.5
+    },
+    "98100010": {
+      "expected_ep": 26400000000.0,
+      "standard_points": 150410.6381342244,
+      "quotes": {
+        "ordinary": 150411,
+        "chain": 97767,
+        "once": 67685
+      },
+      "kind": "ordinary",
+      "price": 150411,
+      "bp_per_point": 175519.5
+    },
+    "98100011": {
+      "expected_ep": 26545454545.454548,
+      "standard_points": 151239.34688427523,
+      "quotes": {
+        "ordinary": 151240,
+        "chain": 98306,
+        "once": 68058
+      },
+      "kind": "ordinary",
+      "price": 151240,
+      "bp_per_point": 175519.5
+    },
+    "98100012": {
+      "expected_ep": 31466666666.666668,
+      "standard_points": 179277.32626099477,
+      "quotes": {
+        "ordinary": 179278,
+        "chain": 116531,
+        "once": 80675
+      },
+      "kind": "ordinary",
+      "price": 179278,
+      "bp_per_point": 175519.5
+    },
+    "98100013": {
+      "expected_ep": 32090909090.909092,
+      "standard_points": 182833.86797996287,
+      "quotes": {
+        "ordinary": 182834,
+        "chain": 118843,
+        "once": 82276
+      },
+      "kind": "ordinary",
+      "price": 182834,
+      "bp_per_point": 175519.5
+    },
+    "98100014": {
+      "expected_ep": 46000000000.0,
+      "standard_points": 262079.14220357285,
+      "quotes": {
+        "ordinary": 262080,
+        "chain": 170352,
+        "once": 117936
+      },
+      "kind": "ordinary",
+      "price": 262080,
+      "bp_per_point": 175519.5
+    },
+    "98100015": {
+      "expected_ep": 3568333333.3333335,
+      "standard_points": 20330.12476296556,
+      "quotes": {
+        "ordinary": 20331,
+        "chain": 13215,
+        "once": 9149
+      },
+      "kind": "ordinary",
+      "price": 20331,
+      "bp_per_point": 175519.5
+    },
+    "98100016": {
+      "expected_ep": 4836666666.666667,
+      "standard_points": 27556.29241575248,
+      "quotes": {
+        "ordinary": 27557,
+        "chain": 17912,
+        "once": 12401
+      },
+      "kind": "ordinary",
+      "price": 27557,
+      "bp_per_point": 175519.5
+    },
+    "98100017": {
+      "expected_ep": 13610000000.0,
+      "standard_points": 77541.24185631797,
+      "quotes": {
+        "ordinary": 77542,
+        "chain": 50402,
+        "once": 34894
+      },
+      "kind": "ordinary",
+      "price": 77542,
+      "bp_per_point": 175519.5
+    },
+    "98100018": {
+      "expected_ep": 31000000000.0,
+      "standard_points": 176618.55235458168,
+      "quotes": {
+        "ordinary": 176619,
+        "chain": 114803,
+        "once": 79479
+      },
+      "kind": "ordinary",
+      "price": 176619,
+      "bp_per_point": 175519.5
+    },
+    "98100019": {
+      "expected_ep": 82000000000.0,
+      "standard_points": 467184.55784115155,
+      "quotes": {
+        "ordinary": 467185,
+        "chain": 303670,
+        "once": 210234
+      },
+      "kind": "ordinary",
+      "price": 467185,
+      "bp_per_point": 175519.5
+    },
+    "98100020": {
+      "expected_ep": 23000000000.0,
+      "standard_points": 131039.57110178642,
+      "quotes": {
+        "ordinary": 131040,
+        "chain": 85176,
+        "once": 58968
+      },
+      "kind": "ordinary",
+      "price": 131040,
+      "bp_per_point": 175519.5
+    },
+    "98248001": {
+      "expected_ep": 567804.8780487805,
+      "standard_points": 3.234995986478884,
+      "quotes": {
+        "ordinary": 4,
+        "chain": 3,
+        "once": 2
+      },
+      "kind": "ordinary",
+      "price": 4,
+      "bp_per_point": 175519.5
+    },
+    "98248002": {
+      "expected_ep": 860000.0,
+      "standard_points": 4.899740484675492,
+      "quotes": {
+        "ordinary": 5,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 5,
+      "bp_per_point": 175519.5
+    },
+    "98248008": {
+      "expected_ep": 620731707.3170732,
+      "standard_points": 3536.5398563525605,
+      "quotes": {
+        "ordinary": 3537,
+        "chain": 2299,
+        "once": 1592
+      },
+      "kind": "ordinary",
+      "price": 3537,
+      "bp_per_point": 175519.5
+    },
+    "98248018": {
+      "expected_ep": 940000000.0,
+      "standard_points": 5355.530297203445,
+      "quotes": {
+        "ordinary": 5356,
+        "chain": 3482,
+        "once": 2410
+      },
+      "kind": "ordinary",
+      "price": 5356,
+      "bp_per_point": 175519.5
+    },
+    "801": {
+      "expected_ep": 1000097.183515104,
+      "standard_points": 5.697926347301035,
+      "quotes": {
+        "ordinary": 6,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 6,
+      "bp_per_point": 175519.5
+    },
+    "50880": {
+      "expected_ep": 3422175.918811789,
+      "standard_points": 19.497411505911245,
+      "quotes": {
+        "ordinary": 20,
+        "chain": 13,
+        "once": 9
+      },
+      "kind": "ordinary",
+      "price": 20,
+      "bp_per_point": 175519.5
+    },
+    "50881": {
+      "expected_ep": 524008.9713482649,
+      "standard_points": 2.9854743851723877,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "50882": {
+      "expected_ep": 26403.885829203617,
+      "standard_points": 0.1504327771512773,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "70000001": {
+      "expected_ep": 1757153.3275617682,
+      "standard_points": 10.011157321903084,
+      "quotes": {
+        "ordinary": 11,
+        "chain": 7,
+        "once": 5
+      },
+      "kind": "ordinary",
+      "price": 11,
+      "bp_per_point": 175519.5
+    },
+    "70000002": {
+      "expected_ep": 3522420.496302943,
+      "standard_points": 20.06854222068171,
+      "quotes": {
+        "ordinary": 21,
+        "chain": 14,
+        "once": 10
+      },
+      "kind": "ordinary",
+      "price": 21,
+      "bp_per_point": 175519.5
+    },
+    "70000003": {
+      "expected_ep": 7046381.398951658,
+      "standard_points": 40.14586071035787,
+      "quotes": {
+        "ordinary": 41,
+        "chain": 27,
+        "once": 19
+      },
+      "kind": "ordinary",
+      "price": 41,
+      "bp_per_point": 175519.5
+    },
+    "70000004": {
+      "expected_ep": 293943951.5707733,
+      "standard_points": 1674.7082322521048,
+      "quotes": {
+        "ordinary": 1675,
+        "chain": 1089,
+        "once": 754
+      },
+      "kind": "ordinary",
+      "price": 1675,
+      "bp_per_point": 175519.5
+    },
+    "70000005": {
+      "expected_ep": 1836751218.6810262,
+      "standard_points": 10464.656170288921,
+      "quotes": {
+        "ordinary": 10465,
+        "chain": 6803,
+        "once": 4710
+      },
+      "kind": "ordinary",
+      "price": 10465,
+      "bp_per_point": 175519.5
+    },
+    "71010101": {
+      "expected_ep": 564144451.394194,
+      "standard_points": 3214.1411717455553,
+      "quotes": {
+        "ordinary": 3215,
+        "chain": 2090,
+        "once": 1447
+      },
+      "kind": "ordinary",
+      "price": 3215,
+      "bp_per_point": 175519.5
+    },
+    "71010102": {
+      "expected_ep": 1029538319.3277311,
+      "standard_points": 5865.663469459127,
+      "quotes": {
+        "ordinary": 5866,
+        "chain": 3813,
+        "once": 2640
+      },
+      "kind": "ordinary",
+      "price": 5866,
+      "bp_per_point": 175519.5
+    },
+    "71010103": {
+      "expected_ep": 672526554.6218487,
+      "standard_points": 3831.63440313953,
+      "quotes": {
+        "ordinary": 3832,
+        "chain": 2491,
+        "once": 1725
+      },
+      "kind": "ordinary",
+      "price": 3832,
+      "bp_per_point": 175519.5
+    },
+    "71010104": {
+      "expected_ep": 3038604985.9943976,
+      "standard_points": 17312.064961411113,
+      "quotes": {
+        "ordinary": 17313,
+        "chain": 11253,
+        "once": 7791
+      },
+      "kind": "ordinary",
+      "price": 17313,
+      "bp_per_point": 175519.5
+    },
+    "71010105": {
+      "expected_ep": 3095426086.956522,
+      "standard_points": 17635.795948350595,
+      "quotes": {
+        "ordinary": 17636,
+        "chain": 11464,
+        "once": 7937
+      },
+      "kind": "ordinary",
+      "price": 17636,
+      "bp_per_point": 175519.5
+    },
+    "80000001": {
+      "expected_ep": 33223169.967977278,
+      "standard_points": 189.28478014110843,
+      "quotes": {
+        "ordinary": 190,
+        "chain": 124,
+        "once": 86
+      },
+      "kind": "ordinary",
+      "price": 190,
+      "bp_per_point": 175519.5
+    },
+    "81000100": {
+      "expected_ep": 351039.0,
+      "standard_points": 2.0,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "81000500": {
+      "expected_ep": 1755195.0,
+      "standard_points": 10.0,
+      "quotes": {
+        "ordinary": 10,
+        "chain": 7,
+        "once": 5
+      },
+      "kind": "ordinary",
+      "price": 10,
+      "bp_per_point": 175519.5
+    },
+    "81001000": {
+      "expected_ep": 3510390.0,
+      "standard_points": 20.0,
+      "quotes": {
+        "ordinary": 20,
+        "chain": 13,
+        "once": 9
+      },
+      "kind": "ordinary",
+      "price": 20,
+      "bp_per_point": 175519.5
+    },
+    "95000001": {
+      "expected_ep": 53996.96789707643,
+      "standard_points": 0.30764084843607936,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "95000002": {
+      "expected_ep": 78188141.14768143,
+      "standard_points": 445.46697744513534,
+      "quotes": {
+        "ordinary": 446,
+        "chain": 290,
+        "once": 201
+      },
+      "kind": "ordinary",
+      "price": 446,
+      "bp_per_point": 175519.5
+    },
+    "97400010": {
+      "expected_ep": 6804181034.482758,
+      "standard_points": 38765.954976414345,
+      "quotes": {
+        "ordinary": 38766,
+        "chain": 25198,
+        "once": 17445
+      },
+      "kind": "ordinary",
+      "price": 38766,
+      "bp_per_point": 175519.5
+    },
+    "97400020": {
+      "expected_ep": 171053776637.58322,
+      "standard_points": 974557.1098230295,
+      "quotes": {
+        "ordinary": 974558,
+        "chain": 633463,
+        "once": 438551
+      },
+      "kind": "ordinary",
+      "price": 974558,
+      "bp_per_point": 175519.5
+    },
+    "97400100": {
+      "expected_ep": 1026274044607.9519,
+      "standard_points": 5847065.679927028,
+      "quotes": {
+        "ordinary": 5847066,
+        "chain": 3800593,
+        "once": 2631180
+      },
+      "kind": "ordinary",
+      "price": 5847066,
+      "bp_per_point": 175519.5
+    },
+    "97410020": {
+      "expected_ep": 10261484646.554276,
+      "standard_points": 58463.50204139298,
+      "quotes": {
+        "ordinary": 58464,
+        "chain": 38002,
+        "once": 26309
+      },
+      "kind": "ordinary",
+      "price": 58464,
+      "bp_per_point": 175519.5
+    },
+    "97410100": {
+      "expected_ep": 46435001212.65898,
+      "standard_points": 264557.5062181637,
+      "quotes": {
+        "ordinary": 264558,
+        "chain": 171963,
+        "once": 119051
+      },
+      "kind": "ordinary",
+      "price": 264558,
+      "bp_per_point": 175519.5
+    },
+    "97960011": {
+      "expected_ep": 16000000000.0,
+      "standard_points": 91157.96250559055,
+      "quotes": {
+        "ordinary": 91158,
+        "chain": 59253,
+        "once": 41022
+      },
+      "kind": "ordinary",
+      "price": 91158,
+      "bp_per_point": 175519.5
+    },
+    "97961011": {
+      "expected_ep": 16000000000.0,
+      "standard_points": 91157.96250559055,
+      "quotes": {
+        "ordinary": 91158,
+        "chain": 59253,
+        "once": 41022
+      },
+      "kind": "once",
+      "price": 41022,
+      "bp_per_point": 175519.5
+    },
+    "118012902": {
+      "expected_ep": 76753.11608695071,
+      "standard_points": 0.43729110490259326,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "81000001": {
+      "expected_ep": 7000000.0,
+      "standard_points": 39.88160859619587,
+      "quotes": {
+        "ordinary": 40,
+        "chain": 26,
+        "once": 18
+      },
+      "kind": "ordinary",
+      "price": 40,
+      "bp_per_point": 175519.5
+    },
+    "81000002": {
+      "expected_ep": 1500670.8441356989,
+      "standard_points": 8.549881033934685,
+      "quotes": {
+        "ordinary": 9,
+        "chain": 6,
+        "once": 4
+      },
+      "kind": "ordinary",
+      "price": 9,
+      "bp_per_point": 175519.5
+    },
+    "81000003": {
+      "expected_ep": 18417962.02149227,
+      "standard_points": 104.93399321153643,
+      "quotes": {
+        "ordinary": 105,
+        "chain": 69,
+        "once": 48
+      },
+      "kind": "ordinary",
+      "price": 105,
+      "bp_per_point": 175519.5
+    },
+    "501": {
+      "expected_ep": 505000.0,
+      "standard_points": 2.8771731915827017,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "908": {
+      "expected_ep": 5500000.0,
+      "standard_points": 31.335549611296752,
+      "quotes": {
+        "ordinary": 32,
+        "chain": 21,
+        "once": 15
+      },
+      "kind": "ordinary",
+      "price": 32,
+      "bp_per_point": 175519.5
+    },
+    "50019": {
+      "expected_ep": 200000.0,
+      "standard_points": 1.139474531319882,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "50020": {
+      "expected_ep": 500000.0,
+      "standard_points": 2.8486863282997046,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "50021": {
+      "expected_ep": 1000000.0,
+      "standard_points": 5.697372656599409,
+      "quotes": {
+        "ordinary": 6,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 6,
+      "bp_per_point": 175519.5
+    },
+    "50028": {
+      "expected_ep": 25100000.0,
+      "standard_points": 143.00405368064517,
+      "quotes": {
+        "ordinary": 144,
+        "chain": 93,
+        "once": 65
+      },
+      "kind": "ordinary",
+      "price": 144,
+      "bp_per_point": 175519.5
+    },
+    "50029": {
+      "expected_ep": 10050000.0,
+      "standard_points": 57.25859519882407,
+      "quotes": {
+        "ordinary": 58,
+        "chain": 38,
+        "once": 26
+      },
+      "kind": "ordinary",
+      "price": 58,
+      "bp_per_point": 175519.5
+    },
+    "50121": {
+      "expected_ep": 3123169.967977276,
+      "standard_points": 17.793863177466186,
+      "quotes": {
+        "ordinary": 18,
+        "chain": 12,
+        "once": 9
+      },
+      "kind": "ordinary",
+      "price": 18,
+      "bp_per_point": 175519.5
+    },
+    "50122": {
+      "expected_ep": 907175.918811789,
+      "standard_points": 5.1685192745637325,
+      "quotes": {
+        "ordinary": 6,
+        "chain": 4,
+        "once": 3
+      },
+      "kind": "ordinary",
+      "price": 6,
+      "bp_per_point": 175519.5
+    },
+    "50123": {
+      "expected_ep": 250035.62702942116,
+      "standard_points": 1.4245461446131122,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "50124": {
+      "expected_ep": 75018.14459320938,
+      "standard_points": 0.4274063257541719,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "50125": {
+      "expected_ep": 50022.79346672911,
+      "standard_points": 0.28499849570406205,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "50840": {
+      "expected_ep": 2750000.0,
+      "standard_points": 15.667774805648376,
+      "quotes": {
+        "ordinary": 16,
+        "chain": 11,
+        "once": 8
+      },
+      "kind": "ordinary",
+      "price": 16,
+      "bp_per_point": 175519.5
+    },
+    "50841": {
+      "expected_ep": 17500000.0,
+      "standard_points": 99.70402149048967,
+      "quotes": {
+        "ordinary": 100,
+        "chain": 65,
+        "once": 45
+      },
+      "kind": "ordinary",
+      "price": 100,
+      "bp_per_point": 175519.5
+    },
+    "94000001": {
+      "expected_ep": 297441.98292468226,
+      "standard_points": 1.6946378204397932,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "94000002": {
+      "expected_ep": 12030.496302943002,
+      "standard_points": 0.06854222068170775,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "119082304": {
+      "expected_ep": 50050000.0,
+      "standard_points": 285.1535014628004,
+      "quotes": {
+        "ordinary": 286,
+        "chain": 186,
+        "once": 129
+      },
+      "kind": "ordinary",
+      "price": 286,
+      "bp_per_point": 175519.5
+    },
+    "200130000": {
+      "expected_ep": 80222.03350316841,
+      "standard_points": 0.4570548201377534,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    },
+    "200130001": {
+      "expected_ep": 403764.512796142,
+      "standard_points": 2.300396894909922,
+      "quotes": {
+        "ordinary": 3,
+        "chain": 2,
+        "once": 1
+      },
+      "kind": "ordinary",
+      "price": 3,
+      "bp_per_point": 175519.5
+    }
+  },
+  "hash": "a4f69cfcac0d997d9365b8f9cd11cfc963e770a3bf44ee3fe582914ccd8ecc4e"
+}

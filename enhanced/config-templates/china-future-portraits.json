@@ -1,0 +1,935 @@
+{
+  "schema": 1,
+  "edition": "china-future-real-portraits-v1",
+  "players": [
+    {
+      "name": "邝兆镭",
+      "playerid": 710016,
+      "spid": 327710016,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153858_31126.png",
+      "caption": "邝兆镭",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153858_31126.png",
+      "source_sha256": "b68ad148724bec001d0902360ceb3e0869d417d9fc73f554fdbff89d2ac4636e",
+      "portrait_sha256": "b68ad148724bec001d0902360ceb3e0869d417d9fc73f554fdbff89d2ac4636e",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "1ee6202d9f63e9308dc8a9048502efc2d24333585798a0411b0607e0c09fcf16",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "万项",
+      "playerid": 710017,
+      "spid": 327710017,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154138_36576.png",
+      "caption": "万项",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154138_36576.png",
+      "source_sha256": "b5e5c1c2d4bdeefd0fca446fce32f963d04de25753bb4d3a1da52ead9afa972f",
+      "portrait_sha256": "b5e5c1c2d4bdeefd0fca446fce32f963d04de25753bb4d3a1da52ead9afa972f",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "aeda710a8424afc14dab0609d8b5e5bb3fc641eb3ccdd759e1bd1fff1c1b6a84",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "谢晋",
+      "playerid": 710018,
+      "spid": 327710018,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154415_65984.png",
+      "caption": "谢晋",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154415_65984.png",
+      "source_sha256": "eb36eeea3c7e93a0b174a4a14620beaeb4b217cd1f1d642e6924510c9912df81",
+      "portrait_sha256": "eb36eeea3c7e93a0b174a4a14620beaeb4b217cd1f1d642e6924510c9912df81",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "804242d12f9892e7f21edfc1404054da0a7a59e62fc76e8f9eef37cfc3f43646",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "周雨诺",
+      "playerid": 710019,
+      "spid": 327710019,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154021_84580.png",
+      "caption": "周雨诺",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154021_84580.png",
+      "source_sha256": "a8389ec31879f10eaffcfd9dcbcd4536dddf45bea64cdc661d958dad45e5ea3a",
+      "portrait_sha256": "a8389ec31879f10eaffcfd9dcbcd4536dddf45bea64cdc661d958dad45e5ea3a",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "5a6400b01d7764caba7abeb4bb4c48896a51278d2b80489c1251111013ee61f7",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "帅惟浩",
+      "playerid": 710020,
+      "spid": 327710020,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154155_66396.png",
+      "caption": "帅惟浩",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154155_66396.png",
+      "source_sha256": "91ae4ec0d206172670abae56e58a7f7c28b6176340cf9e93acc184d3e9c2a6e1",
+      "portrait_sha256": "91ae4ec0d206172670abae56e58a7f7c28b6176340cf9e93acc184d3e9c2a6e1",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "ae7f921f05651b1398a3bec299ee5aa11fc73382d1c61d0612bee2983fbb73e8",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "金昱成",
+      "playerid": 710022,
+      "spid": 327710022,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153921_95565.png",
+      "caption": "金昱成",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153921_95565.png",
+      "source_sha256": "257dfded5fda06e425738af27f3f34c9962ee0f6b61679a2b916502d52a40388",
+      "portrait_sha256": "257dfded5fda06e425738af27f3f34c9962ee0f6b61679a2b916502d52a40388",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "a6da499986392852953cd3145315928afe077fb61b6ebe2fda039a15815692f3",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "南子勋",
+      "playerid": 710023,
+      "spid": 327710023,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153613_33911.png",
+      "caption": "南子勋",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153613_33911.png",
+      "source_sha256": "0d980ea27ed42faf3ccfe1bc336c06e10179ca6cfc22703a4703b497d78384aa",
+      "portrait_sha256": "0d980ea27ed42faf3ccfe1bc336c06e10179ca6cfc22703a4703b497d78384aa",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "aa8d8242366e249b60ee98b2c42f69360d93c209d21869188a30c7ee3284353a",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "李钧鹏",
+      "playerid": 710024,
+      "spid": 327710024,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153652_54601.png",
+      "caption": "李钧鹏",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153652_54601.png",
+      "source_sha256": "85e29d454ce34f2a7cf93e85bec77d44b22a15df1ff5e3939ba7d5da588092c3",
+      "portrait_sha256": "85e29d454ce34f2a7cf93e85bec77d44b22a15df1ff5e3939ba7d5da588092c3",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "0aae973d24d194a1bb41c8cf22841b0b71f96201a5519a963e801b9ab4fc316d",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "张旭尧",
+      "playerid": 710025,
+      "spid": 327710025,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153539_75903.png",
+      "caption": "张旭尧",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153539_75903.png",
+      "source_sha256": "adc55dd481f40f812fc5e4b48d1d2b521f0032550476c18e3484916bc4de523d",
+      "portrait_sha256": "adc55dd481f40f812fc5e4b48d1d2b521f0032550476c18e3484916bc4de523d",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "2901168224279b4b71e478f4515790006738cd6909035426b9ef8adfdcc94923",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "秦子牛",
+      "playerid": 710026,
+      "spid": 327710026,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153449_66869.png",
+      "caption": "秦子牛",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153449_66869.png",
+      "source_sha256": "548d9e4dd2b8cb8c5a8436f0afec0f98d2f5c3469fd8ac830bf347d03b3cf771",
+      "portrait_sha256": "548d9e4dd2b8cb8c5a8436f0afec0f98d2f5c3469fd8ac830bf347d03b3cf771",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "26d3ee3dc43cd08cef4d434e59c9908f018e30f3dada637b202b35b905114979",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "江承恩",
+      "playerid": 710027,
+      "spid": 327710027,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260502/20260502211004_89951.png",
+      "caption": "江承恩",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260502/20260502211004_89951.png",
+      "source_sha256": "0924406cb3dada8ef34358747d589623d7cdae4cc2fa56bcaaebbb4956715c36",
+      "portrait_sha256": "0924406cb3dada8ef34358747d589623d7cdae4cc2fa56bcaaebbb4956715c36",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "824c7377fb7ce3697312f3d66c7a748f707d874fe123be11ac6b63edd15f4234",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "潘朝伟",
+      "playerid": 710028,
+      "spid": 327710028,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154317_82644.png",
+      "caption": "潘朝伟",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154317_82644.png",
+      "source_sha256": "f3cf3c5107799abb34892ec55717bbe2850aced515946530b8b3b4e149f79c9d",
+      "portrait_sha256": "f3cf3c5107799abb34892ec55717bbe2850aced515946530b8b3b4e149f79c9d",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "cd833d475ba6f0e84dd23601c60bb8e71f558bfd2e6c63658b2f100b51193c3e",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "徐正鹏",
+      "playerid": 710029,
+      "spid": 327710029,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153719_18486.png",
+      "caption": "徐正鹏",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428153719_18486.png",
+      "source_sha256": "4a9c635eccc5c3b72ccd49c0de33ebc6e3bae5a1c3fa42d2967fac5b9995e242",
+      "portrait_sha256": "4a9c635eccc5c3b72ccd49c0de33ebc6e3bae5a1c3fa42d2967fac5b9995e242",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "5ee0576e311270aded1ef167afdb696dcdc539a835a3d51d227d2e17b581099e",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "赵松源",
+      "playerid": 710030,
+      "spid": 327710030,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154039_41517.png",
+      "caption": "赵松源",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154039_41517.png",
+      "source_sha256": "23b85f9dba051db0f9107847426a64266622322123b6feb313e660a919de15cd",
+      "portrait_sha256": "23b85f9dba051db0f9107847426a64266622322123b6feb313e660a919de15cd",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "ca6e6dfee8dd907763c2fbbbf4099c327f2551770f18d5d7a0bc39ec5083a6fe",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "顾博宇",
+      "playerid": 710031,
+      "spid": 327710031,
+      "page_url": "https://www.thecfa.cn/nzu17/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154432_75039.png",
+      "caption": "顾博宇",
+      "page_file": "cfa.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20260428/20260428154432_75039.png",
+      "source_sha256": "a6024d31ded9f9fbeae8527595bf72f8a20955d8e31edf38555a206685a5da38",
+      "portrait_sha256": "a6024d31ded9f9fbeae8527595bf72f8a20955d8e31edf38555a206685a5da38",
+      "width": 340,
+      "height": 494,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "338485c3ee5577d5151ee7c57efad3a7e9af3179afc4142b82522819e129effe",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        340,
+        494
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "王钰栋",
+      "playerid": 710000,
+      "spid": 327710000,
+      "page_url": "https://www.thecfa.cn/nzga/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411114729_79585.jpg",
+      "caption": "王钰栋",
+      "page_file": "nzga.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411114729_79585.jpg",
+      "source_sha256": "4c25b2ec1b1b00a36bc3356669244e1308b2a914a08c35e60926b1b40a0a7be3",
+      "portrait_sha256": "4da0d76362abbdc38375e542ba7f1eae1716ee5508b92f2b5ac7ffbb0161dd38",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "fd8e06f6d635013ae493d49957be8e5716cf610c91afb74e49742b8249916b08",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "李昊",
+      "playerid": 710002,
+      "spid": 327710002,
+      "page_url": "https://www.thecfa.cn/nzga/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411164147_74061.jpg",
+      "caption": "李昊",
+      "page_file": "nzga.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411164147_74061.jpg",
+      "source_sha256": "76f6760533abf73b670683bef67530077ea2ab3763bf2d27f12468dda08c3277",
+      "portrait_sha256": "e5313f36ec97a6e6b777dcb79c6ba4fab5e52f8c86a53aa4084934cd7a31c64f",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "631f6fbd9731e8b069ed176536bc111a2dcef2b6bcd407f1e0f141f89de80e2d",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "胡荷韬",
+      "playerid": 710010,
+      "spid": 327710010,
+      "page_url": "https://www.thecfa.cn/nzga/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411113747_27216.jpg",
+      "caption": "胡荷韬",
+      "page_file": "nzga.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411113747_27216.jpg",
+      "source_sha256": "7a5bb2a4db25a71e111af0ef724e41899f8a05f9fd5413b3b05adc6c4afd9380",
+      "portrait_sha256": "621250286c846161136b647d3f12c615a0137c340593388b8b7a42270e4bc0b2",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "d5d6db753205a5b788ba301048246543147ccfe120a7baee9167e9958b2f6ef0",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "刘浩帆",
+      "playerid": 710013,
+      "spid": 327710013,
+      "page_url": "https://www.thecfa.cn/nzga/index.html",
+      "image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411113719_15616.jpg",
+      "caption": "刘浩帆",
+      "page_file": "nzga.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/20240411/20240411113719_15616.jpg",
+      "source_sha256": "5a91cad23c6aa5cd59d1b7d9f1c96b4e32087d4f0b4c651cca1e696d153da56b",
+      "portrait_sha256": "4ee01875fb72503127e6f429fbc2235362496087bd6c952ce104373be080e969",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "5d136ce80174567e5202e02e38549606ca2931817556c451f120e37c27e56de7",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "蒯纪闻",
+      "playerid": 710004,
+      "spid": 327710004,
+      "page_url": "https://www.thecfa.cn/nzu20/index.html",
+      "image_url": "http://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171313_67041.jpg",
+      "caption": "蒯纪闻",
+      "page_file": "nzu20.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171313_67041.jpg",
+      "source_sha256": "ebabeb83517ee74333baba1873d90b3995eb39d29cf0d6a41ac2f64c2c168e7a",
+      "portrait_sha256": "67cb5db1477a2ed062a54e1fd296c621bbf2b67c9c370c58e237fc263f06e884",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "d29f2c1c53ee5c1b0b76d178b887fe27d7540813625208a9d9e17f4aa5ed5a32",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "刘诚宇",
+      "playerid": 710005,
+      "spid": 327710005,
+      "page_url": "https://www.thecfa.cn/nzu20/index.html",
+      "image_url": "http://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171326_63638.jpg",
+      "caption": "刘诚宇",
+      "page_file": "nzu20.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171326_63638.jpg",
+      "source_sha256": "b1b06d5a14b34576257cb3d8cd455b6d31e49b920b52fbba6e3e4b2fe15b2701",
+      "portrait_sha256": "34cfc1859fab9e331148b9eb4b269396eb897f2b0281c9e99519505a854efa5a",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "941d68f3a8b4f3b9c0b82ce68f12a2c61ec8f3e41b0eed9589f12fd8eddedc1f",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "毛伟杰",
+      "playerid": 710006,
+      "spid": 327710006,
+      "page_url": "https://www.thecfa.cn/nzu20/index.html",
+      "image_url": "http://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171340_82952.jpg",
+      "caption": "毛伟杰",
+      "page_file": "nzu20.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171340_82952.jpg",
+      "source_sha256": "039fda5d9e8f2f464493ed4d3ba2bf281fa18ce2f86057ea3a9af0fd912fda18",
+      "portrait_sha256": "5e70ad7deb3a3fb2612176266c1dd37baf3d46714a1c88140db3e70fe4f4409d",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "85089aca6ead62e496b204e4f3809a680a2e6ce6e0e4a4512d33d21732779076",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "依木兰·买买提",
+      "playerid": 710008,
+      "spid": 327710008,
+      "page_url": "https://www.thecfa.cn/nzu20/index.html",
+      "image_url": "http://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171441_93961.jpg",
+      "caption": "依木兰·买买提",
+      "page_file": "nzu20.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171441_93961.jpg",
+      "source_sha256": "2a07d9df942ca6856d805bbcf54165d674121e7fc1820dadb7bdfb4faf8842e6",
+      "portrait_sha256": "b4b46415acb01269c7a4ee4b0a680f978e6801e861cc30d5e5a1f0e86836443c",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "35b49e2aa3e58de6ce578b91eaf09ce83ff838a5f4097103d31c4c3e1dc8e882",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "彭啸",
+      "playerid": 710012,
+      "spid": 327710012,
+      "page_url": "https://www.thecfa.cn/nzu20/index.html",
+      "image_url": "http://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171346_83975.jpg",
+      "caption": "彭啸",
+      "page_file": "nzu20.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171346_83975.jpg",
+      "source_sha256": "e1f0ed28ac06f6ec431c745c57e70f81f414e4e9a244e6332702a54f49df0f69",
+      "portrait_sha256": "301fad8e516a3e1dfadc2705d1ddbddffa736f66fab2e9cf1a3fcb1c9a550105",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "dd0c28f8f417eabf92248def653c0e223c7468facb792327d907219c7bee1ceb",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "姚浩洋",
+      "playerid": 710015,
+      "spid": 327710015,
+      "page_url": "https://www.thecfa.cn/nzu20/index.html",
+      "image_url": "http://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171433_65812.jpg",
+      "caption": "姚浩洋",
+      "page_file": "nzu20.html",
+      "resolved_image_url": "https://imageoss.thecfa.cn/uploads/new_upload/image/20250211/20250211171433_65812.jpg",
+      "source_sha256": "4201d82e358fcd058f102e451d4e054d45251cee6d5b906f905d018fe5550751",
+      "portrait_sha256": "c02d25ddfd6e8c5d744cfd067168da6da621866b72d0c6c72c1e55e8d5cb73cd",
+      "width": 1624,
+      "height": 2436,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "15de032d1b22bba889983d9b4e295eb2ee6de9e7b9e7ea1acab1fe6a5be2bf42",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        1624,
+        2436
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "吕孟洋",
+      "playerid": 710021,
+      "spid": 327710021,
+      "page_url": "https://www.xiaojiangfc.com/players/lv-mengyang/index.html",
+      "image_url": "https://www.xiaojiangfc.com/pic/players/吕孟洋.png",
+      "caption": "吕孟洋",
+      "page_file": "ly.html",
+      "resolved_image_url": "https://www.xiaojiangfc.com/pic/players/%E5%90%95%E5%AD%9F%E6%B4%8B.png",
+      "source_sha256": "73586ee7e64a1bbeb79a1d3d0b0ed555155f8597e53a917825af215c253c71ba",
+      "portrait_sha256": "73586ee7e64a1bbeb79a1d3d0b0ed555155f8597e53a917825af215c253c71ba",
+      "width": 501,
+      "height": 771,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "4a3087c105430fe77e04f162fddbe444ab221eecd012d68e55526ff7f556426d",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        501,
+        771
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "李昊炎",
+      "playerid": 710001,
+      "spid": 327710001,
+      "page_url": "https://www.cfdamm.cat/ca/equip/persona/haoyan-li",
+      "image_url": "https://www.xiaojiangfc.com/pic/players/李昊炎.png",
+      "caption": "Haoyan Li; official CF Damm player profile; 28 January 2012",
+      "page_file": "lh.html",
+      "resolved_image_url": "https://www.cfdamm.cat/sites/default/files/styles/gallery_vertical_xxxs/public/content/person/528.JPG?h=3253cce3&itok=5iG7IiyJ",
+      "source_sha256": "f9ac9375c4d0b720d64c62d09a6009fd72f1005cd411a10eef49e0abd98c6646",
+      "portrait_sha256": "823f34136d0bd93f478a5f367f6fc616bcede383d9989db792bce9cde729dcf4",
+      "width": 793,
+      "height": 1080,
+      "source_format": "JPEG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "8c4f17664b75263d51aec75cbd11ccd6749b477521d0414c15e6e2d2026b3ab7",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        145,
+        190
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "向余望",
+      "playerid": 710003,
+      "spid": 327710003,
+      "page_url": "https://www.sofascore.com/football/player/yuwang-xiang/1515510",
+      "image_url": "https://img.sofascore.com/api/v1/player/1515510/image",
+      "caption": "Yuwang Xiang; Chongqing Tonglianglong; 2003-12-18",
+      "identity_validation": "Named profile, club, role and age matched; no biometric identification",
+      "resolved_image_url": "https://img.sofascore.com/api/v1/player/1515510/image",
+      "source_sha256": "2471d8d543023712d732b214cf1fac1533cf7c803e06451fe7ebd1c073803460",
+      "portrait_sha256": "4f2973b6a1631f1ef9600092c66ece2755f54070883b122b637ff857c4b57a2b",
+      "width": 150,
+      "height": 150,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "7193b97bd2fd567d1599207c32541d8b4ad95280c898c2f47db00509eeb572c2",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        150,
+        150
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "李新翔",
+      "playerid": 710007,
+      "spid": 327710007,
+      "page_url": "https://www.sofascore.com/football/player/li-xinxiang/1933818",
+      "image_url": "https://img.sofascore.com/api/v1/player/1933818/image",
+      "caption": "Xinxiang Li; Shanghai Port; 2005 birth year; source UTC date one day earlier",
+      "identity_validation": "Named profile, club, role and age matched; no biometric identification",
+      "resolved_image_url": "https://img.sofascore.com/api/v1/player/1933818/image",
+      "source_sha256": "2e00fc9153d3defc2354358334180f1b6b6f09926f0f698e8d6c8117d3c6e8f8",
+      "portrait_sha256": "3551356530e9b202d71e82aa51eebd28f17130f7ca648ff32e2ad7d6fdb01caf",
+      "width": 150,
+      "height": 150,
+      "source_format": "WEBP",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "d0d314f50f8ee024f7c3c003bcc86e0def5d035590245490dd77397e665c4be5",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        150,
+        150
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "杨皓宇",
+      "playerid": 710009,
+      "spid": 327710009,
+      "page_url": "https://www.sofascore.com/football/player/yang-haoyu/1801199",
+      "image_url": "https://img.sofascore.com/api/v1/player/1801199/image",
+      "caption": "Haoyu Yang; Shanghai Shenhua; 2006 birth year; not same-name 2000 player",
+      "identity_validation": "Named profile, club, role and age matched; no biometric identification",
+      "resolved_image_url": "https://img.sofascore.com/api/v1/player/1801199/image",
+      "source_sha256": "9d19fb23e1afcce5cad2962eac2e9179ac6cde963bc7fda6b4575ecd87cae888",
+      "portrait_sha256": "9d19fb23e1afcce5cad2962eac2e9179ac6cde963bc7fda6b4575ecd87cae888",
+      "width": 150,
+      "height": 150,
+      "source_format": "PNG",
+      "format_conversion": "none; original PNG bytes",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "04f2efd1250d6f5f04e132c9e5aafbd2eccd946f0f79a96acd31a6f4974dcd50",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        150,
+        150
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "吾米提江·玉苏普",
+      "playerid": 710011,
+      "spid": 327710011,
+      "page_url": "https://www.sofascore.com/football/player/umidjan-yusup/1483286",
+      "image_url": "https://img.sofascore.com/api/v1/player/1483286/image",
+      "caption": "Yusup Umidjan; Shanghai Port; 2004-02-28",
+      "identity_validation": "Named profile, club, role and age matched; no biometric identification",
+      "resolved_image_url": "https://img.sofascore.com/api/v1/player/1483286/image",
+      "source_sha256": "e8e6b118186580b760497d8777b060a18955d91502b8b6287390da5a07b75963",
+      "portrait_sha256": "318b28d6693e9529d1af42235017db26ddfba76b132e8f60a37cb9229ebf9c93",
+      "width": 150,
+      "height": 150,
+      "source_format": "JPEG",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "e6ea88c93c5ddaa4889d8a21ef42275e146e1cfacdefa6b24795561272d6971b",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        150,
+        150
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    },
+    {
+      "name": "汪士钦",
+      "playerid": 710014,
+      "spid": 327710014,
+      "page_url": "https://www.sofascore.com/football/player/shiqin-wang/1515499",
+      "image_url": "https://img.sofascore.com/api/v1/player/1515499/image",
+      "caption": "Shiqin Wang; Zhejiang; 2003-06-24",
+      "identity_validation": "Named profile, club, role and age matched; no biometric identification",
+      "resolved_image_url": "https://img.sofascore.com/api/v1/player/1515499/image",
+      "source_sha256": "9d1d0ef3a894d9ed68df81b2b8827fffd92cb4d9344ee5507d52966031f29e6e",
+      "portrait_sha256": "5733924e2efea2e99805651d52f02938c19bb604f4c2ff715cfb2d7107409658",
+      "width": 150,
+      "height": 150,
+      "source_format": "WEBP",
+      "format_conversion": "lossless JPEG-to-PNG container conversion; original decoded pixels preserved",
+      "pixel_identity_preserved": true,
+      "status": "VERIFIED_NAMED_SOURCE_PHOTO",
+      "native_sha256": "ea71c80266a5bd1f48f5a76e93df7f3f22729797f1713a87ef70030b5d3e20c5",
+      "native_size": [
+        256,
+        256
+      ],
+      "original_size": [
+        150,
+        150
+      ],
+      "source_photograph_unchanged_in_content": true,
+      "texture_import": "aspect-preserving downsample and transparent letterbox only; no crop, retouch, background removal or synthetic face"
+    }
+  ],
+  "native_scene_verified": false
+}

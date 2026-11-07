@@ -1,0 +1,155 @@
+"""Notification ("MessengerConnection") server for fifazf.exe.
+
+Found by decrypting captured client traffic (2026-10-29):
+    frame = <u16 LE body length> <u16 LE type=2> <body>
+    body  = Blowfish-CBC(key b"kueec", IV 0) of JSON + "\\n", PKCS#5 padded
+The client opens with {"cmd":"auth","sessionid":...} then pings. The UI
+(AS3 MessengerConnection.handlePacket) accepts cmd auth/sign/push/push_all/ping;
+auth needs "result" truthy (no "reason") to reach NOTIFICATION_SERVER_CONNECTED.
+
+Needs the `cryptography` package (Blowfish).
+Usage: python messenger.py [port=28002]   |   python messenger.py --selftest
+"""
+import json, os, socket, socketserver, struct, sys, threading, time, warnings
+
+warnings.filterwarnings("ignore")  # Blowfish is "decrepit" in newer cryptography
+try:
+    from cryptography.hazmat.decrepit.ciphers.algorithms import Blowfish
+except ImportError:
+    from cryptography.hazmat.primitives.ciphers.algorithms import Blowfish
+from cryptography.hazmat.primitives.ciphers import Cipher, modes
+
+_args = [a for a in sys.argv[1:] if not a.startswith("--")]
+PORT = int(_args[0]) if _args else 28002
+KEY = b"kueec"
+LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "captures", "messenger.log")
+# Server pushes: http_config sends {"cmd": "push", "uri", "body"} as one UDP datagram to this
+# localhost port and every connected client gets it (MessengerConnection.handlePacket "push" ->
+# ResourceController.feedResources), e.g. the ladder room once a virtual opponent is found.
+PUSH_PORT = PORT + 1
+CLIENTS, SEND_LOCK = set(), threading.Lock()
+
+
+def _cipher():
+    return Cipher(Blowfish(KEY), modes.CBC(bytes(8)))
+
+
+def encode(obj):
+    pt = (json.dumps(obj, separators=(",", ":")) + "\n").encode()
+    pad = 8 - len(pt) % 8
+    e = _cipher().encryptor()
+    ct = e.update(pt + bytes([pad]) * pad) + e.finalize()
+    return struct.pack("<HH", len(ct), 2) + ct
+
+
+def decode(body):
+    d = _cipher().decryptor()
+    pt = d.update(body) + d.finalize()
+    return json.loads(pt[:-pt[-1]].decode("utf-8", "replace"))
+
+
+def replies(msg):
+    """Server answers for one client message (possibly none)."""
+    cmd = msg.get("cmd")
+    if cmd == "auth":
+        return [{"cmd": "auth", "result": True}]
+    if cmd == "ping":
+        return [{"cmd": "ping"}]  # "pong" -> native "unknown cmd" TCP error, client quits
+    if cmd == "signon":
+        # No push_all of /coach/me here: PUT /coach/<slot>/default and POST /coach/me/onready
+        # already carry it over HTTP. A pushed copy came from the http_config code this process
+        # imported hours earlier, and a big club overflowed the u16 frame length (struct.error).
+        return [{"cmd": "sign", "result": True}]
+    return []
+
+
+def log(line):
+    line = f"{time.strftime('%H:%M:%S')} {line}"
+    print(line, flush=True)
+    with open(LOG, "a", encoding="utf-8") as f:
+        f.write(line + "\n")
+
+
+def push_loop():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind(("127.0.0.1", PUSH_PORT))
+    while True:
+        data, _ = s.recvfrom(65535)
+        try:
+            frame = encode(json.loads(data))
+        except Exception as e:  # bad JSON, too long for the u16 frame...: drop it, keep the thread
+            log(f"push dropped: {e!r}")
+            continue
+        with SEND_LOCK:
+            for c in list(CLIENTS):
+                try:
+                    c.sendall(frame)
+                except OSError:
+                    CLIENTS.discard(c)
+            log(f"push -> {len(CLIENTS)} client(s): {data[:120]!r}")
+
+
+class H(socketserver.BaseRequestHandler):
+    def handle(self):
+        log(f"connect {self.client_address}")
+        with SEND_LOCK:
+            CLIENTS.add(self.request)
+        try:
+            self.handle_connection()
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError) as e:
+            # Closing the native client can reset TCP after safeout or during a reply.
+            # Only expected peer disconnects are handled; other failures still surface.
+            log(f"disconnected {self.client_address}: {type(e).__name__}")
+        finally:
+            with SEND_LOCK:
+                CLIENTS.discard(self.request)
+            log(f"closed {self.client_address}")
+
+    def handle_connection(self):
+        buf = b""
+        while True:
+            data = self.request.recv(65536)
+            if not data:
+                break
+            buf += data
+            while len(buf) >= 4:
+                ln, ty = struct.unpack_from("<HH", buf)
+                if len(buf) < 4 + ln:
+                    break
+                body, buf = buf[4:4 + ln], buf[4 + ln:]
+                try:
+                    msg = decode(body) if ty == 2 else {"raw": body.hex(), "type": ty}
+                except Exception as e:
+                    msg = {"undecodable": body.hex(), "error": repr(e)}
+                if msg.get("cmd") != "ping":
+                    log(f"<- {msg}")
+                for out in replies(msg):
+                    with SEND_LOCK:
+                        self.request.sendall(encode(out))
+                    if out["cmd"] != "ping":
+                        log(f"-> {str(out)[:300]}")
+                if msg.get("cmd") == "safeout":
+                    return
+
+
+def selftest():
+    m = {"cmd": "auth", "sessionid": ""}
+    f = encode(m)
+    ln, ty = struct.unpack_from("<HH", f)
+    assert ty == 2 and ln == len(f) - 4 and ln % 8 == 0
+    assert decode(f[4:]) == m
+    # the real client's first frame body (captured) must decode to the same message
+    real = bytes.fromhex("8b412a58950cd8431cb7b2e7473b61a8534a576ac50317310d047b5400622951")
+    assert decode(real) == m, decode(real)
+    print("messenger selftest OK")
+
+
+if __name__ == "__main__":
+    if "--selftest" in sys.argv:
+        selftest()
+    else:
+        os.makedirs(os.path.dirname(LOG), exist_ok=True)
+        print(f"messenger on 0.0.0.0:{PORT} (pushes from 127.0.0.1:{PUSH_PORT}), log -> {LOG}", flush=True)
+        threading.Thread(target=push_loop, daemon=True).start()
+        socketserver.ThreadingTCPServer.allow_reuse_address = os.name != "nt"  # no double bind on Windows
+        socketserver.ThreadingTCPServer(("0.0.0.0", PORT), H).serve_forever()

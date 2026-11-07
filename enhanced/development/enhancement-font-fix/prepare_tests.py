@@ -1,0 +1,18 @@
+from pathlib import Path
+R=Path(__file__).parent;OLD=Path(r'D:\fifaol3\probability-number-box')
+s=(OLD/'test_ui.py').read_text('utf8')
+s=s.replace('exec(s,ns);VM=', '''s=s.replace("elif op in (0xad,0xaf):", "elif op in (0xad,0xaf,0xb0):").replace("a<b if op==0xad else a>b", "a<b if op==0xad else a>b if op==0xaf else a>=b")
+s=s.replace("elif op==0x66:k=name();stack.append(self.get(pop(),k))", "elif op==0x66:\\n                k=name()\\n                if k=='[late]':key=pop();obj=pop();stack.append(obj[key])\\n                else:stack.append(self.get(pop(),k))")
+exec(s,ns);VM=''')
+s=s.replace("field['embedFonts'] is False", "field['embedFonts'] is True").replace("['font']=='Arial'", "['font']=='$NormalFont'")
+s=s.replace("for name,abc,patch in [('TeamManagementPlayerEnhancementTabPage',a,cp),('TeamManagementPlayerEnhancingPopupScreen',p,pp)]:", "font_report=json.loads((W/'build.json').read_text())\nfor name,abc,patch in [('TeamManagementPlayerEnhancementTabPage',a,cp),('TeamManagementPlayerEnhancingPopupScreen',p,pp)]:")
+s=s.replace("assert no==op", "assert no==op or (op==0x27 and no==0x26 and actual in font_report[name]['embed_font_flags'].get(mid,[]))")
+s=s.replace("else:assert old[at:end]==new[actual:ne]", "elif no==op:assert old[at:end]==new[actual:ne]")
+s=s.replace("Every original opcode/branch preserved; payment, confirmation, restore, blocked and signed-token callback method records remain byte-identical", "Only approved embedFonts flags change in original display code; payment, confirmation, restore, blocked and signed-token callback records stay exact")
+s=s.replace("centered ASCII in Arial", "registered embedded $NormalFont instead of device Arial")
+(R/'test_ui.py').write_text(s,encoding='utf8')
+for name in ('TeamManagementPlayerEnhancementTabPage','TeamManagementPlayerEnhancingPopupScreen'):
+ (R/(name+'-ABC.patch.json')).write_bytes((OLD/(name+'-ABC.patch.json')).read_bytes())
+s=(OLD/'test_stacks.py').read_text('utf8')
+s=s.replace("patch=json.loads((ROOT/(name+'-ABC.patch.json')).read_text())", "patch=json.loads((ROOT/(name+'-ABC.patch.json')).read_text());patch.update(json.loads((ROOT/(name+'-button.patch.json')).read_text()))")
+(R/'test_stacks.py').write_text(s,encoding='utf8')

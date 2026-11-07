@@ -2,6 +2,8 @@
 
 This directory contains source copied from the maintained local server, plus its framework regression script. It uses the Python standard library and requires Python 3.12 or later. It is distributed under the repository's GPL-3.0 license.
 
+The complete maintained server and business implementation is now available under [enhanced/](../../enhanced/README.md). This directory remains the small isolated framework regression entry point; its original integration requirements below describe using these modules independently.
+
 ## Run the isolated regression
 
 From this directory:

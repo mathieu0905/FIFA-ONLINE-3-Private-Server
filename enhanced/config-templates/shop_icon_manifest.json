@@ -1,0 +1,798 @@
+{
+  "schema": 1,
+  "items": {
+    "97010100": {
+      "itemid": 97010100,
+      "icon": "FO3ZH_TOP100_G8_V1",
+      "filename": "FO3ZH_TOP100_G8_V1.png",
+      "sha256": "c383566d98e328eeaeeb51b8188437dfc83b88bcea9e049d2970a6b2766eb19d",
+      "source_sha256": "5edc2b18f69f43318c5fffddd17a2707ff1d9dc7d61da8404ced4ba9167f54e7",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        164,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_TOP100_G8_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_TOP100_G8_V1.png"
+    },
+    "97010130": {
+      "itemid": 97010130,
+      "icon": "FO3ZH_TOP30_G9_V1",
+      "filename": "FO3ZH_TOP30_G9_V1.png",
+      "sha256": "b01f00c153cfd9597ca8983b10543de39fa366e0cd41a6cb4f70ae25967d0a2f",
+      "source_sha256": "f69077e19ffe3e9f473f8bb3d44697d87809e0e2b3d3dbfab34aed35a0fab1bf",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        30,
+        2,
+        147,
+        120
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_TOP30_G9_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_TOP30_G9_V1.png"
+    },
+    "97010110": {
+      "itemid": 97010110,
+      "icon": "FO3ZH_TOP10_G9_V1",
+      "filename": "FO3ZH_TOP10_G9_V1.png",
+      "sha256": "3b17b891d923b7cc8572065cfdc40557e860217d6ffcfe776744768bdb79bf37",
+      "source_sha256": "fb5b9d4e2fe43fe2f1c995fda195c5f3d8b1563af186e9528436c9ea2c4efed5",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_TOP10_G9_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_TOP10_G9_V1.png"
+    },
+    "97010007": {
+      "itemid": 97010007,
+      "icon": "FO3ZH_CLASSIC_G10_V1",
+      "filename": "FO3ZH_CLASSIC_G10_V1.png",
+      "sha256": "f71a782c791283875afbef45029534c111a88d7b07e7c6351434ff198ff7328d",
+      "source_sha256": "6a4ddf4835e48d968a930d6b078bf5431a8ff90c3ce651cabef0489fe17b99fc",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_CLASSIC_G10_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CLASSIC_G10_V1.png"
+    },
+    "97010001": {
+      "itemid": 97010001,
+      "icon": "FO3ZH_SELECT_G5_7_V1",
+      "filename": "FO3ZH_SELECT_G5_7_V1.png",
+      "sha256": "7e9d831c18657e1c0bac4125d52ae1ad4f5e16eeb811a4b8ab334e46bfd6d96c",
+      "source_sha256": "9057a8639c79186a89a86edb5508aa3ca1be5f054e9c4371f815c776fa9138d4",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_SELECT_G5_7_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_SELECT_G5_7_V1.png"
+    },
+    "97010002": {
+      "itemid": 97010002,
+      "icon": "FO3ZH_ELITE_G7_9_V1",
+      "filename": "FO3ZH_ELITE_G7_9_V1.png",
+      "sha256": "6c2bee35a4892ddc517affcc08c9a0b7211911559d79c5ecf78626a131a036f9",
+      "source_sha256": "bf82414f89e9efe26e9018b1a164e8e8af36a9c088878de5de211519fded14af",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_ELITE_G7_9_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_ELITE_G7_9_V1.png"
+    },
+    "97010010": {
+      "itemid": 97010010,
+      "icon": "FO3ZH_POS_G7_9_V1",
+      "filename": "FO3ZH_POS_G7_9_V1.png",
+      "sha256": "d9120ee2c3161dc2441b1a7ba1fc6f2454f47cc2e7187c669e04634f8e6645ab",
+      "source_sha256": "6c6c298944c83d78c325cc3d637bb1a89015dde307606b32e28595a6218b87ee",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_POS_G7_9_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_POS_G7_9_V1.png"
+    },
+    "97010011": {
+      "itemid": 97010011,
+      "icon": "FO3ZH_POS_G7_9_V1",
+      "filename": "FO3ZH_POS_G7_9_V1.png",
+      "sha256": "d9120ee2c3161dc2441b1a7ba1fc6f2454f47cc2e7187c669e04634f8e6645ab",
+      "source_sha256": "6c6c298944c83d78c325cc3d637bb1a89015dde307606b32e28595a6218b87ee",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_POS_G7_9_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_POS_G7_9_V1.png"
+    },
+    "97010012": {
+      "itemid": 97010012,
+      "icon": "FO3ZH_POS_G7_9_V1",
+      "filename": "FO3ZH_POS_G7_9_V1.png",
+      "sha256": "d9120ee2c3161dc2441b1a7ba1fc6f2454f47cc2e7187c669e04634f8e6645ab",
+      "source_sha256": "6c6c298944c83d78c325cc3d637bb1a89015dde307606b32e28595a6218b87ee",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_POS_G7_9_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_POS_G7_9_V1.png"
+    },
+    "97010013": {
+      "itemid": 97010013,
+      "icon": "FO3ZH_POS_G7_9_V1",
+      "filename": "FO3ZH_POS_G7_9_V1.png",
+      "sha256": "d9120ee2c3161dc2441b1a7ba1fc6f2454f47cc2e7187c669e04634f8e6645ab",
+      "source_sha256": "6c6c298944c83d78c325cc3d637bb1a89015dde307606b32e28595a6218b87ee",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        130,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_POS_G7_9_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_POS_G7_9_V1.png"
+    },
+    "97010004": {
+      "itemid": 97010004,
+      "icon": "FO3ZH_LEGEND_G8_10_V1",
+      "filename": "FO3ZH_LEGEND_G8_10_V1.png",
+      "sha256": "8fb5e440f9a0c0c5ebe4ae5ba2163e65c1b81db52155d1e36aad016e4423029e",
+      "source_sha256": "9a93a3b47bc0aad96a5dde3926193934e7749a11e9e8df3d0f23af00e76f2ef3",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        1,
+        140,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_LEGEND_G8_10_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_LEGEND_G8_10_V1.png"
+    },
+    "97010005": {
+      "itemid": 97010005,
+      "icon": "FO3ZH_PEAK_G8_10_V1",
+      "filename": "FO3ZH_PEAK_G8_10_V1.png",
+      "sha256": "4f04b20a1d16a2e5230d6e1dd5d516a02b710673751b0e04757d6fa9e6db9517",
+      "source_sha256": "b86e9ba3fc810781204d6f1bcde1fca70d6953ffa4b92e37fbb0dc9c41924a33",
+      "source_size": [
+        1493,
+        1054
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        37,
+        0,
+        133,
+        120
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_PEAK_G8_10_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_PEAK_G8_10_V1.png"
+    },
+    "97010006": {
+      "itemid": 97010006,
+      "icon": "FO3ZH_REWARD_G8_V1",
+      "filename": "FO3ZH_REWARD_G8_V1.png",
+      "sha256": "7b6204806633cbc0d34e1d6033ba617539f0b9116dc942b6c63728dcd9df206d",
+      "source_sha256": "3edb039e8a934100542de4e838b3923f17276dfe74c2bc1af39eeee15636ca9a",
+      "source_size": [
+        1448,
+        1086
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        39,
+        2,
+        143,
+        116
+      ],
+      "source_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\source\\FO3ZH_REWARD_G8_V1.png",
+      "source_type": "Built-in image_gen",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_REWARD_G8_V1.png"
+    },
+    "70000001": {
+      "itemid": 70000001,
+      "icon": "FO3ZH_CHAIN_C_V1",
+      "filename": "FO3ZH_CHAIN_C_V1.png",
+      "sha256": "50e24966e6ebadecbd57fc1186d33ef52db2287fe56a8710239681bd34188e7d",
+      "source_sha256": "9b1cd9b7b8247f7687b0a0e90b0b38200ae2e27639d2af664f423ff88862e2d0",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500000.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_C_V1.png"
+    },
+    "70000002": {
+      "itemid": 70000002,
+      "icon": "FO3ZH_CHAIN_B_V1",
+      "filename": "FO3ZH_CHAIN_B_V1.png",
+      "sha256": "e52c4c9552be2d5a0e3c6db318506e75ade5ef512fbf4d349eca6fc71f8b716e",
+      "source_sha256": "8a4e8eaaf860a53d117012f43c7f5c0f724a3ef68e9412debd8c42f16a339bb8",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500001.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_B_V1.png"
+    },
+    "70000003": {
+      "itemid": 70000003,
+      "icon": "FO3ZH_CHAIN_A_V1",
+      "filename": "FO3ZH_CHAIN_A_V1.png",
+      "sha256": "3f3a8ced922e5ba2bae1cfd1c54cebf1038de54dd58a4b3243751bdd14c69764",
+      "source_sha256": "94521ccaebf5803dc3101137bf19c751ba26a5eac36a4ded88079677573f9bac",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500002.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_A_V1.png"
+    },
+    "70000004": {
+      "itemid": 70000004,
+      "icon": "FO3ZH_CHAIN_S_V1",
+      "filename": "FO3ZH_CHAIN_S_V1.png",
+      "sha256": "0384867bed02ab3368eb283006d31c4a73ccb04b8f278b8c335f5e5e0657da4d",
+      "source_sha256": "d13caf6bd4164045aaebf8fef3fd1830e01f66e686c35c3caad2a6bca43f313d",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500003.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_S_V1.png"
+    },
+    "70000005": {
+      "itemid": 70000005,
+      "icon": "FO3ZH_CHAIN_P_V1",
+      "filename": "FO3ZH_CHAIN_P_V1.png",
+      "sha256": "c53ba0ce07b49300b367e3497b14187ff933e3a9302776591fb81ebd0a061c64",
+      "source_sha256": "5eb0997f733f005c55b1288366512b21c0b3f3d5a0ee587b5d4534d6a66f4d3e",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500004.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_P_V1.png"
+    },
+    "71010101": {
+      "itemid": 71010101,
+      "icon": "FO3ZH_CHAIN_C_V1",
+      "filename": "FO3ZH_CHAIN_C_V1.png",
+      "sha256": "50e24966e6ebadecbd57fc1186d33ef52db2287fe56a8710239681bd34188e7d",
+      "source_sha256": "9b1cd9b7b8247f7687b0a0e90b0b38200ae2e27639d2af664f423ff88862e2d0",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500000.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_C_V1.png"
+    },
+    "71010102": {
+      "itemid": 71010102,
+      "icon": "FO3ZH_CHAIN_B_V1",
+      "filename": "FO3ZH_CHAIN_B_V1.png",
+      "sha256": "e52c4c9552be2d5a0e3c6db318506e75ade5ef512fbf4d349eca6fc71f8b716e",
+      "source_sha256": "8a4e8eaaf860a53d117012f43c7f5c0f724a3ef68e9412debd8c42f16a339bb8",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500001.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_B_V1.png"
+    },
+    "71010103": {
+      "itemid": 71010103,
+      "icon": "FO3ZH_CHAIN_A_V1",
+      "filename": "FO3ZH_CHAIN_A_V1.png",
+      "sha256": "3f3a8ced922e5ba2bae1cfd1c54cebf1038de54dd58a4b3243751bdd14c69764",
+      "source_sha256": "94521ccaebf5803dc3101137bf19c751ba26a5eac36a4ded88079677573f9bac",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500002.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_A_V1.png"
+    },
+    "71010104": {
+      "itemid": 71010104,
+      "icon": "FO3ZH_CHAIN_S_V1",
+      "filename": "FO3ZH_CHAIN_S_V1.png",
+      "sha256": "0384867bed02ab3368eb283006d31c4a73ccb04b8f278b8c335f5e5e0657da4d",
+      "source_sha256": "d13caf6bd4164045aaebf8fef3fd1830e01f66e686c35c3caad2a6bca43f313d",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500003.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_S_V1.png"
+    },
+    "71010105": {
+      "itemid": 71010105,
+      "icon": "FO3ZH_CHAIN_P_V1",
+      "filename": "FO3ZH_CHAIN_P_V1.png",
+      "sha256": "c53ba0ce07b49300b367e3497b14187ff933e3a9302776591fb81ebd0a061c64",
+      "source_sha256": "5eb0997f733f005c55b1288366512b21c0b3f3d5a0ee587b5d4534d6a66f4d3e",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500004.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_P_V1.png"
+    },
+    "97010209": {
+      "itemid": 97010209,
+      "icon": "FO3ZH_CHAIN_A_V1",
+      "filename": "FO3ZH_CHAIN_A_V1.png",
+      "sha256": "3f3a8ced922e5ba2bae1cfd1c54cebf1038de54dd58a4b3243751bdd14c69764",
+      "source_sha256": "94521ccaebf5803dc3101137bf19c751ba26a5eac36a4ded88079677573f9bac",
+      "source_size": [
+        516,
+        410
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "size": [
+        170,
+        120
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        9,
+        0,
+        160,
+        120
+      ],
+      "source_path": "D:\\FO3ID\\32795\\_cache\\games\\fo3id\\externalAssets\\shop\\P500002.png",
+      "source_type": "Existing native client artwork reused",
+      "provenance": "Only aspect-preserving Lanczos downscale, centered transparent 170x120 canvas, lossless PNG encode; no redrawing or text edits",
+      "native_path": "C:\\Users\\15128\\Documents\\Codex\\2026-11-06\\https-github-com-soloplayer24-fifa-online\\outputs\\FO3ID\\商城卡包图标\\native\\FO3ZH_CHAIN_A_V1.png"
+    }
+  },
+  "pending": []
+}

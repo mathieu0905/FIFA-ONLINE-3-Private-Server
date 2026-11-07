@@ -1,0 +1,12 @@
+{
+  "result": true,
+  "wait": 0,
+  "resources": [
+    {
+      "uri": "/sign/continue",
+      "body": {
+        "result": true
+      }
+    }
+  ]
+}
