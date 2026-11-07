@@ -2,6 +2,8 @@
 >
 > **完整增强源码入口：[enhanced/README.md](enhanced/README.md)**。包含本机已接入的 HTTP 服务、活动业务包、开包、定价、市场、球员工具、客户端补丁生成器、配置模板和回归脚本。真实存档、密钥和游戏资源未上传。下方根目录程序及原始说明保留上游内容；增强源码的准备方法和验证范围见入口文档。
 
+**安装必读：[Windows 安装与增强功能准备教程](INSTALL.zh-CN.md)**。有兼容客户端时可按基础路线准备上游服务；完整增强目前仍需匹配资源和本机发布链，不能下载后直接全部启用。教程附只读缺项检查命令，明确区分可执行步骤和尚需维护者适配的环节。
+
 [![SEASON UPGRADE 25, 26](docs/season-upgrade-25-26.svg)](https://www.mediafire.com/file/7yteho45esxfnu8/FO3ID-Season-25-26-LIVE-client.rar/file)
 
 # FO3ID Private Server

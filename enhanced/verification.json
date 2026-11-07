@@ -1,12 +1,12 @@
 {
   "status": "PASS",
-  "inventory_files": 1593,
+  "inventory_files": 1594,
   "python_files_parsed": 1440,
   "category_counts": {
     "runtime": 124,
     "installation-source": 158,
     "business": 10,
-    "documentation": 3,
+    "documentation": 4,
     "development-history": 1220,
     "source-fragment": 1,
     "configuration-template": 69,
@@ -42,22 +42,5 @@
   "live_services_started": false,
   "live_assets_written": false,
   "upstream_launch_integration_verified": false,
-  "native_game_verified": false,
-  "formal_python_source_files": 275,
-  "formal_python_source_files_missing": [],
-  "source_files_changed_at_final_check": [],
-  "fresh_config_preparation": {
-    "status": "PASS",
-    "config_files": 39,
-    "fresh_signing_keys": true,
-    "player_state_created": false,
-    "frozen_npc_inputs_unchanged": true
-  },
-  "framework_regressions": {
-    "status": "PASS",
-    "fixed_route_checks": 18,
-    "dynamic_route_checks": 9,
-    "distribution_unit_tests": 5
-  },
-  "source_snapshot_note": "Includes the rank-sort release layer completed during this source export. No live service or client changes made by this export."
+  "native_game_verified": false
 }

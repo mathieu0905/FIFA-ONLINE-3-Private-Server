@@ -2,6 +2,8 @@
 >
 > **Complete maintained enhancement source:** [enhanced/README.md](enhanced/README.md). Includes the integrated local HTTP host, active business payload, packs, pricing, market, player tools, client patch generators, configurations and regression scripts. Game assets, saves and secrets are excluded. Root application files below remain upstream; see the enhanced source documentation for preparation requirements and validation limits.
 
+**Installation:** [Windows guide / 中文安装教程](INSTALL.zh-CN.md). The upstream application can be prepared with your own compatible client. The complete enhancement is currently a source distribution requiring matching resources and a local release setup; downloading the repository does not enable all enhancements automatically. A read-only prerequisite checker is included in the guide.
+
 [![SEASON UPGRADE 25, 26](docs/season-upgrade-25-26.svg)](https://www.mediafire.com/file/7yteho45esxfnu8/FO3ID-Season-25-26-LIVE-client.rar/file)
 
 # FO3ID Private Server

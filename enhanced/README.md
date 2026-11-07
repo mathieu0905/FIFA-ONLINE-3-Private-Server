@@ -2,6 +2,8 @@
 
 本目录公开本机维护版本的服务端业务源码、当前与历史热包、客户端资源修改工具、配置模板以及开发回归脚本。它是源码分发目录，未附带本机存档或游戏资源。
 
+安装前请先读 **[Windows 安装与增强功能准备教程](../INSTALL.zh-CN.md)**。当前没有面向任意原版客户端的完整增强首装器；教程给出基础可用路线、增强资源/发布依赖和只读条件检查。下载源码并不能直接启用全部增强功能。
+
 `server/http_config.py` 已包含本机的增强模块安装链和热更新分派逻辑。当前活动业务源码见 [shop_cleanup_20261107_01/business.py](server/hot_updates/revisions/shop_cleanup_20261107_01/business.py)，路由表见 [active-business-source.json](active-business-source.json)。根目录的上游程序和历史继续保留；它们不会自动改为运行本目录。
 
 ## 已上传的功能和入口

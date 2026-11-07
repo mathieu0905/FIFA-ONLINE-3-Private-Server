@@ -101,8 +101,9 @@ def main():
             candidates['server/' + p.name] = (p, 'runtime')
     for name in ('admin', 'analysis', 'launcher', 'player_editor', 'tools', 'patches'):
         for p in sorted((server / name).rglob('*')):
-            if p.is_file() and p.suffix.lower() in SOURCE and not any(x in p.parts for x in ('__pycache__', 'node_modules')):
-                candidates['server/' + p.relative_to(server).as_posix()] = (p, 'runtime' if name != 'patches' else 'installation-source')
+            if p.is_file() and (p.suffix.lower() in SOURCE or p.name.lower() == 'readme.md') and not any(x in p.parts for x in ('__pycache__', 'node_modules')):
+                category = 'documentation' if p.suffix.lower() == '.md' else 'runtime' if name != 'patches' else 'installation-source'
+                candidates['server/' + p.relative_to(server).as_posix()] = (p, category)
     for p in sorted((server / 'hot_updates/revisions').glob('*/business.py')):
         candidates['server/' + p.relative_to(server).as_posix()] = (p, 'business')
     for p in sorted((server / 'docs').iterdir()):

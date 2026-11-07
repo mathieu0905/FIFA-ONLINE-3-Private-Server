@@ -12,6 +12,8 @@ Original project: soloplayer24 and contributors. This fork preserves the upstrea
 
 根目录保留上游程序；增强版实际维护源码位于 `enhanced/server/`。该目录中的 HTTP 服务已经包含本机增强安装链，不能与“上游根目录已自动接入并完成整套游戏验收”混为一谈。
 
+安装与可用范围见 [Windows 安装教程](INSTALL.zh-CN.md)。目前尚无适配任意原版客户端的完整增强首装器；新增的 `tools/check_enhanced_install.py` 只读列出资源、数据库、密钥和发布凭据缺项，不会把源码下载成功当作增强安装成功。
+
 ## 验证范围
 
 此次完成源码清单及哈希核对、Python 语法检查、配置哈希与脱敏检查、活动业务路由编译、框架隔离回归和配置生成保护回归。没有启动游戏服务或操作真实资产。没有在新机器上完成客户端、商城、球员模型或比赛验收。验证报告见 `enhanced/verification.json`，框架运行方法见 [框架说明](enhancements/hot_update/README.md)。
